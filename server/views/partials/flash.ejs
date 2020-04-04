@@ -1,0 +1,7 @@
+<script type="text/javascript">
+  <% if (app_flashes) { %>
+    window.app_flashes = <%- JSON.stringify(app_flashes) %>;
+  <% } else {  %>
+    window.app_flashes = [];
+  <% } %>
+</script>

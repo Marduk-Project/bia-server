@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link rel="icon" href="/static/img/theme/favicon.png">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+  <title><%= app_full_name %></title>
+<link href="/static/css/admin.ec646575.css" rel="preload" as="style"><link href="/static/js/admin.836136c0aaf3286badc1.js" rel="preload" as="script"><link href="/static/css/admin.ec646575.css" rel="stylesheet"></head>
+<body>
+  <noscript>
+    <strong>We're sorry but tst doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+  </noscript>
+  <script>
+    window.app_loggedIn = <%= app_loggedIn ? 'true' : 'false' %>;
+    window.app_gitv = '<%= app_git_v ? app_git_v : "-v-" %>';
+    window.app_full_name = '<%= app_full_name %>';
+    window.app_short_name = '<%= app_short_name %>';
+    window.app_website = '<%= app_website %>';
+  </script>
+  <div id="app"></div>
+  <%- include('../partials/flash.ejs', { app_flashes: app_flashes }); %>
+  <!-- built files will be auto injected -->
+<script type="text/javascript" src="/static/js/admin.836136c0aaf3286badc1.js"></script></body>
+
+</html>

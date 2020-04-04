@@ -1,0 +1,168 @@
+const UserModule = require('../models/user');
+// const AccountUserModule = require('../models/account/user');
+const User = UserModule.model;
+const AccountModule = require('../models/account');
+const Account = AccountModule.model;
+
+/**
+ * Creates a function middleware with roles
+ * @param {object} config
+ * @param {boolean} [config.userLogged=undefined]
+ * @param {number} [config.userLevel=undefined]
+ * @param {number} [config.userAccountLevel=undefined]
+ * @param {boolean} config.responseRedirect
+ * @returns {function}
+ */
+exports.rolesMiddleware = (config) => {
+  const middleware = (req, res, next) => {
+    const user = req.user;
+    if (typeof config === 'object') {
+      // user logged
+      if (typeof config.userLogged === 'boolean') {
+        if (config.userLogged) {
+          if (!user) {
+            // not logged
+            if (config.responseRedirect || req.method == "GET") {
+              console.log('here');
+              req.flash('messages', { message: 'Usuário não está logado.', type: 'info' });
+              res.redirect('/#/auth/login');
+            } else {
+              res.sendJsonForbiddenError();
+            }
+            return;
+          }
+        } else {
+          if (user) {
+            // logged
+            if (config.responseRedirect) {
+              res.redirect('/home');
+            } else {
+              res.sendJsonForbiddenError('Usuário já está logado.');
+            }
+            return;
+          }
+        } // if user logged
+      } // if user logged boolean
+      // user level
+      if (typeof config.userLevel === 'number') {
+        if (!user) {
+          // has user
+          res.status(403).json({ ok: false, message: 'Usuário não autorizado.' });
+          return;
+        }
+        if (parseInt(user.level) > config.userLevel) {
+          // user level
+          res.status(403).json({ ok: false, message: 'Usuário não autorizado.' });
+          return;
+        }
+      }
+      // user account level
+      if (typeof config.userAccountLevel === 'number') {
+        if (!user) {
+          // has user
+          res.status(403).json({ ok: false, message: 'Usuário não autorizado.' });
+          return;
+        }
+        if (req.account_user && req.account_user.inactive) {
+          // admin is always authorized
+          if (parseInt(user.level) > UserModule.LEVEL_ADMIN) {
+            // user is inactive
+            res.status(403).json({ ok: false, message: 'Usuário inativo nesta conta.' });
+            return;
+          }
+        }
+        if (parseInt(req.account_level) > config.userAccountLevel) {
+          // user level
+          res.status(403).json({ ok: false, message: 'Usuário não autorizado.' });
+          return;
+        }
+      }
+    } // if config object
+    // ok
+    next();
+  }
+  return middleware;
+}
+
+/**
+ * User is logged middleware
+ */
+exports.userIsLoggedMiddleware = exports.rolesMiddleware({
+  userLogged: true,
+});
+
+/**
+ * User is admin middleware
+ */
+exports.userIsAdminMiddleware = exports.rolesMiddleware({
+  userLevel: UserModule.LEVEL_ADMIN,
+  userLogged: true,
+});
+
+/**
+ * User is manager middlware
+ */
+exports.userIsManagerMiddleware = exports.rolesMiddleware({
+  userLevel: UserModule.LEVEL_MANAGER,
+  userLogged: true,
+});
+
+// /**
+//  * User is account middleware
+//  */
+// exports.userIsAccountMiddleware = exports.rolesMiddleware({
+//   userLevel: UserModule.LEVEL_ACCOUNT,
+//   userLogged: true,
+// });
+
+/**
+ * User Account level middleware
+ */
+exports.userIsAccountAdminMiddleware = exports.rolesMiddleware({
+  userLevel: UserModule.LEVEL_ACCOUNT,
+  userAccountLevel: UserModule.ACCOUNTLEVEL_ADMIN,
+  userLogged: true,
+});
+
+/**
+ * User Account level middleware
+ */
+exports.userIsAccountManagerMiddleware = exports.rolesMiddleware({
+  userLevel: UserModule.LEVEL_ACCOUNT,
+  userAccountLevel: UserModule.ACCOUNTLEVEL_MANAGER,
+  userLogged: true,
+});
+
+/**
+ * User Account level middleware
+ */
+exports.userIsAccountUserMiddleware = exports.rolesMiddleware({
+  userLevel: UserModule.LEVEL_ACCOUNT,
+  userAccountLevel: UserModule.ACCOUNTLEVEL_USER,
+  userLogged: true,
+});
+
+/**
+ * Stores user on the middleware
+ */
+exports.fetchUserMiddleware = async (req, res, next) => {
+  if (req.session.user_id) {
+    req.user = await User.findById(req.session.user_id);
+  } else {
+    req.user = null;
+  }
+  if (req.session.account_id) {
+    req.account = await Account.findById(req.session.account_id);
+    // user account config
+    if (req.user) {
+      // const AccountUser = await AccountUserModule.modelFactory(req);
+      // req.account_user = await AccountUser.findById(req.user._id);
+    }
+  } else {
+    req.account = null;
+  }
+  if (req.session.account_level) {
+    req.account_level = req.session.account_level;
+  }
+  next();
+}

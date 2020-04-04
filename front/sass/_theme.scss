@@ -1,0 +1,103 @@
+
+.btn, .cursor-pointer {
+  cursor: pointer;
+}
+
+.select2-container--bootstrap4 {
+
+  .select2-selection {
+    height: 39px !important;
+  }
+
+  .select2-selection--multiple {
+
+    .select2-search__field {
+      position: relative;
+      top: -3px;
+    }
+
+    .select2-selection__choice {
+      padding: 5px;
+      position: relative;
+      top: -4px;
+    }
+
+    .select2-selection__clear {
+      position: relative;
+      top: -15px;
+    }
+
+  }
+    
+}
+
+/* table actions */
+
+.app-table-id {
+  width: 80px;
+}
+
+.app-table-actions {
+  text-align: right;
+  width: 120px;
+}
+
+i.app-table-action, .app-table-action i {
+  margin-left: 5px;
+  width: 22px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.app-table-action-disabled {
+  cursor: not-allowed;
+  color: lightgray;
+}
+
+/* other */
+
+.app-bg-light {
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 0.25rem !important;
+}
+
+.app-bg-image {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #d0d0d0;
+  /* background-image: url('/img/theme/fundo_small.jpg'); */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: local;
+  background-position: center;
+  height: 100%;
+  width: 100%;
+  z-index: -9999;
+}
+
+.btn-clipboard {
+  position: absolute;
+  top: .5rem;
+  right: .5rem;
+  z-index: 10;
+  display: block;
+  padding: .25rem .5rem;
+  font-size: 75%;
+  color: #818a91;
+  cursor: pointer;
+  background-color: transparent;
+  border: 0;
+  border-radius: .25rem;
+}
+
+.btn-clipboard:hover {
+  color: #ffffff;
+  background-color: #027def;
+}
+
+@media print {
+  .container {
+    width: auto;
+  }
+}
