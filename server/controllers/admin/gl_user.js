@@ -114,7 +114,34 @@ const saveValidate = [
       }
       return true;
     }),
-  body('email').isEmail(),
+  body('email')
+    .isEmail()
+    .not().isEmpty()
+    .custom(async (value, { req }) => {
+      let count = 0;
+      if (req.params.id) {
+        // already exists
+        count = await Model.count({
+          where: {
+            email: value,
+            id: {
+              [Op.ne]: req.params.id,
+            }
+          }
+        });
+      } else {
+        // new user
+        count = await Model.count({
+          where: {
+            email: value
+          }
+        });
+      }
+      if (count > 0) {
+        throw new Error(`Já existe um usuário com este e-mail: ${value}`);
+      }
+      return true;
+    }),
   body('blocked')
     .isBoolean()
     .custom((value, { req }) => {
