@@ -3,6 +3,8 @@ const chalk = require('chalk');
 const nconf = require('nconf');
 const { Sequelize, Op } = require('sequelize');
 
+const useSSL = typeof (nconf.get('MAINDB_SSL')) == 'boolean' ? nconf.get('MAINDB_SSL') : nconf.get('MAINDB_SSL') == 'true';
+
 const database = new Sequelize({
   dialect: nconf.get('MAINDB_DIALECT'),
   host: nconf.get('MAINDB_HOST'),
@@ -18,6 +20,10 @@ const database = new Sequelize({
   timezone: '+00:00', // store in gmt 0
   logging: false, // debug SQL log here
   omitNull: true,
+  ssl: useSSL,
+  dialectOptions: {
+    ssl: useSSL
+  },
 });
 
 let connectionWasTryed = false;

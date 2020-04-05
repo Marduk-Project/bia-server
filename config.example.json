@@ -23,5 +23,6 @@
   "MAINDB_PORT": "5432",
   "MAINDB_DATABASE": "brothers",
   "MAINDB_USERNAME": "postgres",
-  "MAINDB_PASSWORD": "root"
+  "MAINDB_PASSWORD": "root",
+  "MAINDB_SSL": false
 }
