@@ -126,7 +126,7 @@ export default {
                 this.api_loadingShow();
                 window.location.href = "/home";
               } else {
-                // TODO nao sei para onde ir
+                this.notify_warning('Usuário com implementação pendente... aguarde!');
               }
             }, true)
           )

@@ -44,7 +44,7 @@
         </div>
         <div class="form-group col-md-4">
           <label>ID</label>
-          <input type="text" class="form-control" :value="entity._id" placeholder readonly />
+          <input type="text" class="form-control" :value="entity.id" placeholder readonly />
         </div>
       </div>
       <div class="form-row">
@@ -120,7 +120,7 @@ export default {
   data() {
     return {
       entity: {
-        _id: null,
+        id: null,
         name: null,
         nickname: null,
         email: null
@@ -168,7 +168,7 @@ export default {
       };
       this.api_loadingShow();
       axios
-        .post("/api/admin/user/me/pwd_update", data)
+        .post("/api/auth/me/pwd_update", data)
         .then(
           this.api_thenDone(res => {
             // limpa
@@ -182,7 +182,7 @@ export default {
     crud_refreshEntity() {
       this.api_loadingShow();
       axios
-        .get("/api/admin/user/me")
+        .get("/api/auth/me")
         .then(res => {
           if (!this.api_parseOK(res)) {
             return;
@@ -213,7 +213,7 @@ export default {
           nickname: this.entity.nickname
         };
         axios
-          .post("/api/admin/user/me/update", data)
+          .post("/api/auth/me/update", data)
           .then(
             this.api_thenDone(res => {
               this.$store.dispatch("loadSession");

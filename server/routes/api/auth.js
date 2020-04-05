@@ -13,4 +13,23 @@ router.post('/recoverChangePwd', controller.postRecoverChangePwd);
 
 router.get('/session', controller.getSessionWeb);
 
+// me
+
+router.get('/me',
+  authMid.userIsLoggedMiddleware,
+  controller.getMe
+);
+
+router.post('/me/update',
+  authMid.userIsLoggedMiddleware,
+  controller.postMeUpdateValidate,
+  controller.postMeUpdate
+);
+
+router.post('/me/pwd_update',
+  authMid.userIsLoggedMiddleware,
+  controller.postPwdUpdateValidate,
+  controller.postPwdUpdate
+);
+
 module.exports = router;

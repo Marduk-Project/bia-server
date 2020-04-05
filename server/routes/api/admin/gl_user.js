@@ -1,19 +1,17 @@
-const controller = require('../../../controllers/admin/user');
-
 const express = require('express');
 const router = express.Router({ mergeParams: true });
 
-// mids
+const controller = require('../../../controllers/admin/gl_user');
 const authMid = require('../../../middlewares/auth-mid');
 
 router.get('/',
-  authMid.userIsAdminMiddleware,
+  authMid.userIsStaffMiddleware,
   controller.getIndexValidate,
   controller.getIndex
 );
 
 router.get('/:id/edit',
-  authMid.userIsAdminMiddleware,
+  authMid.userIsStaffMiddleware,
   controller.getEditValidate,
   controller.getEdit
 );
@@ -25,7 +23,7 @@ router.put('/:id',
 );
 
 router.post('/',
-  authMid.userIsAdminMiddleware,
+  authMid.userIsStaffMiddleware,
   controller.postCreateValidate,
   controller.postCreate
 );
@@ -36,7 +34,7 @@ router.delete('/:id',
   controller.delete
 );
 
-// customs
+// pwd
 
 router.post('/:id/pwd_check',
   authMid.userIsAdminMiddleware,
@@ -50,21 +48,10 @@ router.post('/:id/pwd_change',
   controller.postPwdChange
 );
 
-router.get('/me',
-  authMid.userIsLoggedMiddleware,
-  controller.getMe
-);
-
-router.post('/me/update',
-  authMid.userIsLoggedMiddleware,
-  controller.postMeUpdateValidate,
-  controller.postMeUpdate
-);
-
-router.post('/me/pwd_update',
-  authMid.userIsLoggedMiddleware,
-  controller.postPwdUpdateValidate,
-  controller.postPwdUpdate
+router.post('/:id/pwd_recover',
+  authMid.userIsStaffMiddleware,
+  controller.postPwdRecoverValidate,
+  controller.postPwdRecover
 );
 
 module.exports = router;

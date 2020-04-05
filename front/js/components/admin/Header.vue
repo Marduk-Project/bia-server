@@ -45,8 +45,8 @@
               class="dropdown-item"
               tag="a"
               active-class="active"
-              :to="{ name: 'user.index' }"
-              v-if="isUserAdmin"
+              :to="{ name: 'gl_user.index' }"
+              v-if="isUserStaff"
             >
               <i class="fas fa-user"></i> Usuários
             </router-link>
@@ -119,6 +119,7 @@ export default {
   computed: {
     ...mapGetters({
       isUserAdmin: "isUserAdmin",
+      isUserStaff: "isUserStaff",
       userName: "getUserName",
       userNickname: "getUserNickname"
       // isEnvProduction: "isEnvProduction"

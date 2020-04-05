@@ -1,7 +1,7 @@
 const logger = require('../helpers/winston').logger;
 const chalk = require('chalk');
 const nconf = require('nconf');
-const { Sequelize } = require('sequelize');
+const { Sequelize, Op } = require('sequelize');
 
 const database = new Sequelize({
   dialect: nconf.get('MAINDB_DIALECT'),

@@ -1,7 +1,7 @@
 <template>
   <div class="flex-center position-ref full-height" id="pg-container">
     <div class="content">
-      <div class="title">Ops... esta página foi movida ou não existe mais.</div>
+      <div class="title">Ops... esta página foi movida ou não existe.</div>
       <br>
       <br>
       <a href="/">&rsaquo; Retornar para home</a>

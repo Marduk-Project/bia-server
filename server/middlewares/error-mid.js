@@ -149,6 +149,39 @@ exports.validationHandler = next => result => {
   }
 }
 
+/**
+ * Validation ending function
+ */
+exports.validationEndFunction = (req, res, next) => {
+  req.getValidationResult()
+    .then(exports.validationHandler(next))
+    .catch(next);
+}
+
+/**
+ * Find and put the entity on req.entity object
+ * V
+ * @param {object} model
+ * @param {string} scope
+ * @returns {Function}
+ */
+exports.customFindByPkValidation = (model, scope) => {
+  return async (value, { req }) => {
+    if (scope) {
+      req.entity = await model
+        .scope(scope)
+        .findByPk(value);
+    } else {
+      req.entity = await model
+        .findByPk(value);
+    }
+    if (!req.entity) {
+      throw new NotFoundError();
+    }
+    return true;
+  }
+}
+
 // exports classes errors
 exports.UnauthenticatedError = UnauthenticatedError;
 exports.ForbiddenError = ForbiddenError;

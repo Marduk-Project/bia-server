@@ -1,13 +1,15 @@
 const { body, query, param } = require('express-validator/check');
 const { validationHandler, BadRequestError, ApiError, ForbiddenError } = require('../middlewares/error-mid');
+const validator = require('validator');
+const moment = require('moment');
+const { Op } = require('sequelize');
+
 const UserModule = require('../models/gl_user');
 const User = UserModule.model;
 const UserRecoverModule = require('../models/gl_user_recover');
 const UserRecover = UserRecoverModule.model;
-const validator = require('validator');
-const RecoverPasswordMail = require('../mails/auth-mail').RecoverPasswordMail;
-const moment = require('moment');
-const { Op } = require('sequelize');
+const { RecoverPasswordMail } = require('../mails/auth-mail');
+
 
 /**
  * realizes login 
@@ -97,17 +99,13 @@ exports.postRecoverRequest = async (req, res, next) => {
       res.sendJsonBadRequestError();
       return;
     }
-    let tmpUser;
-    const user = await User.findOne({ email: email })
+    const user = await User.findOne({ email: email });
     if (!user) {
+      // no error message to avoid hacking
       res.sendJsonOK();
       return;
     }
-    tmpUser = user;
-    const reset = await user.recover_newToken();
-    const mail = new RecoverPasswordMail(user, reset);
-    await mail.send(req, res, next);
-    await tmpUser.save();
+    await user.recover_generateAndSend(false, req, res);
     res.sendJsonOK();
   } catch (err) {
     next(err);
@@ -170,4 +168,96 @@ exports.getSessionWeb = (req, res, next) => {
   res.sendJsonOK({
     user: user,
   });
+}
+
+
+// ==== user chabges
+
+
+/**
+ * Returns the current user
+ */
+exports.getMe = (req, res, next) => {
+  const user = {
+    _id: req.user.id,
+    name: req.user.name,
+    nickname: req.user.nickname,
+    email: req.user.email,
+    level: req.user.level,
+  }
+  res.json({
+    data: user,
+  });
+}
+
+
+
+
+/**
+ * Validation
+ */
+exports.postMeUpdateValidate = [
+  body('name')
+    .isString()
+    .not()
+    .isEmpty()
+    .trim(),
+  body('nickname')
+    .isString()
+    .not()
+    .isEmpty()
+    .trim(),
+  (req, res, next) => {
+    req.getValidationResult()
+      .then(validationHandler(next))
+      .catch(next);
+  },
+];
+
+/**
+ * Update current user data
+ */
+exports.postMeUpdate = async (req, res, next) => {
+  try {
+    const user = req.user;
+    user.name = req.body.name;
+    user.nickname = req.body.nickname;
+    await user.save();
+    res.sendJsonOK();
+  } catch (err) {
+    next(err);
+  }
+}
+
+
+
+
+exports.postPwdUpdateValidate = [
+  body('pwd_current')
+    .isString()
+    .trim(),
+  body('pwd_new')
+    .isString()
+    .isLength({ min: 6, max: 32 })
+    .trim(),
+  (req, res, next) => {
+    req.getValidationResult()
+      .then(validationHandler(next))
+      .catch(next);
+  },
+];
+
+exports.postPwdUpdate = async (req, res, next) => {
+  try {
+    const { pwd_current, pwd_new } = req.body;
+    const user = req.user;
+    if (!user.password_compare(pwd_current)) {
+      throw new BadRequestError('Senha atual não confere.');
+    }
+    user.password_setPlain(pwd_new);
+    await user.save();
+    res.sendJsonOK();
+  } catch (err) {
+    next(err);
+  }
 }

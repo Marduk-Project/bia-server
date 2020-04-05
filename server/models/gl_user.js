@@ -2,12 +2,13 @@ const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 const nconf = require('nconf');
 const moment = require('moment');
+const { Sequelize, DataTypes, Model } = require('sequelize');
 
 const { randomString } = require('../helpers/utils');
 const { mainDb } = require('../database/main_connection');
 const { BaseModel } = require('./base_model');
-const { Sequelize, DataTypes, Model } = require('sequelize');
 const { model: UserRecover } = require('./gl_user_recover');
+const { RecoverPasswordMail } = require('../mails/auth-mail');
 
 // level
 const LEVEL_ADMIN = 1;
@@ -83,6 +84,12 @@ class User extends BaseModel {
       token: randomString(64),
     });
   }
+
+  async recover_generateAndSend(isInvite, req, res) {
+    const reset = await this.recover_newToken();
+    const mail = new RecoverPasswordMail(this, reset, isInvite);
+    await mail.send(req, res);
+  }
 }
 
 User.init({
@@ -110,6 +117,10 @@ User.init({
   },
   password: {
     type: Sequelize.STRING,
+  },
+  blocked: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,
   },
   level: {
     type: Sequelize.INTEGER,
@@ -151,6 +162,18 @@ User.init({
   sequelize: mainDb,
   modelName: modelName,
   tableName: modelName,
+  defaultScope: {
+    attributes: {
+      include: ['id', 'name', 'nickname', 'email'],
+    },
+  },
+  scopes: {
+    admin: {
+      attributes: {
+        exclude: ['password'],
+      }
+    }
+  }
 });
 
 exports.model = User;

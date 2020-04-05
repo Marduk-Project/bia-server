@@ -4,9 +4,9 @@ import Header from '../../components/admin/Header.vue';
 import NotFound from '../../components/common/NotFound.vue';
 import Footer from '../../components/common/Footer.vue';
 // users
-import Profile from '../../components/resources/user/Profile.vue';
-import UserEdit from '../../components/resources/user/UserEdit.vue';
-import UserList from '../../components/resources/user/UserList.vue';
+import GL_Profile from '../../components/resources/gl_user/Profile.vue';
+import GL_UserEdit from '../../components/resources/gl_user/UserEdit.vue';
+import GL_UserList from '../../components/resources/gl_user/UserList.vue';
 // maintenance
 import Man_Container from '../../components/admin/maintenance/Container.vue';
 import Man_Menu from '../../components/admin/maintenance/Menu.vue';
@@ -16,11 +16,11 @@ import Man_ConfigFileEdit from '../../components/admin/maintenance/EditConfigFil
 export default [
   { path: '/', redirect: '/dashboard' }
   , { path: '/dashboard', components: { default: Dashboard, header: Header, footer: Footer }, name: 'dashboard' }
-  , { path: '/user/profile', components: { default: Profile, header: Header, footer: Footer }, name: 'user.profile' }
+  , { path: '/gl_user/profile', components: { default: GL_Profile, header: Header, footer: Footer }, name: 'user.profile' }
   // user
-  , { path: '/user', components: { default: UserList, header: Header, footer: Footer }, name: 'user.index' }
-  , { path: '/user/:id/edit', components: { default: UserEdit, header: Header, footer: Footer }, name: 'user.edit' }
-  , { path: '/user/create', components: { default: UserEdit, header: Header, footer: Footer }, name: 'user.create' }
+  , { path: '/gl_user', components: { default: GL_UserList, header: Header, footer: Footer }, name: 'gl_user.index' }
+  , { path: '/gl_user/:id/edit', components: { default: GL_UserEdit, header: Header, footer: Footer }, name: 'gl_user.edit' }
+  , { path: '/gl_user/create', components: { default: GL_UserEdit, header: Header, footer: Footer }, name: 'gl_user.create' }
   // maintenance
   , {
     path: '/maintenance', components: { default: Man_Container, header: Header, footer: Footer },

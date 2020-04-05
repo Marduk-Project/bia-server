@@ -34,6 +34,10 @@ module.exports = {
         password: {
           type: Sequelize.STRING,
         },
+        blocked: {
+          type: Sequelize.BOOLEAN,
+          defaultValue: false,
+        },
         level: {
           type: Sequelize.INTEGER,
           defaultValue: 10, // account

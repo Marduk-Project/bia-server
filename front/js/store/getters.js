@@ -32,9 +32,16 @@ export const isUserAdmin = state => {
   return false;
 }
 
-export const isUserManager = state => {
+export const isUserStaff = state => {
   if (state.user) {
     return state.user.level <= 5;
+  }
+  return false;
+}
+
+export const isUserAccount = state => {
+  if (state.user) {
+    return state.user.level <= 10;
   }
   return false;
 }

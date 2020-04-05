@@ -11,14 +11,14 @@
     :placeholder="placeholder"
     :mapResult="mapResult"
     :multiple="multiple"
-    url="/api/admin/user"
+    url="/api/admin/gl_user"
     @onOpen="$emit('onOpen')"
     @onClose="$emit('onClose')"
     @onSelect="$emit('onSelect', $event)"
     @onUnselect="$emit('onUnselect', $event)"
     @input="$emit('input', $event)"
-    @onChange="$emit('onChange', $event)">
-  </v-select>
+    @onChange="$emit('onChange', $event)"
+  ></v-select>
 </template>
 
 <script>

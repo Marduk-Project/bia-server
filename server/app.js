@@ -5,6 +5,8 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const helmet = require('helmet');
+const moment = require('moment');
+moment.locale('pt-BR'); // TODO localizar em config
 // necessario para mover para o env
 const { nconf } = require('../config');
 

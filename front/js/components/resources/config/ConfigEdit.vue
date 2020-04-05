@@ -48,7 +48,7 @@ export default {
   data() {
     return {
       entity: {
-        _id: 1,
+        id: 1,
         alert: {
           color_lh_high: "#FF0000",
           color_lh_mid: "#DDDD00",

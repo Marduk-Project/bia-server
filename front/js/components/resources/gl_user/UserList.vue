@@ -1,10 +1,10 @@
 <template>
   <div class="container">
-    <br>
+    <br />
     <h1>{{ list_title }}</h1>
     <app-add-button @click="list_onAddClick"></app-add-button>
-    <br>
-    <br>
+    <br />
+    <br />
     <div class="form-row">
       <div class="form-group col-lg-4">
         <label>Nível</label>
@@ -19,7 +19,7 @@
             class="form-control"
             aria-label
             @keyup.enter="list_refreshCurrentPage"
-          >
+          />
           <div class="input-group-append">
             <button class="btn btn-primary" type="button" @click="list_refreshCurrentPage">
               <i class="fa fa-search"></i> Filtrar
@@ -48,16 +48,14 @@
         <tr
           style="cursor: pointer;"
           v-for="entity in list.data"
-          :key="entity._id"
+          :key="entity.id"
           @click="list_onItemClick(entity)"
         >
-          <td>
-            <app-id :title="entity._id"></app-id>
-          </td>
+          <td>{{ entity.id }}</td>
           <td>{{ entity.nickname }}</td>
           <td>{{ entity.name }}</td>
           <td>{{ entity.email }}</td>
-          <td>{{ entity.level_desc }}</td>
+          <td>{{ entity.levelDesc }}</td>
           <td class="text-right">
             <i
               class="fa fa-ban text-danger"
@@ -70,7 +68,7 @@
         </tr>
       </tbody>
     </table>
-    <app-pagination :pagination="list" @paginate="list_refreshPage($event)"/>
+    <app-pagination :pagination="list" @paginate="list_refreshPage($event)" />
   </div>
 </template>
 
@@ -95,10 +93,10 @@ export default {
       return "Usuários";
     },
     list_url_base() {
-      return "/api/admin/user";
+      return "/api/admin/gl_user";
     },
     list_route_base() {
-      return "user";
+      return "gl_user";
     }
   },
   methods: {
