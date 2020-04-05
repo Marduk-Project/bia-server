@@ -6,7 +6,7 @@
       <br>
       <br>
       <br>
-      <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12 app-bg-light bg-dark text-light">
+      <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12 app-bg-light">
         <br>
         <div class="text-center">
           <img
@@ -34,7 +34,7 @@
               class="text-danger"
             >Campo obrigatório.</small>
           </div>
-          <div class="form-group col-xl-12">
+          <div class="form-group col-xl-12 mb-0">
             <button class="w-100 btn btn-success" type="button" @click="onSaveClick">
               <i class="fas fa-key"></i> Salvar e ir para login
             </button>

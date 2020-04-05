@@ -1,6 +1,5 @@
 export const setSession = (state, session) => {
   state.user = session.user;
-  state.account = session.account;
 }
 
 export const setLoading = (state, loading) => {

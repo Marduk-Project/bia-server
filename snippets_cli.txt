@@ -1,0 +1,9 @@
+// migrate
+
+npx sequelize-cli db:migrate
+npx sequelize-cli db:migrate --env test
+
+npx sequelize-cli db:migrate:undo
+npx sequelize-cli db:migrate:undo --env test
+
+npx sequelize-cli model:generate --name ModelTest --attributes firstName:string,lastName:string,email:string

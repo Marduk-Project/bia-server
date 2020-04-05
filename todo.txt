@@ -1,0 +1,6 @@
+(Carlos)
+implementar alguma segurança de token alem do session id
+
+implementar controle de trottle, para multiplas tentativas de um mesmo ip
+
+code compiler

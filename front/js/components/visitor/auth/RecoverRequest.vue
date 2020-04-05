@@ -6,7 +6,7 @@
       <br />
       <br />
       <br />
-      <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12 app-bg-light bg-dark text-light">
+      <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12 app-bg-light">
         <br />
         <div class="text-center">
           <img
@@ -40,7 +40,7 @@
               <i class="fas fa-envelope"></i> Enviar e-mail com instruções
             </button>
           </div>
-          <div class="form-group col-xl-12">
+          <div class="form-group col-xl-12 mb-0">
             <button class="w-100 btn btn-link" type="button" @click="onBackClick">
               <i class="fas fa-sign-in-alt"></i> Login
             </button>

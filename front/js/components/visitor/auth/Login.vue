@@ -2,21 +2,21 @@
   <div>
     <div class="app-bg-image"></div>
     <div class="container">
-      <br>
-      <br>
-      <br>
-      <br>
-      <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12 app-bg-light bg-dark text-light">
-        <br>
+      <br />
+      <br />
+      <br />
+      <br />
+      <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12 app-bg-light">
+        <br />
         <div class="text-center">
           <img
             class="img-fluid"
             src="../../../../img/theme/logo-vertical.png"
             style="max-width: 250px;"
             alt
-          >
+          />
         </div>
-        <br>
+        <br />
         <h4 class="text-center">Login</h4>
         <!-- <p class="text-muted lead text-center">
                     Acesse ou crie uma conta para continuar
@@ -31,7 +31,7 @@
               v-model="login.username"
               v-validate="'required|email'"
               :class="{ 'is-invalid': errors.has('username') && wasValidated }"
-            >
+            />
             <small v-show="errors.has('username') && wasValidated" class="text-danger">
               <strong>E-mail</strong> é obrigatório.
             </small>
@@ -47,7 +47,7 @@
               v-validate="'required'"
               :class="{ 'is-invalid': errors.has('password') && wasValidated }"
               @keyup.enter="onEnterClick"
-            >
+            />
             <small
               v-show="errors.has('password') && wasValidated"
               class="text-danger"
@@ -122,18 +122,11 @@ export default {
             this.api_thenDone(res => {
               // redirect to home
               const user = res.data;
-              if (user.isAdmin) {
+              if (user.isStaff) {
                 this.api_loadingShow();
                 window.location.href = "/home";
               } else {
-                if (user.accounts.length == 1) {
-                  this.login_setAccount(user.accounts[0]._id);
-                } else {
-                  this.$router.push({
-                    name: "account.index",
-                    list: res.data.accounts
-                  });
-                }
+                // TODO nao sei para onde ir
               }
             }, true)
           )
@@ -147,14 +140,8 @@ export default {
     login_refreshInfoOKAfter() {
       if (this.loginInfo.user != null) {
         // redirect to home
-        if (this.loginInfo.account != null) {
-          this.api_loadingShow();
-          window.location.href = "/home";
-        } else {
-          this.$router.push({
-            name: "account.index"
-          });
-        }
+        this.api_loadingShow();
+        window.location.href = "/home";
       }
     }
   },

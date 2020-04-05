@@ -1,10 +1,8 @@
 const { body, query, param } = require('express-validator/check');
 const { validationHandler, BadRequestError, ApiError } = require('../../middlewares/error-mid');
-const UserModule = require('../../models/user');
+const UserModule = require('../../models/gl_user');
 // const AccountUserModule = require('../../models/account/user');
-const AccountModule = require('../../models/account');
 const User = UserModule.model;
-const Account = AccountModule.model;
 const validator = require('validator');
 const utils = require('../../helpers/utils');
 
@@ -85,8 +83,7 @@ exports.getIndex = async (req, res, next) => {
 exports.getEditValidate = [
   param('id')
     .isMongoId()
-    .not().isEmpty()
-    .custom(User.idExistsFunc()),
+    .not().isEmpty(),
   (req, res, next) => {
     req.getValidationResult()
       .then(validationHandler(next))
@@ -133,12 +130,7 @@ const saveValidate = [
     .isBoolean(),
   body('accounts')
     .isArray(),
-  body('accounts.*.account_id')
-    .isMongoId()
-    .custom(Account.idExistsFunc()),
-  body('accounts.*.level')
-    .isIn(UserModule.ACCOUNTLEVEL_ALL),
-  body('accounts.*._id')
+  body('accounts.*.id')
     .optional()
     .isMongoId(),
   body('accounts.*.mid')
@@ -166,7 +158,7 @@ const saveEntityFunc = async (req, res, next, id) => {
     entity.blocked = body.blocked;
     entity.accounts = body.accounts.map(el => {
       return {
-        _id: el._id,
+        _id: el.id,
         mid: el.mid,
         account_id: el.account_id,
         level: el.level,
@@ -176,12 +168,12 @@ const saveEntityFunc = async (req, res, next, id) => {
       // visit each account and inactive
       await Promise.all(accountBeforeList.map(async (ac) => {
         const found = entity.accounts.find((el) => {
-          return ac.account_id._id.equals(el.account_id);
+          return ac.account_id.id.equals(el.account_id);
         });
         // if not found before, set inactive
         if (!found) {
           const AccountUser = await AccountUserModule.modelFactory(ac.account_id);
-          const acUser = await AccountUser.findById(entity._id);
+          const acUser = await AccountUser.findById(entity.id);
           if (acUser) {
             acUser.inactive = true;
             await acUser.save();
@@ -197,7 +189,7 @@ const saveEntityFunc = async (req, res, next, id) => {
     // visit each new and create
     await Promise.all(entity.accounts.map(async (ac) => {
       const found = accountBeforeList.find((el) => {
-        return ac.account_id._id.equals(el.account_id);
+        return ac.account_id.id.equals(el.account_id);
       });
       // if not found, add
       if (!found) {
@@ -205,10 +197,10 @@ const saveEntityFunc = async (req, res, next, id) => {
         // TODO remover
         /*
         const AccountUser = await AccountUserModule.modelFactory(account);
-        let acUser = await AccountUser.findById(entity._id);
+        let acUser = await AccountUser.findById(entity.id);
         if (!acUser) {
           acUser = new AccountUser({
-            _id: entity._id,
+            _id: entity.id,
             name: entity.name,
             nickname: entity.nickname,
             email: entity.email,
@@ -238,7 +230,8 @@ exports.putUpdateValidate = [
   ...saveValidate,
   param('id')
     .isMongoId()
-    .custom(User.idExistsFunc()),
+  // .custom(User.idExistsFunc())
+  ,
   (req, res, next) => {
     req.getValidationResult()
       .then(validationHandler(next))
@@ -304,7 +297,7 @@ exports.deleteValidate = [
 exports.delete = async (req, res, next) => {
   try {
     const id = req.params.id;
-    if (id == req.user._id.toString()) {
+    if (id == req.user.id.toString()) {
       throw new ApiError("Você não pode excluir a si mesmo.");
     }
     const entity = await User.findById(id);
@@ -327,7 +320,7 @@ exports.delete = async (req, res, next) => {
  */
 exports.getMe = (req, res, next) => {
   const user = {
-    _id: req.user._id,
+    _id: req.user.id,
     name: req.user.name,
     nickname: req.user.nickname,
     email: req.user.email,
@@ -399,10 +392,10 @@ exports.postPwdUpdate = async (req, res, next) => {
   try {
     const { pwd_current, pwd_new } = req.body;
     const user = req.user;
-    if (!user.comparePassword(pwd_current)) {
+    if (!user.password_compare(pwd_current)) {
       throw new BadRequestError('Senha atual não confere.');
     }
-    user.setPlainPassword(pwd_new);
+    user.password_setPlain(pwd_new);
     await user.save();
     res.sendJsonOK();
   } catch (err) {
@@ -423,7 +416,8 @@ exports.postPwdCheckValidate = [
   param('id')
     .isMongoId()
     .not().isEmpty()
-    .custom(User.idExistsFunc()),
+  // .custom(User.idExistsFunc())
+  ,
   (req, res, next) => {
     req.getValidationResult()
       .then(validationHandler(next))
@@ -458,7 +452,8 @@ exports.postPwdChangeValidate = [
   param('id')
     .isMongoId()
     .not().isEmpty()
-    .custom(User.idExistsFunc()),
+  // .custom(User.idExistsFunc())
+  ,
   (req, res, next) => {
     req.getValidationResult()
       .then(validationHandler(next))
@@ -471,7 +466,7 @@ exports.postPwdChange = async (req, res, next) => {
   try {
     const id = req.params.id;
     const pwd = req.body.pwd;
-    if (id == req.user._id.toString()) {
+    if (id == req.user.id.toString()) {
       throw new ApiError("Você não pode alterar sua própria senha desta forma.");
     }
     const entity = await User.findById(id)

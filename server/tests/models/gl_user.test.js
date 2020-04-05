@@ -24,7 +24,7 @@ describe('gl_user tests', () => {
     expect(user.password_compare('world hello')).toBeFalsy();
   });
 
-  test.only('Sequelize simple test', async () => {
+  test('Sequelize simple test', async () => {
     var user = {
       name: 'Carlos',
       nickname: 'Carlos',
@@ -32,30 +32,27 @@ describe('gl_user tests', () => {
       level: UserModule.LEVEL_ACCOUNT,
     };
     user = User.build(user);
-    expect(user.login_tryWait).toBeFalsy();
-    expect(user.login_tryCount).not.toBeNull();
+    expect(user.loginTryWait).toBeFalsy();
+    expect(user.loginTryCount).not.toBeNull();
     // account
-    expect(user.level_isAccount).toBeTruthy();
-    expect(user.level_isStaff).toBeFalsy();
-    expect(user.level_isAdmin).toBeFalsy();
-    expect(user.level_desc).toEqual('Conta');
+    expect(user.levelIsAccount).toBeTruthy();
+    expect(user.levelIsStaff).toBeFalsy();
+    expect(user.levelIsAdmin).toBeFalsy();
+    expect(user.levelDesc).toEqual('Conta');
     // staff
     user.level = UserModule.LEVEL_STAFF;
-    expect(user.level_isAccount).toBeTruthy();
-    expect(user.level_isStaff).toBeTruthy();
-    expect(user.level_isAdmin).toBeFalsy();
-    expect(user.level_desc).toEqual('Gestão');
+    expect(user.levelIsAccount).toBeTruthy();
+    expect(user.levelIsStaff).toBeTruthy();
+    expect(user.levelIsAdmin).toBeFalsy();
+    expect(user.levelDesc).toEqual('Gestão');
     // admin
     user.level = UserModule.LEVEL_ADMIN;
-    expect(user.level_isAccount).toBeTruthy();
-    expect(user.level_isStaff).toBeTruthy();
-    expect(user.level_isAdmin).toBeTruthy();
-    expect(user.level_desc).toEqual('Administrador');
-    console.log('here 1');
+    expect(user.levelIsAccount).toBeTruthy();
+    expect(user.levelIsStaff).toBeTruthy();
+    expect(user.levelIsAdmin).toBeTruthy();
+    expect(user.levelDesc).toEqual('Administrador');
     await user.save();
-    console.log('here 2');
-    await user.delete();
-    console.log('here 3');
+    await user.destroy();
   });
 
   afterAll(async () => {

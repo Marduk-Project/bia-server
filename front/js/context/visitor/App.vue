@@ -3,6 +3,7 @@
     <router-view name="header"></router-view>
     <router-view></router-view>
     <router-view name="footer"></router-view>
+    <app-notify></app-notify>
     <transition name="ldfade" appear>
       <div v-if="isLoading" class="app-loading">
         <div class="d-flex justify-content-center align-items-center">
@@ -16,8 +17,12 @@
 <script>
 import { mapGetters } from "vuex";
 import util from "util";
+import Notify from "../../libs/components/common/Notify";
 
 export default {
+  components: {
+    "app-notify": Notify
+  },
   computed: {
     ...mapGetters(["isLoading"])
   },

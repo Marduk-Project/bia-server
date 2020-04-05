@@ -1,10 +1,10 @@
 <template>
   <div v-if="entity" class="container">
-    <br>
+    <br />
     <button type="button" class="btn btn-link" @click="crud_navBack">
       <i class="fa fa-chevron-left"></i> Voltar
     </button>
-    <br>
+    <br />
     <h1>{{ crud_title }}</h1>
     <form action @submit.prevent novalidate>
       <div class="form-row">
@@ -19,7 +19,7 @@
             v-validate="'required'"
             maxlength="100"
             :class="{ 'is-invalid': errors.has('name') }"
-          >
+          />
           <div class="invalid-feedback">Campo obrigatório.</div>
         </div>
         <div class="form-group col-lg-3">
@@ -33,7 +33,7 @@
             v-validate="'required'"
             maxlength="100"
             :class="{ 'is-invalid': errors.has('nickname') }"
-          >
+          />
           <div class="invalid-feedback">Campo obrigatório.</div>
         </div>
         <div class="form-group col-lg-3">
@@ -51,23 +51,23 @@
             v-validate="'required|email'"
             maxlength="60"
             :class="{ 'is-invalid': errors.has('email') }"
-          >
+          />
           <div class="invalid-feedback">E-mail é obrigatório.</div>
         </div>
       </div>
-      <br>
+      <br />
       <h4>Regras</h4>
       <div class="form-row">
         <div class="form-group col-12">
           <div class="form-check">
             <label class="form-check-label" :class="{ 'text-danger': entity.blocked }">
-              <input class="form-check-input" type="checkbox" value="1" v-model="entity.blocked">
+              <input class="form-check-input" type="checkbox" value="1" v-model="entity.blocked" />
               Bloqueado / inativo
             </label>
           </div>
         </div>
       </div>
-      <br>
+      <br />
       <h4>Contas vinculadas</h4>
       <div class="form-row">
         <div class="form-group col-lg-6">
@@ -81,7 +81,10 @@
         <div class="form-group col-lg-3">
           <label>&nbsp;</label>
           <button class="btn btn-outline-success w-100" type="button" @click="account_onAddClick">
-            <i class="fas" :class="{ 'fa-plus': accountEntity.new, 'fa-check': !accountEntity.new } "></i>
+            <i
+              class="fas"
+              :class="{ 'fa-plus': accountEntity.new, 'fa-check': !accountEntity.new } "
+            ></i>
             {{ accountEntity.new ? 'Adicionar' : 'Alterar' }}
           </button>
         </div>
@@ -118,8 +121,8 @@
           </tr>
         </tbody>
       </table>
-      <br>
-      <br>
+      <br />
+      <br />
       <div class="form-row">
         <app-crud-buttons
           @onSave="crud_onSaveAction"
@@ -127,7 +130,7 @@
           :delete-show="entity._id != null"
         ></app-crud-buttons>
       </div>
-      <br>
+      <br />
       <div class="card" v-if="entity._id">
         <div class="card-header">Sistema</div>
         <div class="card-body">
@@ -144,7 +147,7 @@
                   minlength="6"
                   placeholder="senha atual"
                   @keyup.enter.prevent="onPwdCheckClick"
-                >
+                />
                 <div class="input-group-append">
                   <button class="btn btn-outline-secondary" type="button" @click="onPwdCheckClick">
                     <i class="fa fa-user-secret"></i>
@@ -163,7 +166,7 @@
                   minlength="6"
                   placeholder="nova senha"
                   @keyup.enter.prevent="onPwdChangeClick"
-                >
+                />
                 <div class="input-group-append">
                   <button class="btn btn-outline-secondary" type="button" @click="onPwdChangeClick">
                     <i class="fa fa-key"></i>
@@ -183,16 +186,12 @@
 import { crudMixin } from "../../../libs/mixins/crud-mixin";
 import axios from "../../../libs/mixins/axios-auth";
 import UserLevelSelect from "./UserLevelSelect.vue";
-import UserAccountLevelSelect from "./UserAccountLevelSelect.vue";
-import AccountSelect from "../account/AccountSelect.vue";
 import _ from "lodash";
 
 export default {
   mixins: [crudMixin],
   components: {
-    "app-user-level-select": UserLevelSelect,
-    "app-account-level-select": UserAccountLevelSelect,
-    "app-account-select": AccountSelect
+    "app-user-level-select": UserLevelSelect
   },
   data() {
     return {
@@ -344,7 +343,7 @@ export default {
           return "Usuário";
       }
       return "Desconhecido";
-    },
+    }
   },
   computed: {
     crud_title() {

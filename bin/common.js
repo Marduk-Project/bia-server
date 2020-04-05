@@ -7,7 +7,7 @@ const config = require('../config');
  * @param {Exception} e
  */
 const handleError = (e) => {
-  console.log(chalk.red(`Error: ${e.message}`), e);
+  console.log(chalk.red(`Error: ${e.message}\n`), e);
 }
 
 const outputNotRunned = (program) => {
@@ -16,7 +16,7 @@ const outputNotRunned = (program) => {
 }
 
 const mainDbEndFinally = async () => {
-  const { mainDb, checkIsConnected } = require('../server/database/mainConnection');
+  const { mainDb, checkIsConnected } = require('../server/database/main_connection');
   try {
     if (await checkIsConnected()) {
       await mainDb.close();

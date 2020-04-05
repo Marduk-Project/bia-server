@@ -1,9 +1,13 @@
-const baseModelPlugin = require('./baseModel');
 const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 const nconf = require('nconf');
-const { mainDb } = require('../database/mainConnection');
+const moment = require('moment');
+
+const { randomString } = require('../helpers/utils');
+const { mainDb } = require('../database/main_connection');
+const { BaseModel } = require('./base_model');
 const { Sequelize, DataTypes, Model } = require('sequelize');
+const { model: UserRecover } = require('./gl_user_recover');
 
 // level
 const LEVEL_ADMIN = 1;
@@ -50,8 +54,9 @@ const applyCustomSaltToPassword = (pwd) => {
 
 
 // model
+const modelName = 'gl_user';
 
-class User extends Model {
+class User extends BaseModel {
   login_cleanTry() {
     this.login_tryCount = 0;
     this.login_tryWait = null;
@@ -70,6 +75,14 @@ class User extends Model {
     pwd = bcrypt.hashSync(pwd, salt);
     this.password = pwd;
   }
+
+  async recover_newToken() {
+    return await UserRecover.create({
+      userId: this.id,
+      expiresWhen: moment().add(1, 'day').toDate(), // TODO colocar em config
+      token: randomString(64),
+    });
+  }
 }
 
 User.init({
@@ -80,20 +93,16 @@ User.init({
     type: Sequelize.INTEGER
   },
   createdAt: {
-    allowNull: true,
     type: Sequelize.DATE,
   },
   updatedAt: {
-    allowNull: true,
     type: Sequelize.DATE,
   },
   name: {
     type: Sequelize.STRING,
-    allowNull: true,
   },
   nickname: {
     type: Sequelize.STRING,
-    allowNull: true,
   },
   email: {
     type: Sequelize.STRING,
@@ -101,51 +110,48 @@ User.init({
   },
   password: {
     type: Sequelize.STRING,
-    allowNull: true,
   },
   level: {
     type: Sequelize.INTEGER,
-    allowNull: false,
     defaultValue: 10, // account
   },
-  level_desc: {
+  levelDesc: {
     type: new DataTypes.VIRTUAL(DataTypes.STRING, ['level']),
     get: function () {
       return levelToString(this.get('level'));
     }
   },
-  level_isAdmin: {
+  levelIsAdmin: {
     type: new DataTypes.VIRTUAL(DataTypes.BOOLEAN, ['level']),
     get: function () {
       return this.get('level') <= LEVEL_ADMIN;
     }
   },
-  level_isStaff: {
+  levelIsStaff: {
     type: new DataTypes.VIRTUAL(DataTypes.BOOLEAN, ['level']),
     get: function () {
       return this.get('level') <= LEVEL_STAFF;
     }
   },
-  level_isAccount: {
+  levelIsAccount: {
     type: new DataTypes.VIRTUAL(DataTypes.BOOLEAN, ['level']),
     get: function () {
       return this.get('level') <= LEVEL_ACCOUNT;
     }
   },
-  login_tryCount: {
+  loginTryCount: {
     type: Sequelize.INTEGER,
-    allowNull: false,
     defaultValue: 0,
   },
-  login_tryWait: {
+  loginTryWait: {
     type: Sequelize.DATE,
-    allowNull: true,
   },
 }, {
   // options
   sequelize: mainDb,
-  modelName: 'gl_userss',
-  tableName: 'gl_userss',
+  modelName: modelName,
+  tableName: modelName,
 });
 
 exports.model = User;
+exports.modelName = modelName;

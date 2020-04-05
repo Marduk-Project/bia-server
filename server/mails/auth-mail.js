@@ -18,7 +18,7 @@ class RecoverPasswordMail extends BaseMail {
   buildBody(req, res, next) {
     return new Promise((resolve, reject) => {
       let jwt = {
-        id: this.user._id,
+        id: this.user.id,
         token: this.resetToken.token,
       }
       jwt = Buffer.from(JSON.stringify(jwt), 'utf-8').toString('base64');

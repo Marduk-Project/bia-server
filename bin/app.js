@@ -5,7 +5,7 @@ const { handleError, mainDbEndFinally } = require('./common');
 
 program
   .version(pkg.version)
-  .command('install', 'Creates database and setup first admin user.')
+  .command('admin-create', 'Creates database and setup first admin user.')
   .command('connect-test', 'Tests database connection.')
   .command('test', 'Test example CLI command', { noHelp: true })
   .command('help', 'Show this help', { isDefault: true })

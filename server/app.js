@@ -10,10 +10,11 @@ const { nconf } = require('../config');
 
 // session
 const session = require('express-session');
-// const flash = require('connect-flash'); // TODO: revisar este pacote
-var SequelizeStore = require('connect-session-sequelize')(session.Store);
+const flash = require('connect-flash');
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
+const SessionModule = require('./models/sy_session');
 
-const { mainDb } = require('./database/mainConnection');
+const { mainDb } = require('./database/main_connection');
 
 const app = express();
 
@@ -48,6 +49,7 @@ app.use(session({
   saveUninitialized: false,
   store: new SequelizeStore({
     db: mainDb,
+    modelKey: SessionModule.modelName,
   }),
   cookie: {
     // secure: true,
@@ -57,28 +59,24 @@ app.use(session({
   },
 }));
 
-// app.use(flash()); // TODO revisar este pacote
+app.use(flash());
 
 // === app middlewares
 // fetch user
-// app.use(require('./middlewares/auth-mid').fetchUserMiddleware);
+app.use(require('./middlewares/auth-mid').fetchUserMiddleware);
 // responses
 app.use(require('./middlewares/responses-mid').responsesMiddleware);
 
-// libs
-// app.use(passport.initialize());
-// app.use(passport.session());
-
 // routes
-// const indexRouter = require('./routes');
+const indexRouter = require('./routes');
 
-// app.use('/', indexRouter);
+app.use('/', indexRouter);
 
-// const apiRouter = require('./routes/api');
-// app.use('/api', apiRouter);
+const apiRouter = require('./routes/api');
+app.use('/api', apiRouter);
 
-// const adminRouter = require('./routes/admin');
-// app.use('/admin', adminRouter);
+const adminRouter = require('./routes/admin');
+app.use('/admin', adminRouter);
 
 // only dev
 if (nconf.get('NODE_ENV') == 'development') {
@@ -113,7 +111,7 @@ app.locals.app_website = nconf.get('APP_WEBSITE');
 
 // logo
 const fs = require('fs');
-app.locals.app_logo_base64 = 'data:image/png;base64,' + fs.readFileSync(path.join(__dirname, 'public/static/img/theme/logo-horizontal.png')).toString('base64');
+app.locals.app_logo_base64 = 'data:image/png;base64,' + fs.readFileSync(path.join(__dirname, 'public/static/img/theme/logo-vertical.png')).toString('base64');
 app.locals.app_marked = require('marked');
 
 module.exports = app;

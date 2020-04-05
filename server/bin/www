@@ -7,7 +7,7 @@
 const app = require('../app');
 const http = require('http');
 const chalk = require('chalk');
-const db = require('../database/mainConnection');
+const db = require('../database/main_connection');
 const nconf = require('nconf');
 
 /**

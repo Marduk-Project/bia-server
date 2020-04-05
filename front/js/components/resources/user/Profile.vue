@@ -1,10 +1,10 @@
 <template>
   <div class="container">
-    <br>
+    <br />
     <button type="button" class="btn btn-link" @click="crud_navBack">
       <i class="fa fa-chevron-left"></i> Voltar
     </button>
-    <br>
+    <br />
     <h1>Meus dados</h1>
     <form action @submit.prevent novalidate>
       <div class="form-row">
@@ -20,7 +20,7 @@
             type="text"
             :class="{ 'is-invalid': errors.has('name', 'crud') }"
             maxlength="100"
-          >
+          />
           <div class="invalid-feedback">Campo obrigatório.</div>
         </div>
         <div class="form-group col-md-4">
@@ -35,16 +35,16 @@
             type="text"
             :class="{ 'is-invalid': errors.has('nickname', 'crud') }"
             maxlength="100"
-          >
+          />
           <div class="invalid-feedback">Campo obrigatório.</div>
         </div>
         <div class="form-group col-md-8">
           <label>E-mail</label>
-          <input type="text" class="form-control" :value="entity.email" placeholder readonly>
+          <input type="text" class="form-control" :value="entity.email" placeholder readonly />
         </div>
         <div class="form-group col-md-4">
           <label>ID</label>
-          <input type="text" class="form-control" :value="entity._id" placeholder readonly>
+          <input type="text" class="form-control" :value="entity._id" placeholder readonly />
         </div>
       </div>
       <div class="form-row">
@@ -55,8 +55,8 @@
         </div>
       </div>
     </form>
-    <br>
-    <br>
+    <br />
+    <br />
     <h3>Alterar senha</h3>
     <form action @submit.prevent novalidate>
       <div class="form-row">
@@ -69,7 +69,7 @@
             v-validate="'required'"
             type="password"
             placeholder
-          >
+          />
         </div>
       </div>
       <div class="form-row">
@@ -97,7 +97,7 @@
             v-validate="'required'"
             type="password"
             placeholder
-          >
+          />
         </div>
       </div>
       <div class="form-row">
@@ -210,7 +210,7 @@ export default {
         this.api_loadingShow();
         let data = {
           name: this.entity.name,
-          nickname: this.entity.nickname,
+          nickname: this.entity.nickname
         };
         axios
           .post("/api/admin/user/me/update", data)
@@ -225,7 +225,7 @@ export default {
   },
   mounted() {
     this.crud_refreshEntity();
-    this.$store.dispatch('setTitle', 'Meus dados');
+    this.$store.dispatch("setTitle", "Meus dados");
   }
 };
 </script>

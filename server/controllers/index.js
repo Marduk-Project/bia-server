@@ -1,4 +1,4 @@
-const UserModule = require('../models/user');
+const UserModule = require('../models/gl_user');
 
 /**
  * Index for visitors
@@ -16,10 +16,9 @@ exports.getHome = (req, res, next) => {
     res.redirect('/');
     return;
   }
-  if (user.level <= UserModule.LEVEL_MANAGER) {
+  if (user.levelIsStaff) {
     res.redirect('/admin/');
   } else {
-    res.send('ops tem coisa errada ai');
+    res.send('ops não tem implementação ainda!');
   }
 }
-

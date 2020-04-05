@@ -1,6 +1,8 @@
 const _ = require('lodash');
 const $ = require('jquery');
 
+import EventBus from '../../bootstrap/event-bus';
+
 const state = {
 };
 
@@ -57,13 +59,14 @@ const actions = {
     notifyHelper(mobj.message, mobj.type);
   },
   notifyDone(context, mobj) {
-    if (!mobj) {
-      mobj = {
-        message: ''
-      }
-    }
-    mobj.icon = 'fa fa-check fa-5x';
-    notifyHelper(mobj, 'success');
+    // if (!mobj) {
+    //   mobj = {
+    //     message: ''
+    //   }
+    // }
+    // mobj.icon = 'fa fa-check fa-5x';
+    // notifyHelper(mobj, 'success');
+    EventBus.$emit('notify_done');
   },
   notifySuccess(context, mobj) {
     notifyHelper(mobj, 'success');

@@ -1,6 +1,6 @@
 import axios from '../libs/mixins/axios-auth';
 
-var reloadSessaoTimestamp = Math.round(new Date().getTime() / 1000);
+var reloadSessionTimestamp = Math.round(new Date().getTime() / 1000);
 
 export const redirectToHome = (context, message) => {
   if (message) {
@@ -10,15 +10,15 @@ export const redirectToHome = (context, message) => {
 }
 
 function checkUser(context, user) {
-  let userAtual = context.getters.getUser;
+  let userCurrent = context.getters.getUser;
   if (user == null) {
     return false;
   }
-  if (userAtual == null) {
+  if (userCurrent == null) {
     return true;
   }
   // changed user
-  if (user.id != userAtual.id) {
+  if (user.id != userCurrent.id) {
     return false;
   }
   return true;
@@ -29,7 +29,7 @@ function reloadSession(context, ignoreLoading) {
     context.commit('setLoading', true);
   }
   // atualiza timestamp do check de sessao
-  reloadSessaoTimestamp = Math.round(new Date().getTime() / 1000);
+  reloadSessionTimestamp = Math.round(new Date().getTime() / 1000);
   // busca sessao
   axios.get("api/auth/session")
     .then(res => {
@@ -75,7 +75,7 @@ export const checkReloadSession = (context) => {
   }
   let tsNow = Math.floor(new Date().getTime() / 1000);
   // aceita a cada x min
-  let secondsCheck = tsNow - reloadSessaoTimestamp;
+  let secondsCheck = tsNow - reloadSessionTimestamp;
   if ((secondsCheck) > (60 * 5)) {
     console.log('Session Check - Refreshing session...');
     reloadSession(context, true);

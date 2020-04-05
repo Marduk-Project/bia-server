@@ -1,7 +1,5 @@
 'use strict';
 
-const { Sequelize } = require('sequelize');
-
 const tableName = 'gl_user';
 
 module.exports = {
@@ -16,20 +14,18 @@ module.exports = {
           type: Sequelize.INTEGER
         },
         createdAt: {
-          allowNull: true,
+          allowNull: false,
           type: Sequelize.DATE,
         },
         updatedAt: {
-          allowNull: true,
+          allowNull: false,
           type: Sequelize.DATE,
         },
         name: {
           type: Sequelize.STRING,
-          allowNull: true,
         },
         nickname: {
           type: Sequelize.STRING,
-          allowNull: true,
         },
         email: {
           type: Sequelize.STRING,
@@ -37,21 +33,17 @@ module.exports = {
         },
         password: {
           type: Sequelize.STRING,
-          allowNull: true,
         },
         level: {
           type: Sequelize.INTEGER,
-          allowNull: false,
           defaultValue: 10, // account
         },
-        login_tryCount: {
+        loginTryCount: {
           type: Sequelize.INTEGER,
-          allowNull: false,
           defaultValue: 0,
         },
-        login_tryWait: {
+        loginTryWait: {
           type: Sequelize.DATE,
-          allowNull: true,
         },
       },
         {

@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const authController = require('../controllers/auth');
 const indexController = require('../controllers/index');
-const UserModule = require('../models/user');
+const UserModule = require('../models/gl_user');
 
 // const rolesMiddleware = require('../middlewares/auth-mid').rolesMiddleware({
 //   userLevel: UserModule.LEVEL_ADMIN,

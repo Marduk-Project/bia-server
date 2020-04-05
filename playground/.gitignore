@@ -1,1 +1,7 @@
 *.js
+*.sh
+*.sql
+*.html
+*.txt
+*.ts
+*.css

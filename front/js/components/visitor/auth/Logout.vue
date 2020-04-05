@@ -6,7 +6,7 @@
       <br>
       <br>
       <br>
-      <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12 app-bg-light bg-dark text-light">
+      <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12 app-bg-light">
         <br>
         <div class="text-center">
           <img
@@ -19,12 +19,12 @@
         <br>
         <p class="text-center text-info">Você realizou logout com sucesso.</p>
         <br>
-        <button type="button" class="btn btn-outline-success w-100" @click="onLoginClick">
-          <i class="fas fa-sign-in-alt"></i> Login
+        <button type="button" class="btn btn-success w-100" @click="onLoginClick">
+          <i class="fas fa-sign-in-alt"></i> Ir para Login
         </button>
         <br>
         <br>
-        <a href="/" class="btn btn-outline-light w-100">
+        <a href="/" class="btn btn-outline-secondary w-100">
           <i class="fas fa-home"></i> Retornar para home
         </a>
         <br>

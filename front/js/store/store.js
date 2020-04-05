@@ -12,7 +12,6 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     user: null,
-    account: null,
     loading: 0
   },
   actions,

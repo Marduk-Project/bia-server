@@ -1,8 +1,6 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="/admin">
-      {{ app_current_name }}
-    </a>
+    <a class="navbar-brand" href="/admin">{{ app_current_name }}</a>
     <button
       class="navbar-toggler"
       type="button"
@@ -51,14 +49,6 @@
               v-if="isUserAdmin"
             >
               <i class="fas fa-user"></i> Usuários
-            </router-link>
-            <router-link
-              class="dropdown-item"
-              tag="a"
-              active-class="active"
-              :to="{ name: 'account.index' }"
-            >
-              <i class="fas fa-building"></i> Contas
             </router-link>
           </div>
         </li>

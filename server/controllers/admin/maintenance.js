@@ -7,7 +7,7 @@ const { nconf, filepath } = require('../../../config.js');
 exports.getConfig = (req, res, next) => {
   let config = fs.readFileSync(filepath, { encoding: 'utf-8' });
   res.sendJsonOK({
-    file_content: config,
+    file_content: config ? config : '{ "erro": true }',
   });
 }
 

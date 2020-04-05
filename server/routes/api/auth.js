@@ -13,12 +13,4 @@ router.post('/recoverChangePwd', controller.postRecoverChangePwd);
 
 router.get('/session', controller.getSessionWeb);
 
-router.get('/account', authMid.userIsLoggedMiddleware, controller.getUserAccounts);
-
-router.post('/setAccount',
-  authMid.userIsLoggedMiddleware,
-  controller.postUserSetAccountValidate,
-  controller.postUserSetAccount
-);
-
 module.exports = router;
