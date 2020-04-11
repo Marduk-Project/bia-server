@@ -166,7 +166,6 @@ const saveEntityFunc = async (req, res, next, id) => {
     entity.nickname = body.nickname;
     entity.email = body.email;
     entity.level = body.level;
-    entity.level = body.level;
     entity.blocked = body.blocked;
     if (!id) {
       // generate random only if is create

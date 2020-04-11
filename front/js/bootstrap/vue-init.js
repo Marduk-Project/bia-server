@@ -10,7 +10,7 @@ import _ from 'lodash';
 
 // moment
 import moment from 'moment';
-moment.locale('pt-BR');
+moment.locale('pt-BR'); // todo pensar em config
 
 // store
 import store from '../store/store';
