@@ -16,23 +16,19 @@ if (!argParam) {
 }
 
 // env
-let env = process.env.NODE_ENV || argParam;
-if (!env) {
-  env = "development";
-}
 if (!process.env.NODE_ENV) {
-  process.env.NODE_ENV = env;
+  process.env.NODE_ENV = argParam;
 }
 
 // load conf
-const filepath = path.join(__dirname, `cfg_${env}.json`);
+const filepath = path.join(__dirname, `cfg_${process.env.NODE_ENV}.json`);
 if (fs.existsSync(filepath)) {
   nconf.file(filepath).env().argv();
 } else {
   nconf.env().argv();
 }
 
-exports.env = env;
+exports.env = process.env.NODE_ENV;
 exports.nconf = nconf;
 exports.filepath = filepath;
 
