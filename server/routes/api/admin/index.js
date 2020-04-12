@@ -1,10 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
-const maintenanceRouter = require('./maintenance');
-router.use('/maintenance', maintenanceRouter);
+router.use('/maintenance', require('./maintenance'));
 
-const userRouter = require('./gl_user');
-router.use('/gl_user', userRouter);
+router.use('/gl_user', require('./gl_user'));
+
+router.use('/gl_country', require('./gl_country'));
+router.use('/gl_state', require('./gl_state'));
+router.use('/gl_city', require('./gl_city'));
 
 module.exports = router;

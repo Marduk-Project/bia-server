@@ -11,9 +11,9 @@ process.env.VUE_APP_EJS_CLOSE_TAG = '%>';
 
 module.exports = {
   publicPath: '/',
-  outputDir: 'server/public/',
+  outputDir: 'server/public/c/', // "c" = compiled
   indexPath: 'index.html',
-  assetsDir: 'static',
+  assetsDir: 'c/static',
   filenameHashing: true,
   pages: {
     index: {
@@ -37,14 +37,14 @@ module.exports = {
   },
   configureWebpack: {
     output: {
-      filename: "static/js/[name].[hash].js",
-      chunkFilename: "static/js/[id].[chunkhash].js"
+      filename: "c/static/js/[name].[hash].js",
+      chunkFilename: "c/static/js/[id].[chunkhash].js"
     },
     plugins: [
       new CopyPlugin([
         {
           from: 'front/img/',
-          to: 'static/img/',
+          to: 'c/static/img/',
         },
       ]),
     ],

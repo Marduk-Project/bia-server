@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container-fluid">
     <br />
     <h1>{{ list_title }}</h1>
     <app-add-button @click="list_onAddClick"></app-add-button>

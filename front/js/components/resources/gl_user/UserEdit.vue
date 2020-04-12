@@ -1,5 +1,5 @@
 <template>
-  <div v-if="entity" class="container">
+  <div v-if="entity" class="container-fluid">
     <br />
     <button type="button" class="btn btn-link" @click="crud_navBack">
       <i class="fa fa-chevron-left"></i> Voltar

@@ -35,7 +35,7 @@ We are a small group, working as volunteers, coding to help it to work. If you w
 
 # Code organization and standardization
 We do not have any strong pattern organization at this moment. Basicaly we have the following rules:
-* **database table names** - Will be written on **singular** name, with the prefix of 
+* **database table names** - Will be written on **singular** name, with the prefix of two letters from module name.
 * **database relations** for the same module, **don't need** to have the preffix (eg. `gl_user.person_id` = **correct**, `gl_user.gl_person_id` = **wrong!**). Related fields from other modules **need** to have the full name (eg. `or_order.gl_user_id` = **correct**, `or_order.user_id` = **wrong!**).
 * **routes, controllers and model names** will follow the same preffix name criteria.
 * **front end** routes and filenames will use the same module rules.
@@ -48,6 +48,7 @@ We do not have any strong pattern organization at this moment. Basicaly we have 
 
 # Back end
 The backend organization runs a classic **Express** application. The main librarys that are the structure of the server are:
+* [Express](https://expressjs.com/) - Express http library.
 * [Sequelize](https://sequelize.org/) - The ORM library to work with the **database**.
 * [Sequelize CLI](https://github.com/sequelize/cli) - The **Sequelize** command line interface to manage `migrations` and others.
 * [express-validator](https://express-validator.github.io/) - Validation library for http `query`, `param` and `body` data.
@@ -57,7 +58,7 @@ The backend organization runs a classic **Express** application. The main librar
 
 ## Useful CLI commands
 * `npm start` - Runs the sever.
-* `npm server-watch` - Runs the server as `nodemon`, watching any file changes and restarting when needed.
+* `npm server-watch` - Runs the server as [nodemon](https://nodemon.io/), watching any file changes and restarting when needed.
 
 ## Folders organization
 The full back end are inside [server](server) folder, with the following organization inside:

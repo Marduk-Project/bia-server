@@ -50,6 +50,33 @@
             >
               <i class="fas fa-user"></i> Usuários
             </router-link>
+            <router-link
+              class="dropdown-item"
+              tag="a"
+              active-class="active"
+              :to="{ name: 'gl_country.index' }"
+              v-if="isUserStaff"
+            >
+              <i class="fas fa-globe"></i> Países
+            </router-link>
+            <router-link
+              class="dropdown-item"
+              tag="a"
+              active-class="active"
+              :to="{ name: 'gl_state.index' }"
+              v-if="isUserStaff"
+            >
+              <i class="fas fa-globe-americas"></i> Estados
+            </router-link>
+            <router-link
+              class="dropdown-item"
+              tag="a"
+              active-class="active"
+              :to="{ name: 'gl_city.index' }"
+              v-if="isUserStaff"
+            >
+              <i class="fas fa-city"></i> Cidades
+            </router-link>
           </div>
         </li>
       </ul>

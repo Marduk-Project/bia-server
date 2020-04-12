@@ -2,7 +2,14 @@ const { body, query, param } = require('express-validator/check');
 const validator = require('validator');
 const { Op } = require('sequelize');
 
-const { customFindByPkValidation, validationEndFunction, BadRequestError, ApiError, NotFoundError } = require('../../middlewares/error-mid');
+const {
+  customFindByPkValidation,
+  customFindByPkRelationValidation,
+  validationEndFunction,
+  BadRequestError,
+  ApiError,
+  NotFoundError
+} = require('../../middlewares/error-mid');
 const CtrModelModule = require('../../models/gl_user');
 const Model = CtrModelModule.model;
 const utils = require('../../helpers/utils');
@@ -262,7 +269,7 @@ exports.delete = async (req, res, next) => {
   try {
     const id = req.params.id;
     const entity = req.entity;
-    await entity.remove();
+    await entity.destroy();
     res.sendJsonOK({
       data: entity,
     });
