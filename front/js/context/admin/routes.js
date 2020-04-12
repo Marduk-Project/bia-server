@@ -7,6 +7,8 @@ import Footer from '../../components/common/Footer.vue';
 import GL_Profile from '../../components/resources/gl_user/Profile.vue';
 import GL_UserEdit from '../../components/resources/gl_user/UserEdit.vue';
 import GL_UserList from '../../components/resources/gl_user/UserList.vue';
+// PPE requests
+import OR_RequestList from '../../components/resources/or_request/RequestList.vue';
 // maintenance
 import Man_Container from '../../components/admin/maintenance/Container.vue';
 import Man_Menu from '../../components/admin/maintenance/Menu.vue';
@@ -21,6 +23,8 @@ export default [
   , { path: '/gl_user', components: { default: GL_UserList, header: Header, footer: Footer }, name: 'gl_user.index' }
   , { path: '/gl_user/:id/edit', components: { default: GL_UserEdit, header: Header, footer: Footer }, name: 'gl_user.edit' }
   , { path: '/gl_user/create', components: { default: GL_UserEdit, header: Header, footer: Footer }, name: 'gl_user.create' }
+  // PPE requests
+  , { path: '/or_request', components: {default: OR_RequestList, header: Header, footer: Footer}, name: 'or_request.index'}
   // maintenance
   , {
     path: '/maintenance', components: { default: Man_Container, header: Header, footer: Footer },
