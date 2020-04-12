@@ -1,5 +1,5 @@
 <template>
-  <div v-if="entity">
+  <div v-if="entity" class="container-fluid">
     <br />
     <button type="button" class="btn btn-link" @click="crud_navBack">
       <i class="fa fa-chevron-left"></i> Voltar
@@ -16,6 +16,7 @@
         <i class="fa fa-user"></i> Contatos &amp; Usuários
       </router-link>
       <br />
+      <br />
     </div>
     <form action @submit.prevent novalidate>
       <div class="form-row">
@@ -24,22 +25,29 @@
           <app-person-type-select v-model="entity.legalType"></app-person-type-select>
         </div>
         <div class="form-group col-xl-6">
-          <label>CPF/CNPJ/Outro</label>
+          <label>{{ legalIdentifierTypeDesc }}</label>
           <input
             name="legalIdentifierCode"
             class="form-control"
             type="text"
             v-model="entity.legalIdentifierCode"
-            placeholder="ex. 123456789"
-            v-validate="entity.legalType == 1 ? 'cpf|required' : (entity.legalType == 2 ? 'cnpj|required' : '')"
+            :placeholder="entity.legalType == 1 ? 'ex. 123456789' : (entity.legalType == 2 ? 'ex. 12345678901234' : '(opcional)')"
+            v-validate="legalIdentifierValidateRule"
             :class="{ 'is-invalid':errors.has('legalIdentifierCode') }"
           />
+          <small>
+            Digite apenas os números se for
+            <strong>CPF</strong> ou
+            <strong>CNPJ</strong>.
+            <strong>Pessoa Física</strong> é necessário um CPF válido. Se for uma
+            <strong>Pessoa Jurídica</strong>, é necessário um CNPJ. Caso contrário você pode registrar um identificador livre.
+          </small>
           <div
             class="invalid-feedback"
-          >Campo obrigatório. {{ entity.legalType == 1 || entity.legalType == 2 ? 'Digite um CPF ou CNPJ válido.' : '' }}</div>
+          >Campo obrigatório. Digite um {{ legalIdentifierTypeDesc }} válido.</div>
         </div>
         <div class="form-group col-xl-6">
-          <label>{{ entity.legalType == 1 ? 'Nome completo' : 'Razão social' }}</label>
+          <label>{{ entity.legalType == 2 ? 'Razão social' : 'Nome completo' }}</label>
           <input
             class="form-control"
             name="name"
@@ -52,17 +60,14 @@
           <div class="invalid-feedback">Campo obrigatório.</div>
         </div>
         <div class="form-group col-xl-6">
-          <label>{{ entity.tipo_pessoa == 1 ? 'Apelido' : 'Nome fantasia' }}</label>
+          <label>{{ entity.legalType == 1 ? 'Apelido' : 'Nome fantasia' }}</label>
           <input
             class="form-control"
             name="shortname"
             type="text"
             v-model="entity.shortname"
             placeholder="ex. Fulano"
-            v-validate="'required'"
-            :class="{ 'is-invalid':errors.has('shortname') }"
           />
-          <div class="invalid-feedback">Campo obrigatório.</div>
         </div>
         <div class="form-group col-xl-4">
           <label>Telefone fixo</label>
@@ -112,7 +117,7 @@
               type="text"
               v-mask="['#####-###']"
               v-model="entity.addressZipcode"
-              placeholder="ex. 93500-320"
+              placeholder="ex. 90000-300"
               @blur="onGetZipcodeBlur"
             />
             <div class="input-group-append">
@@ -129,7 +134,7 @@
             class="form-control"
             type="text"
             v-model="entity.address"
-            placeholder="ex. Rua Mostardeiros"
+            placeholder="ex. Rua dos amigos"
           />
         </div>
         <div class="form-group col-xl-3">
@@ -162,49 +167,38 @@
         </div>
         <div class="form-group col-xl-3">
           <label>Cidade</label>
-          <app-cidade-select v-model="entity.cidade"></app-cidade-select>
+          <app-city-select v-model="entity.city"></app-city-select>
+          <small class="text-danger" v-if="!entity.city">Campo obrigatório.</small>
         </div>
         <div class="form-group col-xl-3">
           <label>Data nascimento</label>
-          <input
+          <app-input-date
             class="form-control"
             type="date"
-            v-model="entity.data_nascimento"
+            v-model="entity.birthdate"
             placeholder="data"
           />
         </div>
+        <div class="form-group col-12">
+          <label>Observações</label>
+          <textarea rows="4" v-model="entity.obs" class="form-control"></textarea>
+        </div>
       </div>
-      <br />
-      <h4>Informações tributárias</h4>
       <br />
       <br />
       <h4>Regras</h4>
       <div class="form-row">
         <div class="form-group col-12">
           <div class="form-check">
-            <label class="form-check-label">
+            <label class="form-check-label" :class="{ 'text-success': entity.trusted }">
               <input
                 class="form-check-input"
                 type="checkbox"
                 value="1"
-                v-model="entity.cadastro_completo"
+                disabled
+                v-model="entity.trusted"
               />
-              Cadastro completo
-              <small
-                class="text-muted"
-              >(o cadastro foi concluído pelo cliente).</small>
-            </label>
-          </div>
-          <div class="form-check">
-            <label class="form-check-label">
-              <input
-                class="form-check-input"
-                type="checkbox"
-                value="1"
-                v-model="entity.prestador_servico"
-              />
-              Prestador de serviços
-              <small class="text-muted">(filtros para o sistema).</small>
+              Possui identidade confirmada.
             </label>
           </div>
         </div>
@@ -226,11 +220,13 @@
 import { crudMixin } from "../../../libs/mixins/crud-mixin";
 import axios from "../../../libs/mixins/axios-auth";
 import PersonTypeSelect from "./PersonTypeSelect.vue";
+import CitySelect from "../gl_city/CitySelect.vue";
 
 export default {
   mixins: [crudMixin],
   components: {
-    "app-person-type-select": PersonTypeSelect
+    "app-person-type-select": PersonTypeSelect,
+    "app-city-select": CitySelect
   },
   data() {
     return {
@@ -239,7 +235,8 @@ export default {
         name: null,
         shortname: null,
         legalType: 2,
-        legalIdentifierCode: "",
+        legalIdentifierType: null,
+        legalIdentifierCode: null,
         address: null,
         addressZipcode: null,
         addressNumber: null,
@@ -247,12 +244,17 @@ export default {
         addressNeighborhood: null,
         addressCity: null,
         addressState: null,
+        cityId: null,
         email: null,
         cellphone: null,
         phone: null,
+        birthdate: null,
         trusted: false,
-        latitude: null,
-        longitude: null
+        latitude: 0,
+        longitude: 0,
+        obs: null,
+        // obs
+        city: null
       }
     };
   },
@@ -263,6 +265,7 @@ export default {
         name: this.entity.name,
         shortname: this.entity.shortname,
         legalType: this.entity.legalType,
+        legalIdentifierType: this.legalIdentifierType, // computed
         legalIdentifierCode: this.entity.legalIdentifierCode,
         address: this.entity.address,
         addressZipcode: this.entity.addressZipcode,
@@ -271,13 +274,26 @@ export default {
         addressNeighborhood: this.entity.addressNeighborhood,
         addressCity: this.entity.addressCity,
         addressState: this.entity.addressState,
+        cityId: this.entity.city ? this.entity.city.id : null,
         email: this.entity.email,
         cellphone: this.entity.cellphone,
         phone: this.entity.phone,
+        birthdate: this.entity.birthdate,
         trusted: this.entity.trusted ? true : false,
         latitude: this.entity.latitude,
-        longitude: this.entity.longitude
+        longitude: this.entity.longitude,
+        obs: this.entity.obs
       };
+    },
+    crud_validate() {
+      if (!this.entity.city) {
+        this.notify_warning("Selecione uma cidade");
+        return false;
+      }
+      return true;
+    },
+    crud_shouldNavBackAfterSave() {
+      return false;
     },
     onGetZipcodeBlur() {
       if (!this.entity.addressZipcode) {
@@ -292,7 +308,7 @@ export default {
       if (this.entity.address) {
         return;
       }
-      this.onGetZipcodeClick();
+      // this.onGetZipcodeClick(); // TODO descomentar quando implementar busca de cep
     },
     onGetZipcodeClick() {
       if (!this.entity.addressZipcode) {
@@ -306,6 +322,7 @@ export default {
         this.notify_warning("Preencha um CEP válido.");
         return;
       }
+      this.notify_warning("Busca de CEP ainda não implementada");
       return;
       // TODO zipcode
       /*
@@ -324,6 +341,56 @@ export default {
     }
   },
   computed: {
+    legalIdentifierType() {
+      switch (parseInt(this.entity.legalType)) {
+        case 1:
+          return "CPF";
+
+        case 2:
+          return "CNPJ";
+
+        case 3:
+          return "OTHER";
+      }
+      return "Desconhecido";
+    },
+    legalIdentifierTypeDesc() {
+      switch (parseInt(this.entity.legalType)) {
+        case 1:
+          return "CPF";
+
+        case 2:
+          return "CNPJ";
+
+        case 3:
+          return "Outro identificador";
+      }
+      return "Desconhecido";
+    },
+    legalIdentifierValidateRule() {
+      switch (parseInt(this.entity.legalType)) {
+        case 1:
+          return "cpf-num|required";
+
+        case 2:
+          return "cnpj-num|required";
+
+        case 3:
+          return "";
+      }
+      return "";
+    },
+    legalIdentifierIsRequired() {
+      switch (parseInt(this.entity.legalType)) {
+        case 1:
+        case 2:
+          return true;
+
+        case 3:
+          return false;
+      }
+      return false;
+    },
     crud_title() {
       var ok = this.entity != null;
       if (ok) {

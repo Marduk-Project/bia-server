@@ -7,8 +7,8 @@
     <br />
     <div class="form-row">
       <div class="form-group col-12">
-        <label>Estado</label>
-        <app-state-select v-model="filters.state"></app-state-select>
+        <label>Cidade</label>
+        <app-city-select v-model="filters.city"></app-city-select>
       </div>
       <div class="form-group col-12">
         <div class="input-group mb-3">
@@ -33,12 +33,11 @@
         <tr class>
           <th>#</th>
           <th>Nome</th>
-          <th>
-            IBGE
-            <i class="fa fa-question-circle" v-b-tooltip.hover title="Código no IBGE"></i>
+          <th>Cidade</th>
+          <th class="text-right">
+            S.
+            <app-info title="Situação"></app-info>
           </th>
-          <th>Estado</th>
-          <th class="text-right">Prioridade</th>
         </tr>
       </thead>
       <tbody>
@@ -50,9 +49,18 @@
         >
           <td>{{ entity.id }}</td>
           <td>{{ entity.name }}</td>
-          <td>{{ entity.ibgeCode }}</td>
-          <td>{{ entity.state ? entity.state.code : null }}</td>
-          <td class="text-right">{{ entity.priority }}</td>
+          <td>{{ entity.city ? entity.city.name : null }}</td>
+          <td class="app-table-actions">
+            <i
+              v-b-tooltip.hover
+              title="Verificado"
+              class="fas fa-check-circle"
+              :class="{
+              'app-table-action-disabled': !entity.trusted,
+              'text-success': entity.trusted,
+            }"
+            ></i>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -62,29 +70,29 @@
 
 <script>
 import { listMixin } from "../../../libs/mixins/list-mixin";
-import StateSelect from "../gl_state/StateSelect.vue";
+import CitySelect from "../gl_city/CitySelect.vue";
 
 export default {
   mixins: [listMixin],
   components: {
-    "app-state-select": StateSelect
+    "app-city-select": CitySelect
   },
   data() {
     return {
       filters: {
-        state: null
+        city: null
       }
     };
   },
   computed: {
     list_title() {
-      return "Cidades";
+      return "Pessoas físicas e jurídicas";
     },
     list_url_base() {
-      return "/api/admin/gl_city";
+      return "/api/admin/gl_person";
     },
     list_route_base() {
-      return "gl_city";
+      return "gl_person";
     }
   },
   methods: {
@@ -95,8 +103,8 @@ export default {
         page +
         "&q=" +
         encodeURIComponent(this.searchText ? this.searchText : "");
-      if (this.filters.state) {
-        url += `&stateId=${this.filters.state.id}`;
+      if (this.filters.city) {
+        url += `&cityId=${this.filters.city.id}`;
       }
       return url;
     }

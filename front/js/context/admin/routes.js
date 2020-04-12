@@ -16,6 +16,9 @@ import GL_StateList from '../../components/resources/gl_state/StateList.vue';
 // gl_city
 import GL_CityEdit from '../../components/resources/gl_city/CityEdit.vue';
 import GL_CityList from '../../components/resources/gl_city/CityList.vue';
+// gl_person
+import GL_PersonEdit from '../../components/resources/gl_person/PersonEdit.vue';
+import GL_PersonList from '../../components/resources/gl_person/PersonList.vue';
 // maintenance
 import Man_Container from '../../components/admin/maintenance/Container.vue';
 import Man_Menu from '../../components/admin/maintenance/Menu.vue';
@@ -42,6 +45,10 @@ export default [
   , { path: '/gl_city', components: { default: GL_CityList, header: Header, footer: Footer }, name: 'gl_city.index' }
   , { path: '/gl_city/:id/edit', components: { default: GL_CityEdit, header: Header, footer: Footer }, name: 'gl_city.edit' }
   , { path: '/gl_city/create', components: { default: GL_CityEdit, header: Header, footer: Footer }, name: 'gl_city.create' }
+  // gl_person
+  , { path: '/gl_person', components: { default: GL_PersonList, header: Header, footer: Footer }, name: 'gl_person.index' }
+  , { path: '/gl_person/:id/edit', components: { default: GL_PersonEdit, header: Header, footer: Footer }, name: 'gl_person.edit' }
+  , { path: '/gl_person/create', components: { default: GL_PersonEdit, header: Header, footer: Footer }, name: 'gl_person.create' }
   // maintenance
   , {
     path: '/maintenance', components: { default: Man_Container, header: Header, footer: Footer },
