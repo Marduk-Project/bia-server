@@ -7,9 +7,9 @@ const { Sequelize, DataTypes, Model } = require('sequelize');
 
 
 const modelName = 'sy_session';
-class Session extends Model { }
+class MyModel extends Model { }
 
-Session.init({
+MyModel.init({
   sid: {
     type: Sequelize.STRING,
     primaryKey: true
@@ -25,5 +25,5 @@ Session.init({
   timestamps: false,
 });
 
-exports.model = Session;
+exports.model = MyModel;
 exports.modelName = modelName;

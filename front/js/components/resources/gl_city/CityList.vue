@@ -6,18 +6,18 @@
     <br />
     <br />
     <div class="form-row">
-      <div class="form-group col-lg-4">
-        <label>Nível</label>
-        <app-user-level-select v-model="filters.level" :show-all="true"></app-user-level-select>
+      <div class="form-group col-12">
+        <label>Estado</label>
+        <app-state-select v-model="filters.state"></app-state-select>
       </div>
-      <div class="form-group col-lg-8">
-        <label>Pesquisar</label>
+      <div class="form-group col-12">
         <div class="input-group mb-3">
           <input
             type="text"
             v-model="searchText"
             class="form-control"
-            aria-label
+            placeholder="pesquisar"
+            aria-label="pesquisar"
             @keyup.enter="list_refreshCurrentPage"
           />
           <div class="input-group-append">
@@ -31,17 +31,14 @@
     <table class="table table-hover table-striped">
       <thead>
         <tr class>
-          <th class="app-table-id">
-            <app-info title="ID"></app-info>
-          </th>
-          <th>Apelido</th>
+          <th>#</th>
           <th>Nome</th>
-          <th>E-mail</th>
-          <th>Nível</th>
-          <th class="text-right">
-            S.
-            <app-info title="Situação"></app-info>
+          <th>
+            IBGE
+            <i class="fa fa-question-circle" v-b-tooltip.hover title="Código no IBGE"></i>
           </th>
+          <th>Estado</th>
+          <th class="text-right">Prioridade</th>
         </tr>
       </thead>
       <tbody>
@@ -52,19 +49,10 @@
           @click="list_onItemClick(entity)"
         >
           <td>{{ entity.id }}</td>
-          <td>{{ entity.nickname }}</td>
           <td>{{ entity.name }}</td>
-          <td>{{ entity.email }}</td>
-          <td>{{ entity.levelDesc }}</td>
-          <td class="text-right">
-            <i
-              class="fa fa-ban text-danger"
-              v-if="entity.blocked"
-              v-b-tooltip.hover
-              title="Bloqueado"
-            ></i>
-            <i class="fa fa-check text-success" v-else v-b-tooltip.hover title="Ativo"></i>
-          </td>
+          <td>{{ entity.ibgeCode }}</td>
+          <td>{{ entity.state ? entity.state.code : null }}</td>
+          <td class="text-right">{{ entity.priority }}</td>
         </tr>
       </tbody>
     </table>
@@ -74,29 +62,29 @@
 
 <script>
 import { listMixin } from "../../../libs/mixins/list-mixin";
-import UserLevelSelect from "./UserLevelSelect.vue";
+import StateSelect from "../gl_state/StateSelect.vue";
 
 export default {
   mixins: [listMixin],
   components: {
-    "app-user-level-select": UserLevelSelect
+    "app-state-select": StateSelect
   },
   data() {
     return {
       filters: {
-        level: 0
+        state: null
       }
     };
   },
   computed: {
     list_title() {
-      return "Usuários";
+      return "Cidades";
     },
     list_url_base() {
-      return "/api/admin/gl_user";
+      return "/api/admin/gl_city";
     },
     list_route_base() {
-      return "gl_user";
+      return "gl_city";
     }
   },
   methods: {
@@ -107,8 +95,8 @@ export default {
         page +
         "&q=" +
         encodeURIComponent(this.searchText ? this.searchText : "");
-      if (this.filters.level > 0) {
-        url += `&level=${this.filters.level}`;
+      if (this.filters.state) {
+        url += `&stateId=${this.filters.state.id}`;
       }
       return url;
     }

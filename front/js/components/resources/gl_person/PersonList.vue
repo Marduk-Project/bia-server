@@ -6,18 +6,18 @@
     <br />
     <br />
     <div class="form-row">
-      <div class="form-group col-lg-4">
-        <label>Nível</label>
-        <app-user-level-select v-model="filters.level" :show-all="true"></app-user-level-select>
+      <div class="form-group col-12">
+        <label>Cidade</label>
+        <app-city-select v-model="filters.city"></app-city-select>
       </div>
-      <div class="form-group col-lg-8">
-        <label>Pesquisar</label>
+      <div class="form-group col-12">
         <div class="input-group mb-3">
           <input
             type="text"
             v-model="searchText"
             class="form-control"
-            aria-label
+            placeholder="pesquisar"
+            aria-label="pesquisar"
             @keyup.enter="list_refreshCurrentPage"
           />
           <div class="input-group-append">
@@ -31,13 +31,9 @@
     <table class="table table-hover table-striped">
       <thead>
         <tr class>
-          <th class="app-table-id">
-            <app-info title="ID"></app-info>
-          </th>
-          <th>Apelido</th>
+          <th>#</th>
           <th>Nome</th>
-          <th>E-mail</th>
-          <th>Nível</th>
+          <th>Cidade</th>
           <th class="text-right">
             S.
             <app-info title="Situação"></app-info>
@@ -52,18 +48,18 @@
           @click="list_onItemClick(entity)"
         >
           <td>{{ entity.id }}</td>
-          <td>{{ entity.nickname }}</td>
           <td>{{ entity.name }}</td>
-          <td>{{ entity.email }}</td>
-          <td>{{ entity.levelDesc }}</td>
-          <td class="text-right">
+          <td>{{ entity.city ? entity.city.name : null }}</td>
+          <td class="app-table-actions">
             <i
-              class="fa fa-ban text-danger"
-              v-if="entity.blocked"
               v-b-tooltip.hover
-              title="Bloqueado"
+              title="Verificado"
+              class="fas fa-check-circle"
+              :class="{
+              'app-table-action-disabled': !entity.trusted,
+              'text-success': entity.trusted,
+            }"
             ></i>
-            <i class="fa fa-check text-success" v-else v-b-tooltip.hover title="Ativo"></i>
           </td>
         </tr>
       </tbody>
@@ -74,29 +70,29 @@
 
 <script>
 import { listMixin } from "../../../libs/mixins/list-mixin";
-import UserLevelSelect from "./UserLevelSelect.vue";
+import CitySelect from "../gl_city/CitySelect.vue";
 
 export default {
   mixins: [listMixin],
   components: {
-    "app-user-level-select": UserLevelSelect
+    "app-city-select": CitySelect
   },
   data() {
     return {
       filters: {
-        level: 0
+        city: null
       }
     };
   },
   computed: {
     list_title() {
-      return "Usuários";
+      return "Pessoas físicas e jurídicas";
     },
     list_url_base() {
-      return "/api/admin/gl_user";
+      return "/api/admin/gl_person";
     },
     list_route_base() {
-      return "gl_user";
+      return "gl_person";
     }
   },
   methods: {
@@ -107,8 +103,8 @@ export default {
         page +
         "&q=" +
         encodeURIComponent(this.searchText ? this.searchText : "");
-      if (this.filters.level > 0) {
-        url += `&level=${this.filters.level}`;
+      if (this.filters.city) {
+        url += `&cityId=${this.filters.city.id}`;
       }
       return url;
     }

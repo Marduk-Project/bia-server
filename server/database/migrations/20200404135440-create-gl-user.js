@@ -22,17 +22,17 @@ module.exports = {
           type: Sequelize.DATE,
         },
         name: {
-          type: Sequelize.STRING,
+          type: Sequelize.STRING(60),
         },
         nickname: {
-          type: Sequelize.STRING,
+          type: Sequelize.STRING.STRING(60),
         },
         email: {
-          type: Sequelize.STRING,
+          type: Sequelize.STRING.STRING(80),
           allowNull: false,
         },
         password: {
-          type: Sequelize.STRING,
+          type: Sequelize.STRING.STRING(60),
         },
         blocked: {
           type: Sequelize.BOOLEAN,
