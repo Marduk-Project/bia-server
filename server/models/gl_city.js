@@ -1,9 +1,9 @@
 const nconf = require('nconf');
-const { mainDb } = require('../database/main_connection');
-const { BaseModel } = require('./base_model');
 const { Sequelize, DataTypes } = require('sequelize');
 
-const { model: StateModel } = require('./gl_state');
+const { mainDb } = require('../database/main_connection');
+const { BaseModel, jsonSerializer } = require('./base_model');
+const { model: StateModel, jsonSerializer: stateJsonSerializer } = require('./gl_state');
 
 // model
 const modelName = 'gl_city';
@@ -54,5 +54,27 @@ MyModel.belongsTo(StateModel, {
   as: 'state',
 });
 
+
+const scopes = {
+  def: {
+    include: ['id', 'name', 'code', 'ibgeCode'],
+  },
+  admin: {
+    maps: {
+      state: async (value, scopeName) => await stateJsonSerializer(value, scopeName),
+    }
+  }
+}
+
+
 exports.model = MyModel;
 exports.modelName = modelName;
+exports.jsonSerializer = async (value, scopeName) => {
+  if (!scopeName) {
+    scopeName = 'def';
+  }
+  if (!scopes[scopeName]) {
+    scopeName = 'def';
+  }
+  return await jsonSerializer(value, scopes[scopeName], scopeName);
+}

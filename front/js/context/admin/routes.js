@@ -19,6 +19,9 @@ import GL_CityList from '../../components/resources/gl_city/CityList.vue';
 // gl_person
 import GL_PersonEdit from '../../components/resources/gl_person/PersonEdit.vue';
 import GL_PersonList from '../../components/resources/gl_person/PersonList.vue';
+// gl_person_contact
+import GL_PersonContactList from '../../components/resources/gl_person_contact/PersonContactList.vue';
+import GL_PersonContactEdit from '../../components/resources/gl_person_contact/PersonContactEdit.vue';
 // maintenance
 import Man_Container from '../../components/admin/maintenance/Container.vue';
 import Man_Menu from '../../components/admin/maintenance/Menu.vue';
@@ -49,6 +52,10 @@ export default [
   , { path: '/gl_person', components: { default: GL_PersonList, header: Header, footer: Footer }, name: 'gl_person.index' }
   , { path: '/gl_person/:id/edit', components: { default: GL_PersonEdit, header: Header, footer: Footer }, name: 'gl_person.edit' }
   , { path: '/gl_person/create', components: { default: GL_PersonEdit, header: Header, footer: Footer }, name: 'gl_person.create' }
+  // gl_person_contact
+  , { path: '/gl_person_contact/:origin/:parentEntityId', components: { default: GL_PersonContactList, header: Header, footer: Footer }, name: 'gl_person_contact.index' }
+  , { path: '/gl_person_contact/:origin/:parentEntityId/:id/edit', components: { default: GL_PersonContactEdit, header: Header, footer: Footer }, name: 'gl_person_contact.edit' }
+  , { path: '/gl_person_contact/:origin/:parentEntityId/create', components: { default: GL_PersonContactEdit, header: Header, footer: Footer }, name: 'gl_person_contact.create' }
   // maintenance
   , {
     path: '/maintenance', components: { default: Man_Container, header: Header, footer: Footer },

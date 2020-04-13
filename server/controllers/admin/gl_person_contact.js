@@ -10,13 +10,20 @@ const {
   ApiError,
   NotFoundError
 } = require('../../middlewares/error-mid');
-const CtrModelModule = require('../../models/gl_city');
+const CtrModelModule = require('../../models/gl_person_contact');
 const Model = CtrModelModule.model;
-const ParentModelModule = require('../../models/gl_state');
-const ParentModel = ParentModelModule.model;
-const utils = require('../../helpers/utils');
+const PersonModelModule = require('../../models/gl_person');
+const PersonModel = PersonModelModule.model;
+const UserModelModule = require('../../models/gl_user');
+const UserModel = UserModelModule.model;
 
 const controllerDefaultQueryScope = 'admin';
+
+const includeDefaultOption = [
+  'person',
+  'personReference',
+  'user',
+];
 
 /**
  * List Validation
@@ -24,7 +31,8 @@ const controllerDefaultQueryScope = 'admin';
 exports.getIndexValidate = [
   query('page').optional().isInt(),
   query('q').optional().isString(),
-  query('stateId').optional().isInt(),
+  query('personId').optional().isInt(),
+  query('userId').optional().isInt(),
   validationEndFunction,
 ];
 
@@ -43,27 +51,27 @@ exports.getIndex = async (req, res, next) => {
         name: {
           [Op.iLike]: `%${q}%`,
         },
-        ibgeCode: {
-          [Op.iLike]: `%${q}%`,
-        },
       };
       if (validator.isNumeric(q, { no_symbols: true })) {
         options.where[Op.or].id = q;
       }
     }
-    // stateId
-    if (req.query.stateId) {
-      options.where.stateId = req.query.stateId;
+    // personId
+    if (req.query.personId) {
+      options.where.personId = req.query.personId;
+    }
+    // userId
+    if (req.query.userId) {
+      options.where.userId = req.query.userId;
     }
     // query options
     const page = req.query.page || 1;
     Model.setLimitOffsetForPage(page, options);
     options.order - [
-      ['priority', 'desc'],
       ['name', 'asc'],
       ['id', 'asc'],
     ];
-    options.include = ['state'];
+    options.include = includeDefaultOption;
     // exec
     const queryResult = await Model.findAndCountAll(options);
     const meta = Model.paginateMeta(queryResult, page);
@@ -84,7 +92,7 @@ exports.getEditValidate = [
   param('id')
     .isInt()
     .not().isEmpty()
-    .custom(customFindByPkValidation(Model, null, { include: ['state'] })),
+    .custom(customFindByPkValidation(Model, null, { include: includeDefaultOption })),
   validationEndFunction,
 ];
 
@@ -108,7 +116,9 @@ exports.getEdit = async (req, res, next) => {
  * Save validation
  */
 const saveValidate = [
-  param('id').optional().isInt(),
+  param('id')
+    .optional()
+    .isInt(),
   body('name')
     .isString()
     .trim()
@@ -117,16 +127,113 @@ const saveValidate = [
       min: 1,
       max: 60,
     }),
-  body('ibgeCode')
-    .isString()
+  body('phone')
+    .optional()
+    .isLength({
+      max: 60,
+    })
+    .custom(value => {
+      // TODO phone validator
+      return true;
+    }),
+  body('cellphone')
+    .optional()
     .trim()
     .isLength({
-      min: 1,
       max: 60,
+    })
+    .custom(value => {
+      // TODO phone validator
+      return true;
     }),
-  body('stateId')
+  body('email')
+    .optional({ checkFalsy: true })
+    .isEmail(),
+  body('personId')
     .isInt()
-    .custom(customFindByPkRelationValidation(ParentModel, null)),
+    .custom(customFindByPkRelationValidation(PersonModel)),
+  body('personReferenceId')
+    .optional({ checkFalsy: true })
+    .isInt()
+    .custom(customFindByPkRelationValidation(PersonModel))
+    .custom(async (value, { req }) => {
+      if (value) {
+        if (value == req.body.personId) {
+          throw new ApiError('Não pode vincular-se ao próprio registro pai.');
+        }
+        let count = 0;
+        if (req.params.id) {
+          count = await Model
+            .count({
+              where: {
+                personReferenceId: value,
+                personId: req.body.personId,
+                id: {
+                  [Op.ne]: req.params.id,
+                }
+              }
+            });
+        } else {
+          count = await Model
+            .count({
+              where: {
+                personReferenceId: value,
+                personId: req.body.personId,
+              }
+            });
+        }
+        if (count > 0) {
+          throw new ApiError('Pessoa referência já vinculada em outro cadastro.');
+        }
+      }
+      return true;
+    }),
+  body('userId')
+    .optional({ checkFalsy: true })
+    .isInt()
+    .custom(customFindByPkRelationValidation(UserModel))
+    .custom(async (value, { req }) => {
+      if (value) {
+        let count = 0;
+        if (req.params.id) {
+          count = await Model
+            .count({
+              where: {
+                userId: value,
+                personId: req.body.personId,
+                id: {
+                  [Op.ne]: req.params.id,
+                }
+              }
+            });
+        } else {
+          count = await Model
+            .count({
+              where: {
+                userId: value,
+                personId: req.body.personId,
+                id: {
+                  [Op.ne]: req.params.id,
+                }
+              }
+            });
+        }
+        if (count > 0) {
+          throw new ApiError('Usuário já vinculado à esta pessoa.');
+        }
+      }
+      return true;
+    }),
+  body('level')
+    .isIn(CtrModelModule.LEVEL_ALL),
+  body('obs')
+    .optional()
+    .trim()
+    .isLength({
+      max: 5000,
+    }),
+  body('canRegisterPPERequest')
+    .isBoolean(),
   // validationEndFunction, // aqui nao tem validate
 ];
 
@@ -139,10 +246,17 @@ const saveEntityFunc = async (req, res, next, id) => {
     } else {
       entity = Model.build({});
     }
+    entity.personId = body.personId;
+    entity.personReferenceId = body.personReferenceId;
+    entity.userId = body.userId;
     entity.name = body.name;
-    entity.ibgeCode = body.ibgeCode;
-    entity.priority = body.priority;
-    entity.stateId = body.stateId;
+    entity.shortname = body.shortname;
+    entity.phone = body.phone;
+    entity.cellphone = body.cellphone;
+    entity.email = body.email;
+    entity.obs = body.obs;
+    entity.level = body.level;
+    entity.canRegisterPPERequest = body.canRegisterPPERequest;
     await entity.save();
     // send result
     const result = {

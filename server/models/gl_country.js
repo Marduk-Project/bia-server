@@ -1,7 +1,8 @@
 const nconf = require('nconf');
-const { mainDb } = require('../database/main_connection');
-const { BaseModel } = require('./base_model');
 const { Sequelize, DataTypes } = require('sequelize');
+
+const { mainDb } = require('../database/main_connection');
+const { BaseModel, jsonSerializer } = require('./base_model');
 
 // model
 const modelName = 'gl_country';
@@ -43,5 +44,23 @@ MyModel.init({
   tableName: modelName,
 });
 
+
+const scopes = {
+  def: {
+    include: ['id', 'name', 'code'],
+  },
+  admin: {} // all
+}
+
+
 exports.model = MyModel;
 exports.modelName = modelName;
+exports.jsonSerializer = async (value, scopeName) => {
+  if (!scopeName) {
+    scopeName = 'def';
+  }
+  if (!scopes[scopeName]) {
+    scopeName = 'def';
+  }
+  return await jsonSerializer(value, scopes[scopeName], scopeName);
+}

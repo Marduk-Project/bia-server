@@ -5,6 +5,7 @@ router.use('/maintenance', require('./maintenance'));
 
 router.use('/gl_user', require('./gl_user'));
 router.use('/gl_person', require('./gl_person'));
+router.use('/gl_person_contact', require('./gl_person_contact'));
 
 router.use('/gl_country', require('./gl_country'));
 router.use('/gl_state', require('./gl_state'));

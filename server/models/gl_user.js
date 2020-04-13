@@ -6,7 +6,7 @@ const { Sequelize, DataTypes } = require('sequelize');
 
 const { randomString } = require('../helpers/utils');
 const { mainDb } = require('../database/main_connection');
-const { BaseModel } = require('./base_model');
+const { BaseModel, jsonSerializer } = require('./base_model');
 const { RecoverPasswordMail } = require('../mails/auth-mail');
 
 // level
@@ -160,19 +160,25 @@ MyModel.init({
   sequelize: mainDb,
   modelName: modelName,
   tableName: modelName,
-  defaultScope: {
-    attributes: {
-      include: ['id', 'name', 'nickname', 'email'],
-    },
-  },
-  scopes: {
-    admin: {
-      attributes: {
-        exclude: ['password'],
-      }
-    }
-  }
 });
+
+const scopes = {
+  def: {
+    include: ['id', 'name', 'nickname', 'email', 'level', 'levelDesc'],
+  },
+  admin: {
+    exclude: ['password'],
+  }
+}
 
 exports.model = MyModel;
 exports.modelName = modelName;
+exports.jsonSerializer = async (value, scopeName) => {
+  if (!scopeName) {
+    scopeName = 'def';
+  }
+  if (!scopes[scopeName]) {
+    scopeName = 'def';
+  }
+  return await jsonSerializer(value, scopes[scopeName], scopeName);
+}

@@ -288,7 +288,6 @@ const saveEntityFunc = async (req, res, next, id) => {
     entity.addressExtra = body.addressExtra;
     entity.addressNeighborhood = body.addressNeighborhood;
     entity.cityId = body.cityId;
-    console.log(body.birthdate);
     entity.birthdate = body.birthdate;
     entity.latitude = body.latitude;
     entity.longitude = body.longitude; // TODO implement

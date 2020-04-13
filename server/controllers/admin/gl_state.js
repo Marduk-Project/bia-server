@@ -16,7 +16,7 @@ const ParentModelModule = require('../../models/gl_country');
 const ParentModel = ParentModelModule.model;
 const utils = require('../../helpers/utils');
 
-const controllerDefaultQueryScope = null;
+const controllerDefaultQueryScope = 'admin';
 
 /**
  * List Validation
@@ -65,15 +65,10 @@ exports.getIndex = async (req, res, next) => {
     ];
     options.include = ['country'];
     // exec
-    const queryResult = controllerDefaultQueryScope ?
-      await Model
-        .scope(controllerDefaultQueryScope)
-        .findAndCountAll(options) :
-      await Model
-        .findAndCountAll(options)
+    const queryResult = await Model.findAndCountAll(options);
     const meta = Model.paginateMeta(queryResult, page);
     res.sendJsonOK({
-      data: queryResult.rows,
+      data: await CtrModelModule.jsonSerializer(queryResult.rows, controllerDefaultQueryScope),
       meta: meta,
     });
   } catch (err) {
@@ -89,7 +84,7 @@ exports.getEditValidate = [
   param('id')
     .isInt()
     .not().isEmpty()
-    .custom(customFindByPkValidation(Model, controllerDefaultQueryScope, { include: ['country'] })),
+    .custom(customFindByPkValidation(Model, null, { include: ['country'] })),
   validationEndFunction,
 ];
 
@@ -100,7 +95,7 @@ exports.getEdit = async (req, res, next) => {
   try {
     const entity = req.entity;
     res.sendJsonOK({
-      data: entity
+      data: await CtrModelModule.jsonSerializer(entity, controllerDefaultQueryScope),
     });
   } catch (err) {
     next(err);
@@ -233,7 +228,7 @@ exports.delete = async (req, res, next) => {
     const entity = req.entity;
     await entity.destroy();
     res.sendJsonOK({
-      data: entity,
+      data: await CtrModelModule.jsonSerializer(entity, controllerDefaultQueryScope),
     });
   } catch (err) {
     next(err);

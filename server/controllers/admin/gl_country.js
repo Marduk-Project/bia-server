@@ -14,7 +14,7 @@ const CtrModelModule = require('../../models/gl_country');
 const Model = CtrModelModule.model;
 const utils = require('../../helpers/utils');
 
-const controllerDefaultQueryScope = null;
+const controllerDefaultQueryScope = 'admin';
 
 /**
  * List Validation
@@ -57,15 +57,10 @@ exports.getIndex = async (req, res, next) => {
       ['id', 'asc'],
     ];
     // exec
-    const queryResult = controllerDefaultQueryScope ?
-      await Model
-        .scope(controllerDefaultQueryScope)
-        .findAndCountAll(options) :
-      await Model
-        .findAndCountAll(options)
+    const queryResult = await Model.findAndCountAll(options);
     const meta = Model.paginateMeta(queryResult, page);
     res.sendJsonOK({
-      data: queryResult.rows,
+      data: await CtrModelModule.jsonSerializer(queryResult.rows, controllerDefaultQueryScope),
       meta: meta,
     });
   } catch (err) {
@@ -81,7 +76,7 @@ exports.getEditValidate = [
   param('id')
     .isInt()
     .not().isEmpty()
-    .custom(customFindByPkValidation(Model, controllerDefaultQueryScope)),
+    .custom(customFindByPkValidation(Model)),
   validationEndFunction,
 ];
 
@@ -92,7 +87,7 @@ exports.getEdit = async (req, res, next) => {
   try {
     const entity = req.entity;
     res.sendJsonOK({
-      data: entity
+      data: await CtrModelModule.jsonSerializer(entity, controllerDefaultQueryScope),
     });
   } catch (err) {
     next(err);
@@ -162,7 +157,7 @@ exports.putUpdateValidate = [
   ...saveValidate,
   param('id')
     .isInt()
-    .custom(customFindByPkValidation(Model, controllerDefaultQueryScope)),
+    .custom(customFindByPkValidation(Model)),
   validationEndFunction,
 ];
 
@@ -208,7 +203,7 @@ exports.postCreate = async (req, res, next) => {
 exports.deleteValidate = [
   param('id')
     .isInt()
-    .custom(customFindByPkValidation(Model, controllerDefaultQueryScope)),
+    .custom(customFindByPkValidation(Model)),
   validationEndFunction,
 ];
 
@@ -221,7 +216,7 @@ exports.delete = async (req, res, next) => {
     const entity = req.entity;
     await entity.destroy();
     res.sendJsonOK({
-      data: entity,
+      data: await CtrModelModule.jsonSerializer(entity, controllerDefaultQueryScope),
     });
   } catch (err) {
     next(err);

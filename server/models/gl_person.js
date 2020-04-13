@@ -1,9 +1,10 @@
 const nconf = require('nconf');
-const { mainDb } = require('../database/main_connection');
-const { BaseModel } = require('./base_model');
 const { Sequelize, DataTypes } = require('sequelize');
 
-const { model: CityModel } = require('./gl_city');
+const { mainDb } = require('../database/main_connection');
+const { BaseModel, jsonSerializer } = require('./base_model');
+
+const { model: CityModel, jsonSerializer: cityJsonSerializer } = require('./gl_city');
 
 // legalType
 const LEGAL_TYPE_PERSON = 1;
@@ -127,5 +128,28 @@ MyModel.belongsTo(CityModel, {
   as: 'city',
 });
 
+
+const scopes = {
+  def: {
+    include: ['id', 'name', 'shortname', 'email', 'legalType', 'legalTypeDesc', 'legalIdentifierType', 'legalIdentifierCode'],
+  },
+  admin: {
+    maps: {
+      city: async (value, scopeName) => await cityJsonSerializer(value, scopeName),
+    },
+  }
+}
+
+
 exports.model = MyModel;
 exports.modelName = modelName;
+exports.jsonSerializer = async (value, scopeName) => {
+  if (!scopeName) {
+    scopeName = 'def';
+  }
+  if (!scopes[scopeName]) {
+    scopeName = 'def';
+  }
+  return await jsonSerializer(value, scopes[scopeName], scopeName);
+}
+

@@ -1,5 +1,7 @@
 const validator = require('validator');
 const { Sequelize, Model } = require('sequelize');
+const _ = require('lodash');
+const util = require('util');
 
 const PAGINATION_PER_PAGE = 100;
 const { mainDb } = require('../database/main_connection');
@@ -121,3 +123,50 @@ class BaseModel extends Model {
 }
 
 exports.BaseModel = BaseModel;
+
+/**
+ * JSON parser
+ * @param {array|object} obj object to parse
+ * @param {object} options parse options
+ * @param {Array.<string>} options.include fields to include
+ * @param {Array.<string>} options.exclude fields to exclude
+ * @param {Array.<Function|Promise>} options.maps fields to call for each field
+ * @param {Function|Promise} options.maps[] fields to call for each field
+ * @param {string} scopeName scope name
+ */
+const jsonSerializer = async (rs, options, scopeName) => {
+  if (!rs) {
+    return rs;
+  }
+  if (!options) {
+    options = {};
+  }
+  if (_.isArray(rs)) {
+    let rsList = [];
+    await Promise.all(rs.map(async (item) => {
+      rsList.push(await jsonSerializer(item, options, scopeName));
+    }));
+    return rsList;
+  } else {
+    let json = rs instanceof Model ? rs.toJSON() : rs;
+    if (options.include) {
+      json = _.pick(json, options.include);
+    }
+    if (options.exclude) {
+      json = _.omit(json, options.exclude);
+    }
+    if (options.maps) {
+      await Promise.all(Object.keys(options.maps).map(async (key) => {
+        const item = options.maps[key];
+        if (util.types.isAsyncFunction(item) || util.types.isPromise(item)) {
+          json[key] = await item(json[key], scopeName, json);
+        } else {
+          json[key] = item(json[key], scopeName, json);
+        }
+      }));
+    }
+    return json;
+  }
+}
+
+exports.jsonSerializer = jsonSerializer;

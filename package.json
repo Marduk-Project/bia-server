@@ -8,6 +8,7 @@
     "test": "jest",
     "front-build": "vue-cli-service --mode production build",
     "front-watch": "vue-cli-service --mode dev --watch build",
+    "build": "vue-cli-service --mode production build",
     "lint": "vue-cli-service lint"
   },
   "engines": {
