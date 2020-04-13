@@ -17,7 +17,7 @@ const CityModel = CityModelModule.model;
 
 const helperValidator = require('../../helpers/validator');
 
-const controllerDefaultQueryScope = null;
+const controllerDefaultQueryScope = 'admin';
 
 /**
  * List Validation
@@ -68,15 +68,10 @@ exports.getIndex = async (req, res, next) => {
     ];
     options.include = ['city'];
     // exec
-    const queryResult = controllerDefaultQueryScope ?
-      await Model
-        .scope(controllerDefaultQueryScope)
-        .findAndCountAll(options) :
-      await Model
-        .findAndCountAll(options)
+    const queryResult = await Model.findAndCountAll(options);
     const meta = Model.paginateMeta(queryResult, page);
     res.sendJsonOK({
-      data: queryResult.rows,
+      data: await CtrModelModule.jsonSerializer(queryResult.rows, controllerDefaultQueryScope),
       meta: meta,
     });
   } catch (err) {
@@ -92,7 +87,7 @@ exports.getEditValidate = [
   param('id')
     .isInt()
     .not().isEmpty()
-    .custom(customFindByPkValidation(Model, controllerDefaultQueryScope, { include: ['city'] })),
+    .custom(customFindByPkValidation(Model, null, { include: ['city'] })),
   validationEndFunction,
 ];
 
@@ -103,7 +98,7 @@ exports.getEdit = async (req, res, next) => {
   try {
     const entity = req.entity;
     res.sendJsonOK({
-      data: entity
+      data: await CtrModelModule.jsonSerializer(entity, controllerDefaultQueryScope),
     });
   } catch (err) {
     next(err);
@@ -122,10 +117,8 @@ const saveValidate = [
   body('legalType')
     .isIn(CtrModelModule.LEGAL_TYPE_ALL),
   body('legalIdentifierType')
-    .isString()
     .isIn(CtrModelModule.LEGAL_IDENTIFIER_TYPE_ALL),
   body('legalIdentifierCode')
-    .isString()
     .custom(async (value, { req }) => {
       switch (req.body.legalIdentifierType) {
         case CtrModelModule.LEGAL_IDENTIFIER_TYPE_BR_CPF:
@@ -246,7 +239,7 @@ const saveValidate = [
     }),
   body('cityId')
     .isInt()
-    .custom(customFindByPkRelationValidation(CityModel, null, controllerDefaultQueryScope)),
+    .custom(customFindByPkRelationValidation(CityModel)),
   body('birthdate')
     .optional()
     .custom(helperValidator.isDate8601Func(true)),
@@ -318,7 +311,7 @@ exports.putUpdateValidate = [
   ...saveValidate,
   param('id')
     .isInt()
-    .custom(customFindByPkValidation(Model, controllerDefaultQueryScope)),
+    .custom(customFindByPkValidation(Model)),
   validationEndFunction,
 ];
 
@@ -364,7 +357,7 @@ exports.postCreate = async (req, res, next) => {
 exports.deleteValidate = [
   param('id')
     .isInt()
-    .custom(customFindByPkValidation(Model, controllerDefaultQueryScope)),
+    .custom(customFindByPkValidation(Model)),
   validationEndFunction,
 ];
 
@@ -377,7 +370,7 @@ exports.delete = async (req, res, next) => {
     const entity = req.entity;
     await entity.destroy();
     res.sendJsonOK({
-      data: entity,
+      data: await CtrModelModule.jsonSerializer(entity, controllerDefaultQueryScope),
     });
   } catch (err) {
     next(err);

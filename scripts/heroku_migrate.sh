@@ -1,3 +1,3 @@
 #/bin/sh
 
-heroku run sequelize-cli db:migrate
+heroku run sequelize db:migrate

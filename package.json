@@ -8,8 +8,9 @@
     "test": "jest",
     "front-build": "vue-cli-service --mode production build",
     "front-watch": "vue-cli-service --mode dev --watch build",
-    "build": "vue-cli-service --mode production build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "build": "npm run front-build && npm run db:migrate",
+    "db:migrate": "sequelize db:migrate"
   },
   "engines": {
     "node": ">=12.16.0",
