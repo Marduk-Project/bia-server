@@ -99,7 +99,12 @@
       <div class="form-row">
         <div class="form-group col-12">
           <div class="form-check">
-            <label class="form-check-label" :class="{ 'text-success': entity.trusted }">
+            <label
+              class="form-check-label"
+              :class="{ 'text-success': entity.trusted }"
+              v-b-tooltip.hover
+              title="Foi validado por algum outro usuário confiável. Você não pode alterar esta informação aqui."
+            >
               <input
                 class="form-check-input"
                 type="checkbox"
@@ -107,7 +112,7 @@
                 disabled
                 v-model="entity.trusted"
               />
-              Possui identidade confirmada.
+              Possui identidade verificada.
             </label>
           </div>
           <div class="form-check">

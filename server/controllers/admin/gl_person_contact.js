@@ -212,9 +212,6 @@ const saveValidate = [
               where: {
                 userId: value,
                 personId: req.body.personId,
-                id: {
-                  [Op.ne]: req.params.id,
-                }
               }
             });
         }

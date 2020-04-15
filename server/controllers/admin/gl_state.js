@@ -126,7 +126,7 @@ const saveValidate = [
     }),
   body('countryId')
     .isInt()
-    .custom(customFindByPkRelationValidation(ParentModel, null, controllerDefaultQueryScope)),
+    .custom(customFindByPkRelationValidation(ParentModel)),
   // validationEndFunction, // aqui nao tem validate
 ];
 
@@ -169,7 +169,7 @@ exports.putUpdateValidate = [
   ...saveValidate,
   param('id')
     .isInt()
-    .custom(customFindByPkValidation(Model, controllerDefaultQueryScope)),
+    .custom(customFindByPkValidation(Model)),
   validationEndFunction,
 ];
 
@@ -215,7 +215,7 @@ exports.postCreate = async (req, res, next) => {
 exports.deleteValidate = [
   param('id')
     .isInt()
-    .custom(customFindByPkValidation(Model, controllerDefaultQueryScope)),
+    .custom(customFindByPkValidation(Model)),
   validationEndFunction,
 ];
 
