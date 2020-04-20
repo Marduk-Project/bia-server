@@ -3,13 +3,15 @@ const crypto = require('crypto');
 const nconf = require('nconf');
 const { mainDb } = require('../database/main_connection');
 const { BaseModel } = require('./base_model');
-const { Sequelize, DataTypes, Model } = require('sequelize');
+const { Sequelize, DataTypes } = require('sequelize');
+
+const { model: UserModel } = require('./gl_user');
 
 // model
 const modelName = 'gl_user_recover';
-class UserRecover extends BaseModel { }
+class MyModel extends BaseModel { }
 
-UserRecover.init({
+MyModel.init({
   id: {
     allowNull: false,
     autoIncrement: true,
@@ -25,16 +27,6 @@ UserRecover.init({
   token: {
     type: Sequelize.STRING,
   },
-  userId: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-    references: {
-      model: 'gl_user',
-      key: 'id',
-    },
-    onUpdate: 'CASCADE',
-    onDelete: 'CASCADE',
-  },
   expiresWhen: {
     type: Sequelize.DATE,
   },
@@ -45,7 +37,16 @@ UserRecover.init({
   tableName: modelName,
 });
 
-exports.model = UserRecover;
+UserModel.hasMany(MyModel, {
+  foreignKey: 'userId',
+  as: 'recovers'
+});
+MyModel.belongsTo(UserModel, {
+  foreignKey: 'userId',
+  as: 'user',
+});
+
+exports.model = MyModel;
 exports.modelName = modelName;
 
 // TODO task para deletar as vencidas

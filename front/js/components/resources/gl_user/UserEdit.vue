@@ -1,11 +1,22 @@
 <template>
-  <div v-if="entity" class="container">
+  <div v-if="entity" class="container-fluid">
     <br />
     <button type="button" class="btn btn-link" @click="crud_navBack">
       <i class="fa fa-chevron-left"></i> Voltar
     </button>
     <br />
     <h1>{{ crud_title }}</h1>
+    <div v-if="entity.id != null">
+      <router-link
+        class="btn btn-outline-secondary"
+        tag="button"
+        :to="{ name: 'gl_person_contact.index', params: { parentEntityId: entity.id, parentEntity: entity, origin: 'u' } }"
+      >
+        <i class="fa fa-building"></i> Contatos vinculados
+      </router-link>
+      <br />
+      <br />
+    </div>
     <form action @submit.prevent novalidate>
       <div class="form-row">
         <div class="form-group col-lg-6">

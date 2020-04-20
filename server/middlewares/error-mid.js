@@ -160,23 +160,55 @@ exports.validationEndFunction = (req, res, next) => {
 
 /**
  * Find and put the entity on req.entity object
- * V
+ * 
  * @param {object} model
  * @param {string} scope
+ * @param {object} customOptions
  * @returns {Function}
  */
-exports.customFindByPkValidation = (model, scope) => {
+exports.customFindByPkValidation = (model, scope, customOptions) => {
   return async (value, { req }) => {
     if (scope) {
-      req.entity = await model
-        .scope(scope)
-        .findByPk(value);
+      req.entity =
+        await model
+          .scope(scope)
+          .findByPk(value, customOptions);
     } else {
-      req.entity = await model
-        .findByPk(value);
+      req.entity =
+        await model
+          .findByPk(value, customOptions);
     }
     if (!req.entity) {
       throw new NotFoundError();
+    }
+    return true;
+  }
+}
+
+/**
+ * Find and put the entity on req[rel] object
+ * 
+ * @param {object} model
+ * @param {string} relProperty
+ * @param {string} scope
+ * @returns {Function}
+ */
+exports.customFindByPkRelationValidation = (model, relProperty, scope) => {
+  return async (value, { req }) => {
+    let relationEntity = null;
+    if (scope) {
+      relationEntity = await model
+        .scope(scope)
+        .findByPk(value);
+    } else {
+      relationEntity = await model
+        .findByPk(value);
+    }
+    if (!relationEntity) {
+      throw new NotFoundError();
+    }
+    if (relProperty) {
+      req[relProperty] = relationEntity;
     }
     return true;
   }

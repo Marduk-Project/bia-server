@@ -2,7 +2,14 @@ const { body, query, param } = require('express-validator/check');
 const validator = require('validator');
 const { Op } = require('sequelize');
 
-const { customFindByPkValidation, validationEndFunction, BadRequestError, ApiError, NotFoundError } = require('../../middlewares/error-mid');
+const {
+  customFindByPkValidation,
+  customFindByPkRelationValidation,
+  validationEndFunction,
+  BadRequestError,
+  ApiError,
+  NotFoundError
+} = require('../../middlewares/error-mid');
 const CtrModelModule = require('../../models/gl_user');
 const Model = CtrModelModule.model;
 const utils = require('../../helpers/utils');
@@ -58,12 +65,10 @@ exports.getIndex = async (req, res, next) => {
       ['id', 'asc'],
     ];
     // exec
-    const queryResult = await Model
-      .scope(controllerDefaultQueryScope)
-      .findAndCountAll(options);
+    const queryResult = await Model.findAndCountAll(options);
     const meta = Model.paginateMeta(queryResult, page);
     res.sendJsonOK({
-      data: queryResult.rows, // TODO pensar em alguma camada de filtro de dados visiveis aqui
+      data: await CtrModelModule.jsonSerializer(queryResult.rows, controllerDefaultQueryScope),
       meta: meta,
     });
   } catch (err) {
@@ -79,7 +84,7 @@ exports.getEditValidate = [
   param('id')
     .isInt()
     .not().isEmpty()
-    .custom(customFindByPkValidation(Model, controllerDefaultQueryScope)),
+    .custom(customFindByPkValidation(Model)),
   validationEndFunction,
 ];
 
@@ -90,7 +95,7 @@ exports.getEdit = async (req, res, next) => {
   try {
     const entity = req.entity;
     res.sendJsonOK({
-      data: entity
+      data: await CtrModelModule.jsonSerializer(entity, controllerDefaultQueryScope),
     });
   } catch (err) {
     next(err);
@@ -199,7 +204,7 @@ exports.putUpdateValidate = [
   ...saveValidate,
   param('id')
     .isInt()
-    .custom(customFindByPkValidation(Model, controllerDefaultQueryScope)),
+    .custom(customFindByPkValidation(Model)),
   validationEndFunction,
 ];
 
@@ -245,7 +250,7 @@ exports.postCreate = async (req, res, next) => {
 exports.deleteValidate = [
   param('id')
     .isInt()
-    .custom(customFindByPkValidation(Model, controllerDefaultQueryScope))
+    .custom(customFindByPkValidation(Model))
     .custom((value, { req }) => {
       if (value == req.user.id.toString()) {
         throw new ApiError("Você não pode excluir a si mesmo.");
@@ -262,9 +267,9 @@ exports.delete = async (req, res, next) => {
   try {
     const id = req.params.id;
     const entity = req.entity;
-    await entity.remove();
+    await entity.destroy();
     res.sendJsonOK({
-      data: entity,
+      data: await CtrModelModule.jsonSerializer(entity, controllerDefaultQueryScope),
     });
   } catch (err) {
     next(err);

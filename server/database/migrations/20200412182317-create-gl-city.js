@@ -1,6 +1,6 @@
 'use strict';
 
-const tableName = 'gl_user_recover';
+const tableName = 'gl_city';
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -14,39 +14,42 @@ module.exports = {
           type: Sequelize.INTEGER
         },
         createdAt: {
-          allowNull: false,
-          type: Sequelize.DATE
+          allowNull: true,
+          type: Sequelize.DATE,
         },
         updatedAt: {
-          allowNull: false,
-          type: Sequelize.DATE
+          allowNull: true,
+          type: Sequelize.DATE,
         },
-        token: {
-          type: Sequelize.STRING
+        name: Sequelize.STRING(60),
+        ibgeCode: Sequelize.STRING(60),
+        priority: {
+          type: Sequelize.INTEGER(1),
+          defaultValue: 0,
         },
-        userId: {
+        stateId: {
           type: Sequelize.INTEGER,
           allowNull: false,
           references: {
-            model: 'gl_user',
+            model: 'gl_state',
             key: 'id',
           },
           onUpdate: 'CASCADE',
-          onDelete: 'CASCADE',
-        },
-        expiresWhen: {
-          type: Sequelize.DATE
-        },
+          onDelete: 'RESTRICT',
+        }
+      }, {
+        transaction: transaction
       });
       // indexes
-      await queryInterface.addIndex(tableName, ['expiresWhen'], {
-        name: `${tableName}_expiresWhen_idx`,
+      await queryInterface.addIndex(tableName, ['name', 'priority'], {
+        name: `${tableName}_name_priority_idx`,
         transaction: transaction,
       });
-      await queryInterface.addIndex(tableName, ['userId'], {
-        name: `${tableName}_userId_idx`,
+      await queryInterface.addIndex(tableName, ['ibgeCode', 'priority'], {
+        name: `${tableName}_ibgeCode_priority_idx`,
         transaction: transaction,
       });
+      await transaction.commit();
     } catch (err) {
       await transaction.rollback();
       throw err;

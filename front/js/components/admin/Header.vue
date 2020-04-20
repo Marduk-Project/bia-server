@@ -51,12 +51,21 @@
             >
               <i :class="item.iconClass"></i> {{ item.label }}
             </router-link>
+            <router-link
+              class="dropdown-item"
+              tag="a"
+              active-class="active"
+              :to="{ name: 'gl_person.index' }"
+              v-if="isUserStaff"
+            >
+              <i class="fas fa-building"></i> Pessoas
+            </router-link>
           </div>
         </li>
       </ul>
       <div class="d-inline-flex">
         <ul class="navbar-nav mr-auto">
-          <li v-show="isUserAdmin" class="nav-item dropdown">
+          <li class="nav-item dropdown">
             <a
               class="nav-link dropdown-toggle"
               href="#"
@@ -72,8 +81,41 @@
               <!-- <a class="dropdown-item" href="/admin/maintenance/logs" target="_blank">
                 <i class="fas fa-file-code"></i> Logs
               </a>-->
-              <router-link class="dropdown-item" to="/maintenance" tag="a" active-class="active">
+              <router-link
+                class="dropdown-item"
+                to="/maintenance"
+                tag="a"
+                active-class="active"
+                v-show="isUserAdmin"
+              >
                 <i class="fas fa-cogs"></i> Manutenção
+              </router-link>
+              <router-link
+                class="dropdown-item"
+                tag="a"
+                active-class="active"
+                :to="{ name: 'gl_country.index' }"
+                v-if="isUserStaff"
+              >
+                <i class="fas fa-globe"></i> Países
+              </router-link>
+              <router-link
+                class="dropdown-item"
+                tag="a"
+                active-class="active"
+                :to="{ name: 'gl_state.index' }"
+                v-if="isUserStaff"
+              >
+                <i class="fas fa-globe-americas"></i> Estados
+              </router-link>
+              <router-link
+                class="dropdown-item"
+                tag="a"
+                active-class="active"
+                :to="{ name: 'gl_city.index' }"
+                v-if="isUserStaff"
+              >
+                <i class="fas fa-city"></i> Cidades
               </router-link>
             </div>
           </li>

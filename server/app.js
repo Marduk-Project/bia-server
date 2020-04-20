@@ -113,7 +113,7 @@ app.locals.app_website = nconf.get('APP_WEBSITE');
 
 // logo
 const fs = require('fs');
-app.locals.app_logo_base64 = 'data:image/png;base64,' + fs.readFileSync(path.join(__dirname, 'public/static/img/theme/logo-vertical.png')).toString('base64');
+app.locals.app_logo_base64 = 'data:image/png;base64,' + fs.readFileSync(path.join(__dirname, '../front/img/theme/logo-vertical.png')).toString('base64');
 app.locals.app_marked = require('marked');
 
 module.exports = app;

@@ -10,8 +10,8 @@ process.env.VUE_APP_EJS_OPEN_TAG = '<%';
 process.env.VUE_APP_EJS_CLOSE_TAG = '%>';
 
 module.exports = {
-  publicPath: '/',
-  outputDir: 'server/public/',
+  publicPath: '/c/',
+  outputDir: 'server/public/c/', // "c" = compiled
   indexPath: 'index.html',
   assetsDir: 'static',
   filenameHashing: true,
@@ -19,14 +19,14 @@ module.exports = {
     index: {
       entry: 'front/js/context/visitor/index.js',
       template: 'front/js/context/visitor/index.ejs',
-      filename: '../views/visitor/index.ejs',
+      filename: '../../views/visitor/index.ejs',
       title: 'Index Page',
       chunks: ['chunk-vendors', 'chunk-common', 'index']
     },
     admin: {
       entry: 'front/js/context/admin/index.js',
       template: 'front/js/context/admin/index.ejs',
-      filename: '../views/admin/index.ejs',
+      filename: '../../views/admin/index.ejs',
       title: 'Index Page',
       chunks: ['chunk-vendors', 'chunk-common', 'admin']
     },

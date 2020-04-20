@@ -2,12 +2,11 @@ const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 const nconf = require('nconf');
 const moment = require('moment');
-const { Sequelize, DataTypes, Model } = require('sequelize');
+const { Sequelize, DataTypes } = require('sequelize');
 
 const { randomString } = require('../helpers/utils');
 const { mainDb } = require('../database/main_connection');
-const { BaseModel } = require('./base_model');
-const { model: UserRecover } = require('./gl_user_recover');
+const { BaseModel, jsonSerializer } = require('./base_model');
 const { RecoverPasswordMail } = require('../mails/auth-mail');
 
 // level
@@ -52,12 +51,10 @@ const applyCustomSaltToPassword = (pwd) => {
   return template.replace('{pwd}', pwd);
 }
 
-
-
 // model
 const modelName = 'gl_user';
 
-class User extends BaseModel {
+class MyModel extends BaseModel {
   login_cleanTry() {
     this.login_tryCount = 0;
     this.login_tryWait = null;
@@ -78,6 +75,7 @@ class User extends BaseModel {
   }
 
   async recover_newToken() {
+    const { model: UserRecover } = require('./gl_user_recover');
     return await UserRecover.create({
       userId: this.id,
       expiresWhen: moment().add(1, 'day').toDate(), // TODO colocar em config
@@ -92,7 +90,7 @@ class User extends BaseModel {
   }
 }
 
-User.init({
+MyModel.init({
   id: {
     allowNull: false,
     autoIncrement: true,
@@ -162,19 +160,25 @@ User.init({
   sequelize: mainDb,
   modelName: modelName,
   tableName: modelName,
-  defaultScope: {
-    attributes: {
-      include: ['id', 'name', 'nickname', 'email'],
-    },
-  },
-  scopes: {
-    admin: {
-      attributes: {
-        exclude: ['password'],
-      }
-    }
-  }
 });
 
-exports.model = User;
+const scopes = {
+  def: {
+    include: ['id', 'name', 'nickname', 'email', 'level', 'levelDesc'],
+  },
+  admin: {
+    exclude: ['password'],
+  }
+}
+
+exports.model = MyModel;
 exports.modelName = modelName;
+exports.jsonSerializer = async (value, scopeName) => {
+  if (!scopeName) {
+    scopeName = 'def';
+  }
+  if (!scopes[scopeName]) {
+    scopeName = 'def';
+  }
+  return await jsonSerializer(value, scopes[scopeName], scopeName);
+}
