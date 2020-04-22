@@ -11,4 +11,6 @@ router.use('/gl_country', require('./gl_country'));
 router.use('/gl_state', require('./gl_state'));
 router.use('/gl_city', require('./gl_city'));
 
+// generator-inject-new-here
+
 module.exports = router;
