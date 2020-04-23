@@ -1,5 +1,5 @@
 ---
-to: _templates_compiled/migration_<%= name %>.js
+to: server/database/migrations/<%= nowPreffix %>-create-<%= name %>.js
 ---
 'use strict';
 

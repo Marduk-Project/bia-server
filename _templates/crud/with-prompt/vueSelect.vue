@@ -1,5 +1,5 @@
 ---
-to: _templates_compiled/vueSelect_<%= name %>.vue
+to: front/js/components/resources/<%= name %>/<%= modelCamelNameUpper %>Select.vue
 ---
 
 <template>

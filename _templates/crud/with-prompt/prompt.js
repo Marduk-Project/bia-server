@@ -1,7 +1,7 @@
 const camelCase = require('camelcase');
 const moment = require('moment');
 
-const inTestMode = true;
+const inTestMode = false;
 
 /**
  * Convert

@@ -22,6 +22,15 @@ import GL_PersonEdit from '../../components/resources/gl_person/PersonEdit.vue';
 // gl_person_contact
 import GL_PersonContactList from '../../components/resources/gl_person_contact/PersonContactList.vue';
 import GL_PersonContactEdit from '../../components/resources/gl_person_contact/PersonContactEdit.vue';
+// gl_field
+import GL_FieldList from '../../components/resources/gl_field/FieldList.vue';
+import GL_FieldEdit from '../../components/resources/gl_field/FieldEdit.vue';
+// gl_field_item
+import GL_FieldItemList from '../../components/resources/gl_field_item/FieldItemList.vue';
+import GL_FieldItemEdit from '../../components/resources/gl_field_item/FieldItemEdit.vue';
+// gl_person_field
+// import GL_PersonFieldList from '../../components/resources/gl_person_field/PersonFieldList.vue';
+// import GL_PersonFieldEdit from '../../components/resources/gl_person_field/PersonFieldEdit.vue';
 // generator-inject-new-file-here
 // maintenance
 import Man_Container from '../../components/admin/maintenance/Container.vue';
@@ -57,6 +66,18 @@ export default [
   , { path: '/gl_person_contact/:origin/:parentEntityId', components: { default: GL_PersonContactList, header: Header, footer: Footer }, name: 'gl_person_contact.index' }
   , { path: '/gl_person_contact/:origin/:parentEntityId/:id/edit', components: { default: GL_PersonContactEdit, header: Header, footer: Footer }, name: 'gl_person_contact.edit' }
   , { path: '/gl_person_contact/:origin/:parentEntityId/create', components: { default: GL_PersonContactEdit, header: Header, footer: Footer }, name: 'gl_person_contact.create' }
+  // gl_field
+  , { path: '/gl_field', components: { default: GL_FieldList, header: Header, footer: Footer }, name: 'gl_field.index' }
+  , { path: '/gl_field/:id/edit', components: { default: GL_FieldEdit, header: Header, footer: Footer }, name: 'gl_field.edit' }
+  , { path: '/gl_field/create', components: { default: GL_FieldEdit, header: Header, footer: Footer }, name: 'gl_field.create' }
+  // gl_field_item
+  , { path: '/gl_field/:parentEntityId/item', components: { default: GL_FieldItemList, header: Header, footer: Footer }, name: 'gl_field_item.index' }
+  , { path: '/gl_field/:parentEntityId/item/:id/edit', components: { default: GL_FieldItemEdit, header: Header, footer: Footer }, name: 'gl_field_item.edit' }
+  , { path: '/gl_field/:parentEntityId/item/create', components: { default: GL_FieldItemEdit, header: Header, footer: Footer }, name: 'gl_field_item.create' }
+  // // gl_person_field
+  // , { path: '/gl_person_field/:parentEntityId', components: { default: GL_PersonFieldList, header: Header, footer: Footer }, name: 'gl_person_field.index' }
+  // , { path: '/gl_person_field/:parentEntityId/:id/edit', components: { default: GL_PersonFieldEdit, header: Header, footer: Footer }, name: 'gl_person_field.edit' }
+  // , { path: '/gl_person_field/:parentEntityId/create', components: { default: GL_PersonFieldEdit, header: Header, footer: Footer }, name: 'gl_person_field.create' }
   // generator-inject-new-route-here
   // maintenance
   , {

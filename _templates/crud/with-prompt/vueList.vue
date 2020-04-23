@@ -1,5 +1,5 @@
 ---
-to: _templates_compiled/vueList_<%= name %>.vue
+to: front/js/components/resources/<%= name %>/<%= modelCamelNameUpper %>List.vue
 ---
 <template>
   <div class="container-fluid">
@@ -89,7 +89,7 @@ import axios from "../../../libs/mixins/axios-auth";
 import _ from "lodash";
 
 <% crud_fieldObjects.forEach(function(field) { -%>
-<% if (field.modelName) { -%>
+<% if (field.modelName && !field.isParentId) { -%>
 import <%= field.camelNameUpperNoId %>Select from "../<%= field.modelName %>/<%= field.camelNameUpperNoId %>Select.vue";
 <% } -%>
 <% }); -%>
@@ -98,7 +98,7 @@ export default {
   mixins: [listMixin],
   components: {
 <% crud_fieldObjects.forEach(function(field) { -%>
-<% if (field.modelName) { -%>
+<% if (field.modelName && !field.isParentId) { -%>
     'app-<%= field.camelNameNoId %>-select': <%= field.camelNameUpperNoId %>Select,
 <% } -%>
 <% }); -%>
@@ -107,7 +107,7 @@ export default {
     return {
       filters: {
 <% crud_fieldObjects.forEach(function(field) { -%>
-<% if (field.modelName) { -%>
+<% if (field.modelName && !field.isParentId) { -%>
         <%= field.camelNameNoId %>: null,
 <% } -%>
 <% }); -%>

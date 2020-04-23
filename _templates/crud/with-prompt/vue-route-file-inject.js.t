@@ -1,6 +1,6 @@
 ---
 inject: true
-to: _templates_compiled/vue-routes.js
+to: front/js/context/<%= crud_context %>/routes.js
 before: generator-inject-new-file-here
 skip_if: 'import <%= fullModelCamelNameUpper %>List'
 ---

@@ -1,5 +1,5 @@
 ---
-to: _templates_compiled/express_route_<%= name %>.js
+to: server/routes/api/<%= crud_context %>/<%= name %>.js
 ---
 const express = require('express');
 const router = express.Router({ mergeParams: true });

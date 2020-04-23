@@ -1,5 +1,5 @@
 ---
-to: _templates_compiled/vueEdit_<%= name %>.vue
+to: front/js/components/resources/<%= name %>/<%= modelCamelNameUpper %>Edit.vue
 ---
 <template>
   <div v-if="entity" class="container-fluid">
@@ -119,7 +119,7 @@ import { crudMixin } from "../../../libs/mixins/crud-mixin";
 import axios from "../../../libs/mixins/axios-auth";
 
 <% crud_fieldObjects.forEach(function(field) { -%>
-<% if (field.modelName) { -%>
+<% if (field.modelName && !field.isParentId) { -%>
 import <%= field.camelNameUpperNoId %>Select from "../<%= field.modelName %>/<%= field.camelNameUpperNoId %>Select.vue";
 <% } -%>
 <% }); -%>
@@ -128,7 +128,7 @@ export default {
   mixins: [crudMixin],
   components: {
 <% crud_fieldObjects.forEach(function(field) { -%>
-<% if (field.modelName) { -%>
+<% if (field.modelName && !field.isParentId) { -%>
     'app-<%= field.camelNameNoId %>-select': <%= field.camelNameUpperNoId %>Select,
 <% } -%>
 <% }); -%>
@@ -176,7 +176,7 @@ export default {
     },
     crud_validate() {
 <% crud_fieldObjects.forEach(function(field) { -%>
-<% if (field.modelName && field.required) { -%>
+<% if (field.modelName && field.required && !field.isParentId) { -%>
       if (!this.entity.<%= field.camelNameNoId %>) {
         this.notify_warning("Selecione <%= field.camelNameNoId %>.");
         return false;

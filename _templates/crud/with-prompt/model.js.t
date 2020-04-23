@@ -1,5 +1,5 @@
 ---
-to: _templates_compiled/model_<%= name %>.js
+to: server/models/<%= name %>.js
 ---
 const nconf = require('nconf');
 const { Sequelize, DataTypes } = require('sequelize');

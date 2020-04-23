@@ -1,6 +1,6 @@
 ---
 inject: true
-to: _templates_compiled/routes_index.js
+to: server/routes/api/<%= crud_context %>/index.js
 before: generator-inject-new-here
 skip_if: "'/<%= name %>'"
 ---

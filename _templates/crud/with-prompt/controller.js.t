@@ -1,5 +1,5 @@
 ---
-to: _templates_compiled/controller_<%= name %>.js
+to: server/controllers/<%= crud_context %>/<%= name %>.js
 ---
 const { body, query, param } = require('express-validator/check');
 const validator = require('validator');
