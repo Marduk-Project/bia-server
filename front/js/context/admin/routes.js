@@ -28,9 +28,6 @@ import GL_FieldEdit from '../../components/resources/gl_field/FieldEdit.vue';
 // gl_field_item
 import GL_FieldItemList from '../../components/resources/gl_field_item/FieldItemList.vue';
 import GL_FieldItemEdit from '../../components/resources/gl_field_item/FieldItemEdit.vue';
-// gl_person_field
-// import GL_PersonFieldList from '../../components/resources/gl_person_field/PersonFieldList.vue';
-// import GL_PersonFieldEdit from '../../components/resources/gl_person_field/PersonFieldEdit.vue';
 // generator-inject-new-file-here
 // maintenance
 import Man_Container from '../../components/admin/maintenance/Container.vue';
@@ -74,10 +71,6 @@ export default [
   , { path: '/gl_field/:parentEntityId/item', components: { default: GL_FieldItemList, header: Header, footer: Footer }, name: 'gl_field_item.index' }
   , { path: '/gl_field/:parentEntityId/item/:id/edit', components: { default: GL_FieldItemEdit, header: Header, footer: Footer }, name: 'gl_field_item.edit' }
   , { path: '/gl_field/:parentEntityId/item/create', components: { default: GL_FieldItemEdit, header: Header, footer: Footer }, name: 'gl_field_item.create' }
-  // // gl_person_field
-  // , { path: '/gl_person_field/:parentEntityId', components: { default: GL_PersonFieldList, header: Header, footer: Footer }, name: 'gl_person_field.index' }
-  // , { path: '/gl_person_field/:parentEntityId/:id/edit', components: { default: GL_PersonFieldEdit, header: Header, footer: Footer }, name: 'gl_person_field.edit' }
-  // , { path: '/gl_person_field/:parentEntityId/create', components: { default: GL_PersonFieldEdit, header: Header, footer: Footer }, name: 'gl_person_field.create' }
   // generator-inject-new-route-here
   // maintenance
   , {
