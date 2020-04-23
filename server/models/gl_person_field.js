@@ -38,6 +38,9 @@ MyModel.init({
     type: Sequelize.BOOLEAN,
     defaultValue: false,
   },
+  valueSearch: {
+    type: Sequelize.STRING,
+  },
 }, {
   // options
   sequelize: mainDb,

@@ -24,7 +24,13 @@
       <div class="form-group">
         <div class="form-check">
           <label class="form-check-label">
-            <input class="form-check-input" type="checkbox" :checked="field.valueBoolean" value="1" @input="onCheckBoxChange" />
+            <input
+              class="form-check-input"
+              type="checkbox"
+              :checked="field.valueBoolean"
+              value="1"
+              @input="onCheckBoxChange"
+            />
             {{ field.field.name }}
           </label>
         </div>
@@ -71,7 +77,6 @@ export default {
       const ret = Object.assign({}, this.field);
       ret.fieldItemId = null;
       ret.fieldItem = null;
-      ret.valueString = null;
       switch (parseInt(this.type)) {
         case 1:
           ret.valueString = value;
@@ -99,7 +104,6 @@ export default {
           if (value) {
             ret.fieldItemId = value.id;
             ret.fieldItem = value;
-            ret.valueString = value.value;
           }
           break;
       }

@@ -62,6 +62,9 @@ module.exports = {
         valueBoolean: {
           type: Sequelize.BOOLEAN,
         },
+        valueSearch: {
+          type: Sequelize.STRING(60),
+        },
       },
         {
           transaction: transaction
@@ -72,8 +75,20 @@ module.exports = {
         name: `${tableName}_personId_fieldId_idx`,
         transaction: transaction,
       });
+      await queryInterface.addIndex(tableName, ['fieldItemId'], {
+        name: `${tableName}_fieldItemId_idx`,
+        transaction: transaction,
+      });
+      await queryInterface.addIndex(tableName, ['fieldId'], {
+        name: `${tableName}_fieldId_idx`,
+        transaction: transaction,
+      });
       await queryInterface.addIndex(tableName, ['personId', 'valueString'], {
         name: `${tableName}_personId_valueString_idx`,
+        transaction: transaction,
+      });
+      await queryInterface.addIndex(tableName, ['valueSearch'], {
+        name: `${tableName}_valueSearch_idx`,
         transaction: transaction,
       });
       // constraints

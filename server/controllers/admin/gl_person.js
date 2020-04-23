@@ -333,28 +333,32 @@ const saveEntityFunc = async (req, res, next, id) => {
       const personField = personFieldBody.personField;
       switch (parseInt(personField.field.type)) {
         case FieldModelModule.TYPE_STRING:
-          personField.valueString = `${personFieldBody.value}`;
+          personField.valueString = personFieldBody.value ? `${personFieldBody.value}` : '';
+          personField.valueSearch = personFieldBody.value ? `${personFieldBody.value}` : null;
           break;
 
         case FieldModelModule.TYPE_INT:
-          personField.valueInt = parseInt(personFieldBody.value);
+          personField.valueInt = personFieldBody.value ? parseInt(personFieldBody.value) : 0;
+          personField.valueSearch = personFieldBody.value ? `${personFieldBody.value}` : null;
           break;
 
         case FieldModelModule.TYPE_DOUBLE:
-          personField.valueDouble = parseFloat(personFieldBody.value);
+          personField.valueDouble = personFieldBody.value ? parseFloat(personFieldBody.value) : 0;
+          personField.valueSearch = personFieldBody.value ? `${personFieldBody.value}` : null;
           break;
 
         case FieldModelModule.TYPE_BOOLEAN:
           personField.valueBoolean = !!personFieldBody.value;
+          personField.valueSearch = `${!!personFieldBody.value}`;
           break;
 
         case FieldModelModule.TYPE_SELECT:
           if (personFieldBody.fieldItemId) {
             personField.fieldItemId = personFieldBody.fieldItemId;
-            personField.valueString = personFieldBody.fieldItem.value;
+            personField.valueSearch = personFieldBody.fieldItem.value;
           } else {
             personField.fieldItemId = null;
-            personField.valueString = null;
+            personField.valueSearch = null;
           }
           break;
       }
