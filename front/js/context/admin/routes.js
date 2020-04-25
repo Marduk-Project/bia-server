@@ -28,6 +28,12 @@ import GL_FieldEdit from '../../components/resources/gl_field/FieldEdit.vue';
 // gl_field_item
 import GL_FieldItemList from '../../components/resources/gl_field_item/FieldItemList.vue';
 import GL_FieldItemEdit from '../../components/resources/gl_field_item/FieldItemEdit.vue';
+// gl_unity
+import GL_UnityList from '../../components/resources/gl_unity/UnityList.vue';
+import GL_UnityEdit from '../../components/resources/gl_unity/UnityEdit.vue';
+// gl_product
+import GL_ProductList from '../../components/resources/gl_product/ProductList.vue';
+import GL_ProductEdit from '../../components/resources/gl_product/ProductEdit.vue';
 // generator-inject-new-file-here
 // maintenance
 import Man_Container from '../../components/admin/maintenance/Container.vue';

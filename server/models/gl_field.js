@@ -31,23 +31,22 @@ exports.DESTINATION_ALL = [
   DESTINATION_GL_PERSON,
 ];
 
-
 const typeToString = (value) => {
   switch (parseInt(value)) {
     case TYPE_STRING:
-      return 'String';
+      return 'Texto (String)';
 
     case TYPE_INT:
-      return 'Int';
+      return 'Inteiro (Int)';
 
     case TYPE_DOUBLE:
-      return 'Double';
+      return 'Número com virgula (Double)';
 
     case TYPE_BOOLEAN:
-      return 'Boolean';
+      return 'Checkbox (Boolean)';
 
     case TYPE_SELECT:
-      return 'Select';
+      return 'Com itens (Select)';
   }
   return 'Desconhecido';
 }

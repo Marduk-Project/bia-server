@@ -125,6 +125,24 @@
               >
                 <i class="fas fa-list"></i> Campos dinâmicos
               </router-link>
+              <router-link
+                class="dropdown-item"
+                tag="a"
+                active-class="active"
+                :to="{ name: 'gl_unity.index' }"
+                v-if="isUserStaff"
+              >
+                <i class="fas fa-thermometer"></i> Unidades de medida
+              </router-link>
+              <router-link
+                class="dropdown-item"
+                tag="a"
+                active-class="active"
+                :to="{ name: 'gl_product.index' }"
+                v-if="isUserStaff"
+              >
+                <i class="fas fa-square-o"></i> Produtos
+              </router-link>
             </div>
           </li>
           <li class="nav-item dropdown">

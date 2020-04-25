@@ -1,11 +1,11 @@
 <template>
   <select class="form-control" :name="name" :value="value" @change="onValueSelect" :class="classes">
     <option value="0" v-if="showAll">Todos</option>
-    <option value="1">String</option>
-    <option value="2">Int</option>
-    <option value="3">Double</option>
-    <option value="4">Boolean</option>
-    <option value="5">Select</option>
+    <option value="1">Texto (String)</option>
+    <option value="2">Inteiro (Int)</option>
+    <option value="3">Número com virgula (Double)</option>
+    <option value="4">Checkbox (Boolean)</option>
+    <option value="5">Com itens (Select)</option>
   </select>
 </template>
 
