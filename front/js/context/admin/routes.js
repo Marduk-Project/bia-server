@@ -22,8 +22,10 @@ import GL_PersonList from '../../components/resources/gl_person/PersonList.vue';
 // gl_person_contact
 import GL_PersonContactList from '../../components/resources/gl_person_contact/PersonContactList.vue';
 import GL_PersonContactEdit from '../../components/resources/gl_person_contact/PersonContactEdit.vue';
-// PPE requests
+// or_requests
 import OR_RequestList from '../../components/resources/or_request/RequestList.vue';
+import OR_RequestEdit from '../../components/resources/or_request/RequestEdit.vue';
+import OR_RequestPPETable from '../../components/resources/or_request/RequestPPETable.vue';
 // maintenance
 import Man_Container from '../../components/admin/maintenance/Container.vue';
 import Man_Menu from '../../components/admin/maintenance/Menu.vue';
@@ -58,8 +60,10 @@ export default [
   , { path: '/gl_person_contact/:origin/:parentEntityId', components: { default: GL_PersonContactList, header: Header, footer: Footer }, name: 'gl_person_contact.index' }
   , { path: '/gl_person_contact/:origin/:parentEntityId/:id/edit', components: { default: GL_PersonContactEdit, header: Header, footer: Footer }, name: 'gl_person_contact.edit' }
   , { path: '/gl_person_contact/:origin/:parentEntityId/create', components: { default: GL_PersonContactEdit, header: Header, footer: Footer }, name: 'gl_person_contact.create' }
-  // PPE requests
+  // or_requests
   , { path: '/or_request', components: {default: OR_RequestList, header: Header, footer: Footer}, name: 'or_request.index'}
+  , { path: '/or_request/create', components: {default: OR_RequestEdit, header: Header, footer: Footer}, name: 'or_request.create'}
+  , { path: '/or_request/create/ppe', components: {default: OR_RequestPPETable, header: Header, footer: Footer}, name: 'or_request.create.ppe'}
   // maintenance
   , {
     path: '/maintenance', components: { default: Man_Container, header: Header, footer: Footer },

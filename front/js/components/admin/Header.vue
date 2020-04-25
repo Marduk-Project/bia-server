@@ -42,14 +42,13 @@
           >Cadastros</a>
           <div class="dropdown-menu" aria-labelledby="navbarCrudDropdown">
             <router-link
-              v-for="item in registries"
-              :key="item.label"
               class="dropdown-item"
               tag="a"
               active-class="active"
-              :to="item.to"
+              :to="{ name: 'gl_user.index' }"
+              v-if="isUserStaff"
             >
-              <i :class="item.iconClass"></i> {{ item.label }}
+              <i class="fas fa-user"></i> Usuários
             </router-link>
             <router-link
               class="dropdown-item"
@@ -59,6 +58,15 @@
               v-if="isUserStaff"
             >
               <i class="fas fa-building"></i> Pessoas
+            </router-link>
+            <router-link
+              class="dropdown-item"
+              tag="a"
+              active-class="active"
+              :to="{ name: 'or_request.index' }"
+              v-if="isUserStaff"
+            >
+              <i class="fas fa-notes-medical"></i> Demandas de EPIs
             </router-link>
           </div>
         </li>
@@ -159,22 +167,6 @@
 import { mapGetters } from "vuex";
 
 export default {
-  data() {
-    return {
-      registries: [
-        {
-          to: { name: 'gl_user.index' },
-          label: "Usuários",
-          iconClass: "fas fa-user"
-        },
-        {
-          to: { name: 'or_request.index' },
-          label: "Demandas de EPIs",
-          iconClass: "fas fa-notes-medical"
-        }
-      ]
-    }
-  },
   computed: {
     ...mapGetters({
       isUserAdmin: "isUserAdmin",
