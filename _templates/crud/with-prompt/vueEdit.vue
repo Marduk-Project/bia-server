@@ -98,6 +98,23 @@ to: front/js/components/resources/<%= name %>/<%= modelCamelNameUpper %>Edit.vue
 <% } -%>
         </div>
 <% } -%>
+<% if (field.type == 'boolean') { -%>
+      <div class="form-group col-lg-12">
+        <div class="form-check">
+          <label
+            class="form-check-label"
+          >
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value="1"
+              v-model="entity.<%= field.name %>"
+            />
+            <%= field.name %>.
+          </label>
+        </div>
+      </div>
+<% } -%>
 <% } -%>
 <% }); -%>
       </div>

@@ -1,9 +1,6 @@
----
-to: server/database/migrations/<%= nowPreffix %>-create-<%= nameWithHyphen %>.js
----
 'use strict';
 
-const tableName = '<%= name %>';
+const tableName = 'gl_unity';
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -16,7 +13,6 @@ module.exports = {
           primaryKey: true,
           type: Sequelize.INTEGER
         },
-<% if (crud_timestamps) { -%>
         createdAt: {
           allowNull: false,
           type: Sequelize.DATE,
@@ -25,49 +21,19 @@ module.exports = {
           allowNull: false,
           type: Sequelize.DATE,
         },
-<% } -%>
-<% crud_fieldObjects.forEach(function(field) { -%>
-        <%= field.name %>: {
-<% if (field.type == 'string') { -%>
+        name: {
           type: Sequelize.STRING(60),
-<% if (field.required) { -%>
           allowNull: false,
-<% } -%>
-<% } -%>
-<% if (field.type == 'int') { -%>
-          type: Sequelize.INTEGER,
-<% if (field.required) { -%>
-          allowNull: false,
-<% } -%>
-<% if (field.modelName) { -%>
-          references: {
-            model: '<%= field.modelName %>',
-            key: 'id',
-          },
-          onUpdate: 'CASCADE', // TODO implement
-          onDelete: 'RESTRICT', // TODO implement
-<% } -%>
-<% } -%>
-<% if (field.type == 'double') { -%>
-          type: Sequelize.DOUBLE,
-<% if (field.required) { -%>
-          allowNull: false,
-<% } -%>
-<% } -%>
-<% if (field.type == 'boolean') { -%>
-          type: Sequelize.BOOLEAN,
-<% if (field.required) { -%>
-          allowNull: false,
-<% } -%>
-<% } -%>
-<% if (field.type == 'datetime') { -%>
-          type: Sequelize.DATE,
-<% if (field.required) { -%>
-          allowNull: false,
-<% } -%>
-<% } -%>
         },
-<% }); -%>
+        nameSingular: {
+          type: Sequelize.STRING(60),
+        },
+        namePlural: {
+          type: Sequelize.STRING(60),
+        },
+        unity: {
+          type: Sequelize.STRING(60),
+        },
       },
         {
           transaction: transaction

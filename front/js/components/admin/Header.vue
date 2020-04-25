@@ -132,7 +132,7 @@
                 :to="{ name: 'gl_unity.index' }"
                 v-if="isUserStaff"
               >
-                <i class="fas fa-thermometer"></i> Unidades de medida
+                <i class="fas fa-ruler-vertical"></i> Unidades de medida
               </router-link>
               <router-link
                 class="dropdown-item"
@@ -141,7 +141,7 @@
                 :to="{ name: 'gl_product.index' }"
                 v-if="isUserStaff"
               >
-                <i class="fas fa-square-o"></i> Produtos
+                <i class="far fa-square"></i> Produtos
               </router-link>
             </div>
           </li>

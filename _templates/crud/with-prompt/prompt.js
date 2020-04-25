@@ -108,11 +108,13 @@ module.exports = {
     return inquirer
       .prompt(questions)
       .then(answers => {
+        answers.nameWithHyphen = answers.name.replace(/_/g, '-');
         answers.nowPreffix = moment().format('YYYYMMDDHmmss');
         if (inTestMode) {
           return {
             nowPreffix: answers.nowPreffix,
             name: 'gl_state',
+            nameWithHyphen: 'gl-state',
             fullModelCamelNameUpper: toCamelCaseName('gl_state', 'gl_state', { upperStart: true, forcedUpperPreffix: true }),
             modelCamelNameUpper: toCamelCaseName('gl_state', 'gl_state', { upperStart: true }),
             crud_context: 'admin',

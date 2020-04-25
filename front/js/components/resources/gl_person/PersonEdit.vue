@@ -13,7 +13,7 @@
         tag="button"
         :to="{ name: 'gl_person_contact.index', params: { parentEntityId: entity.id, parentEntity: entity, origin: 'p' } }"
       >
-        <i class="fa fa-user"></i> Contatos &amp; Usuários
+        <i class="fa fa-id-card"></i> Contatos &amp; Usuários
       </router-link>
       <br />
       <br />
@@ -31,7 +31,7 @@
             class="form-control"
             type="text"
             v-model="entity.legalIdentifierCode"
-            :placeholder="entity.legalType == 1 ? 'ex. 123456789' : (entity.legalType == 2 ? 'ex. 12345678901234' : '(opcional)')"
+            :placeholder="legalIdentifierType == 'CPF' ? 'ex. 123456789' : (legalIdentifierType == 'CNPJ' ? 'ex. 12345678901234' : '(opcional)')"
             v-validate="legalIdentifierValidateRule"
             :class="{ 'is-invalid':errors.has('legalIdentifierCode') }"
           />
@@ -421,9 +421,11 @@ export default {
           return "CPF";
 
         case 2:
+        case 4:
           return "CNPJ";
 
         case 3:
+        case 5:
           return "OTHER";
       }
       return "Desconhecido";
@@ -434,9 +436,11 @@ export default {
           return "CPF";
 
         case 2:
+        case 4:
           return "CNPJ";
 
         case 3:
+        case 5:
           return "Outro identificador";
       }
       return "Desconhecido";
@@ -447,9 +451,11 @@ export default {
           return "cpf-num|required";
 
         case 2:
+        case 4:
           return "cnpj-num|required";
 
         case 3:
+        case 5:
           return "";
       }
       return "";

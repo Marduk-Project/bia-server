@@ -123,7 +123,7 @@
                 value="1"
                 v-model="entity.canRegisterPPERequest"
               />
-              Pode criar solicitação de PPI.
+              Pode criar solicitação de EPI.
             </label>
           </div>
         </div>

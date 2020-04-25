@@ -1,9 +1,6 @@
----
-to: server/database/migrations/<%= nowPreffix %>-create-<%= nameWithHyphen %>.js
----
 'use strict';
 
-const tableName = '<%= name %>';
+const tableName = 'gl_product';
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -16,7 +13,6 @@ module.exports = {
           primaryKey: true,
           type: Sequelize.INTEGER
         },
-<% if (crud_timestamps) { -%>
         createdAt: {
           allowNull: false,
           type: Sequelize.DATE,
@@ -25,59 +21,50 @@ module.exports = {
           allowNull: false,
           type: Sequelize.DATE,
         },
-<% } -%>
-<% crud_fieldObjects.forEach(function(field) { -%>
-        <%= field.name %>: {
-<% if (field.type == 'string') { -%>
+        name: {
           type: Sequelize.STRING(60),
-<% if (field.required) { -%>
           allowNull: false,
-<% } -%>
-<% } -%>
-<% if (field.type == 'int') { -%>
+        },
+        description: {
+          type: Sequelize.STRING(5000),
+        },
+        eanCode: {
+          type: Sequelize.STRING(60),
+        },
+        healthCode: {
+          type: Sequelize.STRING(60),
+        },
+        requestFormActive: {
+          type: Sequelize.BOOLEAN,
+        },
+        unityId: {
           type: Sequelize.INTEGER,
-<% if (field.required) { -%>
           allowNull: false,
-<% } -%>
-<% if (field.modelName) { -%>
           references: {
-            model: '<%= field.modelName %>',
+            model: 'gl_unity',
             key: 'id',
           },
-          onUpdate: 'CASCADE', // TODO implement
-          onDelete: 'RESTRICT', // TODO implement
-<% } -%>
-<% } -%>
-<% if (field.type == 'double') { -%>
-          type: Sequelize.DOUBLE,
-<% if (field.required) { -%>
-          allowNull: false,
-<% } -%>
-<% } -%>
-<% if (field.type == 'boolean') { -%>
-          type: Sequelize.BOOLEAN,
-<% if (field.required) { -%>
-          allowNull: false,
-<% } -%>
-<% } -%>
-<% if (field.type == 'datetime') { -%>
-          type: Sequelize.DATE,
-<% if (field.required) { -%>
-          allowNull: false,
-<% } -%>
-<% } -%>
+          onUpdate: 'CASCADE',
+          onDelete: 'SET NULL',
         },
-<% }); -%>
       },
         {
           transaction: transaction
         }
       );
       // indexes
-      // await queryInterface.addIndex(tableName, ['name'], {
-      //  name: `${tableName}_name_idx`,
-      //  transaction: transaction,
-      // });
+      await queryInterface.addIndex(tableName, ['name'], {
+        name: `${tableName}_name_idx`,
+        transaction: transaction,
+      });
+      await queryInterface.addIndex(tableName, ['eanCode'], {
+        name: `${tableName}_eanCode_idx`,
+        transaction: transaction,
+      });
+      await queryInterface.addIndex(tableName, ['healthCode'], {
+        name: `${tableName}_healthCode_idx`,
+        transaction: transaction,
+      });
       // constraints
       // await queryInterface.addConstraint(tableName, ['email'], {
       //  type: 'unique',

@@ -4,6 +4,8 @@
     <option value="1">1 - Física</option>
     <option value="2">2 - Jurídica</option>
     <option value="3">3 - Grupo organizado</option>
+    <option value="4">4 - Órgão público com CNPJ</option>
+    <option value="5">5 - Órgão público sem CNPJ</option>
   </select>
 </template>
 

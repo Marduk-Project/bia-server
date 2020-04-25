@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router({ mergeParams: true });
 
-const controller = require('../../../controllers/admin/gl_user');
+const controller = require('../../../controllers/admin/gl_unity');
 const authMid = require('../../../middlewares/auth-mid');
 
 router.get('/',
@@ -17,7 +17,7 @@ router.get('/:id/edit',
 );
 
 router.put('/:id',
-  authMid.userIsAdminMiddleware,
+  authMid.userIsStaffMiddleware,
   controller.putUpdateValidate,
   controller.putUpdate
 );
@@ -32,33 +32,6 @@ router.delete('/:id',
   authMid.userIsAdminMiddleware,
   controller.deleteValidate,
   controller.delete
-);
-
-
-router.post('/:id/blockToggle',
-  authMid.userIsStaffMiddleware,
-  controller.blockToggleValidate,
-  controller.blockToggle
-);
-
-// pwd
-
-router.post('/:id/pwd_check',
-  authMid.userIsAdminMiddleware,
-  controller.postPwdCheckValidate,
-  controller.postPwdCheck
-);
-
-router.post('/:id/pwd_change',
-  authMid.userIsAdminMiddleware,
-  controller.postPwdChangeValidate,
-  controller.postPwdChange
-);
-
-router.post('/:id/pwd_recover',
-  authMid.userIsStaffMiddleware,
-  controller.postPwdRecoverValidate,
-  controller.postPwdRecover
 );
 
 module.exports = router;

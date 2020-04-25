@@ -77,6 +77,14 @@ export default [
   , { path: '/gl_field/:parentEntityId/item', components: { default: GL_FieldItemList, header: Header, footer: Footer }, name: 'gl_field_item.index' }
   , { path: '/gl_field/:parentEntityId/item/:id/edit', components: { default: GL_FieldItemEdit, header: Header, footer: Footer }, name: 'gl_field_item.edit' }
   , { path: '/gl_field/:parentEntityId/item/create', components: { default: GL_FieldItemEdit, header: Header, footer: Footer }, name: 'gl_field_item.create' }
+  // gl_unity
+  , { path: '/gl_unity', components: { default: GL_UnityList, header: Header, footer: Footer }, name: 'gl_unity.index' }
+  , { path: '/gl_unity/:id/edit', components: { default: GL_UnityEdit, header: Header, footer: Footer }, name: 'gl_unity.edit' }
+  , { path: '/gl_unity/create', components: { default: GL_UnityEdit, header: Header, footer: Footer }, name: 'gl_unity.create' }
+  // gl_product
+  , { path: '/gl_product', components: { default: GL_ProductList, header: Header, footer: Footer }, name: 'gl_product.index' }
+  , { path: '/gl_product/:id/edit', components: { default: GL_ProductEdit, header: Header, footer: Footer }, name: 'gl_product.edit' }
+  , { path: '/gl_product/create', components: { default: GL_ProductEdit, header: Header, footer: Footer }, name: 'gl_product.create' }
   // generator-inject-new-route-here
   // maintenance
   , {
