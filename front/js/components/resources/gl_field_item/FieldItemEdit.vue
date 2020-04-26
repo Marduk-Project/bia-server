@@ -17,13 +17,19 @@
             v-model="entity.name"
             maxlength="60"
             v-validate="'required'"
-            :class="{ 'is-invalid':errors.has('name') }"
+            :class="{ 'is-invalid': errors.has('name') }"
           />
           <div class="invalid-feedback">Campo obrigatório.</div>
         </div>
         <div class="form-group col-lg-3">
           <label>Ordem</label>
-          <input class="form-control" name="order" type="numeric" step="1" v-model="entity.order" />
+          <input
+            class="form-control"
+            name="order"
+            type="numeric"
+            step="1"
+            v-model="entity.order"
+          />
         </div>
         <div class="form-group col-lg-3">
           <label>Valor</label>
@@ -65,8 +71,8 @@ export default {
         order: 0,
         valueString: null,
         // objects
-        field: null
-      }
+        field: null,
+      },
     };
   },
   methods: {
@@ -76,7 +82,7 @@ export default {
         name: this.entity.name,
         code: this.entity.code,
         order: this.entity.order,
-        valueString: this.entity.valueString
+        valueString: this.entity.valueString,
       };
     },
     crud_validate() {
@@ -84,7 +90,7 @@ export default {
     },
     crud_requestParentEntity() {
       return axios.get(`/api/admin/gl_field/${this.parentEntityId}/edit`);
-    }
+    },
   },
   computed: {
     crud_title() {
@@ -103,10 +109,9 @@ export default {
     },
     crud_route_base() {
       return "gl_field_item";
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

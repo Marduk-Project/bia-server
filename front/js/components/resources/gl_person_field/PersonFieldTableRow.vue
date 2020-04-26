@@ -54,11 +54,11 @@ export default {
   props: {
     field: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   components: {
-    "app-field-item-select": FieldItemSelect
+    "app-field-item-select": FieldItemSelect,
   },
   data() {
     return {};
@@ -108,7 +108,7 @@ export default {
           break;
       }
       this.$emit("input", ret);
-    }
+    },
   },
   computed: {
     type() {
@@ -163,10 +163,9 @@ export default {
         case 5:
           return null;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

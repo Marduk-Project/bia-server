@@ -17,7 +17,11 @@
             @keyup.enter="list_refreshCurrentPage"
           />
           <div class="input-group-append">
-            <button class="btn btn-primary" type="button" @click="list_refreshCurrentPage">
+            <button
+              class="btn btn-primary"
+              type="button"
+              @click="list_refreshCurrentPage"
+            >
               <i class="fa fa-search"></i> Filtrar
             </button>
           </div>
@@ -68,10 +72,9 @@ export default {
     },
     list_route_base() {
       return "gl_state";
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

@@ -10,17 +10,25 @@
       <div class="input-group">
         <div class="input-group-prepend">
           <div class="input-group-text">
-            <input type="checkbox" v-model="dateTimeToNow" v-b-tooltip.hover title="Horário atual">
+            <input
+              type="checkbox"
+              v-model="dateTimeToNow"
+              v-b-tooltip.hover
+              title="Horário atual"
+            />
           </div>
         </div>
-        <app-input-datetime v-if="!dateTimeToNow" v-model="mDateTimeTo"></app-input-datetime>
+        <app-input-datetime
+          v-if="!dateTimeToNow"
+          v-model="mDateTimeTo"
+        ></app-input-datetime>
         <input
           type="text"
           class="form-control"
           readonly
           v-if="dateTimeToNow"
           placeholder="momento atual"
-        >
+        />
       </div>
     </div>
     <div class="form-group col-md-2">
@@ -33,7 +41,7 @@
               v-model="refreshAuto"
               v-b-tooltip.hover
               title="Atualizar automaticamente"
-            >
+            />
           </div>
         </div>
         <input
@@ -41,7 +49,7 @@
           class="form-control text-center"
           readonly
           :value="refreshAuto ? refreshTime : '-'"
-        >
+        />
         <div class="input-group-append">
           <button class="btn btn-outline-secondary" @click="timerOnExec">
             <div class="fas fa-sync-alt"></div>
@@ -51,33 +59,51 @@
     </div>
     <!-- sub -->
     <div class="form-group col-2">
-      <button class="btn btn-outline-info w-100" @click="onDateChangeClick(-86400)">
+      <button
+        class="btn btn-outline-info w-100"
+        @click="onDateChangeClick(-86400)"
+      >
         <i class="fas fa-minus"></i> 1d
       </button>
     </div>
     <div class="form-group col-2">
-      <button class="btn btn-outline-info w-100" @click="onDateChangeClick(-14400)">
+      <button
+        class="btn btn-outline-info w-100"
+        @click="onDateChangeClick(-14400)"
+      >
         <i class="fas fa-minus"></i> 4h
       </button>
     </div>
     <div class="form-group col-2">
-      <button class="btn btn-outline-info w-100" @click="onDateChangeClick(-3600)">
+      <button
+        class="btn btn-outline-info w-100"
+        @click="onDateChangeClick(-3600)"
+      >
         <i class="fas fa-minus"></i> 1h
       </button>
     </div>
     <!-- add -->
     <div class="form-group col-2">
-      <button class="btn btn-outline-success w-100" @click="onDateChangeClick(3600)">
+      <button
+        class="btn btn-outline-success w-100"
+        @click="onDateChangeClick(3600)"
+      >
         <i class="fas fa-plus"></i> 1h
       </button>
     </div>
     <div class="form-group col-2">
-      <button class="btn btn-outline-success w-100" @click="onDateChangeClick(14400)">
+      <button
+        class="btn btn-outline-success w-100"
+        @click="onDateChangeClick(14400)"
+      >
         <i class="fas fa-plus"></i> 4h
       </button>
     </div>
     <div class="form-group col-2">
-      <button class="btn btn-outline-success w-100" @click="onDateChangeClick(86400)">
+      <button
+        class="btn btn-outline-success w-100"
+        @click="onDateChangeClick(86400)"
+      >
         <i class="fas fa-plus"></i> 1d
       </button>
     </div>
@@ -93,12 +119,12 @@ export default {
   props: {
     dateTimeFrom: {
       type: [String, Date],
-      required: false
+      required: false,
     },
     dateTimeTo: {
       type: [String, Date],
-      required: false
-    }
+      required: false,
+    },
   },
   data() {
     let dtFrom = this.dateTimeFrom
@@ -115,7 +141,7 @@ export default {
       dateTimeIgnoreWatch: 0,
       refreshAuto: false,
       refreshTime: REFRESH_TIME,
-      refreshIntervalId: null
+      refreshIntervalId: null,
     };
   },
   watch: {
@@ -157,13 +183,13 @@ export default {
       } else {
         this.timerStop();
       }
-    }
+    },
   },
   methods: {
     emitChanges() {
       this.$emit("input", {
         dateTimeFrom: this.mDateTimeFrom,
-        dateTimeTo: this.dateTimeToNow ? null : this.mDateTimeTo
+        dateTimeTo: this.dateTimeToNow ? null : this.mDateTimeTo,
       });
     },
     timerStart() {
@@ -189,7 +215,7 @@ export default {
       this.refreshTime = REFRESH_TIME;
       this.$emit("refresh_exec", {
         dateTimeFrom: this.mDateTimeFrom,
-        dateTimeTo: this.dateTimeToNow ? null : this.mDateTimeTo
+        dateTimeTo: this.dateTimeToNow ? null : this.mDateTimeTo,
       });
     },
     onDateChangeClick(secs) {
@@ -213,7 +239,7 @@ export default {
       }
       this.emitChanges();
       this.timerOnExec();
-    }
-  }
+    },
+  },
 };
 </script>

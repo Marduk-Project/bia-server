@@ -12,11 +12,15 @@
         <div class="form-group col-lg-6">
           <label>field</label>
           <app-field-select v-model="entity.field"></app-field-select>
-          <small class="text-danger" v-if="!entity.field">Campo obrigatório.</small>
+          <small class="text-danger" v-if="!entity.field"
+            >Campo obrigatório.</small
+          >
         </div>
         <div class="form-group col-lg-6">
           <label>fieldItem</label>
-          <app-fieldItem-select v-model="entity.fieldItem"></app-fieldItem-select>
+          <app-fieldItem-select
+            v-model="entity.fieldItem"
+          ></app-fieldItem-select>
         </div>
         <div class="form-group col-lg-6">
           <label>valueString</label>
@@ -72,8 +76,8 @@ import FieldItemSelect from "../gl_field_item/FieldItemSelect.vue";
 export default {
   mixins: [crudMixin],
   components: {
-    'app-field-select': FieldSelect,
-    'app-fieldItem-select': FieldItemSelect,
+    "app-field-select": FieldSelect,
+    "app-fieldItem-select": FieldItemSelect,
   },
   data() {
     return {
@@ -89,18 +93,14 @@ export default {
         field: null,
         fieldItem: null,
         person: null,
-      }
+      },
     };
   },
   methods: {
     crud_data() {
       return {
-        fieldId: this.entity.field
-          ? this.entity.field.id
-          : null,
-        fieldItemId: this.entity.fieldItem
-          ? this.entity.fieldItem.id
-          : null,
+        fieldId: this.entity.field ? this.entity.field.id : null,
+        fieldItemId: this.entity.fieldItem ? this.entity.fieldItem.id : null,
         personId: this.parentEntityId,
         valueString: this.entity.valueString,
         valueInt: this.entity.valueInt,
@@ -136,10 +136,9 @@ export default {
     },
     crud_route_base() {
       return "gl_person_field";
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

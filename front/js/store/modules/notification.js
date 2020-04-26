@@ -1,13 +1,11 @@
-const _ = require('lodash');
-const $ = require('jquery');
+const _ = require("lodash");
+const $ = require("jquery");
 
-import EventBus from '../../bootstrap/event-bus';
+import EventBus from "../../bootstrap/event-bus";
 
-const state = {
-};
+const state = {};
 
-const mutations = {
-};
+const mutations = {};
 
 const notifyHelper = (mobj, type) => {
   var options = {};
@@ -15,11 +13,11 @@ const notifyHelper = (mobj, type) => {
     delay: 1500,
     newest_on_top: true,
     type: type,
-    mouse_over: 'pause',
+    mouse_over: "pause",
     placement: {
       from: "top",
-      align: "center"
-    }
+      align: "center",
+    },
   };
   if (_.isObject(mobj)) {
     options.message = mobj.message;
@@ -35,7 +33,7 @@ const notifyHelper = (mobj, type) => {
     if (mobj.onClickTarget) {
       options.target = mobj.onClickTarget;
     }
-    if ((type == 'warning') || (type == 'danger')) {
+    if (type == "warning" || type == "danger") {
       settings.delay = 60000;
     }
     if (mobj.timer) {
@@ -43,16 +41,16 @@ const notifyHelper = (mobj, type) => {
     }
   } else {
     options.message = mobj;
-    if ((type == 'warning') || (type == 'danger')) {
+    if (type == "warning" || type == "danger") {
       settings.delay = 60000;
     }
-    if (type == 'info') {
+    if (type == "info") {
       settings.delay = 3000;
     }
   }
   // notify
   $.notify(options, settings);
-}
+};
 
 const actions = {
   notify(context, mobj) {
@@ -66,28 +64,27 @@ const actions = {
     // }
     // mobj.icon = 'fa fa-check fa-5x';
     // notifyHelper(mobj, 'success');
-    EventBus.$emit('notify_done');
+    EventBus.$emit("notify_done");
   },
   notifySuccess(context, mobj) {
-    notifyHelper(mobj, 'success');
+    notifyHelper(mobj, "success");
   },
   notifyInfo(context, mobj) {
-    notifyHelper(mobj, 'info');
+    notifyHelper(mobj, "info");
   },
   notifyWarning(context, mobj) {
-    notifyHelper(mobj, 'warning');
+    notifyHelper(mobj, "warning");
   },
   notifyDanger(context, mobj) {
-    notifyHelper(mobj, 'danger');
-  }
+    notifyHelper(mobj, "danger");
+  },
 };
 
-const getters = {
-};
+const getters = {};
 
 export default {
   state,
   mutations,
   actions,
-  getters
-}
+  getters,
+};

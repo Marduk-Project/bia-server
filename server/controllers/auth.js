@@ -1,38 +1,46 @@
-const { body, query, param } = require('express-validator/check');
-const { validationHandler, BadRequestError, ApiError, ForbiddenError } = require('../middlewares/error-mid');
-const validator = require('validator');
-const moment = require('moment');
-const { Op } = require('sequelize');
+const { body, query, param } = require("express-validator/check");
+const {
+  validationHandler,
+  BadRequestError,
+  ApiError,
+  ForbiddenError,
+} = require("../middlewares/error-mid");
+const validator = require("validator");
+const moment = require("moment");
+const { Op } = require("sequelize");
 
-const UserModule = require('../models/gl_user');
+const UserModule = require("../models/gl_user");
 const User = UserModule.model;
-const UserRecoverModule = require('../models/gl_user_recover');
+const UserRecoverModule = require("../models/gl_user_recover");
 const UserRecover = UserRecoverModule.model;
-const { RecoverPasswordMail } = require('../mails/auth-mail');
-
+const { RecoverPasswordMail } = require("../mails/auth-mail");
 
 /**
- * realizes login 
+ * realizes login
  */
 exports.postLogin = async (req, res, next) => {
   try {
     const email = req.body.username;
     const password = req.body.password;
-    if (!validator.isEmail(email) || (typeof password !== 'string')) {
+    if (!validator.isEmail(email) || typeof password !== "string") {
       res.sendJsonError();
       return;
     }
     const user = await User.findOne({ where: { email: email } });
     if (user) {
       if (user.blocked) {
-        res.sendJsonUnauthorizedError('Usuário bloqueado! Entre em contato com a administração.');
+        res.sendJsonUnauthorizedError(
+          "Usuário bloqueado! Entre em contato com a administração."
+        );
         return;
       }
       // found user
       // check to many tries
       if (user.loginTryWait) {
         if (moment(user.loginTryWait).isAfter(new Date())) {
-          res.sendJsonUnauthorizedError('Muitas tentaivas. Aguarde alguns minutos e tente novamente.');
+          res.sendJsonUnauthorizedError(
+            "Muitas tentaivas. Aguarde alguns minutos e tente novamente."
+          );
           return;
         }
       }
@@ -58,36 +66,36 @@ exports.postLogin = async (req, res, next) => {
         user.loginTryCount += 1;
         // TODO criar uma configuracao
         if (user.loginTryCount > 5) {
-          user.loginTryWait = moment().add(1, 'm').toDate();
+          user.loginTryWait = moment().add(1, "m").toDate();
         }
         await user.save();
-        res.sendJsonUnauthorizedError('Usuário ou senha inválidos.');
+        res.sendJsonUnauthorizedError("Usuário ou senha inválidos.");
       }
     } else {
-      res.sendJsonUnauthorizedError('Usuário ou senha inválidos.');
+      res.sendJsonUnauthorizedError("Usuário ou senha inválidos.");
     } // if user
   } catch (err) {
     next(err);
   }
-}
+};
 
 /**
  * Realizes logout
  */
 exports.getLogoutApi = (req, res, next) => {
   req.session.destroy(() => {
-    res.json({ ok: true })
+    res.json({ ok: true });
   });
-}
+};
 
 /**
  * Logout with redirect
  */
 exports.getLogoutWeb = (req, res, next) => {
   req.session.destroy(() => {
-    res.redirect('/#/auth/logout')
+    res.redirect("/#/auth/logout");
   });
-}
+};
 
 /**
  * Sends mail for password forgot
@@ -110,7 +118,7 @@ exports.postRecoverRequest = async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-}
+};
 
 exports.getRecoverRedirect = (req, res, next) => {
   if (!req.params.token) {
@@ -118,7 +126,7 @@ exports.getRecoverRedirect = (req, res, next) => {
     return;
   }
   res.redirect(`/#/auth/recover/${req.params.token}`);
-}
+};
 
 exports.postRecoverChangePwd = async (req, res, next) => {
   try {
@@ -131,11 +139,11 @@ exports.postRecoverChangePwd = async (req, res, next) => {
         token: token,
         expiresWhen: {
           [Op.gte]: new Date(),
-        }
-      }
+        },
+      },
     });
     if (!entity) {
-      res.sendJsonBadRequestError('Token não é mais válido.');
+      res.sendJsonBadRequestError("Token não é mais válido.");
       return;
     }
     // clear
@@ -147,9 +155,7 @@ exports.postRecoverChangePwd = async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-}
-
-
+};
 
 /**
  * Returns if user is authenticated
@@ -168,11 +174,9 @@ exports.getSessionWeb = (req, res, next) => {
   res.sendJsonOK({
     user: user,
   });
-}
-
+};
 
 // ==== user chabges
-
 
 /**
  * Returns the current user
@@ -184,33 +188,20 @@ exports.getMe = (req, res, next) => {
     nickname: req.user.nickname,
     email: req.user.email,
     level: req.user.level,
-  }
+  };
   res.json({
     data: user,
   });
-}
-
-
-
+};
 
 /**
  * Validation
  */
 exports.postMeUpdateValidate = [
-  body('name')
-    .isString()
-    .not()
-    .isEmpty()
-    .trim(),
-  body('nickname')
-    .isString()
-    .not()
-    .isEmpty()
-    .trim(),
+  body("name").isString().not().isEmpty().trim(),
+  body("nickname").isString().not().isEmpty().trim(),
   (req, res, next) => {
-    req.getValidationResult()
-      .then(validationHandler(next))
-      .catch(next);
+    req.getValidationResult().then(validationHandler(next)).catch(next);
   },
 ];
 
@@ -227,23 +218,13 @@ exports.postMeUpdate = async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-}
-
-
-
+};
 
 exports.postPwdUpdateValidate = [
-  body('pwd_current')
-    .isString()
-    .trim(),
-  body('pwd_new')
-    .isString()
-    .isLength({ min: 6, max: 32 })
-    .trim(),
+  body("pwd_current").isString().trim(),
+  body("pwd_new").isString().isLength({ min: 6, max: 32 }).trim(),
   (req, res, next) => {
-    req.getValidationResult()
-      .then(validationHandler(next))
-      .catch(next);
+    req.getValidationResult().then(validationHandler(next)).catch(next);
   },
 ];
 
@@ -252,7 +233,7 @@ exports.postPwdUpdate = async (req, res, next) => {
     const { pwd_current, pwd_new } = req.body;
     const user = req.user;
     if (!user.password_compare(pwd_current)) {
-      throw new BadRequestError('Senha atual não confere.');
+      throw new BadRequestError("Senha atual não confere.");
     }
     user.password_setPlain(pwd_new);
     await user.save();
@@ -260,4 +241,4 @@ exports.postPwdUpdate = async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-}
+};

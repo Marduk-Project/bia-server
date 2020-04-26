@@ -1,7 +1,10 @@
 <template>
   <div>
     <transition name="nf-fade" appear>
-      <div v-if="showNotification > 0" class="app-notification rounded bg-success text-white">
+      <div
+        v-if="showNotification > 0"
+        class="app-notification rounded bg-success text-white"
+      >
         <div class="fas fa-5x fa-check"></div>
       </div>
     </transition>
@@ -14,17 +17,17 @@ import EventBus from "../../../bootstrap/event-bus";
 export default {
   data() {
     return {
-      showNotification: 0
+      showNotification: 0,
     };
   },
   mounted() {
-    EventBus.$on("notify_done", payLoad => {
+    EventBus.$on("notify_done", (payLoad) => {
       this.showNotification += 1;
       setTimeout(() => {
         this.showNotification -= 1;
       }, 3000);
     });
-  }
+  },
 };
 </script>
 

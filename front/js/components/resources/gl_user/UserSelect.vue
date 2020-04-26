@@ -36,19 +36,18 @@ export default {
     "options",
     "extraparams",
     "placeholder",
-    "multiple"
+    "multiple",
   ],
   components: {
-    "v-select": vSelect
+    "v-select": vSelect,
   },
   methods: {
     mapResult(value, index) {
       value.text = `${value.name} - (${value.email})`;
       return value;
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

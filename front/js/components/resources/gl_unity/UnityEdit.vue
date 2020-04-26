@@ -19,7 +19,7 @@
             maxlength="60"
             placeholder="ex. Litro(s)"
             v-validate="'required'"
-            :class="{ 'is-invalid':errors.has('name') }"
+            :class="{ 'is-invalid': errors.has('name') }"
           />
           <div class="invalid-feedback">Campo obrigatório.</div>
         </div>
@@ -83,9 +83,9 @@ export default {
         name: null,
         nameSingular: null,
         namePlural: null,
-        unity: null
+        unity: null,
         // objects
-      }
+      },
     };
   },
   methods: {
@@ -94,12 +94,12 @@ export default {
         name: this.entity.name,
         nameSingular: this.entity.nameSingular,
         namePlural: this.entity.namePlural,
-        unity: this.entity.unity
+        unity: this.entity.unity,
       };
     },
     crud_validate() {
       return true;
-    }
+    },
   },
   computed: {
     crud_title() {
@@ -118,10 +118,9 @@ export default {
     },
     crud_route_base() {
       return "gl_unity";
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

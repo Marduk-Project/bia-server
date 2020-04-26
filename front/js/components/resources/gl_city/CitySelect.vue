@@ -34,10 +34,10 @@ export default {
     "value",
     "options",
     "extraparams",
-    "placeholder"
+    "placeholder",
   ],
   components: {
-    "v-select": vSelect
+    "v-select": vSelect,
   },
   methods: {
     mapResult(value, index) {
@@ -47,10 +47,9 @@ export default {
         value.text = value.name;
       }
       return value;
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

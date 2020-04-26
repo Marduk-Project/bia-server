@@ -4,7 +4,9 @@
     <button
       type="button"
       class="btn btn-link"
-      @click="$router.push({ name: 'gl_field.edit', params: { id: parentEntityId } })"
+      @click="
+        $router.push({ name: 'gl_field.edit', params: { id: parentEntityId } })
+      "
     >
       <i class="fa fa-chevron-left"></i> Voltar
     </button>
@@ -25,7 +27,11 @@
             @keyup.enter="list_refreshCurrentPage"
           />
           <div class="input-group-append">
-            <button class="btn btn-primary" type="button" @click="list_refreshCurrentPage">
+            <button
+              class="btn btn-primary"
+              type="button"
+              @click="list_refreshCurrentPage"
+            >
               <i class="fa fa-search"></i> Filtrar
             </button>
           </div>
@@ -90,7 +96,7 @@ export default {
     },
     list_route_base() {
       return "gl_field_item";
-    }
+    },
   },
   methods: {
     list_buildURL(page) {
@@ -102,10 +108,9 @@ export default {
     },
     list_requestParentEntity() {
       return axios.get(`/api/admin/gl_field/${this.parentEntityId}/edit`);
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

@@ -11,10 +11,9 @@ export default {
   methods: {
     onButtonClick() {
       this.$emit("click", this.value);
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

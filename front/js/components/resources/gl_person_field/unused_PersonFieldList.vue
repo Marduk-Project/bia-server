@@ -4,7 +4,9 @@
     <button
       type="button"
       class="btn btn-link"
-      @click="$router.push({ name: 'gl_person.edit', params: { id: parentEntityId } })"
+      @click="
+        $router.push({ name: 'gl_person.edit', params: { id: parentEntityId } })
+      "
     >
       <i class="fa fa-chevron-left"></i> Voltar
     </button>
@@ -14,14 +16,16 @@
     <br />
     <br />
     <div class="form-row">
-        <div class="form-group col-lg-6">
-          <label>field</label>
-          <app-field-select v-model="filters.field"></app-field-select>
-        </div>
-        <div class="form-group col-lg-6">
-          <label>fieldItem</label>
-          <app-fieldItem-select v-model="filters.fieldItem"></app-fieldItem-select>
-        </div>
+      <div class="form-group col-lg-6">
+        <label>field</label>
+        <app-field-select v-model="filters.field"></app-field-select>
+      </div>
+      <div class="form-group col-lg-6">
+        <label>fieldItem</label>
+        <app-fieldItem-select
+          v-model="filters.fieldItem"
+        ></app-fieldItem-select>
+      </div>
       <div class="form-group col-12">
         <div class="input-group mb-3">
           <input
@@ -33,7 +37,11 @@
             @keyup.enter="list_refreshCurrentPage"
           />
           <div class="input-group-append">
-            <button class="btn btn-primary" type="button" @click="list_refreshCurrentPage">
+            <button
+              class="btn btn-primary"
+              type="button"
+              @click="list_refreshCurrentPage"
+            >
               <i class="fa fa-search"></i> Filtrar
             </button>
           </div>
@@ -66,9 +74,9 @@
               title="Verificado"
               class="fas fa-check-circle"
               :class="{
-              'app-table-action-disabled': !entity.trusted,
-              'text-success': entity.trusted,
-            }"
+                'app-table-action-disabled': !entity.trusted,
+                'text-success': entity.trusted,
+              }"
             ></i>
           </td>
         </tr>
@@ -89,15 +97,15 @@ import FieldItemSelect from "../gl_field_item/FieldItemSelect.vue";
 export default {
   mixins: [listMixin],
   components: {
-    'app-field-select': FieldSelect,
-    'app-fieldItem-select': FieldItemSelect,
+    "app-field-select": FieldSelect,
+    "app-fieldItem-select": FieldItemSelect,
   },
   data() {
     return {
       filters: {
         field: null,
         fieldItem: null,
-      }
+      },
     };
   },
   computed: {
@@ -127,10 +135,9 @@ export default {
     },
     list_requestParentEntity() {
       return axios.get(`/api/admin/gl_person/${this.parentEntityId}/edit`);
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

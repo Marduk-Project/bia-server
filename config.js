@@ -1,17 +1,19 @@
-const nconf = require('nconf');
-const fs = require('fs');
-const path = require('path');
-const chalk = require('chalk');
+const nconf = require("nconf");
+const fs = require("fs");
+const path = require("path");
+const chalk = require("chalk");
 
 // workaround cli sequelize migration
 let argParam = process.argv[4];
 if (!argParam) {
-  argParam = 'development';
+  argParam = "development";
 } else {
-  if ((argParam != 'development') &&
-    (argParam != 'test') &&
-    (argParam != 'production')) {
-    argParam = 'development';
+  if (
+    argParam != "development" &&
+    argParam != "test" &&
+    argParam != "production"
+  ) {
+    argParam = "development";
   }
 }
 

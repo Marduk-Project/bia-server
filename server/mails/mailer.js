@@ -1,15 +1,17 @@
-const nodemailer = require('nodemailer');
-const marked = require('marked');
-const path = require('path');
-const nconf = require('nconf');
+const nodemailer = require("nodemailer");
+const marked = require("marked");
+const path = require("path");
+const nconf = require("nconf");
 
 const transporter = nodemailer.createTransport({
-  host: nconf.get('MAIL_HOST'),
-  port: nconf.get('MAIL_PORT'),
-  secure: ((nconf.get('MAIL_ENCRYPTION') == 'tls') || (nconf.get('MAIL_ENCRYPTION') == 'ssl')),
+  host: nconf.get("MAIL_HOST"),
+  port: nconf.get("MAIL_PORT"),
+  secure:
+    nconf.get("MAIL_ENCRYPTION") == "tls" ||
+    nconf.get("MAIL_ENCRYPTION") == "ssl",
   auth: {
-    user: nconf.get('MAIL_USERNAME'),
-    pass: nconf.get('MAIL_PASSWORD'),
+    user: nconf.get("MAIL_USERNAME"),
+    pass: nconf.get("MAIL_PASSWORD"),
   },
 });
 
@@ -25,7 +27,9 @@ const transporter = nodemailer.createTransport({
  */
 exports.sendMail = (mail) => {
   let mailOptions = {
-    from: `"${nconf.get('MAIL_FROM_NAME')}" <${nconf.get('MAIL_FROM_ADDRESS')}>`,
+    from: `"${nconf.get("MAIL_FROM_NAME")}" <${nconf.get(
+      "MAIL_FROM_ADDRESS"
+    )}>`,
     subject: mail.subject,
     html: mail.html,
   };
@@ -39,7 +43,7 @@ exports.sendMail = (mail) => {
     mailOptions.bcc = mail.bcc;
   }
   return transporter.sendMail(mailOptions);
-}
+};
 
 /**
  * Returns markdown data
@@ -59,12 +63,12 @@ exports.markdownHtml = (res, template, data, options) => {
       }
       html = marked(html, { sanitize: false });
       if (!options || !options.hideHeaderFooter) {
-        res.render('emails/layout/header.ejs', data, (err, header) => {
+        res.render("emails/layout/header.ejs", data, (err, header) => {
           if (err) {
             reject(err);
             return;
           }
-          res.render('emails/layout/footer.ejs', data, (err, footer) => {
+          res.render("emails/layout/footer.ejs", data, (err, footer) => {
             if (err) {
               reject(err);
               return;
@@ -77,7 +81,7 @@ exports.markdownHtml = (res, template, data, options) => {
       }
     });
   });
-}
+};
 
 /**
  * Base e-mail class
@@ -88,7 +92,6 @@ exports.markdownHtml = (res, template, data, options) => {
  * @property {string} [html=null]
  */
 class BaseMail {
-
   constructor() {
     this.to = null;
     this.cc = null;
@@ -105,7 +108,7 @@ class BaseMail {
    * @returns {Promise}
    */
   buildBody(req, res, next) {
-    return Promise.reject('Build not implemented!');
+    return Promise.reject("Build not implemented!");
   }
 
   toMail() {
@@ -126,12 +129,10 @@ class BaseMail {
    * @returns {Promise}
    */
   send(req, res, next) {
-    return this.buildBody(req, res, next)
-      .then(() => {
-        return exports.sendMail(this.toMail())
-      })
+    return this.buildBody(req, res, next).then(() => {
+      return exports.sendMail(this.toMail());
+    });
   }
-
 }
 
 exports.BaseMail = BaseMail;

@@ -10,10 +10,17 @@
       <router-link
         class="btn btn-outline-secondary"
         tag="button"
-        :to="{ name: 'gl_person_contact.index', params: { parentEntityId: entity.id, parentEntity: entity, origin: 'u' } }"
+        :to="{
+          name: 'gl_person_contact.index',
+          params: {
+            parentEntityId: entity.id,
+            parentEntity: entity,
+            origin: 'u',
+          },
+        }"
       >
-        <i class="fas fa-id-card"></i> Contatos vinculados
-      </router-link>&nbsp;
+        <i class="fas fa-id-card"></i> Contatos vinculados </router-link
+      >&nbsp;
       <button class="btn btn-outline-danger" @click="onUserBlockClick">
         <i class="fas fa-ban"></i> Bloquear / Desbloquear
       </button>
@@ -74,8 +81,16 @@
       <div class="form-row">
         <div class="form-group col-12">
           <div class="form-check">
-            <label class="form-check-label" :class="{ 'text-danger': entity.blocked }">
-              <input class="form-check-input" type="checkbox" value="1" v-model="entity.blocked" />
+            <label
+              class="form-check-label"
+              :class="{ 'text-danger': entity.blocked }"
+            >
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value="1"
+                v-model="entity.blocked"
+              />
               Bloqueado / inativo
             </label>
           </div>
@@ -108,7 +123,11 @@
                   @keyup.enter.prevent="onPwdCheckClick"
                 />
                 <div class="input-group-append">
-                  <button class="btn btn-outline-secondary" type="button" @click="onPwdCheckClick">
+                  <button
+                    class="btn btn-outline-secondary"
+                    type="button"
+                    @click="onPwdCheckClick"
+                  >
                     <i class="fa fa-user-secret"></i>
                   </button>
                 </div>
@@ -127,7 +146,11 @@
                   @keyup.enter.prevent="onPwdChangeClick"
                 />
                 <div class="input-group-append">
-                  <button class="btn btn-outline-secondary" type="button" @click="onPwdChangeClick">
+                  <button
+                    class="btn btn-outline-secondary"
+                    type="button"
+                    @click="onPwdChangeClick"
+                  >
                     <i class="fa fa-key"></i>
                   </button>
                 </div>
@@ -135,13 +158,19 @@
             </div>
             <div class="form-group col-lg-3">
               <label>&nbsp;</label>
-              <button class="btn btn-outline-secondary w-100" @click="onPwdRecoverClick">
+              <button
+                class="btn btn-outline-secondary w-100"
+                @click="onPwdRecoverClick"
+              >
                 <i class="fas fa-envelope"></i> Enviar recuperação
               </button>
             </div>
             <div class="form-group col-lg-3">
               <label>&nbsp;</label>
-              <button class="btn btn-outline-secondary w-100" @click="onPwdInviteClick">
+              <button
+                class="btn btn-outline-secondary w-100"
+                @click="onPwdInviteClick"
+              >
                 <i class="fas fa-handshake"></i> Enviar convite
               </button>
             </div>
@@ -162,7 +191,7 @@ import _ from "lodash";
 export default {
   mixins: [crudMixin],
   components: {
-    "app-user-level-select": UserLevelSelect
+    "app-user-level-select": UserLevelSelect,
   },
   data() {
     return {
@@ -173,10 +202,10 @@ export default {
         email: null,
         level: 10,
         blocked: false,
-        accounts: []
+        accounts: [],
       },
       pwd_change: null,
-      pwd_check: null
+      pwd_check: null,
     };
   },
   methods: {
@@ -187,7 +216,7 @@ export default {
         nickname: this.entity.nickname,
         email: this.entity.email,
         level: this.entity.level,
-        blocked: this.entity.blocked ? true : false
+        blocked: this.entity.blocked ? true : false,
       };
     },
     crud_shouldNavBackAfterSave() {
@@ -200,7 +229,7 @@ export default {
       }
       this.api_loadingShow();
       const data = {
-        pwd: this.pwd_check
+        pwd: this.pwd_check,
       };
       axios
         .post(`/api/admin/gl_user/${this.entity.id}/pwd_check`, data)
@@ -219,7 +248,7 @@ export default {
       if (confirm("Alterar senha deste usuário?")) {
         this.api_loadingShow();
         const data = {
-          pwd: this.pwd_change
+          pwd: this.pwd_change,
         };
         axios
           .post(`/api/admin/gl_user/${this.entity.id}/pwd_change`, data)
@@ -238,7 +267,7 @@ export default {
         this.api_loadingShow();
         axios
           .post(`/api/admin/gl_user/${this.entity.id}/pwd_recover`, {
-            isInvite: isInvite
+            isInvite: isInvite,
           })
           .then(this.api_thenDone())
           .catch(this.api_catch());
@@ -261,16 +290,16 @@ export default {
         this.api_loadingShow();
         axios
           .post(`/api/admin/gl_user/${this.entity.id}/blockToggle`, {
-            blocked: !this.entity.blocked
+            blocked: !this.entity.blocked,
           })
           .then(
-            this.api_thenDone(res => {
+            this.api_thenDone((res) => {
               this.crud_refreshEntity();
             })
           )
           .catch(this.api_catch());
       }
-    }
+    },
   },
   computed: {
     crud_title() {
@@ -289,10 +318,9 @@ export default {
     },
     crud_route_base() {
       return "gl_user";
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

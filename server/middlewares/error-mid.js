@@ -1,5 +1,5 @@
-const winston = require('../helpers/winston');
-const nconf = require('nconf');
+const winston = require("../helpers/winston");
+const nconf = require("nconf");
 const logger = winston.logger;
 
 /**
@@ -8,7 +8,7 @@ const logger = winston.logger;
 class AppBaseError extends Error {
   /**
    * Application base error
-   * @param {string} message 
+   * @param {string} message
    * @param {number} [status=400]
    * @param {strig} [logLevel='warn']
    */
@@ -16,7 +16,7 @@ class AppBaseError extends Error {
     super(message);
     this.name = this.constructor.name;
     this.status = status || 400;
-    this.logLevel = logLevel || 'warn';
+    this.logLevel = logLevel || "warn";
     // Capturing stack trace, excluding constructor call from it.
     // Error.captureStackTrace(this, this.constructor);
   }
@@ -65,22 +65,22 @@ class ServerError extends AppBaseError {
   }
 }
 
-/** 
- * Convertes error to json 
+/**
+ * Convertes error to json
  * @param {Error} err
  * @returns {Object}
-*/
+ */
 const errorToJson = (err) => {
   const json = {
     ok: false,
-    message: err.message
-  }
-  if (nconf.get('NODE_ENV') != 'production') {
+    message: err.message,
+  };
+  if (nconf.get("NODE_ENV") != "production") {
     json.stack = err.stack;
     json.error = err.toString();
   }
   return json;
-}
+};
 
 /**
  * Application error handler
@@ -95,12 +95,12 @@ exports.handler = (err, req, res, next) => {
   let toJson = false;
   let saveLog = true;
   if (
-    (err instanceof ForbiddenError) ||
-    (err instanceof UnauthenticatedError) ||
-    (err instanceof BadRequestError) ||
-    (err instanceof ServerError) ||
-    (err instanceof NotFoundError) ||
-    (err instanceof ApiError)
+    err instanceof ForbiddenError ||
+    err instanceof UnauthenticatedError ||
+    err instanceof BadRequestError ||
+    err instanceof ServerError ||
+    err instanceof NotFoundError ||
+    err instanceof ApiError
   ) {
     toJson = true;
   }
@@ -110,24 +110,24 @@ exports.handler = (err, req, res, next) => {
   }
   // set locals, only providing error in development
   res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+  res.locals.error = req.app.get("env") === "development" ? err : {};
   // render the error page
   res.status(err.status || 500);
   if (toJson) {
     res.json(err.toJson());
   } else {
-    if (req.method == 'GET') {
-      res.render('errors/error');
+    if (req.method == "GET") {
+      res.render("errors/error");
     } else {
       res.json(errorToJson(err));
     }
   }
-}
+};
 
 /**
  * Validation error
  */
-exports.validationHandler = next => result => {
+exports.validationHandler = (next) => (result) => {
   if (result.isEmpty()) {
     if (next) {
       next();
@@ -136,31 +136,33 @@ exports.validationHandler = next => result => {
   }
   if (!next) {
     throw new BadRequestError(
-      result.array().map(i => `'${i.param}' has ${i.msg}`).join('\n')
+      result
+        .array()
+        .map((i) => `'${i.param}' has ${i.msg}`)
+        .join("\n")
     );
   } else {
-    let str = result.array()
-      .map(i => {
+    let str = result
+      .array()
+      .map((i) => {
         return `<li><b>${i.param}</b>: ${i.msg}</li>`;
       })
-      .join('\n');
+      .join("\n");
     str = `Ocorreram os seguintes erros na requisição:<br/><ul style="margin: 0px;">${str}</ul>`;
     return next(new BadRequestError(str));
   }
-}
+};
 
 /**
  * Validation ending function
  */
 exports.validationEndFunction = (req, res, next) => {
-  req.getValidationResult()
-    .then(exports.validationHandler(next))
-    .catch(next);
-}
+  req.getValidationResult().then(exports.validationHandler(next)).catch(next);
+};
 
 /**
  * Find and put the entity on req.entity object
- * 
+ *
  * @param {object} model
  * @param {string} scope
  * @param {object} customOptions
@@ -169,25 +171,20 @@ exports.validationEndFunction = (req, res, next) => {
 exports.customFindByPkValidation = (model, scope, customOptions) => {
   return async (value, { req }) => {
     if (scope) {
-      req.entity =
-        await model
-          .scope(scope)
-          .findByPk(value, customOptions);
+      req.entity = await model.scope(scope).findByPk(value, customOptions);
     } else {
-      req.entity =
-        await model
-          .findByPk(value, customOptions);
+      req.entity = await model.findByPk(value, customOptions);
     }
     if (!req.entity) {
       throw new NotFoundError();
     }
     return true;
-  }
-}
+  };
+};
 
 /**
  * Find and put the entity on req[rel] object
- * 
+ *
  * @param {object} model
  * @param {string} relProperty
  * @param {string} scope
@@ -197,12 +194,9 @@ exports.customFindByPkRelationValidation = (model, relProperty, scope) => {
   return async (value, { req }) => {
     let relationEntity = null;
     if (scope) {
-      relationEntity = await model
-        .scope(scope)
-        .findByPk(value);
+      relationEntity = await model.scope(scope).findByPk(value);
     } else {
-      relationEntity = await model
-        .findByPk(value);
+      relationEntity = await model.findByPk(value);
     }
     if (!relationEntity) {
       throw new NotFoundError();
@@ -211,8 +205,8 @@ exports.customFindByPkRelationValidation = (model, relProperty, scope) => {
       req[relProperty] = relationEntity;
     }
     return true;
-  }
-}
+  };
+};
 
 // exports classes errors
 exports.UnauthenticatedError = UnauthenticatedError;

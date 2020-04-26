@@ -1,6 +1,6 @@
 export const setSession = (state, session) => {
   state.user = session.user;
-}
+};
 
 export const setLoading = (state, loading) => {
   if (loading) {
@@ -12,4 +12,4 @@ export const setLoading = (state, loading) => {
   if (state.loading < 0) {
     state.loading = 0;
   }
-}
+};

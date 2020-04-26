@@ -1,17 +1,29 @@
 <template>
   <div>
-    <br>
+    <br />
     <h1>Editar arquivo de configuração</h1>
     <p class="text-danger">
-      <strong>Atenção!</strong> Configurações erradas podem fazer o sistema parar de funcionar. <br>
-      É necessário <strong>reiniciar a instância de aplicação </strong> para as configurações terem efeito.
+      <strong>Atenção!</strong> Configurações erradas podem fazer o sistema
+      parar de funcionar. <br />
+      É necessário <strong>reiniciar a instância de aplicação </strong> para as
+      configurações terem efeito.
     </p>
     <div class="form-group">
-      <textarea class="form-control" rows="20" name="file_content" v-model="file_content"></textarea>
+      <textarea
+        class="form-control"
+        rows="20"
+        name="file_content"
+        v-model="file_content"
+      ></textarea>
     </div>
-    <br>
+    <br />
     <div class="d-flex flex-row">
-      <button type="submit" class="btn btn-success" :disabled="!wsLoadOK" @click="onSaveClick">
+      <button
+        type="submit"
+        class="btn btn-success"
+        :disabled="!wsLoadOK"
+        @click="onSaveClick"
+      >
         <i class="fas fa-check"></i> Salvar
       </button>
       <div class="col-1"></div>
@@ -31,7 +43,7 @@ export default {
   data() {
     return {
       file_content: "",
-      wsLoadOK: false
+      wsLoadOK: false,
     };
   },
   methods: {
@@ -39,7 +51,7 @@ export default {
       this.api_loadingShow();
       axios
         .post("api/admin/maintenance/config_update", {
-          file_content: this.file_content
+          file_content: this.file_content,
         })
         .then(this.api_thenDone())
         .catch(this.api_catch());
@@ -48,7 +60,7 @@ export default {
       this.api_loadingShow();
       axios
         .get("api/admin/maintenance/config_get")
-        .then(res => {
+        .then((res) => {
           if (!this.api_parseOK(res, false)) {
             return;
           }
@@ -57,18 +69,17 @@ export default {
           this.api_loadingHide();
         })
         .catch(
-          this.api_catch(error => {
+          this.api_catch((error) => {
             this.wsLoadOK = false;
           })
         );
-    }
+    },
   },
   mounted() {
     this.$store.dispatch("setTitle", "Editar config.json");
     this.reloadContent();
-  }
+  },
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

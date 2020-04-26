@@ -32,7 +32,7 @@
             v-model="entity.name"
             placeholder="ex. Fulano Ciclano Tal"
             v-validate="'required'"
-            :class="{ 'is-invalid':errors.has('name') }"
+            :class="{ 'is-invalid': errors.has('name') }"
           />
           <div class="invalid-feedback">Campo obrigatório.</div>
         </div>
@@ -82,16 +82,24 @@
             Cadastro de
             <strong>Pessoa</strong> que pertence este contato.
           </small>
-          <small class="text-danger" v-if="!entity.person">Campo obrigatório.</small>
+          <small class="text-danger" v-if="!entity.person"
+            >Campo obrigatório.</small
+          >
         </div>
         <div class="form-group col-lg-6">
           <label>Pessoa referência</label>
-          <app-person-select v-model="entity.personReference"></app-person-select>
+          <app-person-select
+            v-model="entity.personReference"
+          ></app-person-select>
           <small>Cadastro completo deste contato, caso necessário.</small>
         </div>
         <div class="form-group col-12">
           <label>Observações</label>
-          <textarea rows="4" v-model="entity.obs" class="form-control"></textarea>
+          <textarea
+            rows="4"
+            v-model="entity.obs"
+            class="form-control"
+          ></textarea>
         </div>
       </div>
       <br />
@@ -151,7 +159,7 @@ export default {
   mixins: [crudMixin],
   components: {
     "app-person-select": PersonSelect,
-    "app-user-select": UserSelect
+    "app-user-select": UserSelect,
   },
   data() {
     return {
@@ -172,8 +180,8 @@ export default {
         // objects
         person: null,
         personReference: null,
-        user: null
-      }
+        user: null,
+      },
     };
   },
   methods: {
@@ -201,7 +209,7 @@ export default {
             ? this.parentEntityId
             : this.entity.person
             ? this.entity.person.id
-            : null
+            : null,
       };
     },
     crud_validate() {
@@ -212,7 +220,7 @@ export default {
         }
       }
       return true;
-    }
+    },
   },
   computed: {
     origin() {
@@ -234,10 +242,9 @@ export default {
     },
     crud_route_base() {
       return "gl_person_contact";
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

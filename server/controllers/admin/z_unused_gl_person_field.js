@@ -76,7 +76,6 @@
 //   }
 // }
 
-
 // /**
 //  * Get for Edit Validate
 //  */
@@ -101,8 +100,6 @@
 //     next(err);
 //   }
 // }
-
-
 
 // /**
 //  * Save validation
@@ -169,9 +166,6 @@
 //   }
 // }
 
-
-
-
 // /** Update validation */
 // exports.putUpdateValidate = [
 //   ...saveValidate,
@@ -192,9 +186,6 @@
 //   }
 // }
 
-
-
-
 // /**
 //  * Create validation
 //  */
@@ -213,9 +204,6 @@
 //     next(err);
 //   }
 // }
-
-
-
 
 // /**
 //  * Delete Validate

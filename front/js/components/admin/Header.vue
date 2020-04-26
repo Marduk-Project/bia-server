@@ -23,7 +23,8 @@
             data-toggle="dropdown"
             aria-haspopup="true"
             aria-expanded="false"
-          >Ir</a>
+            >Ir</a
+          >
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="/admin">
               <i class="fas fa-tachometer-alt"></i> Dashboard
@@ -39,7 +40,8 @@
             data-toggle="dropdown"
             aria-haspopup="true"
             aria-expanded="false"
-          >Cadastros</a>
+            >Cadastros</a
+          >
           <div class="dropdown-menu" aria-labelledby="navbarCrudDropdown">
             <router-link
               class="dropdown-item"
@@ -76,7 +78,10 @@
             >
               <i class="fas fa-cog"></i>
             </a>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+            <div
+              class="dropdown-menu dropdown-menu-right"
+              aria-labelledby="navbarDropdown"
+            >
               <!-- <a class="dropdown-item" href="/admin/maintenance/logs" target="_blank">
                 <i class="fas fa-file-code"></i> Logs
               </a>-->
@@ -158,16 +163,20 @@
               <i class="fa fa-user-circle"></i>
               {{ userNickname }}
             </a>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+            <div
+              class="dropdown-menu dropdown-menu-right"
+              aria-labelledby="navbarDropdown"
+            >
               <router-link
-                :to="{ name: 'user.profile', params: { routeBack: '/dashboard' } }"
+                :to="{
+                  name: 'user.profile',
+                  params: { routeBack: '/dashboard' },
+                }"
                 tag="a"
                 class="dropdown-item"
                 active-class="active"
               >
-                <a>
-                  <i class="fas fa-user-circle"></i> Meus dados
-                </a>
+                <a> <i class="fas fa-user-circle"></i> Meus dados </a>
               </router-link>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="/logout">
@@ -190,13 +199,13 @@ export default {
       isUserAdmin: "isUserAdmin",
       isUserStaff: "isUserStaff",
       userName: "getUserName",
-      userNickname: "getUserNickname"
+      userNickname: "getUserNickname",
       // isEnvProduction: "isEnvProduction"
     }),
     app_current_name() {
       return window.app_short_name;
-    }
-  }
+    },
+  },
 };
 </script>
 

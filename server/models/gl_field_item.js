@@ -1,82 +1,86 @@
-const nconf = require('nconf');
-const { Sequelize, DataTypes } = require('sequelize');
+const nconf = require("nconf");
+const { Sequelize, DataTypes } = require("sequelize");
 
-const { mainDb } = require('../database/main_connection');
-const { BaseModel, jsonSerializer } = require('./base_model');
+const { mainDb } = require("../database/main_connection");
+const { BaseModel, jsonSerializer } = require("./base_model");
 
-const { model: FieldModel, jsonSerializer: fieldJsonSerializer } = require('./gl_field');
+const {
+  model: FieldModel,
+  jsonSerializer: fieldJsonSerializer,
+} = require("./gl_field");
 
 // model
-const modelName = 'gl_field_item';
-class MyModel extends BaseModel { }
+const modelName = "gl_field_item";
+class MyModel extends BaseModel {}
 
-MyModel.init({
-  id: {
-    allowNull: false,
-    autoIncrement: true,
-    primaryKey: true,
-    type: Sequelize.INTEGER
-  },
-  createdAt: {
-    type: Sequelize.DATE,
-  },
-  updatedAt: {
-    type: Sequelize.DATE,
-  },
-  name: {
-    type: Sequelize.STRING,
-  },
-  order: {
-    type: Sequelize.INTEGER,
-  },
-  valueString: {
-    type: Sequelize.STRING,
-    validate: {
-      notEmpty: true,
-      len: {
-        args: [1, 60],
-        msg: 'Nome deve ter de 1 a 60 caracteres.',
-      }
+MyModel.init(
+  {
+    id: {
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: Sequelize.INTEGER,
+    },
+    createdAt: {
+      type: Sequelize.DATE,
+    },
+    updatedAt: {
+      type: Sequelize.DATE,
+    },
+    name: {
+      type: Sequelize.STRING,
+    },
+    order: {
+      type: Sequelize.INTEGER,
+    },
+    valueString: {
+      type: Sequelize.STRING,
+      validate: {
+        notEmpty: true,
+        len: {
+          args: [1, 60],
+          msg: "Nome deve ter de 1 a 60 caracteres.",
+        },
+      },
     },
   },
-}, {
-  // options
-  sequelize: mainDb,
-  modelName: modelName,
-  tableName: modelName,
-});
-
+  {
+    // options
+    sequelize: mainDb,
+    modelName: modelName,
+    tableName: modelName,
+  }
+);
 
 // relations
 FieldModel.hasMany(MyModel, {
-  foreignKey: 'fieldId',
-  as: 'items',
+  foreignKey: "fieldId",
+  as: "items",
 });
 MyModel.belongsTo(FieldModel, {
-  foreignKey: 'fieldId',
-  as: 'field',
+  foreignKey: "fieldId",
+  as: "field",
 });
-
 
 // scopes
 const scopes = {
   def: {
-    include: ['id', 'fieldId', 'field', 'name', 'code', 'order', 'valueString'],
+    include: ["id", "fieldId", "field", "name", "code", "order", "valueString"],
   },
   admin: {
-    field: async (value, scopeName) => await fieldJsonSerializer(value, scopeName),
-  }
-}
-
+    field: async (value, scopeName) =>
+      await fieldJsonSerializer(value, scopeName),
+  },
+};
 
 exports.model = MyModel;
 exports.modelName = modelName;
 exports.jsonSerializer = async (value, scopeName) => {
   if (!scopeName) {
-    scopeName = 'def';
+    scopeName = "def";
   }
   if (!scopes[scopeName]) {
-    scopeName = 'def';
+    scopeName = "def";
   }
   return await jsonSerializer(value, scopes[scopeName], scopeName);
-}
+};

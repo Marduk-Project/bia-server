@@ -4,7 +4,7 @@
     @input="$emit('input', $event.target.value)"
     class="form-control"
     v-validate="required ? 'required' : ''"
-    :class="{ 'is-invalid' : errors.has('weekday') }"
+    :class="{ 'is-invalid': errors.has('weekday') }"
   >
     <option value="-1" :selected="value == -1" v-if="showAll">Todos</option>
     <option value="1" :selected="value == 1">Segunda-feira</option>
@@ -23,22 +23,21 @@ export default {
     showAll: {
       type: Boolean,
       default: false,
-      required: false
+      required: false,
     },
     value: {
       type: [String, Number],
       default: 0,
-      required: false
+      required: false,
     },
     required: {
       type: Boolean,
       default: false,
-      required: false
-    }
+      required: false,
+    },
   },
-  methods: {}
+  methods: {},
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

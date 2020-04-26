@@ -1,10 +1,13 @@
-const nconf = require('nconf');
-const { Sequelize, DataTypes } = require('sequelize');
+const nconf = require("nconf");
+const { Sequelize, DataTypes } = require("sequelize");
 
-const { mainDb } = require('../database/main_connection');
-const { BaseModel, jsonSerializer } = require('./base_model');
+const { mainDb } = require("../database/main_connection");
+const { BaseModel, jsonSerializer } = require("./base_model");
 
-const { model: CityModel, jsonSerializer: cityJsonSerializer } = require('./gl_city');
+const {
+  model: CityModel,
+  jsonSerializer: cityJsonSerializer,
+} = require("./gl_city");
 
 // legalType
 const LEGAL_TYPE_PERSON = 1;
@@ -29,29 +32,28 @@ exports.LEGAL_TYPE_ALL = [
 const legalTypeToString = (value) => {
   switch (parseInt(value)) {
     case LEGAL_TYPE_PERSON:
-      return 'Pessoa física';
+      return "Pessoa física";
 
     case LEGAL_TYPE_JURIDICAL:
-      return 'Pessoa jurídica';
+      return "Pessoa jurídica";
 
     case LEGAL_TYPE_GROUP:
-      return 'Grupo organizado';
+      return "Grupo organizado";
 
     case LEGAL_TYPE_GOV_ENTITY_WITH_IDENTIFIER:
-      return 'Órgão público com CNPJ';
+      return "Órgão público com CNPJ";
 
     case LEGAL_TYPE_GOV_ENTITY_WITHOUT_IDENTIFIER:
-      return 'Órgão público sem CNPJ';
+      return "Órgão público sem CNPJ";
   }
-  return 'Desconhecido';
-}
+  return "Desconhecido";
+};
 exports.legalTypeToString = legalTypeToString;
 
-
 // legalIdentifierType
-const LEGAL_IDENTIFIER_TYPE_BR_CPF = 'CPF';
-const LEGAL_IDENTIFIER_TYPE_BR_CNPJ = 'CNPJ';
-const LEGAL_IDENTIFIER_TYPE_BR_OTHER = 'OTHER';
+const LEGAL_IDENTIFIER_TYPE_BR_CPF = "CPF";
+const LEGAL_IDENTIFIER_TYPE_BR_CNPJ = "CNPJ";
+const LEGAL_IDENTIFIER_TYPE_BR_OTHER = "OTHER";
 
 exports.LEGAL_IDENTIFIER_TYPE_BR_CPF = LEGAL_IDENTIFIER_TYPE_BR_CPF;
 exports.LEGAL_IDENTIFIER_TYPE_BR_CNPJ = LEGAL_IDENTIFIER_TYPE_BR_CNPJ;
@@ -63,105 +65,115 @@ exports.LEGAL_IDENTIFIER_TYPE_ALL = [
 ];
 
 // model
-const modelName = 'gl_person';
-class MyModel extends BaseModel { }
+const modelName = "gl_person";
+class MyModel extends BaseModel {}
 
-MyModel.init({
-  id: {
-    allowNull: false,
-    autoIncrement: true,
-    primaryKey: true,
-    type: Sequelize.INTEGER
+MyModel.init(
+  {
+    id: {
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: Sequelize.INTEGER,
+    },
+    createdAt: {
+      allowNull: true,
+      type: Sequelize.DATE,
+    },
+    updatedAt: {
+      allowNull: true,
+      type: Sequelize.DATE,
+    },
+    legalType: Sequelize.INTEGER,
+    legalTypeDesc: {
+      type: new DataTypes.VIRTUAL(DataTypes.STRING, ["legalType"]),
+      get: function () {
+        return legalTypeToString(this.get("legalType"));
+      },
+    },
+    legalIdentifierType: Sequelize.STRING(60),
+    legalIdentifierCode: Sequelize.STRING(60),
+    name: {
+      type: Sequelize.STRING(90),
+      allowNull: false,
+      validate: {
+        notEmpty: false,
+        len: {
+          args: [1, 90],
+          msg: "Nome deve ter de 1 a 90 caracteres.",
+        },
+      },
+    },
+    shortname: Sequelize.STRING(90),
+    phone: Sequelize.STRING(60),
+    cellphone: Sequelize.STRING(60),
+    email: Sequelize.STRING(60),
+    address: Sequelize.STRING(60),
+    addressZipcode: Sequelize.STRING(60),
+    addressNumber: Sequelize.STRING(60),
+    addressExtra: Sequelize.STRING(60),
+    addressNeighborhood: Sequelize.STRING(60),
+    birthdate: Sequelize.DATE,
+    trusted: {
+      type: Sequelize.BOOLEAN,
+      defaultValue: false,
+    },
+    latitude: {
+      type: Sequelize.DECIMAL(10, 7),
+      defaultValue: 0,
+    },
+    longitude: {
+      type: Sequelize.DECIMAL(10, 7),
+      defaultValue: 0,
+    },
+    obs: Sequelize.TEXT("medium"),
   },
-  createdAt: {
-    allowNull: true,
-    type: Sequelize.DATE,
-  },
-  updatedAt: {
-    allowNull: true,
-    type: Sequelize.DATE,
-  },
-  legalType: Sequelize.INTEGER,
-  legalTypeDesc: {
-    type: new DataTypes.VIRTUAL(DataTypes.STRING, ['legalType']),
-    get: function () {
-      return legalTypeToString(this.get('legalType'));
-    }
-  },
-  legalIdentifierType: Sequelize.STRING(60),
-  legalIdentifierCode: Sequelize.STRING(60),
-  name: {
-    type: Sequelize.STRING(90),
-    allowNull: false,
-    validate: {
-      notEmpty: false,
-      len: {
-        args: [1, 90],
-        msg: 'Nome deve ter de 1 a 90 caracteres.',
-      }
-    }
-  },
-  shortname: Sequelize.STRING(90),
-  phone: Sequelize.STRING(60),
-  cellphone: Sequelize.STRING(60),
-  email: Sequelize.STRING(60),
-  address: Sequelize.STRING(60),
-  addressZipcode: Sequelize.STRING(60),
-  addressNumber: Sequelize.STRING(60),
-  addressExtra: Sequelize.STRING(60),
-  addressNeighborhood: Sequelize.STRING(60),
-  birthdate: Sequelize.DATE,
-  trusted: {
-    type: Sequelize.BOOLEAN,
-    defaultValue: false,
-  },
-  latitude: {
-    type: Sequelize.DECIMAL(10, 7),
-    defaultValue: 0,
-  },
-  longitude: {
-    type: Sequelize.DECIMAL(10, 7),
-    defaultValue: 0,
-  },
-  obs: Sequelize.TEXT('medium'),
-}, {
-  // options
-  sequelize: mainDb,
-  modelName: modelName,
-  tableName: modelName,
-});
+  {
+    // options
+    sequelize: mainDb,
+    modelName: modelName,
+    tableName: modelName,
+  }
+);
 
 CityModel.hasMany(MyModel, {
-  foreignKey: 'cityId',
-  as: 'persons'
+  foreignKey: "cityId",
+  as: "persons",
 });
 MyModel.belongsTo(CityModel, {
-  foreignKey: 'cityId',
-  as: 'city',
+  foreignKey: "cityId",
+  as: "city",
 });
-
 
 const scopes = {
   def: {
-    include: ['id', 'name', 'shortname', 'email', 'legalType', 'legalTypeDesc', 'legalIdentifierType', 'legalIdentifierCode'],
+    include: [
+      "id",
+      "name",
+      "shortname",
+      "email",
+      "legalType",
+      "legalTypeDesc",
+      "legalIdentifierType",
+      "legalIdentifierCode",
+    ],
   },
   admin: {
     maps: {
-      city: async (value, scopeName) => await cityJsonSerializer(value, scopeName),
+      city: async (value, scopeName) =>
+        await cityJsonSerializer(value, scopeName),
     },
-  }
-}
-
+  },
+};
 
 exports.model = MyModel;
 exports.modelName = modelName;
 exports.jsonSerializer = async (value, scopeName) => {
   if (!scopeName) {
-    scopeName = 'def';
+    scopeName = "def";
   }
   if (!scopes[scopeName]) {
-    scopeName = 'def';
+    scopeName = "def";
   }
   return await jsonSerializer(value, scopes[scopeName], scopeName);
-}
-
+};

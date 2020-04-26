@@ -21,7 +21,11 @@
             @keyup.enter="list_refreshCurrentPage"
           />
           <div class="input-group-append">
-            <button class="btn btn-primary" type="button" @click="list_refreshCurrentPage">
+            <button
+              class="btn btn-primary"
+              type="button"
+              @click="list_refreshCurrentPage"
+            >
               <i class="fa fa-search"></i> Filtrar
             </button>
           </div>
@@ -35,7 +39,11 @@
           <th>Nome</th>
           <th>
             IBGE
-            <i class="fa fa-question-circle" v-b-tooltip.hover title="Código no IBGE"></i>
+            <i
+              class="fa fa-question-circle"
+              v-b-tooltip.hover
+              title="Código no IBGE"
+            ></i>
           </th>
           <th>Estado</th>
           <th class="text-right">Prioridade</th>
@@ -67,13 +75,13 @@ import StateSelect from "../gl_state/StateSelect.vue";
 export default {
   mixins: [listMixin],
   components: {
-    "app-state-select": StateSelect
+    "app-state-select": StateSelect,
   },
   data() {
     return {
       filters: {
-        state: null
-      }
+        state: null,
+      },
     };
   },
   computed: {
@@ -85,7 +93,7 @@ export default {
     },
     list_route_base() {
       return "gl_city";
-    }
+    },
   },
   methods: {
     list_buildURL(page) {
@@ -99,10 +107,9 @@ export default {
         url += `&stateId=${this.filters.state.id}`;
       }
       return url;
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

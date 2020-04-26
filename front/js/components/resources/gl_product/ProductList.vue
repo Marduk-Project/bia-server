@@ -38,7 +38,11 @@
             @keyup.enter="list_refreshCurrentPage"
           />
           <div class="input-group-append">
-            <button class="btn btn-primary" type="button" @click="list_refreshCurrentPage">
+            <button
+              class="btn btn-primary"
+              type="button"
+              @click="list_refreshCurrentPage"
+            >
               <i class="fa fa-search"></i> Filtrar
             </button>
           </div>
@@ -79,9 +83,9 @@
               title="Exibe no formulário de solicitações."
               class="fas fa-clipboard-list"
               :class="{
-              'app-table-action-disabled': !entity.requestFormActive,
-              'text-success': entity.requestFormActive,
-            }"
+                'app-table-action-disabled': !entity.requestFormActive,
+                'text-success': entity.requestFormActive,
+              }"
             ></i>
           </td>
         </tr>
@@ -102,15 +106,15 @@ import UnityItem from "../gl_unity/UnityItem.vue";
 export default {
   mixins: [listMixin],
   components: {
-    "app-unity-item": UnityItem
+    "app-unity-item": UnityItem,
     // "app-unity-select": UnitySelect,
   },
   data() {
     return {
       filters: {
         unity: null,
-        requestFormActive: false
-      }
+        requestFormActive: false,
+      },
     };
   },
   computed: {
@@ -122,7 +126,7 @@ export default {
     },
     list_route_base() {
       return "gl_product";
-    }
+    },
   },
   methods: {
     list_buildURL(page) {
@@ -136,10 +140,9 @@ export default {
         url += `&requestFormActive=1`;
       }
       return url;
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

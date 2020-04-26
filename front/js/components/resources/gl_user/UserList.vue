@@ -8,7 +8,10 @@
     <div class="form-row">
       <div class="form-group col-lg-4">
         <label>Nível</label>
-        <app-user-level-select v-model="filters.level" :show-all="true"></app-user-level-select>
+        <app-user-level-select
+          v-model="filters.level"
+          :show-all="true"
+        ></app-user-level-select>
       </div>
       <div class="form-group col-lg-8">
         <label>Pesquisar</label>
@@ -21,7 +24,11 @@
             @keyup.enter="list_refreshCurrentPage"
           />
           <div class="input-group-append">
-            <button class="btn btn-primary" type="button" @click="list_refreshCurrentPage">
+            <button
+              class="btn btn-primary"
+              type="button"
+              @click="list_refreshCurrentPage"
+            >
               <i class="fa fa-search"></i> Filtrar
             </button>
           </div>
@@ -63,7 +70,12 @@
               v-b-tooltip.hover
               title="Bloqueado"
             ></i>
-            <i class="fa fa-check text-success" v-else v-b-tooltip.hover title="Ativo"></i>
+            <i
+              class="fa fa-check text-success"
+              v-else
+              v-b-tooltip.hover
+              title="Ativo"
+            ></i>
           </td>
         </tr>
       </tbody>
@@ -79,13 +91,13 @@ import UserLevelSelect from "./UserLevelSelect.vue";
 export default {
   mixins: [listMixin],
   components: {
-    "app-user-level-select": UserLevelSelect
+    "app-user-level-select": UserLevelSelect,
   },
   data() {
     return {
       filters: {
-        level: 0
-      }
+        level: 0,
+      },
     };
   },
   computed: {
@@ -97,7 +109,7 @@ export default {
     },
     list_route_base() {
       return "gl_user";
-    }
+    },
   },
   methods: {
     list_buildURL(page) {
@@ -111,10 +123,9 @@ export default {
         url += `&level=${this.filters.level}`;
       }
       return url;
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

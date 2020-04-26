@@ -1,9 +1,9 @@
-const { notifyMixin } = require('./notify-mixin');
-const _ = require('lodash');
+const { notifyMixin } = require("./notify-mixin");
+const _ = require("lodash");
 
 /**
  * Parse error if exists and return its string object.
- * @param error 
+ * @param error
  * @returns {string}
  */
 export const api_parseErrorMessage = (error) => {
@@ -17,18 +17,18 @@ export const api_parseErrorMessage = (error) => {
             if (error.response.data.errors) {
               const errors = error.response.data.errors;
               if (_.isObject(errors)) {
-                message += '<ul>';
+                message += "<ul>";
                 for (var key in errors) {
                   var element = errors[key];
                   message += `<li><strong>${key}:</strong> ${element}</li>`;
                 }
-                message += '</ul>';
+                message += "</ul>";
               } else if (_.isArray(errors)) {
-                message += '<ul>';
-                errors.forEach(element => {
+                message += "<ul>";
+                errors.forEach((element) => {
                   message += `<li>${element}</li>`;
                 });
-                message += '</ul>';
+                message += "</ul>";
               } else if (_.isString(errors)) {
                 message += `<strong>${errors}</strong>`;
               } else {
@@ -47,21 +47,18 @@ export const api_parseErrorMessage = (error) => {
     console.warn(error);
   }
   return errorChecked;
-}
+};
 
 /**
  * Api mixin that works with axios / std results.
  */
 export const apiMixin = {
-  mixins: [
-    notifyMixin,
-  ],
+  mixins: [notifyMixin],
   methods: {
-
     /**
      * Parses an axios response object, and returns its result.
      * Also decrement loading state.
-     * @param {object} res 
+     * @param {object} res
      * @param {boolean} ignoreLoading should not decrement loading state.
      * @returns {boolean}
      */
@@ -78,7 +75,9 @@ export const apiMixin = {
           this.api_loadingHide();
         }
         console.warn('Objeto axios de resposta "undefined|null"');
-        this.notify_danger('Objeto de resposta "undefined|null". Verificar axios.<br /> Esta mensagem é um erro interno, por favor informe a administração do sistema.');
+        this.notify_danger(
+          'Objeto de resposta "undefined|null". Verificar axios.<br /> Esta mensagem é um erro interno, por favor informe a administração do sistema.'
+        );
         return false;
       }
       if (res.data.status == 400) {
@@ -93,11 +92,11 @@ export const apiMixin = {
 
     /**
      * Returns a function that pares and check axios data
-     * @param {function} callback 
+     * @param {function} callback
      * @param {boolean} ignoreDone does not call notify_done if set
      */
     api_thenDone(callback = undefined, ignoreDone = false) {
-      return res => {
+      return (res) => {
         if (!this.api_parseOK(res)) {
           return;
         }
@@ -108,21 +107,21 @@ export const apiMixin = {
         if (_.isFunction(callback)) {
           callback(res);
         }
-      }
+      };
     },
 
     /**
      * Returns a function that catches the api errors
-     * @param {function} callback 
+     * @param {function} callback
      * @returns {function}
      */
     api_catch(callback = undefined) {
-      return error => {
+      return (error) => {
         this.api_parseError(error, false);
         if (_.isFunction(callback)) {
           callback(error);
         }
-      }
+      };
     },
 
     /**
@@ -144,7 +143,7 @@ export const apiMixin = {
      * @returns {void}
      */
     api_loadingHide() {
-      this.$store.commit('setLoading', false);
+      this.$store.commit("setLoading", false);
     },
 
     /**
@@ -152,7 +151,7 @@ export const apiMixin = {
      * @returns {void}
      */
     api_loadingShow() {
-      this.$store.commit('setLoading', true);
+      this.$store.commit("setLoading", true);
     },
-  }
-}
+  },
+};

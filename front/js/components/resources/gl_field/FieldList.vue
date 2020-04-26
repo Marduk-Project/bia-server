@@ -8,7 +8,9 @@
     <div class="form-row">
       <div class="form-group col-lg-6">
         <label>Destino</label>
-        <app-destination-select v-model="filters.destination"></app-destination-select>
+        <app-destination-select
+          v-model="filters.destination"
+        ></app-destination-select>
       </div>
       <div class="form-group col-lg-6">
         <label>Pesquisar</label>
@@ -22,7 +24,11 @@
             @keyup.enter="list_refreshCurrentPage"
           />
           <div class="input-group-append">
-            <button class="btn btn-primary" type="button" @click="list_refreshCurrentPage">
+            <button
+              class="btn btn-primary"
+              type="button"
+              @click="list_refreshCurrentPage"
+            >
               <i class="fa fa-search"></i> Filtrar
             </button>
           </div>
@@ -82,13 +88,13 @@ import FieldDestinationSelect from "./FieldDestinationSelect.vue";
 export default {
   mixins: [listMixin],
   components: {
-    "app-destination-select": FieldDestinationSelect
+    "app-destination-select": FieldDestinationSelect,
   },
   data() {
     return {
       filters: {
-        destination: "gl_person"
-      }
+        destination: "gl_person",
+      },
     };
   },
   computed: {
@@ -100,7 +106,7 @@ export default {
     },
     list_route_base() {
       return "gl_field";
-    }
+    },
   },
   methods: {
     list_buildURL(page) {
@@ -111,10 +117,9 @@ export default {
         url += `&destination=${this.filters.destination}`;
       }
       return url;
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

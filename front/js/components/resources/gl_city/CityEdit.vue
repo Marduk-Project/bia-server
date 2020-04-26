@@ -50,7 +50,9 @@
         <div class="form-group col-lg-6">
           <label>Estado</label>
           <app-state-select v-model="entity.state"></app-state-select>
-          <small class="text-danger" v-if="!entity.state">Campo obrigatório.</small>
+          <small class="text-danger" v-if="!entity.state"
+            >Campo obrigatório.</small
+          >
         </div>
       </div>
       <div class="form-row">
@@ -72,7 +74,7 @@ import StateSelect from "../gl_state/StateSelect.vue";
 export default {
   mixins: [crudMixin],
   components: {
-    "app-state-select": StateSelect
+    "app-state-select": StateSelect,
   },
   data() {
     return {
@@ -83,8 +85,8 @@ export default {
         ibgeCode: null,
         stateId: null,
         // objects
-        state: null
-      }
+        state: null,
+      },
     };
   },
   methods: {
@@ -94,7 +96,7 @@ export default {
         name: this.entity.name,
         priority: this.entity.priority,
         ibgeCode: this.entity.ibgeCode,
-        stateId: this.entity.state ? this.entity.state.id : null
+        stateId: this.entity.state ? this.entity.state.id : null,
       };
     },
     crud_validate() {
@@ -103,7 +105,7 @@ export default {
         return false;
       }
       return true;
-    }
+    },
   },
   computed: {
     crud_title() {
@@ -122,10 +124,9 @@ export default {
     },
     crud_route_base() {
       return "gl_city";
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

@@ -18,13 +18,18 @@
             v-model="entity.name"
             maxlength="60"
             v-validate="'required'"
-            :class="{ 'is-invalid':errors.has('name') }"
+            :class="{ 'is-invalid': errors.has('name') }"
           />
           <div class="invalid-feedback">Campo obrigatório.</div>
         </div>
         <div class="form-group col-lg-12">
           <label>Descrição</label>
-          <textarea name="description" class="form-control" rows="3" v-model="entity.description"></textarea>
+          <textarea
+            name="description"
+            class="form-control"
+            rows="3"
+            v-model="entity.description"
+          ></textarea>
         </div>
         <div class="form-group col-lg-4">
           <label>Código EAN</label>
@@ -49,7 +54,9 @@
         <div class="form-group col-lg-4">
           <label>Unidade de medida</label>
           <app-unity-select v-model="entity.unity"></app-unity-select>
-          <small class="text-danger" v-if="!entity.unity">Campo obrigatório.</small>
+          <small class="text-danger" v-if="!entity.unity"
+            >Campo obrigatório.</small
+          >
         </div>
       </div>
       <br />
@@ -91,7 +98,7 @@ import UnitySelect from "../gl_unity/UnitySelect.vue";
 export default {
   mixins: [crudMixin],
   components: {
-    "app-unity-select": UnitySelect
+    "app-unity-select": UnitySelect,
   },
   data() {
     return {
@@ -103,8 +110,8 @@ export default {
         requestFormActive: false,
         unityId: null,
         // objects
-        unity: null
-      }
+        unity: null,
+      },
     };
   },
   methods: {
@@ -115,7 +122,7 @@ export default {
         eanCode: this.entity.eanCode,
         healthCode: this.entity.healthCode,
         requestFormActive: !!this.entity.requestFormActive,
-        unityId: this.entity.unity ? this.entity.unity.id : null
+        unityId: this.entity.unity ? this.entity.unity.id : null,
       };
     },
     crud_validate() {
@@ -124,7 +131,7 @@ export default {
         return false;
       }
       return true;
-    }
+    },
   },
   computed: {
     crud_title() {
@@ -143,10 +150,9 @@ export default {
     },
     crud_route_base() {
       return "gl_product";
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

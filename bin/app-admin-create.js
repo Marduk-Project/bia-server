@@ -1,11 +1,17 @@
-const program = require('commander');
-const validator = require('validator');
-const { handleError, findAccount, rand, mainDbEndFinally, outputNotRunned } = require('./common');
-const config = require('../config');
-const chalk = require('chalk');
-const { randomString } = require('../server/helpers/utils');
+const program = require("commander");
+const validator = require("validator");
+const {
+  handleError,
+  findAccount,
+  rand,
+  mainDbEndFinally,
+  outputNotRunned,
+} = require("./common");
+const config = require("../config");
+const chalk = require("chalk");
+const { randomString } = require("../server/helpers/utils");
 
-const UserModule = require('../server/models/gl_user');
+const UserModule = require("../server/models/gl_user");
 const { model: User } = UserModule;
 let runStart = false;
 
@@ -24,7 +30,7 @@ const run = async (email, pwd, options) => {
         throw new Error(`User ${email} already exists.`);
       }
     } else {
-      const name = email.split('@')[0];
+      const name = email.split("@")[0];
       user = User.build({
         name: name,
         nickname: name,
@@ -36,16 +42,20 @@ const run = async (email, pwd, options) => {
     await user.save();
     await mainDbEndFinally();
     // end success
-    console.log(chalk.green(`User ${user.email}/${user.id} created or updated with success! Password updated!`));
+    console.log(
+      chalk.green(
+        `User ${user.email}/${user.id} created or updated with success! Password updated!`
+      )
+    );
   } catch (e) {
     await mainDbEndFinally();
     handleError(e);
   }
-}
+};
 
 program
-  .arguments('<email> [pwd]')
-  .option('-f --force', 'forces overwrite of the user data')
+  .arguments("<email> [pwd]")
+  .option("-f --force", "forces overwrite of the user data")
   .action(run);
 
 try {

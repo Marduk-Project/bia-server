@@ -1,6 +1,4 @@
-
 export const utilsMixin = {
-
   methods: {
     /**
      * Parse hex to int color
@@ -11,7 +9,7 @@ export const utilsMixin = {
       if (!rrggbb) {
         return 0;
       }
-      rrggbb = rrggbb.replace('#', '');
+      rrggbb = rrggbb.replace("#", "");
       return parseInt(rrggbb, 16);
     },
 
@@ -31,14 +29,15 @@ export const utilsMixin = {
      */
     utils_decimalToHexString(d, padding = null) {
       let hex = Number(d).toString(16);
-      hex = hex.replace('-', '');
-      padding = typeof (padding) === "undefined" || padding === null ? padding = 2 : padding;
+      hex = hex.replace("-", "");
+      padding =
+        typeof padding === "undefined" || padding === null
+          ? (padding = 2)
+          : padding;
       while (hex.length < padding) {
         hex = "0" + hex;
       }
       return hex;
     },
-
-  }
-
-}
+  },
+};
