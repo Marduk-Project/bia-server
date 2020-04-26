@@ -25,7 +25,7 @@ MyModel.init({
   name: {
     type: Sequelize.STRING,
     validate: {
-      notEmpty: false,
+      notEmpty: true,
       len: {
         args: [1, 60],
         msg: 'Nome deve ter de 1 a 60 caracteres.',

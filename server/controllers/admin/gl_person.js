@@ -14,6 +14,12 @@ const CtrModelModule = require('../../models/gl_person');
 const Model = CtrModelModule.model;
 const CityModelModule = require('../../models/gl_city');
 const CityModel = CityModelModule.model;
+const PersonFieldModelModule = require('../../models/gl_person_field');
+const PersonFieldModel = PersonFieldModelModule.model;
+const FieldModelModule = require('../../models/gl_field');
+const FieldModel = FieldModelModule.model;
+const FieldItemModelModule = require('../../models/gl_field_item');
+const FieldItemModel = FieldItemModelModule.model;
 
 const helperValidator = require('../../helpers/validator');
 
@@ -99,6 +105,10 @@ exports.getEdit = async (req, res, next) => {
     const entity = req.entity;
     res.sendJsonOK({
       data: await CtrModelModule.jsonSerializer(entity, controllerDefaultQueryScope),
+      fieldList: await PersonFieldModelModule.jsonSerializer(
+        PersonFieldModelModule.findAllOrCreateByPerson(entity.id),
+        controllerDefaultQueryScope
+      ),
     });
   } catch (err) {
     next(err);
@@ -255,6 +265,38 @@ const saveValidate = [
     .isLength({
       max: 5000,
     }),
+  body('fields.*.id')
+    .isInt(),
+  body('fields.*.fieldItemId')
+    .optional({ checkFalsy: true })
+    .isInt(),
+  body('fields.*')
+    .optional()
+    .custom(async (value, { req }) => {
+      if (req.body.id) {
+        value.personField = await PersonFieldModel.findOne({
+          where: {
+            personId: req.body.id,
+            id: value.id,
+          },
+          include: ['field'],
+        });
+        if (!value.personField) {
+          throw new ApiError('Campo não pertence à esta pessoa.');
+        }
+        if (value.fieldItemId) {
+          const fieldItem = await FieldItemModel.findByPk(value.fieldItemId, { include: ['field'] });
+          if (!fieldItem) {
+            throw new ApiError('Item não pertence à este cadastro.');
+          }
+          if (fieldItem.field.destination != FieldModelModule.DESTINATION_GL_PERSON) {
+            throw new ApiError('Campo Item não pertence à este cadastro.');
+          }
+          value.fieldItem = fieldItem;
+        }
+      }
+      return true;
+    }),
   // validationEndFunction, // aqui nao tem validate
 ];
 
@@ -286,6 +328,42 @@ const saveEntityFunc = async (req, res, next, id) => {
     entity.longitude = body.longitude; // TODO implement
     entity.obs = body.obs;
     await entity.save();
+    // fields
+    await Promise.all(body.fields.map(async (personFieldBody) => {
+      const personField = personFieldBody.personField;
+      switch (parseInt(personField.field.type)) {
+        case FieldModelModule.TYPE_STRING:
+          personField.valueString = personFieldBody.value ? `${personFieldBody.value}` : '';
+          personField.valueSearch = personFieldBody.value ? `${personFieldBody.value}` : null;
+          break;
+
+        case FieldModelModule.TYPE_INT:
+          personField.valueInt = personFieldBody.value ? parseInt(personFieldBody.value) : 0;
+          personField.valueSearch = personFieldBody.value ? `${personFieldBody.value}` : null;
+          break;
+
+        case FieldModelModule.TYPE_DOUBLE:
+          personField.valueDouble = personFieldBody.value ? parseFloat(personFieldBody.value) : 0;
+          personField.valueSearch = personFieldBody.value ? `${personFieldBody.value}` : null;
+          break;
+
+        case FieldModelModule.TYPE_BOOLEAN:
+          personField.valueBoolean = !!personFieldBody.value;
+          personField.valueSearch = `${!!personFieldBody.value}`;
+          break;
+
+        case FieldModelModule.TYPE_SELECT:
+          if (personFieldBody.fieldItemId) {
+            personField.fieldItemId = personFieldBody.fieldItemId;
+            personField.valueSearch = personFieldBody.fieldItem.value;
+          } else {
+            personField.fieldItemId = null;
+            personField.valueSearch = null;
+          }
+          break;
+      }
+      await personField.save();
+    }));
     // send result
     const result = {
       entity: {

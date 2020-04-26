@@ -11,4 +11,13 @@ router.use('/gl_country', require('./gl_country'));
 router.use('/gl_state', require('./gl_state'));
 router.use('/gl_city', require('./gl_city'));
 
+router.use('/gl_field', require('./gl_field'));
+router.use('/gl_field_item', require('./gl_field_item'));
+// router.use('/gl_person_field', require('./gl_person_field'));
+
+router.use('/gl_unity', require('./gl_unity'));
+router.use('/gl_product', require('./gl_product'));
+
+// generator-inject-new-here
+
 module.exports = router;

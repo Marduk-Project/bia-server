@@ -10,14 +10,20 @@ const { model: CityModel, jsonSerializer: cityJsonSerializer } = require('./gl_c
 const LEGAL_TYPE_PERSON = 1;
 const LEGAL_TYPE_JURIDICAL = 2;
 const LEGAL_TYPE_GROUP = 3;
+const LEGAL_TYPE_GOV_ENTITY_WITH_IDENTIFIER = 4;
+const LEGAL_TYPE_GOV_ENTITY_WITHOUT_IDENTIFIER = 5;
 
 exports.LEGAL_TYPE_PERSON = LEGAL_TYPE_PERSON;
 exports.LEGAL_TYPE_JURIDICAL = LEGAL_TYPE_JURIDICAL;
 exports.LEGAL_TYPE_GROUP = LEGAL_TYPE_GROUP;
+exports.LEGAL_TYPE_GOV_ENTITY_WITH_IDENTIFIER = LEGAL_TYPE_GOV_ENTITY_WITH_IDENTIFIER;
+exports.LEGAL_TYPE_GOV_ENTITY_WITHOUT_IDENTIFIER = LEGAL_TYPE_GOV_ENTITY_WITHOUT_IDENTIFIER;
 exports.LEGAL_TYPE_ALL = [
   LEGAL_TYPE_PERSON,
   LEGAL_TYPE_JURIDICAL,
   LEGAL_TYPE_GROUP,
+  LEGAL_TYPE_GOV_ENTITY_WITH_IDENTIFIER,
+  LEGAL_TYPE_GOV_ENTITY_WITHOUT_IDENTIFIER,
 ];
 
 const legalTypeToString = (value) => {
@@ -30,6 +36,12 @@ const legalTypeToString = (value) => {
 
     case LEGAL_TYPE_GROUP:
       return 'Grupo organizado';
+
+    case LEGAL_TYPE_GOV_ENTITY_WITH_IDENTIFIER:
+      return 'Órgão público com CNPJ';
+
+    case LEGAL_TYPE_GOV_ENTITY_WITHOUT_IDENTIFIER:
+      return 'Órgão público sem CNPJ';
   }
   return 'Desconhecido';
 }

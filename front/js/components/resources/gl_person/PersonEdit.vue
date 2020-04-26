@@ -13,7 +13,7 @@
         tag="button"
         :to="{ name: 'gl_person_contact.index', params: { parentEntityId: entity.id, parentEntity: entity, origin: 'p' } }"
       >
-        <i class="fa fa-user"></i> Contatos &amp; Usuários
+        <i class="fa fa-id-card"></i> Contatos &amp; Usuários
       </router-link>
       <br />
       <br />
@@ -31,7 +31,7 @@
             class="form-control"
             type="text"
             v-model="entity.legalIdentifierCode"
-            :placeholder="entity.legalType == 1 ? 'ex. 123456789' : (entity.legalType == 2 ? 'ex. 12345678901234' : '(opcional)')"
+            :placeholder="legalIdentifierType == 'CPF' ? 'ex. 123456789' : (legalIdentifierType == 'CNPJ' ? 'ex. 12345678901234' : '(opcional)')"
             v-validate="legalIdentifierValidateRule"
             :class="{ 'is-invalid':errors.has('legalIdentifierCode') }"
           />
@@ -208,6 +208,27 @@
           </div>
         </div>
       </div>
+      <div v-if="entity.id">
+        <br />
+        <br />
+        <h4>Campos adicionais</h4>
+        <table class="table table-hover table-struped" v-if="fieldList.length > 0">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Valor</th>
+            </tr>
+          </thead>
+          <tbody>
+            <app-field-row
+              v-for="field in fieldList"
+              :key="field.id"
+              :field="field"
+              @input="onFieldInput"
+            ></app-field-row>
+          </tbody>
+        </table>
+      </div>
       <br />
       <div class="form-row">
         <app-crud-buttons
@@ -226,12 +247,14 @@ import { crudMixin } from "../../../libs/mixins/crud-mixin";
 import axios from "../../../libs/mixins/axios-auth";
 import PersonTypeSelect from "./PersonTypeSelect.vue";
 import CitySelect from "../gl_city/CitySelect.vue";
+import PersonFieldTableRow from "../gl_person_field/PersonFieldTableRow.vue";
 
 export default {
   mixins: [crudMixin],
   components: {
     "app-person-type-select": PersonTypeSelect,
-    "app-city-select": CitySelect
+    "app-city-select": CitySelect,
+    "app-field-row": PersonFieldTableRow
   },
   data() {
     return {
@@ -258,7 +281,8 @@ export default {
         obs: null,
         // obs
         city: null
-      }
+      },
+      fieldList: []
     };
   },
   methods: {
@@ -283,7 +307,36 @@ export default {
         trusted: this.entity.trusted ? true : false,
         latitude: this.entity.latitude,
         longitude: this.entity.longitude,
-        obs: this.entity.obs
+        obs: this.entity.obs,
+        fields: this.fieldList.map(field => {
+          let value = null;
+          switch (parseInt(field.field.type)) {
+            case 1:
+              value = field.valueString;
+              break;
+
+            case 2:
+              value = field.valueInt;
+              break;
+
+            case 3:
+              value = field.valueDouble;
+              break;
+
+            case 4:
+              value = field.valueBoolean;
+              break;
+
+            case 5:
+              value = field.fieldItemId;
+              break;
+          }
+          return {
+            id: field.id,
+            fieldItemId: field.fieldItemId,
+            value: value
+          };
+        })
       };
     },
     crud_validate() {
@@ -295,6 +348,19 @@ export default {
     },
     crud_shouldNavBackAfterSave() {
       return false;
+    },
+    crud_requestEntityParseResponse(res) {
+      if (res.data.fieldList) {
+        this.fieldList = res.data.fieldList;
+      }
+      this.wsRequested = true;
+      if (res.data.entity) {
+        return res.data.entity;
+      }
+      if (res.data.data) {
+        return res.data.data;
+      }
+      return null;
     },
     onGetZipcodeBlur() {
       if (!this.entity.addressZipcode) {
@@ -339,6 +405,13 @@ export default {
         )
         .catch(this.api_catch());
         */
+    },
+    onFieldInput(value) {
+      this.fieldList.forEach(item => {
+        if (item.id == value.id) {
+          Object.assign(item, value);
+        }
+      });
     }
   },
   computed: {
@@ -348,9 +421,11 @@ export default {
           return "CPF";
 
         case 2:
+        case 4:
           return "CNPJ";
 
         case 3:
+        case 5:
           return "OTHER";
       }
       return "Desconhecido";
@@ -361,9 +436,11 @@ export default {
           return "CPF";
 
         case 2:
+        case 4:
           return "CNPJ";
 
         case 3:
+        case 5:
           return "Outro identificador";
       }
       return "Desconhecido";
@@ -374,9 +451,11 @@ export default {
           return "cpf-num|required";
 
         case 2:
+        case 4:
           return "cnpj-num|required";
 
         case 3:
+        case 5:
           return "";
       }
       return "";
