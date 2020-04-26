@@ -5,7 +5,7 @@ const { mainDb } = require("../database/main_connection");
 const { BaseModel, jsonSerializer } = require("./base_model");
 
 // model
-const modelName = "gl_unity";
+const modelName = "gl_unit";
 class MyModel extends BaseModel {}
 
 MyModel.init(
@@ -38,7 +38,7 @@ MyModel.init(
     namePlural: {
       type: Sequelize.STRING,
     },
-    unity: {
+    unit: {
       type: Sequelize.STRING,
     },
   },

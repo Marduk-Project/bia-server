@@ -134,7 +134,7 @@
                 class="dropdown-item"
                 tag="a"
                 active-class="active"
-                :to="{ name: 'gl_unity.index' }"
+                :to="{ name: 'gl_unit.index' }"
                 v-if="isUserStaff"
               >
                 <i class="fas fa-ruler-vertical"></i> Unidades de medida

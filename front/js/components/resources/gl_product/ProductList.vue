@@ -23,8 +23,8 @@
     <div class="form-row">
       <!-- 
       <div class="form-group col-lg-6">
-        <label>unity</label>
-        <app-unity-select v-model="filters.unity"></app-unity-select>
+        <label>unit</label>
+        <app-unit-select v-model="filters.unit"></app-unit-select>
       </div>
       -->
       <div class="form-group col-12">
@@ -73,7 +73,7 @@
           <td>{{ entity.id }}</td>
           <td>{{ entity.name }}</td>
           <td>
-            <app-unity-item :entity="entity.unity"></app-unity-item>
+            <app-unit-item :entity="entity.unit"></app-unit-item>
           </td>
           <td>{{ entity.eanCode }}</td>
           <td>{{ entity.healthCode }}</td>
@@ -99,20 +99,20 @@
 import { listMixin } from "@mixins/list-mixin";
 import axios from "@mixins/axios-auth";
 import _ from "lodash";
-import UnityItem from "@resources/gl_unity/UnityItem.vue";
+import UnitItem from "@resources/gl_unit/UnitItem.vue";
 
-// import UnitySelect from "@resources/gl_unity/UnitySelect.vue";
+// import UnitSelect from "@resources/gl_unit/UnitSelect.vue";
 
 export default {
   mixins: [listMixin],
   components: {
-    "app-unity-item": UnityItem,
-    // "app-unity-select": UnitySelect,
+    "app-unit-item": UnitItem,
+    // "app-unit-select": UnitSelect,
   },
   data() {
     return {
       filters: {
-        unity: null,
+        unit: null,
         requestFormActive: false,
       },
     };
@@ -133,8 +133,8 @@ export default {
       let url = `${this.list_url_base}?page=${page}&q=${encodeURIComponent(
         this.searchText
       )}`;
-      if (this.filters.unity) {
-        url += `&unityId=${this.filters.unity.id}`;
+      if (this.filters.unit) {
+        url += `&unitId=${this.filters.unit.id}`;
       }
       if (this.filters.requestFormActive) {
         url += `&requestFormActive=1`;

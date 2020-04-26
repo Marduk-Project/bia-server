@@ -1,5 +1,6 @@
 **/node_modules/**
-./node_modules/**
+node_modules/**
 **/.{git,svn,hg}/**
-./.{git,svn,hg}/**
-_templates
+.{git,svn,hg}/**
+_templates/**
+server/public/c/**

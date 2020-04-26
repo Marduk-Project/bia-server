@@ -10,7 +10,7 @@ const {
   ApiError,
   NotFoundError,
 } = require("../../middlewares/error-mid");
-const CtrModelModule = require("../../models/gl_unity");
+const CtrModelModule = require("../../models/gl_unit");
 const Model = CtrModelModule.model;
 
 // const utils = require('../../helpers/utils');
@@ -42,7 +42,7 @@ exports.getIndex = async (req, res, next) => {
         name: {
           [Op.iLike]: `%${q}%`,
         },
-        unity: {
+        unit: {
           [Op.iLike]: `%${q}%`,
         },
       };
@@ -108,7 +108,7 @@ const saveValidate = [
   }),
   body("nameSingular").optional().trim(),
   body("namePlural").optional().trim(),
-  body("unity").optional().trim(),
+  body("unit").optional().trim(),
   // validationEndFunction, // dont need here, is attached below
 ];
 
@@ -125,7 +125,7 @@ const saveEntityFunc = async (req, res, next, id) => {
     entity.name = body.name;
     entity.nameSingular = body.nameSingular;
     entity.namePlural = body.namePlural;
-    entity.unity = body.unity;
+    entity.unit = body.unit;
     // save
     await entity.save();
     // send result
