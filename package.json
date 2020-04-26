@@ -89,7 +89,8 @@
     "vuedraggable": "^2.21.0",
     "vuex": "^3.1.3",
     "webpack": "^4.42.1",
-    "webpack-cli": "^3.3.11"
+    "webpack-cli": "^3.3.11",
+    "yarnhook": "^0.4.3"
   },
   "postcss": {
     "plugins": {
@@ -103,7 +104,10 @@
   ],
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged",
+      "post-checkout": "yarnhook",
+      "post-merge": "yarnhook",
+      "post-rewrite": "yarnhook"
     }
   },
   "lint-staged": {
