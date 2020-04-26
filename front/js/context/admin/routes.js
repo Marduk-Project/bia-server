@@ -5,23 +5,36 @@ import NotFound from '../../components/common/NotFound.vue';
 import Footer from '../../components/common/Footer.vue';
 // gl_user
 import GL_Profile from '../../components/resources/gl_user/Profile.vue';
-import GL_UserEdit from '../../components/resources/gl_user/UserEdit.vue';
 import GL_UserList from '../../components/resources/gl_user/UserList.vue';
+import GL_UserEdit from '../../components/resources/gl_user/UserEdit.vue';
 // gl_country
-import GL_CountryEdit from '../../components/resources/gl_country/CountryEdit.vue';
 import GL_CountryList from '../../components/resources/gl_country/CountryList.vue';
+import GL_CountryEdit from '../../components/resources/gl_country/CountryEdit.vue';
 // gl_state
-import GL_StateEdit from '../../components/resources/gl_state/StateEdit.vue';
 import GL_StateList from '../../components/resources/gl_state/StateList.vue';
+import GL_StateEdit from '../../components/resources/gl_state/StateEdit.vue';
 // gl_city
-import GL_CityEdit from '../../components/resources/gl_city/CityEdit.vue';
 import GL_CityList from '../../components/resources/gl_city/CityList.vue';
+import GL_CityEdit from '../../components/resources/gl_city/CityEdit.vue';
 // gl_person
-import GL_PersonEdit from '../../components/resources/gl_person/PersonEdit.vue';
 import GL_PersonList from '../../components/resources/gl_person/PersonList.vue';
+import GL_PersonEdit from '../../components/resources/gl_person/PersonEdit.vue';
 // gl_person_contact
 import GL_PersonContactList from '../../components/resources/gl_person_contact/PersonContactList.vue';
 import GL_PersonContactEdit from '../../components/resources/gl_person_contact/PersonContactEdit.vue';
+// gl_field
+import GL_FieldList from '../../components/resources/gl_field/FieldList.vue';
+import GL_FieldEdit from '../../components/resources/gl_field/FieldEdit.vue';
+// gl_field_item
+import GL_FieldItemList from '../../components/resources/gl_field_item/FieldItemList.vue';
+import GL_FieldItemEdit from '../../components/resources/gl_field_item/FieldItemEdit.vue';
+// gl_unity
+import GL_UnityList from '../../components/resources/gl_unity/UnityList.vue';
+import GL_UnityEdit from '../../components/resources/gl_unity/UnityEdit.vue';
+// gl_product
+import GL_ProductList from '../../components/resources/gl_product/ProductList.vue';
+import GL_ProductEdit from '../../components/resources/gl_product/ProductEdit.vue';
+// generator-inject-new-file-here
 // maintenance
 import Man_Container from '../../components/admin/maintenance/Container.vue';
 import Man_Menu from '../../components/admin/maintenance/Menu.vue';
@@ -56,6 +69,23 @@ export default [
   , { path: '/gl_person_contact/:origin/:parentEntityId', components: { default: GL_PersonContactList, header: Header, footer: Footer }, name: 'gl_person_contact.index' }
   , { path: '/gl_person_contact/:origin/:parentEntityId/:id/edit', components: { default: GL_PersonContactEdit, header: Header, footer: Footer }, name: 'gl_person_contact.edit' }
   , { path: '/gl_person_contact/:origin/:parentEntityId/create', components: { default: GL_PersonContactEdit, header: Header, footer: Footer }, name: 'gl_person_contact.create' }
+  // gl_field
+  , { path: '/gl_field', components: { default: GL_FieldList, header: Header, footer: Footer }, name: 'gl_field.index' }
+  , { path: '/gl_field/:id/edit', components: { default: GL_FieldEdit, header: Header, footer: Footer }, name: 'gl_field.edit' }
+  , { path: '/gl_field/create', components: { default: GL_FieldEdit, header: Header, footer: Footer }, name: 'gl_field.create' }
+  // gl_field_item
+  , { path: '/gl_field/:parentEntityId/item', components: { default: GL_FieldItemList, header: Header, footer: Footer }, name: 'gl_field_item.index' }
+  , { path: '/gl_field/:parentEntityId/item/:id/edit', components: { default: GL_FieldItemEdit, header: Header, footer: Footer }, name: 'gl_field_item.edit' }
+  , { path: '/gl_field/:parentEntityId/item/create', components: { default: GL_FieldItemEdit, header: Header, footer: Footer }, name: 'gl_field_item.create' }
+  // gl_unity
+  , { path: '/gl_unity', components: { default: GL_UnityList, header: Header, footer: Footer }, name: 'gl_unity.index' }
+  , { path: '/gl_unity/:id/edit', components: { default: GL_UnityEdit, header: Header, footer: Footer }, name: 'gl_unity.edit' }
+  , { path: '/gl_unity/create', components: { default: GL_UnityEdit, header: Header, footer: Footer }, name: 'gl_unity.create' }
+  // gl_product
+  , { path: '/gl_product', components: { default: GL_ProductList, header: Header, footer: Footer }, name: 'gl_product.index' }
+  , { path: '/gl_product/:id/edit', components: { default: GL_ProductEdit, header: Header, footer: Footer }, name: 'gl_product.edit' }
+  , { path: '/gl_product/create', components: { default: GL_ProductEdit, header: Header, footer: Footer }, name: 'gl_product.create' }
+  // generator-inject-new-route-here
   // maintenance
   , {
     path: '/maintenance', components: { default: Man_Container, header: Header, footer: Footer },

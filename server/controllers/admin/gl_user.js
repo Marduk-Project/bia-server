@@ -278,6 +278,47 @@ exports.delete = async (req, res, next) => {
 
 
 
+/**
+ * Delete Validate
+ */
+exports.blockToggleValidate = [
+  param('id')
+    .isInt()
+    .custom(customFindByPkValidation(Model))
+    .custom((value, { req }) => {
+      if (value == req.user.id.toString()) {
+        throw new ApiError("Você não pode bloquear/desbloquear a si mesmo.");
+      }
+      return true;
+    })
+    .custom((value, { req }) => {
+      if ((req.entity.level == CtrModelModule.LEVEL_ADMIN) && !req.user.levelIsAdmin) {
+        throw new ApiError('Apenas usuários administradores podem alterar-se entre si.');
+      }
+      return true;
+    }),
+  body('blocked').isBoolean(),
+  validationEndFunction,
+];
+
+/**
+* Delete
+*/
+exports.blockToggle = async (req, res, next) => {
+  try {
+    const entity = req.entity;
+    entity.blocked = req.body.blocked;
+    await entity.save();
+    res.sendJsonOK({
+      data: await CtrModelModule.jsonSerializer(entity, controllerDefaultQueryScope),
+    });
+  } catch (err) {
+    next(err);
+  }
+}
+
+
+
 
 /** 
  * Test password Validate 

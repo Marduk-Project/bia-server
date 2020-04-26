@@ -12,8 +12,11 @@
         tag="button"
         :to="{ name: 'gl_person_contact.index', params: { parentEntityId: entity.id, parentEntity: entity, origin: 'u' } }"
       >
-        <i class="fa fa-building"></i> Contatos vinculados
-      </router-link>
+        <i class="fas fa-id-card"></i> Contatos vinculados
+      </router-link>&nbsp;
+      <button class="btn btn-outline-danger" @click="onUserBlockClick">
+        <i class="fas fa-ban"></i> Bloquear / Desbloquear
+      </button>
       <br />
       <br />
     </div>
@@ -246,6 +249,27 @@ export default {
     },
     onPwdInviteClick() {
       this.onPwdRecoverAction(true);
+    },
+    onUserBlockClick() {
+      if (
+        confirm(
+          `Confirma ${
+            this.entity.blocked ? "desbloquear" : "bloquear"
+          } este usuário?`
+        )
+      ) {
+        this.api_loadingShow();
+        axios
+          .post(`/api/admin/gl_user/${this.entity.id}/blockToggle`, {
+            blocked: !this.entity.blocked
+          })
+          .then(
+            this.api_thenDone(res => {
+              this.crud_refreshEntity();
+            })
+          )
+          .catch(this.api_catch());
+      }
     }
   },
   computed: {

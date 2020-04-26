@@ -116,6 +116,33 @@
               >
                 <i class="fas fa-city"></i> Cidades
               </router-link>
+              <router-link
+                class="dropdown-item"
+                tag="a"
+                active-class="active"
+                :to="{ name: 'gl_field.index' }"
+                v-if="isUserStaff"
+              >
+                <i class="fas fa-list"></i> Campos dinâmicos
+              </router-link>
+              <router-link
+                class="dropdown-item"
+                tag="a"
+                active-class="active"
+                :to="{ name: 'gl_unity.index' }"
+                v-if="isUserStaff"
+              >
+                <i class="fas fa-ruler-vertical"></i> Unidades de medida
+              </router-link>
+              <router-link
+                class="dropdown-item"
+                tag="a"
+                active-class="active"
+                :to="{ name: 'gl_product.index' }"
+                v-if="isUserStaff"
+              >
+                <i class="far fa-square"></i> Produtos
+              </router-link>
             </div>
           </li>
           <li class="nav-item dropdown">

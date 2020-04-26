@@ -34,6 +34,13 @@ router.delete('/:id',
   controller.delete
 );
 
+
+router.post('/:id/blockToggle',
+  authMid.userIsStaffMiddleware,
+  controller.blockToggleValidate,
+  controller.blockToggle
+);
+
 // pwd
 
 router.post('/:id/pwd_check',
