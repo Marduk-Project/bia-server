@@ -17,7 +17,7 @@
 <script>
 import { mapGetters } from "vuex";
 import util from "util";
-import Notify from "../../libs/components/common/Notify";
+import Notify from "@libComponents/common/Notify";
 
 export default {
   components: {

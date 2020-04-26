@@ -39,6 +39,7 @@ module.exports = {
     resolve: {
       alias: {
         "@mixins": path.resolve(__dirname, "front/js/libs/mixins"),
+        "@libComponents": path.resolve(__dirname, "front/js/libs/components"),
       },
     },
     output: {

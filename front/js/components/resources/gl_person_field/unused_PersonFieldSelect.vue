@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import vSelect from "../../../libs/components/form/Select2.vue";
+import vSelect from "@libComponents/form/Select2.vue";
 
 export default {
   props: [
