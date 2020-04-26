@@ -1,22 +1,31 @@
-const fs = require('fs');
-const { promisify } = require('util');
-const { readFileToBase64 } = require('../helpers/file_utils');
-const nconf = require('nconf');
-const path = require('path');
-const multer = require('multer');
-const uploadPath = path.join(__dirname, '../../uploads/');
-const multerConfigObj = { dest: uploadPath, limits: { fileSize: nconf.get('HTTP_FILE_UPLOAD_MAXSIZE') } };
+const fs = require("fs");
+const { promisify } = require("util");
+const { readFileToBase64 } = require("../helpers/file_utils");
+const nconf = require("nconf");
+const path = require("path");
+const multer = require("multer");
+const uploadPath = path.join(__dirname, "../../uploads/");
+const multerConfigObj = {
+  dest: uploadPath,
+  limits: { fileSize: nconf.get("HTTP_FILE_UPLOAD_MAXSIZE") },
+};
 // default
 const uploadMid = multer(multerConfigObj);
 // img
 const uploadImageMid = multer({
-  ...multerConfigObj, fileFilter: function (req, file, cb) {
-    if (file.mimetype !== 'image/png' || file.mimetype !== 'image/gif' || file.mimetype !== 'image/jpeg' || file.mimetype !== 'image/jpg') {
+  ...multerConfigObj,
+  fileFilter: function (req, file, cb) {
+    if (
+      file.mimetype !== "image/png" ||
+      file.mimetype !== "image/gif" ||
+      file.mimetype !== "image/jpeg" ||
+      file.mimetype !== "image/jpg"
+    ) {
       return cb(null, false);
     } else {
       cb(null, true);
     }
-  }
+  },
 });
 
 /**
@@ -34,9 +43,11 @@ exports.utilsMiddleware = (req, res, next) => {
       await removeAsync(this.file.path);
     }
     if (this.files) {
-      await Promise.all(this.files.map(async (file) => {
-        await removeAsync(file.path);
-      }));
+      await Promise.all(
+        this.files.map(async (file) => {
+          await removeAsync(file.path);
+        })
+      );
     }
   };
 
@@ -47,9 +58,9 @@ exports.utilsMiddleware = (req, res, next) => {
   req.uploadMoveFromFile = function (destination) {
     return new Promise((resolve, reject) => {
       if (!this.file) {
-        reject(new Error('File not found!'));
+        reject(new Error("File not found!"));
       }
-      fs.rename(this.file.path, destination, err => {
+      fs.rename(this.file.path, destination, (err) => {
         if (err) {
           reject(err);
         } else {
@@ -68,10 +79,10 @@ exports.utilsMiddleware = (req, res, next) => {
   req.uploadMoveFile = function (file, destination) {
     return new Promise((resolve, reject) => {
       if (!file) {
-        reject(new Error('File not found!'));
+        reject(new Error("File not found!"));
         return;
       }
-      fs.rename(file.path, destination, err => {
+      fs.rename(file.path, destination, (err) => {
         if (err) {
           reject(err);
         } else {
@@ -89,10 +100,10 @@ exports.utilsMiddleware = (req, res, next) => {
    */
   req.uploadReadBase64File = function (file) {
     return readFileToBase64(file.path);
-  }
+  };
   // follow
   next();
-}
+};
 
 /**
  * multer preconfigured middleware

@@ -1,6 +1,6 @@
-const { body, query, param } = require('express-validator/check');
-const validator = require('validator');
-const { Op } = require('sequelize');
+const { body, query, param } = require("express-validator/check");
+const validator = require("validator");
+const { Op } = require("sequelize");
 
 const {
   customFindByPkValidation,
@@ -8,21 +8,21 @@ const {
   validationEndFunction,
   BadRequestError,
   ApiError,
-  NotFoundError
-} = require('../../middlewares/error-mid');
-const CtrModelModule = require('../../models/gl_user');
+  NotFoundError,
+} = require("../../middlewares/error-mid");
+const CtrModelModule = require("../../models/gl_user");
 const Model = CtrModelModule.model;
-const utils = require('../../helpers/utils');
+const utils = require("../../helpers/utils");
 
-const controllerDefaultQueryScope = 'admin';
+const controllerDefaultQueryScope = "admin";
 
 /**
  * List Validation
  */
 exports.getIndexValidate = [
-  query('page').optional().isInt(),
-  query('q').optional().isString(),
-  query('level').optional().isInt(),
+  query("page").optional().isInt(),
+  query("q").optional().isString(),
+  query("level").optional().isInt(),
   validationEndFunction,
 ];
 
@@ -46,7 +46,7 @@ exports.getIndex = async (req, res, next) => {
         },
         email: {
           [Op.iLike]: `%${q}%`,
-        }
+        },
       };
       if (validator.isNumeric(q, { no_symbols: true })) {
         options.where[Op.or].id = q;
@@ -59,32 +59,32 @@ exports.getIndex = async (req, res, next) => {
     // query options
     const page = req.query.page || 1;
     Model.setLimitOffsetForPage(page, options);
-    options.order - [
-      ['name', 'asc'],
-      ['email', 'asc'],
-      ['id', 'asc'],
-    ];
+    options.order -
+      [
+        ["name", "asc"],
+        ["email", "asc"],
+        ["id", "asc"],
+      ];
     // exec
     const queryResult = await Model.findAndCountAll(options);
     const meta = Model.paginateMeta(queryResult, page);
     res.sendJsonOK({
-      data: await CtrModelModule.jsonSerializer(queryResult.rows, controllerDefaultQueryScope),
+      data: await CtrModelModule.jsonSerializer(
+        queryResult.rows,
+        controllerDefaultQueryScope
+      ),
       meta: meta,
     });
   } catch (err) {
     next(err);
   }
-}
-
+};
 
 /**
  * Get for Edit Validate
  */
 exports.getEditValidate = [
-  param('id')
-    .isInt()
-    .not().isEmpty()
-    .custom(customFindByPkValidation(Model)),
+  param("id").isInt().not().isEmpty().custom(customFindByPkValidation(Model)),
   validationEndFunction,
 ];
 
@@ -95,33 +95,37 @@ exports.getEdit = async (req, res, next) => {
   try {
     const entity = req.entity;
     res.sendJsonOK({
-      data: await CtrModelModule.jsonSerializer(entity, controllerDefaultQueryScope),
+      data: await CtrModelModule.jsonSerializer(
+        entity,
+        controllerDefaultQueryScope
+      ),
     });
   } catch (err) {
     next(err);
   }
-}
-
-
+};
 
 /**
  * Save validation
  */
 const saveValidate = [
-  param('id').optional().isInt(),
-  body('name').isString().trim(),
-  body('nickname').isString().trim(),
-  body('level')
+  param("id").optional().isInt(),
+  body("name").isString().trim(),
+  body("nickname").isString().trim(),
+  body("level")
     .isIn(CtrModelModule.LEVEL_ALL)
     .custom((value, { req }) => {
-      if ((value == CtrModelModule.LEVEL_ADMIN) && !req.user.levelIsAdmin) {
-        throw new ApiError('Apenas usuários administradores podem adicionar outros administradores.');
+      if (value == CtrModelModule.LEVEL_ADMIN && !req.user.levelIsAdmin) {
+        throw new ApiError(
+          "Apenas usuários administradores podem adicionar outros administradores."
+        );
       }
       return true;
     }),
-  body('email')
+  body("email")
     .isEmail()
-    .not().isEmpty()
+    .not()
+    .isEmpty()
     .custom(async (value, { req }) => {
       let count = 0;
       if (req.params.id) {
@@ -131,15 +135,15 @@ const saveValidate = [
             email: value,
             id: {
               [Op.ne]: req.params.id,
-            }
-          }
+            },
+          },
         });
       } else {
         // new user
         count = await Model.count({
           where: {
-            email: value
-          }
+            email: value,
+          },
         });
       }
       if (count > 0) {
@@ -147,11 +151,11 @@ const saveValidate = [
       }
       return true;
     }),
-  body('blocked')
+  body("blocked")
     .isBoolean()
     .custom((value, { req }) => {
-      if ((value && req.params.id == req.user.id)) {
-        throw new ApiError('Você não pode bloquear a si mesmo.');
+      if (value && req.params.id == req.user.id) {
+        throw new ApiError("Você não pode bloquear a si mesmo.");
       }
       return true;
     }),
@@ -182,8 +186,8 @@ const saveEntityFunc = async (req, res, next, id) => {
     // send result
     const result = {
       entity: {
-        id: entity.id
-      }
+        id: entity.id,
+      },
     };
     // correct http
     if (id) {
@@ -194,17 +198,12 @@ const saveEntityFunc = async (req, res, next, id) => {
   } catch (err) {
     next(err);
   }
-}
-
-
-
+};
 
 /** Update validation */
 exports.putUpdateValidate = [
   ...saveValidate,
-  param('id')
-    .isInt()
-    .custom(customFindByPkValidation(Model)),
+  param("id").isInt().custom(customFindByPkValidation(Model)),
   validationEndFunction,
 ];
 
@@ -217,18 +216,12 @@ exports.putUpdate = async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-}
-
-
-
+};
 
 /**
  * Create validation
  */
-exports.postCreateValidate = [
-  ...saveValidate,
-  validationEndFunction,
-];
+exports.postCreateValidate = [...saveValidate, validationEndFunction];
 
 /**
  * Create
@@ -239,16 +232,13 @@ exports.postCreate = async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-}
-
-
-
+};
 
 /**
  * Delete Validate
  */
 exports.deleteValidate = [
-  param('id')
+  param("id")
     .isInt()
     .custom(customFindByPkValidation(Model))
     .custom((value, { req }) => {
@@ -261,28 +251,29 @@ exports.deleteValidate = [
 ];
 
 /**
-* Delete
-*/
+ * Delete
+ */
 exports.delete = async (req, res, next) => {
   try {
     const id = req.params.id;
     const entity = req.entity;
     await entity.destroy();
     res.sendJsonOK({
-      data: await CtrModelModule.jsonSerializer(entity, controllerDefaultQueryScope),
+      data: await CtrModelModule.jsonSerializer(
+        entity,
+        controllerDefaultQueryScope
+      ),
     });
   } catch (err) {
     next(err);
   }
-}
-
-
+};
 
 /**
  * Delete Validate
  */
 exports.blockToggleValidate = [
-  param('id')
+  param("id")
     .isInt()
     .custom(customFindByPkValidation(Model))
     .custom((value, { req }) => {
@@ -292,45 +283,45 @@ exports.blockToggleValidate = [
       return true;
     })
     .custom((value, { req }) => {
-      if ((req.entity.level == CtrModelModule.LEVEL_ADMIN) && !req.user.levelIsAdmin) {
-        throw new ApiError('Apenas usuários administradores podem alterar-se entre si.');
+      if (
+        req.entity.level == CtrModelModule.LEVEL_ADMIN &&
+        !req.user.levelIsAdmin
+      ) {
+        throw new ApiError(
+          "Apenas usuários administradores podem alterar-se entre si."
+        );
       }
       return true;
     }),
-  body('blocked').isBoolean(),
+  body("blocked").isBoolean(),
   validationEndFunction,
 ];
 
 /**
-* Delete
-*/
+ * Delete
+ */
 exports.blockToggle = async (req, res, next) => {
   try {
     const entity = req.entity;
     entity.blocked = req.body.blocked;
     await entity.save();
     res.sendJsonOK({
-      data: await CtrModelModule.jsonSerializer(entity, controllerDefaultQueryScope),
+      data: await CtrModelModule.jsonSerializer(
+        entity,
+        controllerDefaultQueryScope
+      ),
     });
   } catch (err) {
     next(err);
   }
-}
+};
 
-
-
-
-/** 
- * Test password Validate 
-*/
+/**
+ * Test password Validate
+ */
 exports.postPwdCheckValidate = [
-  param('id')
-    .isInt()
-    .not().isEmpty()
-    .custom(customFindByPkValidation(Model)), // no query scope
-  body('pwd')
-    .isString().trim()
-    .not().isEmpty(),
+  param("id").isInt().not().isEmpty().custom(customFindByPkValidation(Model)), // no query scope
+  body("pwd").isString().trim().not().isEmpty(),
   validationEndFunction,
 ];
 
@@ -340,7 +331,7 @@ exports.postPwdCheck = async (req, res, next) => {
     const pwd = req.body.pwd;
     const entity = req.entity;
     if (!entity.password_compare(pwd)) {
-      throw new ApiError('Senha errada!');
+      throw new ApiError("Senha errada!");
     }
     res.sendJsonOK();
   } catch (err) {
@@ -348,23 +339,22 @@ exports.postPwdCheck = async (req, res, next) => {
   }
 };
 
-
-
 /** Change password Validate */
 exports.postPwdChangeValidate = [
-  param('id')
+  param("id")
     .isInt()
-    .not().isEmpty()
+    .not()
+    .isEmpty()
     .custom((value, { req }) => {
       if (value == req.user.id.toString()) {
-        throw new ApiError("Você não pode alterar sua própria senha desta forma.");
+        throw new ApiError(
+          "Você não pode alterar sua própria senha desta forma."
+        );
       }
       return true;
     })
     .custom(customFindByPkValidation(Model)), // no query scope
-  body('pwd')
-    .isString().trim()
-    .not().isEmpty(),
+  body("pwd").isString().trim().not().isEmpty(),
   validationEndFunction,
 ];
 
@@ -382,15 +372,10 @@ exports.postPwdChange = async (req, res, next) => {
   }
 };
 
-
 /** Invite or recover user password */
 exports.postPwdRecoverValidate = [
-  param('id')
-    .isInt()
-    .not().isEmpty()
-    .custom(customFindByPkValidation(Model)), // no query scope
-  body('isInvite')
-    .isBoolean(),
+  param("id").isInt().not().isEmpty().custom(customFindByPkValidation(Model)), // no query scope
+  body("isInvite").isBoolean(),
   validationEndFunction,
 ];
 

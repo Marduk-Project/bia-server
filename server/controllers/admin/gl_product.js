@@ -1,6 +1,6 @@
-const { body, query, param } = require('express-validator/check');
-const validator = require('validator');
-const { Op } = require('sequelize');
+const { body, query, param } = require("express-validator/check");
+const validator = require("validator");
+const { Op } = require("sequelize");
 
 const {
   customFindByPkValidation,
@@ -8,25 +8,25 @@ const {
   validationEndFunction,
   BadRequestError,
   ApiError,
-  NotFoundError
-} = require('../../middlewares/error-mid');
-const CtrModelModule = require('../../models/gl_product');
+  NotFoundError,
+} = require("../../middlewares/error-mid");
+const CtrModelModule = require("../../models/gl_product");
 const Model = CtrModelModule.model;
-const UnityModule = require('../../models/gl_unity');
+const UnityModule = require("../../models/gl_unity");
 const UnityModel = UnityModule.model;
 
 // const utils = require('../../helpers/utils');
-const helperValidator = require('../../helpers/validator');
+const helperValidator = require("../../helpers/validator");
 
-const controllerDefaultQueryScope = 'admin';
+const controllerDefaultQueryScope = "admin";
 
 /**
  * List Validation
  */
 exports.getIndexValidate = [
-  query('page').optional().isInt(),
-  query('q').optional().isString(),
-  query('requestFormActive').optional().isInt(),
+  query("page").optional().isInt(),
+  query("q").optional().isString(),
+  query("requestFormActive").optional().isInt(),
   validationEndFunction,
 ];
 
@@ -63,31 +63,34 @@ exports.getIndex = async (req, res, next) => {
     const page = req.query.page || 1;
     Model.setLimitOffsetForPage(page, options);
     options.order = [
-      ['name', 'asc'],
-      ['id', 'asc'],
+      ["name", "asc"],
+      ["id", "asc"],
     ];
-    options.include = ['unity'];
+    options.include = ["unity"];
     // exec
     const queryResult = await Model.findAndCountAll(options);
     const meta = Model.paginateMeta(queryResult, page);
     res.sendJsonOK({
-      data: await CtrModelModule.jsonSerializer(queryResult.rows, controllerDefaultQueryScope),
+      data: await CtrModelModule.jsonSerializer(
+        queryResult.rows,
+        controllerDefaultQueryScope
+      ),
       meta: meta,
     });
   } catch (err) {
     next(err);
   }
-}
-
+};
 
 /**
  * Get for Edit Validate
  */
 exports.getEditValidate = [
-  param('id')
+  param("id")
     .isInt()
-    .not().isEmpty()
-    .custom(customFindByPkValidation(Model, null, { include: ['unity'] })),
+    .not()
+    .isEmpty()
+    .custom(customFindByPkValidation(Model, null, { include: ["unity"] })),
   validationEndFunction,
 ];
 
@@ -98,42 +101,30 @@ exports.getEdit = async (req, res, next) => {
   try {
     const entity = req.entity;
     res.sendJsonOK({
-      data: await CtrModelModule.jsonSerializer(entity, controllerDefaultQueryScope),
+      data: await CtrModelModule.jsonSerializer(
+        entity,
+        controllerDefaultQueryScope
+      ),
     });
   } catch (err) {
     next(err);
   }
-}
-
-
+};
 
 /**
  * Save validation
  */
 const saveValidate = [
-  param('id').optional().isInt(),
-  body('name')
-    .trim()
-    .not().isEmpty()
-    .isLength({
-      min: 1,
-      max: 60,
-    }),
-  body('description')
-    .optional()
-    .trim(),
-  body('eanCode')
-    .optional()
-    .trim(),
-  body('healthCode')
-    .optional()
-    .trim(),
-  body('requestFormActive')
-    .optional()
-    .isBoolean(),
-  body('unityId')
-    .isInt()
-    .custom(customFindByPkRelationValidation(UnityModel)),
+  param("id").optional().isInt(),
+  body("name").trim().not().isEmpty().isLength({
+    min: 1,
+    max: 60,
+  }),
+  body("description").optional().trim(),
+  body("eanCode").optional().trim(),
+  body("healthCode").optional().trim(),
+  body("requestFormActive").optional().isBoolean(),
+  body("unityId").isInt().custom(customFindByPkRelationValidation(UnityModel)),
   // validationEndFunction, // dont need here, is attached below
 ];
 
@@ -158,8 +149,8 @@ const saveEntityFunc = async (req, res, next, id) => {
     // send result
     const result = {
       entity: {
-        id: entity.id
-      }
+        id: entity.id,
+      },
     };
     // correct http
     if (id) {
@@ -170,17 +161,12 @@ const saveEntityFunc = async (req, res, next, id) => {
   } catch (err) {
     next(err);
   }
-}
-
-
-
+};
 
 /** Update validation */
 exports.putUpdateValidate = [
   ...saveValidate,
-  param('id')
-    .isInt()
-    .custom(customFindByPkValidation(Model)),
+  param("id").isInt().custom(customFindByPkValidation(Model)),
   validationEndFunction,
 ];
 
@@ -193,18 +179,12 @@ exports.putUpdate = async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-}
-
-
-
+};
 
 /**
  * Create validation
  */
-exports.postCreateValidate = [
-  ...saveValidate,
-  validationEndFunction,
-];
+exports.postCreateValidate = [...saveValidate, validationEndFunction];
 
 /**
  * Create
@@ -215,33 +195,31 @@ exports.postCreate = async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-}
-
-
-
+};
 
 /**
  * Delete Validate
  */
 exports.deleteValidate = [
-  param('id')
-    .isInt()
-    .custom(customFindByPkValidation(Model)),
+  param("id").isInt().custom(customFindByPkValidation(Model)),
   validationEndFunction,
 ];
 
 /**
-* Delete
-*/
+ * Delete
+ */
 exports.delete = async (req, res, next) => {
   try {
     // const id = req.params.id;
     const entity = req.entity;
     await entity.destroy();
     res.sendJsonOK({
-      data: await CtrModelModule.jsonSerializer(entity, controllerDefaultQueryScope),
+      data: await CtrModelModule.jsonSerializer(
+        entity,
+        controllerDefaultQueryScope
+      ),
     });
   } catch (err) {
     next(err);
   }
-}
+};

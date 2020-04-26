@@ -1,6 +1,6 @@
-import { Line, mixins } from 'vue-chartjs';
+import { Line, mixins } from "vue-chartjs";
 const { reactiveProp } = mixins;
-import _ from 'lodash';
+import _ from "lodash";
 
 export default {
   extends: Line,
@@ -16,20 +16,24 @@ export default {
     computedOptions() {
       let options = {
         scales: {
-          yAxes: [{
-            ticks: {
-              beginAtZero: true,
-            }
-          }],
-          xAxes: [{
-            type: 'time',
-            time: {
-              unit: 'second'
-            }
-          }]
+          yAxes: [
+            {
+              ticks: {
+                beginAtZero: true,
+              },
+            },
+          ],
+          xAxes: [
+            {
+              type: "time",
+              time: {
+                unit: "second",
+              },
+            },
+          ],
         },
         maintainAspectRatio: false,
-      }
+      };
       if (this.options) {
         _.merge(options, this.options);
       }
@@ -37,6 +41,6 @@ export default {
     },
   },
   mounted() {
-    this.renderChart(this.chartData, this.computedOptions)
-  }
-}
+    this.renderChart(this.chartData, this.computedOptions);
+  },
+};

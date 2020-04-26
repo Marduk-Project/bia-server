@@ -1,13 +1,13 @@
-import axios from '../libs/mixins/axios-auth';
+import axios from "../libs/mixins/axios-auth";
 
 var reloadSessionTimestamp = Math.round(new Date().getTime() / 1000);
 
 export const redirectToHome = (context, message) => {
   if (message) {
-    context.dispatch('notifyDanger', 'Erro ao buscar sessão: ' + message);
+    context.dispatch("notifyDanger", "Erro ao buscar sessão: " + message);
   }
-  setTimeout(() => window.location.href = window.app_baseURL + '', 3000); // devolve para a home
-}
+  setTimeout(() => (window.location.href = window.app_baseURL + ""), 3000); // devolve para a home
+};
 
 function checkUser(context, user) {
   let userCurrent = context.getters.getUser;
@@ -26,21 +26,22 @@ function checkUser(context, user) {
 
 function reloadSession(context, ignoreLoading) {
   if (!ignoreLoading) {
-    context.commit('setLoading', true);
+    context.commit("setLoading", true);
   }
   // atualiza timestamp do check de sessao
   reloadSessionTimestamp = Math.round(new Date().getTime() / 1000);
   // busca sessao
-  axios.get("api/auth/session")
-    .then(res => {
+  axios
+    .get("api/auth/session")
+    .then((res) => {
       if (!ignoreLoading) {
-        context.commit('setLoading', false);
+        context.commit("setLoading", false);
       }
       if (res.data) {
         // status error
         if (res.data.status) {
           if (res.data.status == 400) {
-            redirectToHome(context, 'Sessão expirada.');
+            redirectToHome(context, "Sessão expirada.");
             return;
           }
         }
@@ -49,15 +50,16 @@ function reloadSession(context, ignoreLoading) {
         if (checkUser(context, user)) {
           // salva o status somente se for null
           if (currentUser == null) {
-            context.commit('setSession', res.data);
+            context.commit("setSession", res.data);
           }
         } else {
-          redirectToHome(context, 'Sessão expirada.');
+          redirectToHome(context, "Sessão expirada.");
         }
       }
-    }).catch(reason => {
+    })
+    .catch((reason) => {
       if (!ignoreLoading) {
-        context.commit('setLoading', false);
+        context.commit("setLoading", false);
       }
       redirectToHome(context, reason);
     });
@@ -76,18 +78,18 @@ export const checkReloadSession = (context) => {
   let tsNow = Math.floor(new Date().getTime() / 1000);
   // aceita a cada x min
   let secondsCheck = tsNow - reloadSessionTimestamp;
-  if ((secondsCheck) > (60 * 5)) {
-    console.log('Session Check - Refreshing session...');
+  if (secondsCheck > 60 * 5) {
+    console.log("Session Check - Refreshing session...");
     reloadSession(context, true);
   } else {
     // console.log('Session Check - Waiting session check ' + secondsCheck);
   }
-}
+};
 
 export const loadSession = (context) => {
   reloadSession(context, false);
-}
+};
 
 export const setTitle = (context, titulo) => {
-  window.document.title = titulo + ' - ' + window.app_short_name;
-}
+  window.document.title = titulo + " - " + window.app_short_name;
+};

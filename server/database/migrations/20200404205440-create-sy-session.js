@@ -1,16 +1,17 @@
-'use strict';
+"use strict";
 
-const tableName = 'sy_session';
+const tableName = "sy_session";
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     const transaction = await queryInterface.sequelize.transaction();
     try {
-      await queryInterface.createTable(tableName,
+      await queryInterface.createTable(
+        tableName,
         {
           sid: {
             type: Sequelize.STRING,
-            primaryKey: true
+            primaryKey: true,
           },
           userId: Sequelize.STRING,
           expires: Sequelize.DATE,
@@ -25,7 +26,7 @@ module.exports = {
           },
         },
         {
-          transaction: transaction
+          transaction: transaction,
         }
       );
       await transaction.commit();
@@ -45,5 +46,5 @@ module.exports = {
       await transaction.rollback();
       throw err;
     }
-  }
+  },
 };

@@ -1,42 +1,44 @@
-'use strict';
+"use strict";
 
-const tableName = 'gl_unity';
+const tableName = "gl_unity";
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     const transaction = await queryInterface.sequelize.transaction();
     try {
-      await queryInterface.createTable(tableName, {
-        id: {
-          allowNull: false,
-          autoIncrement: true,
-          primaryKey: true,
-          type: Sequelize.INTEGER
-        },
-        createdAt: {
-          allowNull: false,
-          type: Sequelize.DATE,
-        },
-        updatedAt: {
-          allowNull: false,
-          type: Sequelize.DATE,
-        },
-        name: {
-          type: Sequelize.STRING(60),
-          allowNull: false,
-        },
-        nameSingular: {
-          type: Sequelize.STRING(60),
-        },
-        namePlural: {
-          type: Sequelize.STRING(60),
-        },
-        unity: {
-          type: Sequelize.STRING(60),
-        },
-      },
+      await queryInterface.createTable(
+        tableName,
         {
-          transaction: transaction
+          id: {
+            allowNull: false,
+            autoIncrement: true,
+            primaryKey: true,
+            type: Sequelize.INTEGER,
+          },
+          createdAt: {
+            allowNull: false,
+            type: Sequelize.DATE,
+          },
+          updatedAt: {
+            allowNull: false,
+            type: Sequelize.DATE,
+          },
+          name: {
+            type: Sequelize.STRING(60),
+            allowNull: false,
+          },
+          nameSingular: {
+            type: Sequelize.STRING(60),
+          },
+          namePlural: {
+            type: Sequelize.STRING(60),
+          },
+          unity: {
+            type: Sequelize.STRING(60),
+          },
+        },
+        {
+          transaction: transaction,
         }
       );
       // indexes
@@ -67,5 +69,5 @@ module.exports = {
       await transaction.rollback();
       throw err;
     }
-  }
+  },
 };

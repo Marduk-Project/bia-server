@@ -1,6 +1,6 @@
-const { body, query, param } = require('express-validator/check');
-const validator = require('validator');
-const { Op } = require('sequelize');
+const { body, query, param } = require("express-validator/check");
+const validator = require("validator");
+const { Op } = require("sequelize");
 
 const {
   customFindByPkValidation,
@@ -8,23 +8,23 @@ const {
   validationEndFunction,
   BadRequestError,
   ApiError,
-  NotFoundError
-} = require('../../middlewares/error-mid');
-const CtrModelModule = require('../../models/gl_city');
+  NotFoundError,
+} = require("../../middlewares/error-mid");
+const CtrModelModule = require("../../models/gl_city");
 const Model = CtrModelModule.model;
-const ParentModelModule = require('../../models/gl_state');
+const ParentModelModule = require("../../models/gl_state");
 const ParentModel = ParentModelModule.model;
-const utils = require('../../helpers/utils');
+const utils = require("../../helpers/utils");
 
-const controllerDefaultQueryScope = 'admin';
+const controllerDefaultQueryScope = "admin";
 
 /**
  * List Validation
  */
 exports.getIndexValidate = [
-  query('page').optional().isInt(),
-  query('q').optional().isString(),
-  query('stateId').optional().isInt(),
+  query("page").optional().isInt(),
+  query("q").optional().isString(),
+  query("stateId").optional().isInt(),
   validationEndFunction,
 ];
 
@@ -58,33 +58,37 @@ exports.getIndex = async (req, res, next) => {
     // query options
     const page = req.query.page || 1;
     Model.setLimitOffsetForPage(page, options);
-    options.order - [
-      ['priority', 'desc'],
-      ['name', 'asc'],
-      ['id', 'asc'],
-    ];
-    options.include = ['state'];
+    options.order -
+      [
+        ["priority", "desc"],
+        ["name", "asc"],
+        ["id", "asc"],
+      ];
+    options.include = ["state"];
     // exec
     const queryResult = await Model.findAndCountAll(options);
     const meta = Model.paginateMeta(queryResult, page);
     res.sendJsonOK({
-      data: await CtrModelModule.jsonSerializer(queryResult.rows, controllerDefaultQueryScope),
+      data: await CtrModelModule.jsonSerializer(
+        queryResult.rows,
+        controllerDefaultQueryScope
+      ),
       meta: meta,
     });
   } catch (err) {
     next(err);
   }
-}
-
+};
 
 /**
  * Get for Edit Validate
  */
 exports.getEditValidate = [
-  param('id')
+  param("id")
     .isInt()
-    .not().isEmpty()
-    .custom(customFindByPkValidation(Model, null, { include: ['state'] })),
+    .not()
+    .isEmpty()
+    .custom(customFindByPkValidation(Model, null, { include: ["state"] })),
   validationEndFunction,
 ];
 
@@ -95,36 +99,30 @@ exports.getEdit = async (req, res, next) => {
   try {
     const entity = req.entity;
     res.sendJsonOK({
-      data: await CtrModelModule.jsonSerializer(entity, controllerDefaultQueryScope),
+      data: await CtrModelModule.jsonSerializer(
+        entity,
+        controllerDefaultQueryScope
+      ),
     });
   } catch (err) {
     next(err);
   }
-}
-
-
+};
 
 /**
  * Save validation
  */
 const saveValidate = [
-  param('id').optional().isInt(),
-  body('name')
-    .isString()
-    .trim()
-    .not().isEmpty()
-    .isLength({
-      min: 1,
-      max: 60,
-    }),
-  body('ibgeCode')
-    .isString()
-    .trim()
-    .isLength({
-      min: 1,
-      max: 60,
-    }),
-  body('stateId')
+  param("id").optional().isInt(),
+  body("name").isString().trim().not().isEmpty().isLength({
+    min: 1,
+    max: 60,
+  }),
+  body("ibgeCode").isString().trim().isLength({
+    min: 1,
+    max: 60,
+  }),
+  body("stateId")
     .isInt()
     .custom(customFindByPkRelationValidation(ParentModel, null)),
   // validationEndFunction, // aqui nao tem validate
@@ -147,8 +145,8 @@ const saveEntityFunc = async (req, res, next, id) => {
     // send result
     const result = {
       entity: {
-        id: entity.id
-      }
+        id: entity.id,
+      },
     };
     // correct http
     if (id) {
@@ -159,17 +157,12 @@ const saveEntityFunc = async (req, res, next, id) => {
   } catch (err) {
     next(err);
   }
-}
-
-
-
+};
 
 /** Update validation */
 exports.putUpdateValidate = [
   ...saveValidate,
-  param('id')
-    .isInt()
-    .custom(customFindByPkValidation(Model)),
+  param("id").isInt().custom(customFindByPkValidation(Model)),
   validationEndFunction,
 ];
 
@@ -182,18 +175,12 @@ exports.putUpdate = async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-}
-
-
-
+};
 
 /**
  * Create validation
  */
-exports.postCreateValidate = [
-  ...saveValidate,
-  validationEndFunction,
-];
+exports.postCreateValidate = [...saveValidate, validationEndFunction];
 
 /**
  * Create
@@ -204,33 +191,31 @@ exports.postCreate = async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-}
-
-
-
+};
 
 /**
  * Delete Validate
  */
 exports.deleteValidate = [
-  param('id')
-    .isInt()
-    .custom(customFindByPkValidation(Model)),
+  param("id").isInt().custom(customFindByPkValidation(Model)),
   validationEndFunction,
 ];
 
 /**
-* Delete
-*/
+ * Delete
+ */
 exports.delete = async (req, res, next) => {
   try {
     const id = req.params.id;
     const entity = req.entity;
     await entity.destroy();
     res.sendJsonOK({
-      data: await CtrModelModule.jsonSerializer(entity, controllerDefaultQueryScope),
+      data: await CtrModelModule.jsonSerializer(
+        entity,
+        controllerDefaultQueryScope
+      ),
     });
   } catch (err) {
     next(err);
   }
-}
+};

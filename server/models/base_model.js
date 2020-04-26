@@ -1,14 +1,14 @@
-const validator = require('validator');
-const { Sequelize, Model } = require('sequelize');
-const _ = require('lodash');
-const util = require('util');
+const validator = require("validator");
+const { Sequelize, Model } = require("sequelize");
+const _ = require("lodash");
+const util = require("util");
 
 const PAGINATION_PER_PAGE = 100;
-const { mainDb } = require('../database/main_connection');
-const ApiError = require('../middlewares/error-mid').ApiError;
+const { mainDb } = require("../database/main_connection");
+const ApiError = require("../middlewares/error-mid").ApiError;
 
 const sanitizePage = (page) => {
-  if (typeof page != 'number') {
+  if (typeof page != "number") {
     try {
       page = parseInt(page || 1);
     } catch (err) {
@@ -16,7 +16,7 @@ const sanitizePage = (page) => {
     }
   }
   return Math.max(page, 1);
-}
+};
 
 /**
  * Alter query options to put limit and offset for page
@@ -36,7 +36,7 @@ const setLimitOffsetForPage = (page, queryOptions, itemsPerPage) => {
   queryOptions.offset = (page - 1) * itemsPerPage;
   queryOptions.limit = itemsPerPage;
   return queryOptions;
-}
+};
 exports.setLimitOffsetForPage = setLimitOffsetForPage;
 
 /**
@@ -57,16 +57,16 @@ const paginateMeta = (queryResult, page, itemsPerPage) => {
   if (!itemsPerPage) {
     itemsPerPage = PAGINATION_PER_PAGE;
   }
-  const toTmp = (page * itemsPerPage);
+  const toTmp = page * itemsPerPage;
   return {
-    from: ((page - 1) * itemsPerPage) + 1,
+    from: (page - 1) * itemsPerPage + 1,
     to: totalCount < toTmp ? totalCount : toTmp,
     total: totalCount,
     current_page: page,
     per_page: itemsPerPage,
     last_page: Math.ceil(totalCount / itemsPerPage),
   };
-}
+};
 exports.paginateMeta = paginateMeta;
 
 // TODO pagination / pagination meta
@@ -76,7 +76,6 @@ exports.paginateMeta = paginateMeta;
 exports.PAGINATION_PER_PAGE = PAGINATION_PER_PAGE;
 
 class BaseModel extends Model {
-
   /**
    * Alter query options to put limit and offset for page
    * @param {int} page
@@ -109,17 +108,14 @@ class BaseModel extends Model {
    */
   static async idExists(id, scope) {
     if (!validator.isInt(id)) {
-      throw new ApiError('Is not an ID.');
+      throw new ApiError("Is not an ID.");
     }
     if (scope) {
-      const count = await this
-        .scope(scope)
-        .count({ where: { id: id } });
-      return (count > 0);
+      const count = await this.scope(scope).count({ where: { id: id } });
+      return count > 0;
     }
-    return await this.count({ where: { id: id } }) > 0;
+    return (await this.count({ where: { id: id } })) > 0;
   }
-
 }
 
 exports.BaseModel = BaseModel;
@@ -143,9 +139,11 @@ const jsonSerializer = async (rs, options, scopeName) => {
   }
   if (_.isArray(rs)) {
     let rsList = [];
-    await Promise.all(rs.map(async (item) => {
-      rsList.push(await jsonSerializer(item, options, scopeName));
-    }));
+    await Promise.all(
+      rs.map(async (item) => {
+        rsList.push(await jsonSerializer(item, options, scopeName));
+      })
+    );
     return rsList;
   } else {
     let json = rs instanceof Model ? rs.toJSON() : rs;
@@ -156,17 +154,19 @@ const jsonSerializer = async (rs, options, scopeName) => {
       json = _.omit(json, options.exclude);
     }
     if (options.maps) {
-      await Promise.all(Object.keys(options.maps).map(async (key) => {
-        const item = options.maps[key];
-        if (util.types.isAsyncFunction(item) || util.types.isPromise(item)) {
-          json[key] = await item(json[key], scopeName, json);
-        } else {
-          json[key] = item(json[key], scopeName, json);
-        }
-      }));
+      await Promise.all(
+        Object.keys(options.maps).map(async (key) => {
+          const item = options.maps[key];
+          if (util.types.isAsyncFunction(item) || util.types.isPromise(item)) {
+            json[key] = await item(json[key], scopeName, json);
+          } else {
+            json[key] = item(json[key], scopeName, json);
+          }
+        })
+      );
     }
     return json;
   }
-}
+};
 
 exports.jsonSerializer = jsonSerializer;
