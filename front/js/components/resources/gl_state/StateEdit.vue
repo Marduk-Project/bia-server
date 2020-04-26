@@ -47,7 +47,9 @@
         <div class="form-group col-lg-6">
           <label>País</label>
           <app-country-select v-model="entity.country"></app-country-select>
-          <small class="text-danger" v-if="!entity.country">Campo obrigatório.</small>
+          <small class="text-danger" v-if="!entity.country"
+            >Campo obrigatório.</small
+          >
         </div>
       </div>
       <div class="form-row">
@@ -69,7 +71,7 @@ import CountrySelect from "../gl_country/CountrySelect.vue";
 export default {
   mixins: [crudMixin],
   components: {
-    "app-country-select": CountrySelect
+    "app-country-select": CountrySelect,
   },
   data() {
     return {
@@ -80,8 +82,8 @@ export default {
         priority: 0,
         countryId: null,
         // objects
-        country: null
-      }
+        country: null,
+      },
     };
   },
   methods: {
@@ -91,7 +93,7 @@ export default {
         name: this.entity.name,
         code: this.entity.code,
         priority: this.entity.priority,
-        countryId: this.entity.country ? this.entity.country.id : null
+        countryId: this.entity.country ? this.entity.country.id : null,
       };
     },
     crud_validate() {
@@ -100,7 +102,7 @@ export default {
         return false;
       }
       return true;
-    }
+    },
   },
   computed: {
     crud_title() {
@@ -119,10 +121,9 @@ export default {
     },
     crud_route_base() {
       return "gl_state";
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

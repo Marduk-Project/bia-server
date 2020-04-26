@@ -15,21 +15,20 @@ export default {
     value: {
       type: [Number, String],
       required: false,
-      default: null
+      default: null,
     },
     showAll: {
       type: Boolean,
       required: false,
-      default: false
-    }
+      default: false,
+    },
   },
   methods: {
     onValueSelect(e) {
       this.$emit("input", e.target.value);
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

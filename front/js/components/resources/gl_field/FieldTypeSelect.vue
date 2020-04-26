@@ -1,5 +1,11 @@
 <template>
-  <select class="form-control" :name="name" :value="value" @change="onValueSelect" :class="classes">
+  <select
+    class="form-control"
+    :name="name"
+    :value="value"
+    @change="onValueSelect"
+    :class="classes"
+  >
     <option value="0" v-if="showAll">Todos</option>
     <option value="1">Texto (String)</option>
     <option value="2">Inteiro (Int)</option>
@@ -15,31 +21,30 @@ export default {
     name: {
       type: String,
       required: false,
-      default: "type"
+      default: "type",
     },
     value: {
       type: [Number, String],
       required: false,
-      default: null
+      default: null,
     },
     showAll: {
       type: Boolean,
       required: false,
-      default: false
+      default: false,
     },
     classes: {
       type: [String, Object],
       required: false,
-      default: ""
-    }
+      default: "",
+    },
   },
   methods: {
     onValueSelect(e) {
       this.$emit("input", e.target.value);
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

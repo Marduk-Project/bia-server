@@ -68,8 +68,8 @@ export default {
         id: null,
         name: null,
         code: null,
-        priority: 0
-      }
+        priority: 0,
+      },
     };
   },
   methods: {
@@ -78,9 +78,9 @@ export default {
         id: this.entity.id,
         name: this.entity.name,
         code: this.entity.code,
-        priority: this.entity.priority
+        priority: this.entity.priority,
       };
-    }
+    },
   },
   computed: {
     crud_title() {
@@ -99,10 +99,9 @@ export default {
     },
     crud_route_base() {
       return "gl_country";
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

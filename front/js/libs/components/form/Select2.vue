@@ -7,15 +7,25 @@
     :required="required"
     :class="className"
   >
-    <option v-if="valueIsObject && value && !multiple" :value="value.id" selected>{{ value.text }}</option>
-    <option v-if="!valueIsObject && value && !multiple" :value="value" selected>{{ value }}</option>
+    <option
+      v-if="valueIsObject && value && !multiple"
+      :value="value.id"
+      selected
+      >{{ value.text }}</option
+    >
+    <option
+      v-if="!valueIsObject && value && !multiple"
+      :value="value"
+      selected
+      >{{ value }}</option
+    >
   </select>
 </template>
 
 <script>
 import { jq_beforeSend } from "../../mixins/axios-auth";
-import _ from 'lodash';
-import $ from 'jquery';
+import _ from "lodash";
+import $ from "jquery";
 
 export default {
   props: [
@@ -33,28 +43,26 @@ export default {
     "templateSelection",
     "mapResult",
     "className",
-    "multiple"
+    "multiple",
   ],
   data() {
     return {
       s2ok: false,
-      fullValue: null
+      fullValue: null,
     };
   },
   watch: {
-    value: function(value) {
+    value: function (value) {
       this.s2_select(value);
     },
-    options: function(options) {
-      this.getElement()
-        .empty()
-        .select2({ data: options });
-    }
+    options: function (options) {
+      this.getElement().empty().select2({ data: options });
+    },
   },
   computed: {
     valueIsObject() {
       return _.isObject(this.value);
-    }
+    },
   },
   methods: {
     onOpen(e) {
@@ -80,7 +88,7 @@ export default {
     onUnselect(e) {
       const unselectedValue = e.params.data;
       if (this.multiple) {
-        this.fullValue = this.fullValue.filter(item => {
+        this.fullValue = this.fullValue.filter((item) => {
           return item.id != unselectedValue.id;
         });
       } else {
@@ -103,7 +111,7 @@ export default {
         width: "100%",
         allowClear: true,
         minimumInputLength: 0,
-        multiple: this.multiple ? true : false
+        multiple: this.multiple ? true : false,
       };
       if (this.url) {
         options.ajax = {
@@ -158,7 +166,7 @@ export default {
             request.then(success);
             request.fail(failure);
             return request;
-          }
+          },
         };
       } else {
         options.data = this.options;
@@ -193,7 +201,7 @@ export default {
           if (_.isArray(value)) {
             const el = this.getElement();
             el.empty();
-            value.forEach(item => {
+            value.forEach((item) => {
               if (_.isFunction(this.mapResult)) {
                 this.mapResult(item);
               }
@@ -235,9 +243,7 @@ export default {
               .trigger("change");
           }
         } else {
-          this.getElement()
-            .val(value)
-            .trigger("change");
+          this.getElement().val(value).trigger("change");
         }
       } else {
         if (this.multiple) {
@@ -245,11 +251,9 @@ export default {
         } else {
           this.fullValue = null;
         }
-        this.getElement()
-          .val(this.fullValue)
-          .trigger("change");
+        this.getElement().val(this.fullValue).trigger("change");
       }
-    }
+    },
   },
   mounted() {
     if (this.multiple) {
@@ -259,9 +263,8 @@ export default {
   },
   destroyed() {
     this.s2_destroy();
-  }
+  },
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

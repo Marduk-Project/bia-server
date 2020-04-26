@@ -21,21 +21,21 @@ import Notify from "../../libs/components/common/Notify";
 
 export default {
   components: {
-    "app-notify": Notify
+    "app-notify": Notify,
   },
   computed: {
-    ...mapGetters(["isLoading"])
+    ...mapGetters(["isLoading"]),
   },
   methods: {
     checkFlashesMessages() {
       if (util.isArray(window.app_flashes)) {
-        window.app_flashes.forEach(message => {
+        window.app_flashes.forEach((message) => {
           this.$store.dispatch("notify", message);
         });
       } else {
         console.warn("Flash messages not configured!");
       }
-    }
+    },
   },
   created() {
     // var vm = this;
@@ -45,14 +45,13 @@ export default {
   },
   mounted() {
     this.checkFlashesMessages();
-  }
+  },
 };
 </script>
 
 <style lang="sass">
 @import '../../../sass/app.scss'
 </style>
-
 
 <style type="text/css" scoped>
 /* === loading position === */

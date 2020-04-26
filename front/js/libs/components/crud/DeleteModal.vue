@@ -9,7 +9,8 @@
       :title="title"
       @ok="onDeleteClick"
       @cancel="onCancelClick"
-    >Excluir registro?</b-modal>
+      >Excluir registro?</b-modal
+    >
   </div>
 </template>
 
@@ -28,10 +29,9 @@ export default {
     },
     hide() {
       this.$refs.modal.hide();
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

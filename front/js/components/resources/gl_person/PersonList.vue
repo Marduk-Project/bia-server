@@ -21,7 +21,11 @@
             @keyup.enter="list_refreshCurrentPage"
           />
           <div class="input-group-append">
-            <button class="btn btn-primary" type="button" @click="list_refreshCurrentPage">
+            <button
+              class="btn btn-primary"
+              type="button"
+              @click="list_refreshCurrentPage"
+            >
               <i class="fa fa-search"></i> Filtrar
             </button>
           </div>
@@ -56,9 +60,9 @@
               title="Verificado"
               class="fas fa-check-circle"
               :class="{
-              'app-table-action-disabled': !entity.trusted,
-              'text-success': entity.trusted,
-            }"
+                'app-table-action-disabled': !entity.trusted,
+                'text-success': entity.trusted,
+              }"
             ></i>
           </td>
         </tr>
@@ -75,13 +79,13 @@ import CitySelect from "../gl_city/CitySelect.vue";
 export default {
   mixins: [listMixin],
   components: {
-    "app-city-select": CitySelect
+    "app-city-select": CitySelect,
   },
   data() {
     return {
       filters: {
-        city: null
-      }
+        city: null,
+      },
     };
   },
   computed: {
@@ -93,7 +97,7 @@ export default {
     },
     list_route_base() {
       return "gl_person";
-    }
+    },
   },
   methods: {
     list_buildURL(page) {
@@ -107,10 +111,9 @@ export default {
         url += `&cityId=${this.filters.city.id}`;
       }
       return url;
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

@@ -1,11 +1,14 @@
 <template>
   <div class="text-center">
-    <br>
-    <small class="text-muted">Exibindo {{ meta.from }}-{{ meta.to}} de {{ meta.total }} registros(s).</small>
-    <br>
+    <br />
+    <small class="text-muted"
+      >Exibindo {{ meta.from }}-{{ meta.to }} de
+      {{ meta.total }} registros(s).</small
+    >
+    <br />
     <nav aria-label="pagination">
       <ul class="pagination justify-content-center">
-        <li :class="{ 'disabled': meta.current_page <= 1 }" class="page-item">
+        <li :class="{ disabled: meta.current_page <= 1 }" class="page-item">
           <a
             href="javascript:void(0)"
             aria-label="Previous"
@@ -15,7 +18,7 @@
             <span aria-hidden="true">&laquo;</span>
           </a>
         </li>
-        <li :class="{ 'disabled': meta.current_page <= 1 }" class="page-item">
+        <li :class="{ disabled: meta.current_page <= 1 }" class="page-item">
           <a
             href="javascript:void(0)"
             aria-label="Previous"
@@ -27,7 +30,7 @@
         </li>
         <li
           v-for="page in pagesNumber"
-          :class="{'active': page == meta.current_page}"
+          :class="{ active: page == meta.current_page }"
           :key="page"
           class="page-item"
         >
@@ -35,9 +38,13 @@
             href="javascript:void(0)"
             v-on:click.prevent="changePage(page)"
             class="page-link"
-          >{{ page }}</a>
+            >{{ page }}</a
+          >
         </li>
-        <li :class="{ 'disabled': meta.current_page >= meta.last_page }" class="page-item">
+        <li
+          :class="{ disabled: meta.current_page >= meta.last_page }"
+          class="page-item"
+        >
           <a
             href="javascript:void(0)"
             aria-label="Next"
@@ -47,7 +54,10 @@
             <span aria-hidden="true">&rsaquo;</span>
           </a>
         </li>
-        <li :class="{ 'disabled': meta.current_page >= meta.last_page }" class="page-item">
+        <li
+          :class="{ disabled: meta.current_page >= meta.last_page }"
+          class="page-item"
+        >
           <a
             href="javascript:void(0)"
             aria-label="Next"
@@ -59,7 +69,7 @@
         </li>
       </ul>
     </nav>
-    <br>
+    <br />
   </div>
 </template>
 
@@ -68,12 +78,12 @@ export default {
   props: {
     pagination: {
       type: Object,
-      required: true
+      required: true,
     },
     offset: {
       type: Number,
-      default: 4
-    }
+      default: 4,
+    },
   },
   computed: {
     meta() {
@@ -87,7 +97,7 @@ export default {
           path: this.pagination.path,
           per_page: this.pagination.per_page,
           to: this.pagination.to,
-          total: this.pagination.total
+          total: this.pagination.total,
         };
       }
     },
@@ -99,7 +109,7 @@ export default {
           first: this.pagination.first_page_url,
           last: this.pagination.last_page_url,
           prev: this.pagination.prev_page_url,
-          next: this.pagination.next_page_url
+          next: this.pagination.next_page_url,
         };
       }
     },
@@ -120,12 +130,12 @@ export default {
         pagesArray.push(page);
       }
       return pagesArray;
-    }
+    },
   },
   methods: {
     changePage(page) {
       this.$emit("paginate", page);
-    }
-  }
+    },
+  },
 };
 </script>

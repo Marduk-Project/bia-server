@@ -6,7 +6,9 @@
       <br />
       <br />
       <br />
-      <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12 app-bg-light">
+      <div
+        class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12 app-bg-light"
+      >
         <br />
         <div class="text-center">
           <img
@@ -32,7 +34,10 @@
               v-validate="'required|email'"
               :class="{ 'is-invalid': errors.has('username') && wasValidated }"
             />
-            <small v-show="errors.has('username') && wasValidated" class="text-danger">
+            <small
+              v-show="errors.has('username') && wasValidated"
+              class="text-danger"
+            >
               <strong>E-mail</strong> é obrigatório.
             </small>
           </div>
@@ -51,10 +56,15 @@
             <small
               v-show="errors.has('password') && wasValidated"
               class="text-danger"
-            >Campo obrigatório.</small>
+              >Campo obrigatório.</small
+            >
           </div>
           <div class="form-group col-xl-12">
-            <button class="w-100 btn btn-success" type="button" @click="onEnterClick">
+            <button
+              class="w-100 btn btn-success"
+              type="button"
+              @click="onEnterClick"
+            >
               <i class="fa fa-sign-in"></i> Login
             </button>
           </div>
@@ -63,14 +73,13 @@
               tag="a"
               :to="{ name: 'auth.recover.request' }"
               class="btn btn-link"
-            >Esqueceu sua senha?</router-link>
+              >Esqueceu sua senha?</router-link
+            >
           </div>
           <div class="form-group col-12 text-center">
-            <a
-              :href="app_website"
-              target="_contact"
-              class="btn btn-link"
-            >Dúvidas? Entre em contato conosco.</a>
+            <a :href="app_website" target="_contact" class="btn btn-link"
+              >Dúvidas? Entre em contato conosco.</a
+            >
           </div>
         </div>
       </div>
@@ -92,7 +101,7 @@ export default {
     },
     app_website() {
       return window.app_website;
-    }
+    },
   },
   data() {
     return {
@@ -100,38 +109,40 @@ export default {
       login: {
         try: false,
         username: null,
-        password: null
-      }
+        password: null,
+      },
     };
   },
   methods: {
     onEnterClick() {
-      this.$validator.validateAll().then(result => {
+      this.$validator.validateAll().then((result) => {
         this.wasValidated = true;
         if (!result) {
           return;
         }
         let data = {
           username: this.login.username,
-          password: this.login.password
+          password: this.login.password,
         };
         this.api_loadingShow();
         axios
           .post("/api/auth/login", data)
           .then(
-            this.api_thenDone(res => {
+            this.api_thenDone((res) => {
               // redirect to home
               const user = res.data;
               if (user.isStaff) {
                 this.api_loadingShow();
                 window.location.href = "/home";
               } else {
-                this.notify_warning('Usuário com implementação pendente... aguarde!');
+                this.notify_warning(
+                  "Usuário com implementação pendente... aguarde!"
+                );
               }
             }, true)
           )
           .catch(
-            this.api_catch(error => {
+            this.api_catch((error) => {
               this.$refs.pwd.focus();
             })
           );
@@ -143,14 +154,13 @@ export default {
         this.api_loadingShow();
         window.location.href = "/home";
       }
-    }
+    },
   },
   mounted() {
     this.$store.dispatch("setTitle", "Portal");
     this.login_refreshInfo();
-  }
+  },
 };
 </script>
 
-<style type="text/css" scoped>
-</style>
+<style type="text/css" scoped></style>

@@ -6,7 +6,9 @@
         v-if="origin == 'u'"
         type="button"
         class="btn btn-link"
-        @click="$router.push({ name: 'gl_user.edit', params: { id: parentEntityId } })"
+        @click="
+          $router.push({ name: 'gl_user.edit', params: { id: parentEntityId } })
+        "
       >
         <i class="fa fa-chevron-left"></i> Voltar
       </button>
@@ -14,7 +16,12 @@
         v-if="origin == 'p'"
         type="button"
         class="btn btn-link"
-        @click="$router.push({ name: 'gl_person.edit', params: { id: parentEntityId } })"
+        @click="
+          $router.push({
+            name: 'gl_person.edit',
+            params: { id: parentEntityId },
+          })
+        "
       >
         <i class="fa fa-chevron-left"></i> Voltar
       </button>
@@ -36,7 +43,11 @@
             @keyup.enter="list_refreshCurrentPage"
           />
           <div class="input-group-append">
-            <button class="btn btn-primary" type="button" @click="list_refreshCurrentPage">
+            <button
+              class="btn btn-primary"
+              type="button"
+              @click="list_refreshCurrentPage"
+            >
               <i class="fa fa-search"></i> Filtrar
             </button>
           </div>
@@ -79,9 +90,9 @@
               title="Verificado"
               class="fas fa-check-circle"
               :class="{
-              'app-table-action-disabled': !entity.trusted,
-              'text-success': entity.trusted,
-            }"
+                'app-table-action-disabled': !entity.trusted,
+                'text-success': entity.trusted,
+              }"
             ></i>
           </td>
         </tr>
@@ -106,14 +117,14 @@ export default {
     "app-person-item": PersonItem,
     "app-person-select": PersonSelect,
     "app-user-select": UserSelect,
-    "app-user-item": UserItem
+    "app-user-item": UserItem,
   },
   data() {
     return {
       filters: {
         person: null,
-        user: null
-      }
+        user: null,
+      },
     };
   },
   computed: {
@@ -131,7 +142,7 @@ export default {
         return this.$route.params.origin;
       }
       return "p";
-    }
+    },
   },
   methods: {
     list_buildURL(page) {
@@ -159,10 +170,9 @@ export default {
         case "p":
           return axios.get(`/api/admin/gl_person/${this.parentEntityId}/edit`);
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

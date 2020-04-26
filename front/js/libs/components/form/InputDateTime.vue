@@ -8,7 +8,7 @@
     :readonly="readonly"
     v-b-tooltip.hover
     :title="currentDate ? moment(currentDate).fromNow() : '-'"
-  >
+  />
 </template>
 
 <script>
@@ -19,34 +19,36 @@ export default {
     type: {
       type: String,
       required: false,
-      default: "datetime-local"
+      default: "datetime-local",
     },
     value: {
       type: [Date, String],
       required: false,
-      default: null
+      default: null,
     },
     classes: {
       type: [String, Array, Object],
       required: false,
-      default: ""
+      default: "",
     },
     readonly: {
       type: Boolean,
       required: false,
-      default: false
+      default: false,
     },
     disabled: {
       type: Boolean,
       required: false,
-      default: false
-    }
+      default: false,
+    },
   },
   data() {
     return {
-      currentDate: this.value ? moment(this.value).format("YYYY-MM-DDTHH:mm:ss") : null,
+      currentDate: this.value
+        ? moment(this.value).format("YYYY-MM-DDTHH:mm:ss")
+        : null,
       currentDateChangeIgnore: false,
-      valueChangeIgnore: false
+      valueChangeIgnore: false,
     };
   },
   watch: {
@@ -65,15 +67,14 @@ export default {
         this.valueChangeIgnore = true;
         this.$emit("input", value);
       }
-    }
+    },
   },
   methods: {
     moment(date) {
       return moment(date);
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

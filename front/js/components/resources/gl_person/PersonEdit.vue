@@ -11,7 +11,14 @@
       <router-link
         class="btn btn-outline-secondary"
         tag="button"
-        :to="{ name: 'gl_person_contact.index', params: { parentEntityId: entity.id, parentEntity: entity, origin: 'p' } }"
+        :to="{
+          name: 'gl_person_contact.index',
+          params: {
+            parentEntityId: entity.id,
+            parentEntity: entity,
+            origin: 'p',
+          },
+        }"
       >
         <i class="fa fa-id-card"></i> Contatos &amp; Usuários
       </router-link>
@@ -22,7 +29,9 @@
       <div class="form-row">
         <div class="form-group col-xl-6">
           <label>Tipo pessoa</label>
-          <app-person-type-select v-model="entity.legalType"></app-person-type-select>
+          <app-person-type-select
+            v-model="entity.legalType"
+          ></app-person-type-select>
         </div>
         <div class="form-group col-xl-6">
           <label>{{ legalIdentifierTypeDesc }}</label>
@@ -31,23 +40,31 @@
             class="form-control"
             type="text"
             v-model="entity.legalIdentifierCode"
-            :placeholder="legalIdentifierType == 'CPF' ? 'ex. 123456789' : (legalIdentifierType == 'CNPJ' ? 'ex. 12345678901234' : '(opcional)')"
+            :placeholder="
+              legalIdentifierType == 'CPF'
+                ? 'ex. 123456789'
+                : legalIdentifierType == 'CNPJ'
+                ? 'ex. 12345678901234'
+                : '(opcional)'
+            "
             v-validate="legalIdentifierValidateRule"
-            :class="{ 'is-invalid':errors.has('legalIdentifierCode') }"
+            :class="{ 'is-invalid': errors.has('legalIdentifierCode') }"
           />
           <small>
             Digite apenas os números se for
-            <strong>CPF</strong> ou
-            <strong>CNPJ</strong>.
-            <strong>Pessoa Física</strong> é necessário um CPF válido. Se for uma
-            <strong>Pessoa Jurídica</strong>, é necessário um CNPJ. Caso contrário você pode registrar um identificador livre.
+            <strong>CPF</strong> ou <strong>CNPJ</strong>.
+            <strong>Pessoa Física</strong> é necessário um CPF válido. Se for
+            uma <strong>Pessoa Jurídica</strong>, é necessário um CNPJ. Caso
+            contrário você pode registrar um identificador livre.
           </small>
-          <div
-            class="invalid-feedback"
-          >Campo obrigatório. Digite um {{ legalIdentifierTypeDesc }} válido.</div>
+          <div class="invalid-feedback">
+            Campo obrigatório. Digite um {{ legalIdentifierTypeDesc }} válido.
+          </div>
         </div>
         <div class="form-group col-xl-6">
-          <label>{{ entity.legalType == 2 ? 'Razão social' : 'Nome completo' }}</label>
+          <label>{{
+            entity.legalType == 2 ? "Razão social" : "Nome completo"
+          }}</label>
           <input
             class="form-control"
             name="name"
@@ -55,12 +72,14 @@
             v-model="entity.name"
             placeholder="ex. Fulano Ciclano Tal"
             v-validate="'required'"
-            :class="{ 'is-invalid':errors.has('name') }"
+            :class="{ 'is-invalid': errors.has('name') }"
           />
           <div class="invalid-feedback">Campo obrigatório.</div>
         </div>
         <div class="form-group col-xl-6">
-          <label>{{ entity.legalType == 1 ? 'Apelido' : 'Nome fantasia' }}</label>
+          <label>{{
+            entity.legalType == 1 ? "Apelido" : "Nome fantasia"
+          }}</label>
           <input
             class="form-control"
             name="shortname"
@@ -121,7 +140,11 @@
               @blur="onGetZipcodeBlur"
             />
             <div class="input-group-append">
-              <button class="btn btn-outline-secondary" type="button" @click="onGetZipcodeClick">
+              <button
+                class="btn btn-outline-secondary"
+                type="button"
+                @click="onGetZipcodeClick"
+              >
                 <i class="fa fa-search"></i>
               </button>
             </div>
@@ -168,7 +191,9 @@
         <div class="form-group col-xl-3">
           <label>Cidade</label>
           <app-city-select v-model="entity.city"></app-city-select>
-          <small class="text-danger" v-if="!entity.city">Campo obrigatório.</small>
+          <small class="text-danger" v-if="!entity.city"
+            >Campo obrigatório.</small
+          >
         </div>
         <div class="form-group col-xl-3">
           <label>Data nascimento</label>
@@ -181,7 +206,11 @@
         </div>
         <div class="form-group col-12">
           <label>Observações</label>
-          <textarea rows="4" v-model="entity.obs" class="form-control"></textarea>
+          <textarea
+            rows="4"
+            v-model="entity.obs"
+            class="form-control"
+          ></textarea>
         </div>
       </div>
       <br />
@@ -212,7 +241,10 @@
         <br />
         <br />
         <h4>Campos adicionais</h4>
-        <table class="table table-hover table-struped" v-if="fieldList.length > 0">
+        <table
+          class="table table-hover table-struped"
+          v-if="fieldList.length > 0"
+        >
           <thead>
             <tr>
               <th>Nome</th>
@@ -254,7 +286,7 @@ export default {
   components: {
     "app-person-type-select": PersonTypeSelect,
     "app-city-select": CitySelect,
-    "app-field-row": PersonFieldTableRow
+    "app-field-row": PersonFieldTableRow,
   },
   data() {
     return {
@@ -280,9 +312,9 @@ export default {
         longitude: 0,
         obs: null,
         // obs
-        city: null
+        city: null,
       },
-      fieldList: []
+      fieldList: [],
     };
   },
   methods: {
@@ -308,7 +340,7 @@ export default {
         latitude: this.entity.latitude,
         longitude: this.entity.longitude,
         obs: this.entity.obs,
-        fields: this.fieldList.map(field => {
+        fields: this.fieldList.map((field) => {
           let value = null;
           switch (parseInt(field.field.type)) {
             case 1:
@@ -334,9 +366,9 @@ export default {
           return {
             id: field.id,
             fieldItemId: field.fieldItemId,
-            value: value
+            value: value,
           };
-        })
+        }),
       };
     },
     crud_validate() {
@@ -407,12 +439,12 @@ export default {
         */
     },
     onFieldInput(value) {
-      this.fieldList.forEach(item => {
+      this.fieldList.forEach((item) => {
         if (item.id == value.id) {
           Object.assign(item, value);
         }
       });
-    }
+    },
   },
   computed: {
     legalIdentifierType() {
@@ -487,10 +519,9 @@ export default {
     },
     crud_route_base() {
       return "gl_person";
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

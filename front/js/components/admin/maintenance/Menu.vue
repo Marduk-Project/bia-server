@@ -9,7 +9,12 @@
     >
       <i class="fas fa-tachometer-alt"></i> Geral
     </router-link>
-    <router-link class="nav-link" active-class="active" :to="{ name: 'config.edit' }" tag="a">
+    <router-link
+      class="nav-link"
+      active-class="active"
+      :to="{ name: 'config.edit' }"
+      tag="a"
+    >
       <i class="fas fa-cogs"></i> Editar
       <strong>configuração</strong>
     </router-link>

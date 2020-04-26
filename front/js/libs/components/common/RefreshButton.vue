@@ -1,5 +1,9 @@
 <template>
-  <button class="btn btn-outline-secondary" :disabled="isLoading" @click="onButtonClick">
+  <button
+    class="btn btn-outline-secondary"
+    :disabled="isLoading"
+    @click="onButtonClick"
+  >
     <i class="fas fa-sync" :class="{ 'fa-spin': isLoading }"></i> Atualizar
   </button>
 </template>
@@ -11,15 +15,14 @@ export default {
   methods: {
     onButtonClick() {
       this.$emit("click", this.value);
-    }
+    },
   },
   computed: {
     ...mapGetters({
-      isLoading: "isLoading"
-    })
-  }
+      isLoading: "isLoading",
+    }),
+  },
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

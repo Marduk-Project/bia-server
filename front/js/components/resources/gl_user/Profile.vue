@@ -40,16 +40,32 @@
         </div>
         <div class="form-group col-md-8">
           <label>E-mail</label>
-          <input type="text" class="form-control" :value="entity.email" placeholder readonly />
+          <input
+            type="text"
+            class="form-control"
+            :value="entity.email"
+            placeholder
+            readonly
+          />
         </div>
         <div class="form-group col-md-4">
           <label>ID</label>
-          <input type="text" class="form-control" :value="entity.id" placeholder readonly />
+          <input
+            type="text"
+            class="form-control"
+            :value="entity.id"
+            placeholder
+            readonly
+          />
         </div>
       </div>
       <div class="form-row">
         <div class="form-group col-md-5 col-lg-4 col-xl-2">
-          <button type="button" class="btn btn-success w-100" @click="crud_onSaveClick">
+          <button
+            type="button"
+            class="btn btn-success w-100"
+            @click="crud_onSaveClick"
+          >
             <i class="fa fa-check"></i> Salvar
           </button>
         </div>
@@ -79,12 +95,14 @@
             name="pwd_new"
             v-model="pwd_new"
             v-validate="'required'"
-            :state="(pwd_error != null) ? false : null"
+            :state="pwd_error != null ? false : null"
             type="password"
             placeholder
             aria-describedby="pg-pwd-feedback"
           ></b-form-input>
-          <b-form-invalid-feedback id="pg-pwd-feedback">{{ pwd_error }}</b-form-invalid-feedback>
+          <b-form-invalid-feedback id="pg-pwd-feedback">{{
+            pwd_error
+          }}</b-form-invalid-feedback>
         </div>
       </div>
       <div class="form-row">
@@ -102,7 +120,11 @@
       </div>
       <div class="form-row">
         <div class="form-group col-md-5 col-lg-4 col-xl-2">
-          <button type="button" class="btn btn-success w-100" @click="onChangePasswordClick">
+          <button
+            type="button"
+            class="btn btn-success w-100"
+            @click="onChangePasswordClick"
+          >
             <i class="fa fa-key"></i> Alterar
           </button>
         </div>
@@ -123,11 +145,11 @@ export default {
         id: null,
         name: null,
         nickname: null,
-        email: null
+        email: null,
       },
       pwd_current: "",
       pwd_new: "",
-      pwd_conf: ""
+      pwd_conf: "",
     };
   },
   computed: {
@@ -151,7 +173,7 @@ export default {
         return "As senhas não são iguais.";
       }
       return null;
-    }
+    },
   },
   methods: {
     onChangePasswordClick() {
@@ -164,13 +186,13 @@ export default {
       }
       let data = {
         pwd_current: this.pwd_current,
-        pwd_new: this.pwd_new
+        pwd_new: this.pwd_new,
       };
       this.api_loadingShow();
       axios
         .post("/api/auth/me/pwd_update", data)
         .then(
-          this.api_thenDone(res => {
+          this.api_thenDone((res) => {
             // limpa
             this.pwd_current = "";
             this.pwd_new = "";
@@ -183,7 +205,7 @@ export default {
       this.api_loadingShow();
       axios
         .get("/api/auth/me")
-        .then(res => {
+        .then((res) => {
           if (!this.api_parseOK(res)) {
             return;
           }
@@ -197,12 +219,12 @@ export default {
     },
     crud_navBack() {
       this.$router.push({
-        name: "dashboard"
+        name: "dashboard",
       });
     },
     crud_onSaveClick() {
       const validated = this.$validator.validateAll("crud");
-      validated.then(result => {
+      validated.then((result) => {
         if (!result) {
           this.crud_onValidateError();
           return;
@@ -210,25 +232,24 @@ export default {
         this.api_loadingShow();
         let data = {
           name: this.entity.name,
-          nickname: this.entity.nickname
+          nickname: this.entity.nickname,
         };
         axios
           .post("/api/auth/me/update", data)
           .then(
-            this.api_thenDone(res => {
+            this.api_thenDone((res) => {
               this.$store.dispatch("loadSession");
             })
           )
           .catch(this.api_catch());
       });
-    }
+    },
   },
   mounted() {
     this.crud_refreshEntity();
     this.$store.dispatch("setTitle", "Meus dados");
-  }
+  },
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

@@ -1,12 +1,13 @@
 <template>
-  <span v-if="entity">{{ entity.state ? `${entity.name} - ${entity.state.code}` : `${entity.name}`}}</span>
+  <span v-if="entity">{{
+    entity.state ? `${entity.name} - ${entity.state.code}` : `${entity.name}`
+  }}</span>
 </template>
 
 <script>
 export default {
-  props: ["entity"]
+  props: ["entity"],
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>
