@@ -36,6 +36,11 @@ module.exports = {
     sourceMap: true,
   },
   configureWebpack: {
+    resolve: {
+      alias: {
+        "@mixins": path.resolve(__dirname, "front/js/libs/mixins"),
+      },
+    },
     output: {
       filename: "static/js/[name].[hash].js",
       chunkFilename: "static/js/[id].[chunkhash].js",

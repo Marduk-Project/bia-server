@@ -73,7 +73,7 @@
 </template>
 
 <script>
-import { listMixin } from "../../../libs/mixins/list-mixin";
+import { listMixin } from "@mixins/list-mixin";
 import CitySelect from "../gl_city/CitySelect.vue";
 
 export default {

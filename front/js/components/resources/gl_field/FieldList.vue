@@ -80,8 +80,8 @@
 </template>
 
 <script>
-import { listMixin } from "../../../libs/mixins/list-mixin";
-import axios from "../../../libs/mixins/axios-auth";
+import { listMixin } from "@mixins/list-mixin";
+import axios from "@mixins/axios-auth";
 import _ from "lodash";
 import FieldDestinationSelect from "./FieldDestinationSelect.vue";
 

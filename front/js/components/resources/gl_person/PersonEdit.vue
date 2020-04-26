@@ -275,8 +275,8 @@
 </template>
 
 <script>
-import { crudMixin } from "../../../libs/mixins/crud-mixin";
-import axios from "../../../libs/mixins/axios-auth";
+import { crudMixin } from "@mixins/crud-mixin";
+import axios from "@mixins/axios-auth";
 import PersonTypeSelect from "./PersonTypeSelect.vue";
 import CitySelect from "../gl_city/CitySelect.vue";
 import PersonFieldTableRow from "../gl_person_field/PersonFieldTableRow.vue";

@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { jq_beforeSend } from "../../mixins/axios-auth";
+import { jq_beforeSend } from "@mixins/axios-auth";
 import _ from "lodash";
 import $ from "jquery";
 

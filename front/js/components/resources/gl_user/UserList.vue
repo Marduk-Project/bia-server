@@ -85,7 +85,7 @@
 </template>
 
 <script>
-import { listMixin } from "../../../libs/mixins/list-mixin";
+import { listMixin } from "@mixins/list-mixin";
 import UserLevelSelect from "./UserLevelSelect.vue";
 
 export default {

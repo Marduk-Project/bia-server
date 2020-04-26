@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import axios from "../../../libs/mixins/axios-auth";
+import axios from "@mixins/axios-auth";
 import FieldItemSelect from "../gl_field_item/FieldItemSelect.vue";
 
 export default {

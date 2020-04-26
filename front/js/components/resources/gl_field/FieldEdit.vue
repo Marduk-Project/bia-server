@@ -100,8 +100,8 @@
 </template>
 
 <script>
-import { crudMixin } from "../../../libs/mixins/crud-mixin";
-import axios from "../../../libs/mixins/axios-auth";
+import { crudMixin } from "@mixins/crud-mixin";
+import axios from "@mixins/axios-auth";
 
 import FieldDestinationSelect from "./FieldDestinationSelect.vue";
 import FieldTypeSelect from "./FieldTypeSelect.vue";
