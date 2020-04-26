@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import { crudMixin } from "../../../libs/mixins/crud-mixin";
+import { crudMixin } from "@mixins/crud-mixin";
 
 export default {
   mixins: [crudMixin],

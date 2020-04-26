@@ -68,8 +68,8 @@
 </template>
 
 <script>
-import { crudMixin } from "../../../libs/mixins/crud-mixin";
-import StateSelect from "../gl_state/StateSelect.vue";
+import { crudMixin } from "@mixins/crud-mixin";
+import StateSelect from "@resources/gl_state/StateSelect.vue";
 
 export default {
   mixins: [crudMixin],

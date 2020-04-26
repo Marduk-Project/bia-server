@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import DeleteModal from "./DeleteModal.vue";
+import DeleteModal from "@libComponents/crud/DeleteModal.vue";
 
 export default {
   components: {

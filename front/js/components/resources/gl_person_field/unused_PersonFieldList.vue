@@ -87,12 +87,12 @@
 </template>
 
 <script>
-import { listMixin } from "../../../libs/mixins/list-mixin";
-import axios from "../../../libs/mixins/axios-auth";
+import { listMixin } from "@mixins/list-mixin";
+import axios from "@mixins/axios-auth";
 import _ from "lodash";
 
-import FieldSelect from "../gl_field/FieldSelect.vue";
-import FieldItemSelect from "../gl_field_item/FieldItemSelect.vue";
+import FieldSelect from "@resources/gl_field/FieldSelect.vue";
+import FieldItemSelect from "@resources/gl_field_item/FieldItemSelect.vue";
 
 export default {
   mixins: [listMixin],

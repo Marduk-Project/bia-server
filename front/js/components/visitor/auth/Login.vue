@@ -89,9 +89,9 @@
 </template>
 
 <script>
-import axios from "../../../libs/mixins/axios-auth";
-import { apiMixin } from "../../../libs/mixins/api-mixin";
-import loginInfoMixin from "../../../libs/mixins/login-info-mixin";
+import axios from "@mixins/axios-auth";
+import { apiMixin } from "@mixins/api-mixin";
+import loginInfoMixin from "@mixins/login-info-mixin";
 
 export default {
   mixins: [apiMixin, loginInfoMixin],

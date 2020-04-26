@@ -48,9 +48,9 @@
 </template>
 
 <script>
-import { apiMixin } from "../../../libs/mixins/api-mixin";
-import axios from "../../../libs/mixins/axios-auth";
-import CrudButtons from "../../../libs/components/crud/CrudButtons.vue";
+import { apiMixin } from "@mixins/api-mixin";
+import axios from "@mixins/axios-auth";
+import CrudButtons from "@libComponents/crud/CrudButtons.vue";
 
 export default {
   mixins: [apiMixin],

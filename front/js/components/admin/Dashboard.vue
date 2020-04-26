@@ -17,8 +17,8 @@
 </template>
 
 <script>
-import axios from "../../libs/mixins/axios-auth";
-import { apiMixin } from "../../libs/mixins/api-mixin";
+import axios from "@mixins/axios-auth";
+import { apiMixin } from "@mixins/api-mixin";
 import { mapGetters } from "vuex";
 
 export default {

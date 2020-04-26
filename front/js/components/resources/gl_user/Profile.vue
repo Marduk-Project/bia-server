@@ -134,9 +134,9 @@
 </template>
 
 <script>
-import axios from "../../../libs/mixins/axios-auth";
-import { apiMixin } from "../../../libs/mixins/api-mixin";
-import { notifyMixin } from "../../../libs/mixins/notify-mixin";
+import axios from "@mixins/axios-auth";
+import { apiMixin } from "@mixins/api-mixin";
+import { notifyMixin } from "@mixins/notify-mixin";
 export default {
   mixins: [apiMixin, notifyMixin],
   data() {

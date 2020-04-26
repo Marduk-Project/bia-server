@@ -1,5 +1,5 @@
 import Vue from "vue";
 
-const EventuBus = new Vue();
+const EventBus = new Vue();
 
-export default EventuBus;
+export default EventBus;

@@ -10,7 +10,8 @@
     "front-watch": "vue-cli-service --mode dev --watch build",
     "lint": "vue-cli-service lint",
     "build": "npm run front-build && npm run db:migrate",
-    "db:migrate": "sequelize db:migrate"
+    "db:migrate": "sequelize db:migrate",
+    "init": "sequelize db:create && sequelize db:migrate"
   },
   "engines": {
     "node": ">=12.16.0",

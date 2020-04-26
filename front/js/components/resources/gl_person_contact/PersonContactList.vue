@@ -103,13 +103,13 @@
 </template>
 
 <script>
-import { listMixin } from "../../../libs/mixins/list-mixin";
-import axios from "../../../libs/mixins/axios-auth";
+import { listMixin } from "@mixins/list-mixin";
+import axios from "@mixins/axios-auth";
 import _ from "lodash";
-import PersonItem from "../gl_person/PersonItem.vue";
-import PersonSelect from "../gl_person/PersonSelect.vue";
-import UserItem from "../gl_user/UserItem.vue";
-import UserSelect from "../gl_user/UserSelect.vue";
+import PersonItem from "@resources/gl_person/PersonItem.vue";
+import PersonSelect from "@resources/gl_person/PersonSelect.vue";
+import UserItem from "@resources/gl_user/UserItem.vue";
+import UserSelect from "@resources/gl_user/UserSelect.vue";
 
 export default {
   mixins: [listMixin],
