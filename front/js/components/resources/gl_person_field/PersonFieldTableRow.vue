@@ -48,7 +48,7 @@
 
 <script>
 import axios from "@mixins/axios-auth";
-import FieldItemSelect from "../gl_field_item/FieldItemSelect.vue";
+import FieldItemSelect from "@resources/gl_field_item/FieldItemSelect.vue";
 
 export default {
   props: {

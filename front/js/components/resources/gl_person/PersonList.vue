@@ -74,7 +74,7 @@
 
 <script>
 import { listMixin } from "@mixins/list-mixin";
-import CitySelect from "../gl_city/CitySelect.vue";
+import CitySelect from "@resources/gl_city/CitySelect.vue";
 
 export default {
   mixins: [listMixin],

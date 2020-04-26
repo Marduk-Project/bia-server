@@ -93,7 +93,7 @@
 import { crudMixin } from "@mixins/crud-mixin";
 import axios from "@mixins/axios-auth";
 
-import UnitySelect from "../gl_unity/UnitySelect.vue";
+import UnitySelect from "@resources/gl_unity/UnitySelect.vue";
 
 export default {
   mixins: [crudMixin],

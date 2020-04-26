@@ -86,7 +86,7 @@
 
 <script>
 import { listMixin } from "@mixins/list-mixin";
-import UserLevelSelect from "./UserLevelSelect.vue";
+import UserLevelSelect from "@resources/gl_user/UserLevelSelect.vue";
 
 export default {
   mixins: [listMixin],

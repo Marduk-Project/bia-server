@@ -152,8 +152,8 @@
 <script>
 import { crudMixin } from "@mixins/crud-mixin";
 import axios from "@mixins/axios-auth";
-import PersonSelect from "../gl_person/PersonSelect.vue";
-import UserSelect from "../gl_user/UserSelect.vue";
+import PersonSelect from "@resources/gl_person/PersonSelect.vue";
+import UserSelect from "@resources/gl_user/UserSelect.vue";
 
 export default {
   mixins: [crudMixin],

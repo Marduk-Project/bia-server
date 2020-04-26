@@ -103,8 +103,8 @@
 import { crudMixin } from "@mixins/crud-mixin";
 import axios from "@mixins/axios-auth";
 
-import FieldDestinationSelect from "./FieldDestinationSelect.vue";
-import FieldTypeSelect from "./FieldTypeSelect.vue";
+import FieldDestinationSelect from "@resources/gl_field/FieldDestinationSelect.vue";
+import FieldTypeSelect from "@resources/gl_field/FieldTypeSelect.vue";
 
 export default {
   mixins: [crudMixin],

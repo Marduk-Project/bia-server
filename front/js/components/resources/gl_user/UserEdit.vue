@@ -185,7 +185,7 @@
 <script>
 import { crudMixin } from "@mixins/crud-mixin";
 import axios from "@mixins/axios-auth";
-import UserLevelSelect from "./UserLevelSelect.vue";
+import UserLevelSelect from "@resources/gl_user/UserLevelSelect.vue";
 import _ from "lodash";
 
 export default {
