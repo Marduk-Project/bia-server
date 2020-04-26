@@ -13,7 +13,6 @@ router.use("/gl_city", require("./gl_city"));
 
 router.use("/gl_field", require("./gl_field"));
 router.use("/gl_field_item", require("./gl_field_item"));
-// router.use('/gl_person_field', require('./gl_person_field'));
 
 router.use("/gl_unit", require("./gl_unit"));
 router.use("/gl_product", require("./gl_product"));

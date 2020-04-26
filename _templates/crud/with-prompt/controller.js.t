@@ -1,5 +1,5 @@
 ---
-to: server/controllers/<%= crud_context %>/<%= name %>.js
+to: "<%= make.controller ? (inTestMode ? '_templates_compiled/tst_controller.js' : `server/controllers/${crud_context}/${name}.js`) : null %>"
 ---
 const { body, query, param } = require('express-validator/check');
 const validator = require('validator');

@@ -1,5 +1,5 @@
 ---
-to: server/models/<%= name %>.js
+to: "<%= make.model ? (inTestMode ? '_templates_compiled/tst_model.js' : `server/models/${name}.js`) : null %>"
 ---
 const nconf = require('nconf');
 const { Sequelize, DataTypes } = require('sequelize');

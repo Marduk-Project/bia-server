@@ -1,5 +1,5 @@
 ---
-to: front/js/components/resources/<%= name %>/<%= modelCamelNameUpper %>Select.vue
+to: "<%= make.vueSelect ? (inTestMode ? '_templates_compiled/tst_vueSelect.js' : `front/js/components/resources/${name}/${modelCamelNameUpper}Select.vue`) : null %>"
 ---
 
 <template>
