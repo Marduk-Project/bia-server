@@ -15,7 +15,7 @@ export default {
       required: true,
     },
     details: {
-      type: [String.Number],
+      type: [String, Number],
       required: false,
     },
   },
