@@ -49,10 +49,10 @@
           <label>Unidade</label>
           <input
             class="form-control"
-            name="unity"
+            name="unit"
             type="text"
             placeholder="ex. L"
-            v-model="entity.unity"
+            v-model="entity.unit"
             maxlength="60"
           />
         </div>
@@ -83,7 +83,7 @@ export default {
         name: null,
         nameSingular: null,
         namePlural: null,
-        unity: null,
+        unit: null,
         // objects
       },
     };
@@ -94,7 +94,7 @@ export default {
         name: this.entity.name,
         nameSingular: this.entity.nameSingular,
         namePlural: this.entity.namePlural,
-        unity: this.entity.unity,
+        unit: this.entity.unit,
       };
     },
     crud_validate() {
@@ -114,10 +114,10 @@ export default {
       }
     },
     crud_url_base() {
-      return "/api/admin/gl_unity";
+      return "/api/admin/gl_unit";
     },
     crud_route_base() {
-      return "gl_unity";
+      return "gl_unit";
     },
   },
 };

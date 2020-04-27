@@ -51,7 +51,7 @@
         >
           <td>{{ entity.id }}</td>
           <td>{{ entity.name }}</td>
-          <td>{{ entity.unity }}</td>
+          <td>{{ entity.unit }}</td>
           <!--
           <td class="app-table-actions">
             <i
@@ -90,10 +90,10 @@ export default {
       return "Unidades de medida";
     },
     list_url_base() {
-      return "/api/admin/gl_unity";
+      return "/api/admin/gl_unit";
     },
     list_route_base() {
-      return "gl_unity";
+      return "gl_unit";
     },
   },
   methods: {

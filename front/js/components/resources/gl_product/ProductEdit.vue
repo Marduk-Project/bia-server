@@ -53,8 +53,8 @@
         </div>
         <div class="form-group col-lg-4">
           <label>Unidade de medida</label>
-          <app-unity-select v-model="entity.unity"></app-unity-select>
-          <small class="text-danger" v-if="!entity.unity"
+          <app-unit-select v-model="entity.unit"></app-unit-select>
+          <small class="text-danger" v-if="!entity.unit"
             >Campo obrigatório.</small
           >
         </div>
@@ -93,12 +93,12 @@
 import { crudMixin } from "@mixins/crud-mixin";
 import axios from "@mixins/axios-auth";
 
-import UnitySelect from "@resources/gl_unity/UnitySelect.vue";
+import UnitSelect from "@resources/gl_unit/UnitSelect.vue";
 
 export default {
   mixins: [crudMixin],
   components: {
-    "app-unity-select": UnitySelect,
+    "app-unit-select": UnitSelect,
   },
   data() {
     return {
@@ -108,9 +108,9 @@ export default {
         eanCode: null,
         healthCode: null,
         requestFormActive: false,
-        unityId: null,
+        unitId: null,
         // objects
-        unity: null,
+        unit: null,
       },
     };
   },
@@ -122,11 +122,11 @@ export default {
         eanCode: this.entity.eanCode,
         healthCode: this.entity.healthCode,
         requestFormActive: !!this.entity.requestFormActive,
-        unityId: this.entity.unity ? this.entity.unity.id : null,
+        unitId: this.entity.unit ? this.entity.unit.id : null,
       };
     },
     crud_validate() {
-      if (!this.entity.unity) {
+      if (!this.entity.unit) {
         this.notify_warning("Selecione a Unidade.");
         return false;
       }

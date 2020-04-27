@@ -3,7 +3,7 @@
     :elid="elid"
     :readonly="readonly"
     :disabled="disabled"
-    :name="name ? name : 'gl_unity'"
+    :name="name ? name : 'gl_unit'"
     :value="value"
     :required="required"
     :options="options"
@@ -11,7 +11,7 @@
     :placeholder="placeholder"
     :mapResult="mapResult"
     :multiple="multiple"
-    url="/api/admin/gl_unity"
+    url="/api/admin/gl_unit"
     @onOpen="$emit('onOpen')"
     @onClose="$emit('onClose')"
     @onSelect="$emit('onSelect', $event)"
@@ -43,8 +43,8 @@ export default {
   },
   methods: {
     mapResult(value, index) {
-      if (value.unity) {
-        value.text = `${value.name} (${value.unity})`;
+      if (value.unit) {
+        value.text = `${value.name} (${value.unit})`;
       } else {
         value.text = value.name;
       }

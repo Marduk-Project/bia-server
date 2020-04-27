@@ -3,7 +3,7 @@
     v-if="entity"
     v-b-tooltip.hover
     :title="entity ? entity.name : 'Sem unidade definida.'"
-    >{{ entity ? `${entity.unity}` : "-" }}</span
+    >{{ entity ? `${entity.unit}` : "-" }}</span
   >
 </template>
 

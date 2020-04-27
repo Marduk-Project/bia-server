@@ -5,9 +5,9 @@ const { mainDb } = require("../database/main_connection");
 const { BaseModel, jsonSerializer } = require("./base_model");
 
 const {
-  model: UnityModel,
-  jsonSerializer: unityJsonSerializer,
-} = require("./gl_unity");
+  model: UnitModel,
+  jsonSerializer: unitJsonSerializer,
+} = require("./gl_unit");
 
 // model
 const modelName = "gl_product";
@@ -60,13 +60,13 @@ MyModel.init(
 );
 
 // relations
-UnityModel.hasMany(MyModel, {
-  foreignKey: "unityId",
+UnitModel.hasMany(MyModel, {
+  foreignKey: "unitId",
   as: "products",
 });
-MyModel.belongsTo(UnityModel, {
-  foreignKey: "unityId",
-  as: "unity",
+MyModel.belongsTo(UnitModel, {
+  foreignKey: "unitId",
+  as: "unit",
 });
 
 // scopes
@@ -75,8 +75,8 @@ const scopes = {
     include: ["id", "name"], // TODO scopes
   },
   admin: {
-    unity: async (value, scopeName) =>
-      await unityJsonSerializer(value, scopeName),
+    unit: async (value, scopeName) =>
+      await unitJsonSerializer(value, scopeName),
   },
 };
 

@@ -1,16 +1,14 @@
-
-.btn, .cursor-pointer {
+.btn,
+.cursor-pointer {
   cursor: pointer;
 }
 
 .select2-container--bootstrap4 {
-
   .select2-selection {
     height: 39px !important;
   }
 
   .select2-selection--multiple {
-
     .select2-search__field {
       position: relative;
       top: -3px;
@@ -26,9 +24,7 @@
       position: relative;
       top: -15px;
     }
-
   }
-    
 }
 
 /* table actions */
@@ -42,7 +38,8 @@
   width: 120px;
 }
 
-i.app-table-action, .app-table-action i {
+i.app-table-action,
+.app-table-action i {
   margin-left: 5px;
   width: 22px;
   text-align: center;
@@ -78,17 +75,17 @@ i.app-table-action, .app-table-action i {
 
 .btn-clipboard {
   position: absolute;
-  top: .5rem;
-  right: .5rem;
+  top: 0.5rem;
+  right: 0.5rem;
   z-index: 10;
   display: block;
-  padding: .25rem .5rem;
+  padding: 0.25rem 0.5rem;
   font-size: 75%;
   color: #818a91;
   cursor: pointer;
   background-color: transparent;
   border: 0;
-  border-radius: .25rem;
+  border-radius: 0.25rem;
 }
 
 .btn-clipboard:hover {

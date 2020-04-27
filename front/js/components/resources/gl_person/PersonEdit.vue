@@ -63,7 +63,9 @@
         </div>
         <div class="form-group col-xl-6">
           <label>{{
-            entity.legalType == 2 ? "Razão social" : "Nome completo"
+            entity.legalIdentifierType == "CNPJ"
+              ? "Razão social"
+              : "Nome completo"
           }}</label>
           <input
             class="form-control"
@@ -78,7 +80,9 @@
         </div>
         <div class="form-group col-xl-6">
           <label>{{
-            entity.legalType == 1 ? "Apelido" : "Nome fantasia"
+            entity.legalIdentifierType == "CPF"
+              ? "Nome resumido ou apelido"
+              : "Nome fantasia"
           }}</label>
           <input
             class="form-control"
@@ -373,7 +377,7 @@ export default {
     },
     crud_validate() {
       if (!this.entity.city) {
-        this.notify_warning("Selecione uma cidade");
+        this.notify_warning("Selecione uma cidade.");
         return false;
       }
       return true;

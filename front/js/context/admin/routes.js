@@ -28,9 +28,9 @@ import GL_FieldEdit from "../../components/resources/gl_field/FieldEdit.vue";
 // gl_field_item
 import GL_FieldItemList from "../../components/resources/gl_field_item/FieldItemList.vue";
 import GL_FieldItemEdit from "../../components/resources/gl_field_item/FieldItemEdit.vue";
-// gl_unity
-import GL_UnityList from "../../components/resources/gl_unity/UnityList.vue";
-import GL_UnityEdit from "../../components/resources/gl_unity/UnityEdit.vue";
+// gl_unit
+import GL_UnitList from "../../components/resources/gl_unit/UnitList.vue";
+import GL_UnitEdit from "../../components/resources/gl_unit/UnitEdit.vue";
 // gl_product
 import GL_ProductList from "../../components/resources/gl_product/ProductList.vue";
 import GL_ProductEdit from "../../components/resources/gl_product/ProductEdit.vue";
@@ -193,21 +193,21 @@ export default [
     components: { default: GL_FieldItemEdit, header: Header, footer: Footer },
     name: "gl_field_item.create",
   },
-  // gl_unity
+  // gl_unit
   {
-    path: "/gl_unity",
-    components: { default: GL_UnityList, header: Header, footer: Footer },
-    name: "gl_unity.index",
+    path: "/gl_unit",
+    components: { default: GL_UnitList, header: Header, footer: Footer },
+    name: "gl_unit.index",
   },
   {
-    path: "/gl_unity/:id/edit",
-    components: { default: GL_UnityEdit, header: Header, footer: Footer },
-    name: "gl_unity.edit",
+    path: "/gl_unit/:id/edit",
+    components: { default: GL_UnitEdit, header: Header, footer: Footer },
+    name: "gl_unit.edit",
   },
   {
-    path: "/gl_unity/create",
-    components: { default: GL_UnityEdit, header: Header, footer: Footer },
-    name: "gl_unity.create",
+    path: "/gl_unit/create",
+    components: { default: GL_UnitEdit, header: Header, footer: Footer },
+    name: "gl_unit.create",
   },
   // gl_product
   {
