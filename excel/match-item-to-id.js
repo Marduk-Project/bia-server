@@ -1,30 +1,16 @@
-require("../config.js");
-
-const { breakdownToMatch } = require("./read-consolidated");
-
 const { Op } = require("sequelize");
-const { checkIsConnected } = require("../server/database/main_connection.js");
 
-const fetchedIds = {};
 const models = {
+  gl_product: require(`../server/models/gl_product`).model,
   gl_person: require(`../server/models/gl_person`).model,
-  gl_city: require(`../server/models/gl_city`).model,
+  gl_unit: require(`../server/models/gl_unit`).model,
+  // gl_city: require(`../server/models/gl_city`).model,
 };
 
-function matchItems(breakdown = breakdownToMatch) {
-  // 1. read excel
-  // 2. creates breadown as
-  //   [
-  //     {
-  //       key: 'cityName',
-  //       model: 'gl_city',
-  //       modelField: 'name',
-  //       list: ['porto alegre', 'novo hamburgo'],
-  //     },
-  //   ];
-  // 3. fetches id from the breakdown to each value.
-  // 4. when saving we can refer to the id of each value from `fetchedIds['gl_city']['porto alegre']`
-  const matchRequests = breakdownToMatch.reduce((all, breakdownItem) => {
+const idByModel = {};
+
+function matchItems(breakdown) {
+  const matchRequests = breakdown.reduce((all, breakdownItem) => {
     all.push(
       ...breakdownItem.list.map(({ name }) =>
         fetchIdFromModel({
@@ -59,14 +45,13 @@ function filterData(input) {
 }
 function saveIdToReference(modelName, itemName) {
   return function _saveIdToReference(id) {
-    if (!fetchedIds[modelName]) {
-      fetchedIds[modelName] = {};
+    if (!idByModel[modelName]) {
+      idByModel[modelName] = {};
     }
-    fetchedIds[modelName][itemName] = id;
+    idByModel[modelName][itemName] = id;
     return id;
   };
 }
 
-checkIsConnected()
-  .then(matchItems)
-  .then(() => console.log(JSON.stringify(fetchedIds, null, 2)));
+exports.matchItems = matchItems;
+exports.idByModel = idByModel;
