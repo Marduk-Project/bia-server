@@ -41,10 +41,10 @@ exports.getIndex = async (req, res, next) => {
       const q = req.query.q;
       options.where[Op.or] = {
         name: {
-          [Op.iLike]: `%${q}%`,
+          [Op.iLike]: `${q}%`,
         },
-        ibgeCode: {
-          [Op.iLike]: `%${q}%`,
+        code: {
+          [Op.iLike]: `${q}%`,
         },
       };
       if (validator.isNumeric(q, { no_symbols: true })) {
@@ -118,8 +118,12 @@ const saveValidate = [
     min: 1,
     max: 60,
   }),
-  body("ibgeCode").isString().trim().isLength({
+  body("code").isString().trim().isLength({
     min: 1,
+    max: 60,
+  }),
+  body("initials").optional().trim().isLength({
+    min: 0,
     max: 60,
   }),
   body("stateId")
@@ -138,7 +142,8 @@ const saveEntityFunc = async (req, res, next, id) => {
       entity = Model.build({});
     }
     entity.name = body.name;
-    entity.ibgeCode = body.ibgeCode;
+    entity.code = body.code;
+    entity.initials = body.initials;
     entity.priority = body.priority;
     entity.stateId = body.stateId;
     await entity.save();

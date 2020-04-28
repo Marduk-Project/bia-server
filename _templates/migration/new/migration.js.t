@@ -10,6 +10,10 @@ module.exports = {
     const transaction = await queryInterface.sequelize.transaction();
     try {
       // alters
+      // await queryInterface.addColumn(tableName, 'name', Sequelize.STRING, {
+      //    after: 'columnB',
+      // });
+      // await queryInterface.renameColumn(tableName, 'nameBefore', 'nameAfter');
       // indexes
       // await queryInterface.addIndex(tableName, ['name'], {
       //  name: `${tableName}_name_idx`,
@@ -31,6 +35,8 @@ module.exports = {
     const transaction = await queryInterface.sequelize.transaction();
     try {
       // alters
+      // await queryInterface.removeColumn(tableName, 'name');
+      // await queryInterface.renameColumn(tableName, 'nameAfter', 'nameBefore');
       // indexes
       // await queryInterface.removeIndex(tableName, `${tableName}_name_idx`);
       // constraints

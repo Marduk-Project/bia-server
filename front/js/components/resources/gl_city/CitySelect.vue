@@ -42,7 +42,7 @@ export default {
   methods: {
     mapResult(value, index) {
       if (value.state) {
-        value.text = `${value.name} - ${value.state.code}`;
+        value.text = `${value.name} - ${value.state.initials}`;
       } else {
         value.text = value.name;
       }

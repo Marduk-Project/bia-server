@@ -8,7 +8,7 @@
     <h1>{{ crud_title }}</h1>
     <form action @submit.prevent novalidate>
       <div class="form-row">
-        <div class="form-group col-lg-6">
+        <div class="form-group col-lg-9">
           <label>Nome</label>
           <input
             name="name"
@@ -25,16 +25,27 @@
         <div class="form-group col-lg-3">
           <label>Código IBGE</label>
           <input
-            name="ibgeCode"
+            name="code"
             placeholder="ex. 12345"
             class="form-control"
             type="text"
-            v-model="entity.ibgeCode"
+            v-model="entity.code"
             maxlength="60"
             v-validate="'required'"
-            :class="{ 'is-invalid': errors.has('ibgeCode') }"
+            :class="{ 'is-invalid': errors.has('code') }"
           />
           <div class="invalid-feedback">Campo obrigatório.</div>
+        </div>
+        <div class="form-group col-lg-3">
+          <label>Sigla</label>
+          <input
+            name="initials"
+            placeholder="ex. POA"
+            class="form-control"
+            type="text"
+            v-model="entity.initials"
+            maxlength="60"
+          />
         </div>
         <div class="form-group col-lg-3">
           <label>Prioridade</label>
@@ -82,7 +93,8 @@ export default {
         id: null,
         name: null,
         priority: 0,
-        ibgeCode: null,
+        code: null,
+        initials: null,
         stateId: null,
         // objects
         state: null,
@@ -95,7 +107,8 @@ export default {
         id: this.entity.id,
         name: this.entity.name,
         priority: this.entity.priority,
-        ibgeCode: this.entity.ibgeCode,
+        code: this.entity.code,
+        initials: this.entity.initials,
         stateId: this.entity.state ? this.entity.state.id : null,
       };
     },

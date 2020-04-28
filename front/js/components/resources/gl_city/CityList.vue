@@ -37,6 +37,7 @@
         <tr class>
           <th>#</th>
           <th>Nome</th>
+          <th>Estado</th>
           <th>
             IBGE
             <i
@@ -45,7 +46,6 @@
               title="Código no IBGE"
             ></i>
           </th>
-          <th>Estado</th>
           <th class="text-right">Prioridade</th>
         </tr>
       </thead>
@@ -58,8 +58,8 @@
         >
           <td>{{ entity.id }}</td>
           <td>{{ entity.name }}</td>
-          <td>{{ entity.ibgeCode }}</td>
-          <td>{{ entity.state ? entity.state.code : null }}</td>
+          <td>{{ entity.state ? entity.state.initials : null }}</td>
+          <td>{{ entity.code }}</td>
           <td class="text-right">{{ entity.priority }}</td>
         </tr>
       </tbody>

@@ -36,7 +36,10 @@ MyModel.init(
         },
       },
     },
-    ibgeCode: {
+    code: {
+      type: Sequelize.STRING,
+    },
+    initials: {
       type: Sequelize.STRING,
     },
     priority: {
@@ -62,7 +65,7 @@ MyModel.belongsTo(StateModel, {
 
 const scopes = {
   def: {
-    include: ["id", "name", "code", "ibgeCode"],
+    include: ["id", "name", "code"],
   },
   admin: {
     maps: {
