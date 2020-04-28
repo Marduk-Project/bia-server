@@ -42,6 +42,7 @@
     "nodemailer": "^6.4.6",
     "pg": "^8.0.0",
     "pg-hstore": "^2.3.3",
+    "read-excel-file": "^4.0.6",
     "sequelize": "^5.21.6",
     "sequelize-cli": "^5.5.1",
     "validator": "^10.11.0",
