@@ -46,8 +46,7 @@ const excelData = xlsxFile("./RELATORIO_DTB_BRASIL_MUNICIPIO.xlsx", {
     regions: getRegions(rows),
     cities: rows,
   }))
-  .then(writeToJSONFile)
-  .then(console.log);
+  .then(writeToJSONFile);
 
 const mockData = [
   {
@@ -96,6 +95,9 @@ function getRegions(rows) {
 }
 
 function writeToJSONFile(data) {
-  console.log("Saving extracted date to: ./ibgeData.json");
-  return fs.writeFileSync("./ibgeData.json", JSON.stringify(data, null, 2));
+  console.log("Saving extracted date to: ./cities-micro-meso-regions.json");
+  return fs.writeFileSync(
+    "./cities-micro-meso-regions.json",
+    JSON.stringify(data, null, 2)
+  );
 }
