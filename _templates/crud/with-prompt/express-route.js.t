@@ -1,5 +1,5 @@
 ---
-to: server/routes/api/<%= crud_context %>/<%= name %>.js
+to: "<%= make.expressRoutes ? (inTestMode ? '_templates_compiled/tst_expressRoute.js' : `server/routes/api/${crud_context}/${name}.js`) : null %>"
 ---
 const express = require('express');
 const router = express.Router({ mergeParams: true });

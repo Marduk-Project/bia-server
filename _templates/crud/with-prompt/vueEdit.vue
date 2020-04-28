@@ -1,5 +1,5 @@
 ---
-to: front/js/components/resources/<%= name %>/<%= modelCamelNameUpper %>Edit.vue
+to: "<%= make.vueEdit ? (inTestMode ? '_templates_compiled/tst_vueEdit.js' : `front/js/components/resources/${name}/${modelCamelNameUpper}Edit.vue`) : null %>"
 ---
 <template>
   <div v-if="entity" class="container-fluid">

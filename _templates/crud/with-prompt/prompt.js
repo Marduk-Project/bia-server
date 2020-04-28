@@ -80,18 +80,17 @@ module.exports = {
           message: "Include model table timestamps?",
           initial: "Y",
         },
-        // TODO pensar
-        // {
-        //   type: 'select',
-        //   name: 'crud_actions',
-        //   message: 'What do you want to create?',
-        //   choices: ['controller', 'model', 'vueEdit', 'vueList', 'sequelizeMigration', 'routes'],
-        //   multiple: true,
-        //   initial: ['controller', 'model', 'vueEdit', 'vueList', 'sequelizeMigration', 'routes'],
-        //   validate(value, state, item, index) {
-        //     return (value.length > 0);
-        //   }
-        // },
+        {
+          type: 'select',
+          name: 'crud_actions',
+          message: 'What do you want to create?',
+          choices: ['controller', 'model', 'migration', 'vueEdit', 'vueList'],
+          multiple: true,
+          initial: ['controller', 'model', 'migration', 'vueEdit', 'vueList'],
+          validate(value, state, item, index) {
+            return (value.length > 0);
+          }
+        },
         {
           type: "input",
           name: "crud_parentName",
@@ -111,12 +110,30 @@ module.exports = {
     return inquirer
       .prompt(questions)
       .then((answers) => {
-        answers.nameWithHyphen = answers.name.replace(/_/g, "-");
+        if (inTestMode) {
+          answers.crud_actions = ['controller', 'model', 'migration', 'vueEdit', 'vueList'];
+          answers.name = 'gl_state';
+        }
+        answers.inTestMode = inTestMode || true;
         answers.nowPreffix = moment().format("YYYYMMDDHmmss");
+        answers.nameWithHyphen = answers.name.replace(/_/g, "-");
+        answers.make = {
+          expressRoutes: answers.crud_actions.includes('controller'),
+          controller: answers.crud_actions.includes('controller'),
+          model: answers.crud_actions.includes('model'),
+          migration: answers.crud_actions.includes('migration'),
+          vueEdit: answers.crud_actions.includes('vueEdit'),
+          vueList: answers.crud_actions.includes('vueList'),
+          vueSelect: answers.crud_actions.includes('vueList'),
+          vueRoutes: answers.crud_actions.includes('vueEdit') || answers.crud_actions.includes('vueList'),
+        };
         if (inTestMode) {
           return {
             nowPreffix: answers.nowPreffix,
-            name: "gl_state",
+            name:  answers.name,
+            inTestMode: true,
+            crud_actions: answers.crud_actions,
+            make: answers.make,
             nameWithHyphen: "gl-state",
             fullModelCamelNameUpper: toCamelCaseName("gl_state", "gl_state", {
               upperStart: true,

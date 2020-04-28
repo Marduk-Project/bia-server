@@ -1,5 +1,5 @@
 ---
-to: server/database/migrations/<%= nowPreffix %>-create-<%= nameWithHyphen %>.js
+to: "<%= make.migration ? (inTestMode ? '_templates_compiled/tst_migration.js' : `server/database/migrations/${nowPreffix}-create-${nameWithHyphen}.js`) : null %>"
 ---
 'use strict';
 

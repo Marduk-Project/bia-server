@@ -1,5 +1,5 @@
 ---
-to: front/js/components/resources/<%= name %>/<%= modelCamelNameUpper %>List.vue
+to: "<%= make.vueList ? (inTestMode ? '_templates_compiled/tst_vueList.js' : `front/js/components/resources/${name}/${modelCamelNameUpper}List.vue`) : null %>"
 ---
 <template>
   <div class="container-fluid">
