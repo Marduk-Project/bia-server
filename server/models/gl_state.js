@@ -39,6 +39,9 @@ MyModel.init(
     code: {
       type: Sequelize.STRING,
     },
+    initials: {
+      type: Sequelize.STRING,
+    },
     priority: {
       type: Sequelize.INTEGER,
     },

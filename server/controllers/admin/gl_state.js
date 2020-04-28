@@ -122,6 +122,10 @@ const saveValidate = [
     min: 1,
     max: 60,
   }),
+  body("initials").optional().trim().isLength({
+    min: 0,
+    max: 60,
+  }),
   body("countryId")
     .isInt()
     .custom(customFindByPkRelationValidation(ParentModel)),
@@ -139,6 +143,7 @@ const saveEntityFunc = async (req, res, next, id) => {
     }
     entity.name = body.name;
     entity.code = body.code;
+    entity.initials = body.initials;
     entity.priority = body.priority;
     entity.countryId = body.countryId;
     await entity.save();
