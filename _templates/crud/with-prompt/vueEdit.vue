@@ -132,8 +132,8 @@ to: front/js/components/resources/<%= name %>/<%= modelCamelNameUpper %>Edit.vue
 </template>
 
 <script>
-import { crudMixin } from "../../../libs/mixins/crud-mixin";
-import axios from "../../../libs/mixins/axios-auth";
+import { crudMixin } from "@mixins/crud-mixin";
+import axios from "@mixins/axios-auth";
 
 <% crud_fieldObjects.forEach(function(field) { -%>
 <% if (field.modelName && !field.isParentId) { -%>

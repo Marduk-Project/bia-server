@@ -63,7 +63,9 @@
         </div>
         <div class="form-group col-xl-6">
           <label>{{
-            entity.legalType == 2 ? 'Razão social' : 'Nome completo'
+            entity.legalIdentifierType == "CNPJ"
+              ? "Razão social"
+              : "Nome completo"
           }}</label>
           <input
             class="form-control"
@@ -78,7 +80,9 @@
         </div>
         <div class="form-group col-xl-6">
           <label>{{
-            entity.legalType == 1 ? 'Apelido' : 'Nome fantasia'
+            entity.legalIdentifierType == "CPF"
+              ? "Nome resumido ou apelido"
+              : "Nome fantasia"
           }}</label>
           <input
             class="form-control"
@@ -360,26 +364,21 @@
                 value = field.valueBoolean;
                 break;
 
-              case 5:
+             case 5:
                 value = field.fieldItemId;
                 break;
-            }
-            return {
-              id: field.id,
-              fieldItemId: field.fieldItemId,
-              value: value,
-            };
-          }),
-        };
-      },
-      crud_validate() {
-        if (!this.entity.city) {
-          this.notify_warning('Selecione uma cidade');
-          return false;
-        }
-        return true;
-      },
-      crud_shouldNavBackAfterSave() {
+          }
+          return {
+            id: field.id,
+            fieldItemId: field.fieldItemId,
+            value: value,
+          };
+        }),
+      };
+    },
+    crud_validate() {
+      if (!this.entity.city) {
+        this.notify_warning("Selecione uma cidade.");
         return false;
       },
       crud_requestEntityParseResponse(res) {

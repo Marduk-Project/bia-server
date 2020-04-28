@@ -12,8 +12,8 @@ const {
 } = require("../../middlewares/error-mid");
 const CtrModelModule = require("../../models/gl_product");
 const Model = CtrModelModule.model;
-const UnityModule = require("../../models/gl_unity");
-const UnityModel = UnityModule.model;
+const UnitModelModule = require("../../models/gl_unit");
+const UnitModel = UnitModelModule.model;
 
 // const utils = require('../../helpers/utils');
 const helperValidator = require("../../helpers/validator");
@@ -66,7 +66,7 @@ exports.getIndex = async (req, res, next) => {
       ["name", "asc"],
       ["id", "asc"],
     ];
-    options.include = ["unity"];
+    options.include = ["unit"];
     // exec
     const queryResult = await Model.findAndCountAll(options);
     const meta = Model.paginateMeta(queryResult, page);
@@ -90,7 +90,7 @@ exports.getEditValidate = [
     .isInt()
     .not()
     .isEmpty()
-    .custom(customFindByPkValidation(Model, null, { include: ["unity"] })),
+    .custom(customFindByPkValidation(Model, null, { include: ["unit"] })),
   validationEndFunction,
 ];
 
@@ -124,7 +124,7 @@ const saveValidate = [
   body("eanCode").optional().trim(),
   body("healthCode").optional().trim(),
   body("requestFormActive").optional().isBoolean(),
-  body("unityId").isInt().custom(customFindByPkRelationValidation(UnityModel)),
+  body("unitId").isInt().custom(customFindByPkRelationValidation(UnitModel)),
   // validationEndFunction, // dont need here, is attached below
 ];
 
@@ -143,7 +143,7 @@ const saveEntityFunc = async (req, res, next, id) => {
     entity.eanCode = body.eanCode;
     entity.healthCode = body.healthCode;
     entity.requestFormActive = body.requestFormActive;
-    entity.unityId = body.unityId;
+    entity.unitId = body.unitId;
     // save
     await entity.save();
     // send result
