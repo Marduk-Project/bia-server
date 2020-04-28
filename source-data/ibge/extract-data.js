@@ -4,11 +4,11 @@ const xlsxFile = require("read-excel-file/node");
 const schema = {
   UF: {
     prop: "stateCode",
-    type: Number,
+    type: String,
   },
   "Mesorregião Geográfica": {
     prop: "mesoRegionCode",
-    type: Number,
+    type: String,
   },
   Nome_Mesorregião: {
     prop: "mesoRegionName",
@@ -16,7 +16,7 @@ const schema = {
   },
   "Microrregião Geográfica": {
     prop: "microRegionCode",
-    type: Number,
+    type: String,
   },
   Nome_Microrregião: {
     prop: "microRegionName",
@@ -24,7 +24,11 @@ const schema = {
   },
   Município: {
     prop: "cityCode",
-    type: Number,
+    type: String,
+  },
+  "Código Município Completo": {
+    prop: "cityCodeComplete",
+    type: String,
   },
   Nome_Município: {
     prop: "cityName",
