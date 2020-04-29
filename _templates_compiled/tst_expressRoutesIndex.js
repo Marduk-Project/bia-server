@@ -1,7 +1,7 @@
 const router = {
   use(val1, val2) {
-    return true;
+    return true
   },
-};
+}
 
 // generator-inject-new-here
