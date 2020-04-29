@@ -1,53 +1,53 @@
-const createError = require("http-errors");
-const express = require("express");
-const expressValidator = require("express-validator");
-const path = require("path");
-const cookieParser = require("cookie-parser");
-const logger = require("morgan");
-const helmet = require("helmet");
-const moment = require("moment");
-moment.locale("pt-BR"); // TODO localizar em config
+const createError = require('http-errors')
+const express = require('express')
+const expressValidator = require('express-validator')
+const path = require('path')
+const cookieParser = require('cookie-parser')
+const logger = require('morgan')
+const helmet = require('helmet')
+const moment = require('moment')
+moment.locale('pt-BR') // TODO localizar em config
 // necessario para mover para o env
-const { nconf } = require("../config");
+const { nconf } = require('../config')
 
 // session
-const session = require("express-session");
-const flash = require("connect-flash");
-const SequelizeStore = require("connect-session-sequelize")(session.Store);
-const SessionModule = require("./models/sy_session");
+const session = require('express-session')
+const flash = require('connect-flash')
+const SequelizeStore = require('connect-session-sequelize')(session.Store)
+const SessionModule = require('./models/sy_session')
 
-const { mainDb } = require("./database/main_connection");
+const { mainDb } = require('./database/main_connection')
 
-const app = express();
+const app = express()
 
 // security
-app.disable("x-powered-by");
-app.use(helmet());
+app.disable('x-powered-by')
+app.use(helmet())
 
 // view engine setup
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "ejs");
+app.set('views', path.join(__dirname, 'views'))
+app.set('view engine', 'ejs')
 
 // only dev
-if (nconf.get("NODE_ENV") == "development") {
-  const logger = require("morgan");
-  app.use(logger("dev"));
+if (nconf.get('NODE_ENV') == 'development') {
+  const logger = require('morgan')
+  app.use(logger('dev'))
 }
 
 // other
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
-app.use(expressValidator());
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+app.use(cookieParser())
+app.use(express.static(path.join(__dirname, 'public')))
+app.use(expressValidator())
 
 // session (15d)
 // TODO pode ser uma configuração
-var sessionExpiryDate = new Date(Date.now() + 60 * 60 * 24 * 15 * 1000);
+var sessionExpiryDate = new Date(Date.now() + 60 * 60 * 24 * 15 * 1000)
 app.use(
   session({
-    name: "APPSESS",
-    secret: nconf.get("APP_SESSION_SECRET"),
+    name: 'APPSESS',
+    secret: nconf.get('APP_SESSION_SECRET'),
     resave: false, // TODO pensar nisso
     saveUninitialized: false,
     store: new SequelizeStore({
@@ -61,66 +61,66 @@ app.use(
       maxAge: 36000000,
     },
   })
-);
+)
 
-app.use(flash());
+app.use(flash())
 
 // === app middlewares
 // fetch user
-app.use(require("./middlewares/auth-mid").fetchUserMiddleware);
+app.use(require('./middlewares/auth-mid').fetchUserMiddleware)
 // responses
-app.use(require("./middlewares/responses-mid").responsesMiddleware);
+app.use(require('./middlewares/responses-mid').responsesMiddleware)
 
 // routes
-const indexRouter = require("./routes");
+const indexRouter = require('./routes')
 
-app.use("/", indexRouter);
+app.use('/', indexRouter)
 
-const apiRouter = require("./routes/api");
-app.use("/api", apiRouter);
+const apiRouter = require('./routes/api')
+app.use('/api', apiRouter)
 
-const adminRouter = require("./routes/admin");
-app.use("/admin", adminRouter);
+const adminRouter = require('./routes/admin')
+app.use('/admin', adminRouter)
 
 // only dev
-if (nconf.get("NODE_ENV") == "development") {
-  const testRouter = require("./routes/test");
-  app.use("/test", testRouter);
+if (nconf.get('NODE_ENV') == 'development') {
+  const testRouter = require('./routes/test')
+  app.use('/test', testRouter)
 }
 
 /* =========================== */
 
 // show 404 not found
 app.use(function (req, res, next) {
-  res.status(404).render("errors/404_not_found");
-});
+  res.status(404).render('errors/404_not_found')
+})
 
 // error handler
-const errorHandler = require("./middlewares/error-mid").handler;
-app.use(errorHandler);
+const errorHandler = require('./middlewares/error-mid').handler
+app.use(errorHandler)
 
 // === locals
-const vdriver = nconf.get("APP_VERSION_DRIVER");
-if (vdriver == "git") {
-  app.locals.app_git_v = require("child_process")
-    .execSync("git rev-parse --short HEAD")
+const vdriver = nconf.get('APP_VERSION_DRIVER')
+if (vdriver == 'git') {
+  app.locals.app_git_v = require('child_process')
+    .execSync('git rev-parse --short HEAD')
     .toString()
-    .trim();
+    .trim()
 } else {
-  app.locals.app_git_v = "-v-";
+  app.locals.app_git_v = '-v-'
 }
 
-app.locals.app_full_name = nconf.get("APP_FULL_NAME");
-app.locals.app_short_name = nconf.get("APP_SHORT_NAME");
-app.locals.app_website = nconf.get("APP_WEBSITE");
+app.locals.app_full_name = nconf.get('APP_FULL_NAME')
+app.locals.app_short_name = nconf.get('APP_SHORT_NAME')
+app.locals.app_website = nconf.get('APP_WEBSITE')
 
 // logo
-const fs = require("fs");
+const fs = require('fs')
 app.locals.app_logo_base64 =
-  "data:image/png;base64," +
+  'data:image/png;base64,' +
   fs
-    .readFileSync(path.join(__dirname, "../front/img/theme/logo-vertical.png"))
-    .toString("base64");
-app.locals.app_marked = require("marked");
+    .readFileSync(path.join(__dirname, '../front/img/theme/logo-vertical.png'))
+    .toString('base64')
+app.locals.app_marked = require('marked')
 
-module.exports = app;
+module.exports = app

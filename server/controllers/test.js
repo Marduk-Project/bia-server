@@ -7,5 +7,5 @@ exports.getTest = async (req, res, next) => {
   <body>
     <h1>Teste</h1>
   </body>
-  </html>`);
-};
+  </html>`)
+}

@@ -1,10 +1,10 @@
-"use strict";
+'use strict'
 
-const tableName = "gl_city";
+const tableName = 'gl_city'
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    const transaction = await queryInterface.sequelize.transaction();
+    const transaction = await queryInterface.sequelize.transaction()
     try {
       await queryInterface.createTable(
         tableName,
@@ -33,42 +33,42 @@ module.exports = {
             type: Sequelize.INTEGER,
             allowNull: false,
             references: {
-              model: "gl_state",
-              key: "id",
+              model: 'gl_state',
+              key: 'id',
             },
-            onUpdate: "CASCADE",
-            onDelete: "RESTRICT",
+            onUpdate: 'CASCADE',
+            onDelete: 'RESTRICT',
           },
         },
         {
           transaction: transaction,
         }
-      );
+      )
       // indexes
-      await queryInterface.addIndex(tableName, ["name", "priority"], {
+      await queryInterface.addIndex(tableName, ['name', 'priority'], {
         name: `${tableName}_name_priority_idx`,
         transaction: transaction,
-      });
-      await queryInterface.addIndex(tableName, ["ibgeCode", "priority"], {
+      })
+      await queryInterface.addIndex(tableName, ['ibgeCode', 'priority'], {
         name: `${tableName}_ibgeCode_priority_idx`,
         transaction: transaction,
-      });
-      await transaction.commit();
+      })
+      await transaction.commit()
     } catch (err) {
-      await transaction.rollback();
-      throw err;
+      await transaction.rollback()
+      throw err
     }
   },
   down: async (queryInterface, Sequelize) => {
-    const transaction = await queryInterface.sequelize.transaction();
+    const transaction = await queryInterface.sequelize.transaction()
     try {
       await queryInterface.dropTable(tableName, {
         transaction: transaction,
-      });
-      await transaction.commit();
+      })
+      await transaction.commit()
     } catch (err) {
-      await transaction.rollback();
-      throw err;
+      await transaction.rollback()
+      throw err
     }
   },
-};
+}

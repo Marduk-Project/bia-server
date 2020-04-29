@@ -1,10 +1,10 @@
-"use strict";
+'use strict'
 
-const tableName = "sy_session";
+const tableName = 'sy_session'
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    const transaction = await queryInterface.sequelize.transaction();
+    const transaction = await queryInterface.sequelize.transaction()
     try {
       await queryInterface.createTable(
         tableName,
@@ -28,23 +28,23 @@ module.exports = {
         {
           transaction: transaction,
         }
-      );
-      await transaction.commit();
+      )
+      await transaction.commit()
     } catch (err) {
-      await transaction.rollback();
-      throw err;
+      await transaction.rollback()
+      throw err
     }
   },
   down: async (queryInterface, Sequelize) => {
-    const transaction = await queryInterface.sequelize.transaction();
+    const transaction = await queryInterface.sequelize.transaction()
     try {
       await queryInterface.dropTable(tableName, {
         transaction: transaction,
-      });
-      await transaction.commit();
+      })
+      await transaction.commit()
     } catch (err) {
-      await transaction.rollback();
-      throw err;
+      await transaction.rollback()
+      throw err
     }
   },
-};
+}

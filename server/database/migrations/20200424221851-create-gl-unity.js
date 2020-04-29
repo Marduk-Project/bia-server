@@ -1,10 +1,10 @@
-"use strict";
+'use strict'
 
-const tableName = "gl_unity";
+const tableName = 'gl_unity'
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    const transaction = await queryInterface.sequelize.transaction();
+    const transaction = await queryInterface.sequelize.transaction()
     try {
       await queryInterface.createTable(
         tableName,
@@ -40,7 +40,7 @@ module.exports = {
         {
           transaction: transaction,
         }
-      );
+      )
       // indexes
       // await queryInterface.addIndex(tableName, ['name'], {
       //  name: `${tableName}_name_idx`,
@@ -52,22 +52,22 @@ module.exports = {
       //  name: `${tableName}_email_ct`,
       //  transaction: transaction,
       // });
-      await transaction.commit();
+      await transaction.commit()
     } catch (err) {
-      await transaction.rollback();
-      throw err;
+      await transaction.rollback()
+      throw err
     }
   },
   down: async (queryInterface, Sequelize) => {
-    const transaction = await queryInterface.sequelize.transaction();
+    const transaction = await queryInterface.sequelize.transaction()
     try {
       await queryInterface.dropTable(tableName, {
         transaction: transaction,
-      });
-      await transaction.commit();
+      })
+      await transaction.commit()
     } catch (err) {
-      await transaction.rollback();
-      throw err;
+      await transaction.rollback()
+      throw err
     }
   },
-};
+}

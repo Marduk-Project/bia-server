@@ -1,24 +1,24 @@
-const UserModule = require("../models/gl_user");
+const UserModule = require('../models/gl_user')
 
 /**
  * Index for visitors
  */
 exports.getIndex = (req, res, next) => {
-  res.render("visitor/index", {
+  res.render('visitor/index', {
     app_loggedIn: false,
-    app_flashes: req.flash("messages"),
-  });
-};
+    app_flashes: req.flash('messages'),
+  })
+}
 
 exports.getHome = (req, res, next) => {
-  const user = req.user;
+  const user = req.user
   if (!user) {
-    res.redirect("/");
-    return;
+    res.redirect('/')
+    return
   }
   if (user.levelIsStaff) {
-    res.redirect("/admin/");
+    res.redirect('/admin/')
   } else {
-    res.send("ops não tem implementação ainda!");
+    res.send('ops não tem implementação ainda!')
   }
-};
+}

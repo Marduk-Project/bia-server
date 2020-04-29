@@ -1,51 +1,51 @@
-const path = require("path");
-const winston = require("winston");
-const nconf = require("nconf");
+const path = require('path')
+const winston = require('winston')
+const nconf = require('nconf')
 
-require("winston-daily-rotate-file");
+require('winston-daily-rotate-file')
 
-const { format } = require("logform");
+const { format } = require('logform')
 
 const logFormatter = format.combine(
   format.timestamp(),
-  format.printf((info) => {
-    return `${info.timestamp} ${info.level}: ${info.message}`;
+  format.printf(info => {
+    return `${info.timestamp} ${info.level}: ${info.message}`
   })
-);
+)
 
-const logPath = path.join(__dirname, "../../logs");
+const logPath = path.join(__dirname, '../../logs')
 
 const logger = winston.createLogger({
-  level: "info",
+  level: 'info',
   format: logFormatter,
   handleExceptions: true,
   transports: [
     new winston.transports.DailyRotateFile({
       filename: `${logPath}/%DATE%_error.log`,
-      datePattern: "YYYY-MM-DD",
-      maxSize: "20m",
-      level: "error",
+      datePattern: 'YYYY-MM-DD',
+      maxSize: '20m',
+      level: 'error',
       colorize: false,
     }),
     new winston.transports.DailyRotateFile({
       filename: `${logPath}/%DATE%_combined.log`,
-      datePattern: "YYYY-MM-DD",
-      maxSize: "20m",
+      datePattern: 'YYYY-MM-DD',
+      maxSize: '20m',
       colorize: false,
     }),
   ],
   exitOnError: false,
-});
+})
 
-if (nconf.get("NODE_ENV") !== "production") {
+if (nconf.get('NODE_ENV') !== 'production') {
   logger.add(
     new winston.transports.Console({
-      level: "debug",
+      level: 'debug',
       timestamp: true,
       format: winston.format.simple(),
       colorize: true,
     })
-  );
+  )
 }
 
-exports.logger = logger;
+exports.logger = logger

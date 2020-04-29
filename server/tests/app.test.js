@@ -1,8 +1,8 @@
-const expect = require("expect");
-const config = require("../config");
+const expect = require('expect')
+const config = require('../config')
 
-describe("general tests", () => {
-  it("config file", () => {
-    expect(config).toBeTruthy();
-  });
-});
+describe('general tests', () => {
+  it('config file', () => {
+    expect(config).toBeTruthy()
+  })
+})
