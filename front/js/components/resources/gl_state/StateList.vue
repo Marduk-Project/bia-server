@@ -34,6 +34,7 @@
           <th>#</th>
           <th>Nome</th>
           <th>Sigla</th>
+          <th>Código IBGE</th>
           <th>País</th>
           <th class="text-right">Prioridade</th>
         </tr>
@@ -47,6 +48,7 @@
         >
           <td>{{ entity.id }}</td>
           <td>{{ entity.name }}</td>
+          <td>{{ entity.initials }}</td>
           <td>{{ entity.code }}</td>
           <td>{{ entity.country ? entity.country.code : entity.countryId }}</td>
           <td class="text-right">{{ entity.priority }}</td>

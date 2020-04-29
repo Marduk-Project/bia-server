@@ -8,7 +8,7 @@
     <h1>{{ crud_title }}</h1>
     <form action @submit.prevent novalidate>
       <div class="form-row">
-        <div class="form-group col-lg-6">
+        <div class="form-group col-lg-9">
           <label>Nome</label>
           <input
             name="name"
@@ -25,16 +25,27 @@
         <div class="form-group col-lg-3">
           <label>Código IBGE</label>
           <input
-            name="ibgeCode"
+            name="code"
             placeholder="ex. 12345"
             class="form-control"
             type="text"
-            v-model="entity.ibgeCode"
+            v-model="entity.code"
             maxlength="60"
             v-validate="'required'"
-            :class="{ 'is-invalid': errors.has('ibgeCode') }"
+            :class="{ 'is-invalid': errors.has('code') }"
           />
           <div class="invalid-feedback">Campo obrigatório.</div>
+        </div>
+        <div class="form-group col-lg-3">
+          <label>Sigla</label>
+          <input
+            name="initials"
+            placeholder="ex. POA"
+            class="form-control"
+            type="text"
+            v-model="entity.initials"
+            maxlength="60"
+          />
         </div>
         <div class="form-group col-lg-3">
           <label>Prioridade</label>
@@ -54,6 +65,39 @@
             >Campo obrigatório.</small
           >
         </div>
+        <div class="form-group col-lg-4">
+          <label>Mesorregião</label>
+          <app-state-region-select
+            :disabled="!entity.state"
+            :extraparams="{
+              stateId: entity.state ? entity.state.id : null,
+              type: 'meso',
+            }"
+            v-model="entity.mesoRegion"
+          ></app-state-region-select>
+        </div>
+        <div class="form-group col-lg-4">
+          <label>Microrregião</label>
+          <app-state-region-select
+            :disabled="!entity.state"
+            :extraparams="{
+              stateId: entity.state ? entity.state.id : null,
+              type: 'micro',
+            }"
+            v-model="entity.microRegion"
+          ></app-state-region-select>
+        </div>
+        <div class="form-group col-lg-4">
+          <label>Região DRE</label>
+          <app-state-region-select
+            :disabled="!entity.state"
+            :extraparams="{
+              stateId: entity.state ? entity.state.id : null,
+              type: 'dre',
+            }"
+            v-model="entity.dreRegion"
+          ></app-state-region-select>
+        </div>
       </div>
       <div class="form-row">
         <app-crud-buttons
@@ -70,11 +114,13 @@
 <script>
 import { crudMixin } from "@mixins/crud-mixin";
 import StateSelect from "@resources/gl_state/StateSelect.vue";
+import StateRegionSelect from "@resources/gl_state_region/StateRegionSelect.vue";
 
 export default {
   mixins: [crudMixin],
   components: {
     "app-state-select": StateSelect,
+    "app-state-region-select": StateRegionSelect,
   },
   data() {
     return {
@@ -82,10 +128,14 @@ export default {
         id: null,
         name: null,
         priority: 0,
-        ibgeCode: null,
+        code: null,
+        initials: null,
         stateId: null,
         // objects
         state: null,
+        mesoRegion: null,
+        microRegion: null,
+        dreRegion: null,
       },
     };
   },
@@ -95,8 +145,14 @@ export default {
         id: this.entity.id,
         name: this.entity.name,
         priority: this.entity.priority,
-        ibgeCode: this.entity.ibgeCode,
+        code: this.entity.code,
+        initials: this.entity.initials,
         stateId: this.entity.state ? this.entity.state.id : null,
+        mesoRegionId: this.entity.mesoRegion ? this.entity.mesoRegion.id : null,
+        microRegionId: this.entity.microRegion
+          ? this.entity.microRegion.id
+          : null,
+        dreRegionId: this.entity.dreRegion ? this.entity.dreRegion.id : null,
       };
     },
     crud_validate() {
@@ -107,7 +163,19 @@ export default {
       return true;
     },
   },
+  watch: {
+    entity_state(newValue, oldValue) {
+      if (!newValue) {
+        this.entity.mesoRegion = null;
+        this.entity.microRegion = null;
+        this.entity.dreRegion = null;
+      }
+    },
+  },
   computed: {
+    entity_state() {
+      return this.entity.state;
+    },
     crud_title() {
       var ok = this.entity != null;
       if (ok) {

@@ -1,0 +1,255 @@
+[
+  {
+    "name": "ÁLCOOL LÍQ 70% 1L",
+    "isPriority": true,
+    "type": "INSUMOS"
+  },
+  {
+    "name": "ÁLCOOL GEL 1L",
+    "isPriority": true,
+    "type": "INSUMOS"
+  },
+  {
+    "name": "ÁLCOOL GEL SPRAY",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "AVENTAL DESCART MANGA LONGA C PUNHO",
+    "isPriority": true,
+    "type": "INSUMOS"
+  },
+  {
+    "name": "BOTAS DE BORRACHA BRANCA (36-42)",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "FILTRO E UMIDIFICADOR ADULTO",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "FRASCO PARA ASPIRAÇÃO DESCARTÁVEL",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "GORROS/TOUCAS DESCARTÁVEIS",
+    "isPriority": true,
+    "type": "INSUMOS"
+  },
+  {
+    "name": "HIPOCLORITO 1%/1000ML",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "LENÇOL DESCARTÁVEL",
+    "isPriority": true,
+    "type": "INSUMOS"
+  },
+  {
+    "name": "LUVAS DE PROCEDIMENTO M",
+    "isPriority": true,
+    "type": "INSUMOS"
+  },
+  {
+    "name": "LUVAS DE PROCEDIMENTO P",
+    "isPriority": true,
+    "type": "INSUMOS"
+  },
+  {
+    "name": "LUVAS DE PROCEDIMENTO G",
+    "isPriority": true,
+    "type": "INSUMOS"
+  },
+  {
+    "name": "LUVAS DE PROCEDIMENTO XG",
+    "isPriority": true,
+    "type": "INSUMOS"
+  },
+  {
+    "name": "MACACÃO DE PROTEÇÃO COM CAPUZ",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "MÁSCARA CIRÚRGICA",
+    "isPriority": true,
+    "type": "INSUMOS"
+  },
+  {
+    "name": "MÁSCARA FACIAL VNI",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "MÁSCARA N95, PFF2",
+    "isPriority": true,
+    "type": "INSUMOS"
+  },
+  {
+    "name": "ÓCULOS DE PROTEÇÃO",
+    "isPriority": true,
+    "type": "INSUMOS"
+  },
+  {
+    "name": "PANO DE LIMPEZA CORPORAL DESCARTÁVEL",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "PAPEL TOALHA",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "PROPÉS",
+    "isPriority": true,
+    "type": "INSUMOS"
+  },
+  {
+    "name": "PROTETOR/ESCUDO FACIAL",
+    "isPriority": true,
+    "type": "INSUMOS"
+  },
+  {
+    "name": "ROUPA CIRÚRGICA DESCARTÁVEL",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "SABONETE LÍQUIDO REFIL",
+    "isPriority": true,
+    "type": "INSUMOS"
+  },
+  {
+    "name": "SACOS BRANCOS INFECTANTE 100L",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "BOMBA DE INFUSÃO",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "TALHERES DESCARTÁVEIS",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "RESPIRADOR",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "PRATOS DESCARTÁVEIS",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "LUVAS DE PROCEDIMENTO",
+    "isPriority": true,
+    "type": "INSUMOS"
+  },
+  {
+    "name": "RESPIRADOR PORTÁTIL",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "MONITOR MULTIPARAMETRICO",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "CAMAS HOSPITALARES C/ 3 MANIVELAS",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "TERMÔMETRO INFRAVERMELHO DE CONTATO",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "COPOS DESCARTÁVEIS",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "MARMITEX DESCARTÁVEIS",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "PAPEL INTERFOLHADO 1000FLS 19,5x20,5",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "OXIMETRO DE PULSO C/ SENSOR",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "DESFIBRILADOR",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "LARINGOSCÓPIO C/ 3 LÂMINAS",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "CAMAS HOSPITALARES",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "VENTILADOR PULMONAR ADULTO",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "SONDA ASPIRAÇÃO SISTEMA FECHADO",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "LUVAS DE PROCEDIMENTO PP",
+    "isPriority": true,
+    "type": "INSUMOS"
+  },
+  {
+    "name": "TERMÔMETRO DIGITAL DE TESTA",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "TERMÔMETRO",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "RESPIRADOR ADULTO",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "BIOMBO SANFONADO PVC",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "PAPEL HIGIÊNICO",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "RESPIRADOR PEDIÁTRICO",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "ACETATO (P/ PROTETOR FACIAL)",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "VENTILADOR PORTÁTIL",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "LUVAS NITRILICAS M",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "AMBU",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "LUVAS NITRILICAS P",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "RAIO X PORTÁTIL",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "ECÓGRAFO INFINITY 50",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "SMARTPHONES",
+    "type": "EQUIPAMENTOS"
+  }
+]

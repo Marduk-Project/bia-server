@@ -6,9 +6,55 @@
     </button>
     <br />
     <h1>{{ crud_title }}</h1>
+    <div v-if="entity.id != null">
+      <router-link
+        class="btn btn-outline-secondary"
+        tag="button"
+        :to="{
+          name: 'gl_state_region.index',
+          params: {
+            parentEntityId: entity.id,
+            parentEntity: entity,
+            type: 'meso',
+          },
+        }"
+      >
+        <i class="fa fa-map-signs"></i> Mesorregiões
+      </router-link>
+      <router-link
+        class="btn btn-outline-secondary ml-1"
+        tag="button"
+        :to="{
+          name: 'gl_state_region.index',
+          params: {
+            parentEntityId: entity.id,
+            parentEntity: entity,
+            type: 'micro',
+          },
+        }"
+      >
+        <i class="fa fa-map-signs"></i> Microrregiões
+      </router-link>
+      <router-link
+        class="btn btn-outline-secondary ml-1"
+        tag="button"
+        :to="{
+          name: 'gl_state_region.index',
+          params: {
+            parentEntityId: entity.id,
+            parentEntity: entity,
+            type: 'dre',
+          },
+        }"
+      >
+        <i class="fa fa-map-signs"></i> Regiões DRE
+      </router-link>
+      <br />
+      <br />
+    </div>
     <form action @submit.prevent novalidate>
       <div class="form-row">
-        <div class="form-group col-lg-6">
+        <div class="form-group col-lg-9">
           <label>Nome</label>
           <input
             name="name"
@@ -23,7 +69,7 @@
           <div class="invalid-feedback">Campo obrigatório.</div>
         </div>
         <div class="form-group col-lg-3">
-          <label>Sigla</label>
+          <label>Código no IBGE</label>
           <input
             name="code"
             placeholder="sigla"
@@ -31,6 +77,17 @@
             type="text"
             v-model="entity.code"
             maxlength="10"
+          />
+        </div>
+        <div class="form-group col-lg-3">
+          <label>Sigla</label>
+          <input
+            name="initials"
+            placeholder="ex. RS"
+            class="form-control"
+            type="text"
+            v-model="entity.initials"
+            maxlength="60"
           />
         </div>
         <div class="form-group col-lg-3">
@@ -79,6 +136,7 @@ export default {
         id: null,
         name: null,
         code: null,
+        initials: null,
         priority: 0,
         countryId: null,
         // objects
@@ -92,6 +150,7 @@ export default {
         id: this.entity.id,
         name: this.entity.name,
         code: this.entity.code,
+        initials: this.entity.initials,
         priority: this.entity.priority,
         countryId: this.entity.country ? this.entity.country.id : null,
       };

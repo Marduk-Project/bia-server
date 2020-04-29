@@ -7,10 +7,50 @@ const {
   model: StateModel,
   jsonSerializer: stateJsonSerializer,
 } = require("./gl_state");
+const StateRegionModelModule = require("./gl_state_region");
 
 // model
 const modelName = "gl_city";
-class MyModel extends BaseModel {}
+class MyModel extends BaseModel {
+  static async findByCode(code) {
+    return await this.findOne({
+      where: {
+        code: code,
+      },
+    });
+  }
+
+  /**
+   * Add and save a region by its id
+   * @param {int} regionId
+   * @param {string} type
+   * @return {Promise<CityStateRegion>}
+   */
+  async setStateRegion(regionId, type) {
+    const CityStateRegionModelModule = require("./gl_city_state_region");
+    let entity = await CityStateRegionModelModule.model.findByCityAndType(
+      this.id,
+      type
+    );
+    // check region
+    if (!regionId) {
+      if (entity) {
+        // delete if set to no region
+        await entity.destroy();
+      }
+    } else {
+      // create relation
+      if (!entity) {
+        entity = CityStateRegionModelModule.model.build();
+      }
+      entity.cityId = this.id;
+      entity.type = type;
+      entity.stateRegionId = regionId;
+      await entity.save();
+    }
+    return entity;
+  }
+}
 
 MyModel.init(
   {
@@ -36,7 +76,10 @@ MyModel.init(
         },
       },
     },
-    ibgeCode: {
+    code: {
+      type: Sequelize.STRING,
+    },
+    initials: {
       type: Sequelize.STRING,
     },
     priority: {
@@ -60,14 +103,36 @@ MyModel.belongsTo(StateModel, {
   as: "state",
 });
 
+const regionSerializer = (type) => {
+  return async (value, scopeName, parent) => {
+    const CityStateRegionModelModule = require("./gl_city_state_region");
+    const entity = await CityStateRegionModelModule.model.findByCityAndType(
+      parent.id,
+      type
+    );
+    return await StateRegionModelModule.jsonSerializer(
+      entity ? entity.stateRegion : null
+    );
+  };
+};
+
 const scopes = {
   def: {
-    include: ["id", "name", "code", "ibgeCode"],
+    include: ["id", "name", "code"],
   },
   admin: {
     maps: {
       state: async (value, scopeName) =>
         await stateJsonSerializer(value, scopeName),
+    },
+  },
+  admin_edit: {
+    maps: {
+      state: async (value, scopeName) =>
+        await stateJsonSerializer(value, scopeName),
+      mesoRegion: regionSerializer(StateRegionModelModule.TYPE_MESO),
+      microRegion: regionSerializer(StateRegionModelModule.TYPE_MICRO),
+      dreRegion: regionSerializer(StateRegionModelModule.TYPE_DRE),
     },
   },
 };

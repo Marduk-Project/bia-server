@@ -10,7 +10,15 @@ const {
 
 // model
 const modelName = "gl_state";
-class MyModel extends BaseModel {}
+class MyModel extends BaseModel {
+  static async findByCode(code) {
+    return await this.findOne({
+      where: {
+        code: code,
+      },
+    });
+  }
+}
 
 MyModel.init(
   {
@@ -37,6 +45,9 @@ MyModel.init(
       },
     },
     code: {
+      type: Sequelize.STRING,
+    },
+    initials: {
       type: Sequelize.STRING,
     },
     priority: {

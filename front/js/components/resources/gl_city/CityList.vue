@@ -3,6 +3,9 @@
     <br />
     <h1>{{ list_title }}</h1>
     <app-add-button @click="list_onAddClick"></app-add-button>
+    <button class="btn btn-outline-danger ml-1" @click="onIbgeImportClick">
+      <i class="fas fa-database"></i> Importar do IBGE
+    </button>
     <br />
     <br />
     <div class="form-row">
@@ -37,6 +40,7 @@
         <tr class>
           <th>#</th>
           <th>Nome</th>
+          <th>Estado</th>
           <th>
             IBGE
             <i
@@ -45,7 +49,6 @@
               title="Código no IBGE"
             ></i>
           </th>
-          <th>Estado</th>
           <th class="text-right">Prioridade</th>
         </tr>
       </thead>
@@ -58,8 +61,8 @@
         >
           <td>{{ entity.id }}</td>
           <td>{{ entity.name }}</td>
-          <td>{{ entity.ibgeCode }}</td>
-          <td>{{ entity.state ? entity.state.code : null }}</td>
+          <td>{{ entity.state ? entity.state.initials : null }}</td>
+          <td>{{ entity.code }}</td>
           <td class="text-right">{{ entity.priority }}</td>
         </tr>
       </tbody>
@@ -69,6 +72,7 @@
 </template>
 
 <script>
+import axios from "@mixins/axios-auth";
 import { listMixin } from "@mixins/list-mixin";
 import StateSelect from "@resources/gl_state/StateSelect.vue";
 
@@ -107,6 +111,19 @@ export default {
         url += `&stateId=${this.filters.state.id}`;
       }
       return url;
+    },
+    onIbgeImportClick() {
+      const response = prompt(
+        'Esta rotina é longa, e pode deixar o servidor bastante lento. Digite "importar" para prosseguir.',
+        "não"
+      );
+      if (response != "importar") {
+        return;
+      }
+      axios
+        .post(`${this.list_url_base}/ibgeImport`)
+        .then(this.api_thenDone())
+        .catch(this.api_catch());
     },
   },
 };

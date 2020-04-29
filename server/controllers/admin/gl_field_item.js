@@ -43,10 +43,10 @@ exports.getIndex = async (req, res, next) => {
       const q = req.query.q;
       options.where[Op.or] = {
         name: {
-          [Op.iLike]: `%${q}%`,
+          [Op.iLike]: `${q}%`,
         },
         valueString: {
-          [Op.iLike]: `%${q}%`,
+          [Op.iLike]: `${q}%`,
         },
       };
       if (validator.isNumeric(q, { no_symbols: true })) {

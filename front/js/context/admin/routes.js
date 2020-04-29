@@ -34,6 +34,10 @@ import GL_UnitEdit from "../../components/resources/gl_unit/UnitEdit.vue";
 // gl_product
 import GL_ProductList from "../../components/resources/gl_product/ProductList.vue";
 import GL_ProductEdit from "../../components/resources/gl_product/ProductEdit.vue";
+// gl_state_region
+import GL_StateRegionList from "../../components/resources/gl_state_region/StateRegionList.vue";
+import GL_StateRegionEdit from "../../components/resources/gl_state_region/StateRegionEdit.vue";
+
 // generator-inject-new-file-here
 // maintenance
 import Man_Container from "../../components/admin/maintenance/Container.vue";
@@ -224,6 +228,22 @@ export default [
     path: "/gl_product/create",
     components: { default: GL_ProductEdit, header: Header, footer: Footer },
     name: "gl_product.create",
+  },
+  // gl_state_region
+  {
+    path: "/gl_state/:parentEntityId/region/:type",
+    components: { default: GL_StateRegionList, header: Header, footer: Footer },
+    name: "gl_state_region.index",
+  },
+  {
+    path: "/gl_state/:parentEntityId/region/:type/:id/edit",
+    components: { default: GL_StateRegionEdit, header: Header, footer: Footer },
+    name: "gl_state_region.edit",
+  },
+  {
+    path: "/gl_state/:parentEntityId/region/:type/create",
+    components: { default: GL_StateRegionEdit, header: Header, footer: Footer },
+    name: "gl_state_region.create",
   },
   // generator-inject-new-route-here
   // maintenance

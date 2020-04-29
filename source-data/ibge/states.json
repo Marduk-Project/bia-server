@@ -1,0 +1,137 @@
+[
+  {
+    "code": 12,
+    "name": "Acre",
+    "initials": "AC"
+  },
+  {
+    "code": 27,
+    "name": "Alagoas",
+    "initials": "AL"
+  },
+  {
+    "code": 16,
+    "name": "Amapá",
+    "initials": "AP"
+  },
+  {
+    "code": 13,
+    "name": "Amazonas",
+    "initials": "AM"
+  },
+  {
+    "code": 29,
+    "name": "Bahia",
+    "initials": "BA"
+  },
+  {
+    "code": 23,
+    "name": "Ceará",
+    "initials": "CE"
+  },
+  {
+    "code": 53,
+    "name": "Distrito Federal",
+    "initials": "DF"
+  },
+  {
+    "code": 32,
+    "name": "Espírito Santo",
+    "initials": "ES"
+  },
+  {
+    "code": 52,
+    "name": "Goiás",
+    "initials": "GO"
+  },
+  {
+    "code": 21,
+    "name": "Maranhão",
+    "initials": "MA"
+  },
+  {
+    "code": 51,
+    "name": "Mato Grosso",
+    "initials": "MT"
+  },
+  {
+    "code": 50,
+    "name": "Mato Grosso do Sul",
+    "initials": "MS"
+  },
+  {
+    "code": 31,
+    "name": "Minas Gerais",
+    "initials": "MG"
+  },
+  {
+    "code": 15,
+    "name": "Pará",
+    "initials": "PA"
+  },
+  {
+    "code": 25,
+    "name": "Paraíba",
+    "initials": "PB"
+  },
+  {
+    "code": 41,
+    "name": "Paraná",
+    "initials": "PR"
+  },
+  {
+    "code": 26,
+    "name": "Pernambuco",
+    "initials": "PE"
+  },
+  {
+    "code": 22,
+    "name": "Piauí",
+    "initials": "PI"
+  },
+  {
+    "code": 33,
+    "name": "Rio de Janeiro",
+    "initials": "RJ"
+  },
+  {
+    "code": 24,
+    "name": "Rio Grande do Norte",
+    "initials": "RN"
+  },
+  {
+    "code": 43,
+    "name": "Rio Grande do Sul",
+    "initials": "RS"
+  },
+  {
+    "code": 11,
+    "name": "Rondônia",
+    "initials": "RO"
+  },
+  {
+    "code": 14,
+    "name": "Roraima",
+    "initials": "RR"
+  },
+  {
+    "code": 42,
+    "name": "Santa Catarina",
+    "initials": "SC"
+  },
+  {
+    "code": 35,
+    "name": "São Paulo",
+    "initials": "SP"
+  },
+  {
+    "code": 28,
+    "name": "Sergipe",
+    "initials": "SE"
+  },
+  {
+    "code": 17,
+    "name": "Tocantins",
+    "initials": "TO"
+  }
+]

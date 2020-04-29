@@ -41,10 +41,10 @@ exports.getIndex = async (req, res, next) => {
       const q = req.query.q;
       options.where[Op.or] = {
         name: {
-          [Op.iLike]: `%${q}%`,
+          [Op.iLike]: `${q}%`,
         },
         code: {
-          [Op.iLike]: `%${q}%`,
+          [Op.iLike]: `${q}%`,
         },
       };
       if (validator.isNumeric(q, { no_symbols: true })) {
@@ -58,12 +58,11 @@ exports.getIndex = async (req, res, next) => {
     // query options
     const page = req.query.page || 1;
     Model.setLimitOffsetForPage(page, options);
-    options.order -
-      [
-        ["priority", "desc"],
-        ["name", "asc"],
-        ["id", "asc"],
-      ];
+    options.order = [
+      ["priority", "desc"],
+      ["name", "asc"],
+      ["id", "asc"],
+    ];
     options.include = ["country"];
     // exec
     const queryResult = await Model.findAndCountAll(options);
@@ -122,6 +121,10 @@ const saveValidate = [
     min: 1,
     max: 60,
   }),
+  body("initials").optional().trim().isLength({
+    min: 0,
+    max: 60,
+  }),
   body("countryId")
     .isInt()
     .custom(customFindByPkRelationValidation(ParentModel)),
@@ -139,6 +142,7 @@ const saveEntityFunc = async (req, res, next, id) => {
     }
     entity.name = body.name;
     entity.code = body.code;
+    entity.initials = body.initials;
     entity.priority = body.priority;
     entity.countryId = body.countryId;
     await entity.save();

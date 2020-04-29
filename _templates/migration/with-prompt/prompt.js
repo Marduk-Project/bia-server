@@ -23,7 +23,7 @@ module.exports = {
     return inquirer
       .prompt(questions)
       .then((answers) => {
-        answers.migrationNameWithHyphen = answers.name.replace(/_/g, "-");
+        answers.migrationNameWithHyphen = answers.migrationName.replace(/_/g, "-");
         answers.nowPreffix = moment().format("YYYYMMDDHmmss");
         return answers;
       })
