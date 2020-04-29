@@ -61,6 +61,15 @@
             >
               <i class="fas fa-building"></i> Pessoas
             </router-link>
+            <router-link
+              class="dropdown-item"
+              tag="a"
+              active-class="active"
+              :to="{ name: 'or_request.index' }"
+              v-if="isUserStaff"
+            >
+              <i class="fas fa-notes-medical"></i> Demandas de EPIs
+            </router-link>
           </div>
         </li>
       </ul>
