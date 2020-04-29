@@ -54,8 +54,8 @@
 </template>
 
 <script>
-import axios from '@mixins/axios-auth'
-import { apiMixin } from '@mixins/api-mixin'
+import axios from '@mixins/axios-auth';
+import { apiMixin } from '@mixins/api-mixin';
 
 export default {
   mixins: [apiMixin],
@@ -65,47 +65,47 @@ export default {
       login: {
         password: null,
       },
-    }
+    };
   },
   methods: {
     onBackClick() {
       this.$router.push({
         name: 'auth.login',
-      })
+      });
     },
     onSaveClick() {
-      let jwt = this.$route.params.token
-      jwt = JSON.parse(Buffer.from(jwt, 'base64').toString('utf-8'))
+      let jwt = this.$route.params.token;
+      jwt = JSON.parse(Buffer.from(jwt, 'base64').toString('utf-8'));
       this.$validator.validateAll().then(result => {
-        this.wasValidated = true
+        this.wasValidated = true;
         if (!result) {
-          return
+          return;
         }
         let data = {
           password: this.login.password,
           id: jwt.id,
           token: jwt.token,
-        }
-        this.api_loadingShow()
+        };
+        this.api_loadingShow();
         axios
           .post('/api/auth/recoverChangePwd', data)
           .then(
             this.api_thenDone(res => {
-              this.onBackClick()
+              this.onBackClick();
             })
           )
           .catch(
             this.api_catch(error => {
-              this.$refs.pwd.focus()
+              this.$refs.pwd.focus();
             })
-          )
-      })
+          );
+      });
     },
   },
   mounted() {
-    this.$store.dispatch('setTitle', 'Recuperar senha')
+    this.$store.dispatch('setTitle', 'Recuperar senha');
   },
-}
+};
 </script>
 
 <style type="text/css" scoped></style>

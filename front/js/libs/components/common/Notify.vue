@@ -12,23 +12,23 @@
 </template>
 
 <script>
-import EventBus from '../../../bootstrap/event-bus'
+import EventBus from '../../../bootstrap/event-bus';
 
 export default {
   data() {
     return {
       showNotification: 0,
-    }
+    };
   },
   mounted() {
     EventBus.$on('notify_done', payLoad => {
-      this.showNotification += 1
+      this.showNotification += 1;
       setTimeout(() => {
-        this.showNotification -= 1
-      }, 3000)
-    })
+        this.showNotification -= 1;
+      }, 3000);
+    });
   },
-}
+};
 </script>
 
 <style scoped>

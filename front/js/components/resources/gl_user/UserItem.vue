@@ -10,7 +10,7 @@ export default {
       validator: entity => Boolean(entity.name && entity.email),
     },
   },
-}
+};
 </script>
 
 <style scoped></style>

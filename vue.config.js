@@ -2,12 +2,12 @@
  * Vue build configurations
  */
 
-const path = require('path')
-const CopyPlugin = require('copy-webpack-plugin')
+const path = require('path');
+const CopyPlugin = require('copy-webpack-plugin');
 
 // envs
-process.env.VUE_APP_EJS_OPEN_TAG = '<%'
-process.env.VUE_APP_EJS_CLOSE_TAG = '%>'
+process.env.VUE_APP_EJS_OPEN_TAG = '<%';
+process.env.VUE_APP_EJS_CLOSE_TAG = '%>';
 
 module.exports = {
   publicPath: '/c/',
@@ -56,4 +56,4 @@ module.exports = {
       ]),
     ],
   },
-}
+};

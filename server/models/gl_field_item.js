@@ -1,16 +1,16 @@
-const nconf = require('nconf')
-const { Sequelize, DataTypes } = require('sequelize')
+const nconf = require('nconf');
+const { Sequelize, DataTypes } = require('sequelize');
 
-const { mainDb } = require('../database/main_connection')
-const { BaseModel, jsonSerializer } = require('./base_model')
+const { mainDb } = require('../database/main_connection');
+const { BaseModel, jsonSerializer } = require('./base_model');
 
 const {
   model: FieldModel,
   jsonSerializer: fieldJsonSerializer,
-} = require('./gl_field')
+} = require('./gl_field');
 
 // model
-const modelName = 'gl_field_item'
+const modelName = 'gl_field_item';
 class MyModel extends BaseModel {}
 
 MyModel.init(
@@ -50,17 +50,17 @@ MyModel.init(
     modelName: modelName,
     tableName: modelName,
   }
-)
+);
 
 // relations
 FieldModel.hasMany(MyModel, {
   foreignKey: 'fieldId',
   as: 'items',
-})
+});
 MyModel.belongsTo(FieldModel, {
   foreignKey: 'fieldId',
   as: 'field',
-})
+});
 
 // scopes
 const scopes = {
@@ -71,16 +71,16 @@ const scopes = {
     field: async (value, scopeName) =>
       await fieldJsonSerializer(value, scopeName),
   },
-}
+};
 
-exports.model = MyModel
-exports.modelName = modelName
+exports.model = MyModel;
+exports.modelName = modelName;
 exports.jsonSerializer = async (value, scopeName) => {
   if (!scopeName) {
-    scopeName = 'def'
+    scopeName = 'def';
   }
   if (!scopes[scopeName]) {
-    scopeName = 'def'
+    scopeName = 'def';
   }
-  return await jsonSerializer(value, scopes[scopeName], scopeName)
-}
+  return await jsonSerializer(value, scopes[scopeName], scopeName);
+};

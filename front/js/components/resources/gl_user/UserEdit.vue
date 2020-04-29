@@ -183,10 +183,10 @@
 </template>
 
 <script>
-import { crudMixin } from '@mixins/crud-mixin'
-import axios from '@mixins/axios-auth'
-import UserLevelSelect from '@resources/gl_user/UserLevelSelect.vue'
-import _ from 'lodash'
+import { crudMixin } from '@mixins/crud-mixin';
+import axios from '@mixins/axios-auth';
+import UserLevelSelect from '@resources/gl_user/UserLevelSelect.vue';
+import _ from 'lodash';
 
 export default {
   mixins: [crudMixin],
@@ -206,7 +206,7 @@ export default {
       },
       pwd_change: null,
       pwd_check: null,
-    }
+    };
   },
   methods: {
     crud_data() {
@@ -217,67 +217,67 @@ export default {
         email: this.entity.email,
         level: this.entity.level,
         blocked: this.entity.blocked ? true : false,
-      }
+      };
     },
     crud_shouldNavBackAfterSave() {
-      return false
+      return false;
     },
     onPwdCheckClick() {
       if (!this.pwd_check) {
-        this.notify_warning('Digite a senha.')
-        return
+        this.notify_warning('Digite a senha.');
+        return;
       }
-      this.api_loadingShow()
+      this.api_loadingShow();
       const data = {
         pwd: this.pwd_check,
-      }
+      };
       axios
         .post(`/api/admin/gl_user/${this.entity.id}/pwd_check`, data)
         .then(
           this.api_thenDone(() => {
-            this.pwd_check = null
+            this.pwd_check = null;
           })
         )
-        .catch(this.api_catch())
+        .catch(this.api_catch());
     },
     onPwdChangeClick() {
       if (!this.pwd_change) {
-        this.notify_warning('Digite a senha.')
-        return
+        this.notify_warning('Digite a senha.');
+        return;
       }
       if (confirm('Alterar senha deste usuário?')) {
-        this.api_loadingShow()
+        this.api_loadingShow();
         const data = {
           pwd: this.pwd_change,
-        }
+        };
         axios
           .post(`/api/admin/gl_user/${this.entity.id}/pwd_change`, data)
           .then(
             this.api_thenDone(() => {
-              this.pwd_change = null
+              this.pwd_change = null;
             })
           )
-          .catch(this.api_catch())
+          .catch(this.api_catch());
       }
     },
     onPwdRecoverAction(isInvite) {
       if (
         confirm(`Enviar e-mail de ${isInvite ? 'convite' : 'recuperação'}?`)
       ) {
-        this.api_loadingShow()
+        this.api_loadingShow();
         axios
           .post(`/api/admin/gl_user/${this.entity.id}/pwd_recover`, {
             isInvite: isInvite,
           })
           .then(this.api_thenDone())
-          .catch(this.api_catch())
+          .catch(this.api_catch());
       }
     },
     onPwdRecoverClick() {
-      this.onPwdRecoverAction(false)
+      this.onPwdRecoverAction(false);
     },
     onPwdInviteClick() {
-      this.onPwdRecoverAction(true)
+      this.onPwdRecoverAction(true);
     },
     onUserBlockClick() {
       if (
@@ -287,40 +287,40 @@ export default {
           } este usuário?`
         )
       ) {
-        this.api_loadingShow()
+        this.api_loadingShow();
         axios
           .post(`/api/admin/gl_user/${this.entity.id}/blockToggle`, {
             blocked: !this.entity.blocked,
           })
           .then(
             this.api_thenDone(res => {
-              this.crud_refreshEntity()
+              this.crud_refreshEntity();
             })
           )
-          .catch(this.api_catch())
+          .catch(this.api_catch());
       }
     },
   },
   computed: {
     crud_title() {
-      var ok = this.entity != null
+      var ok = this.entity != null;
       if (ok) {
-        ok = this.entity.name
+        ok = this.entity.name;
       }
       if (ok) {
-        return '' + this.entity.name
+        return '' + this.entity.name;
       } else {
-        return 'Cadastro de Usuário'
+        return 'Cadastro de Usuário';
       }
     },
     crud_url_base() {
-      return '/api/admin/gl_user'
+      return '/api/admin/gl_user';
     },
     crud_route_base() {
-      return 'gl_user'
+      return 'gl_user';
     },
   },
-}
+};
 </script>
 
 <style scoped></style>

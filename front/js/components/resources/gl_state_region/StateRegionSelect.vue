@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import vSelect from '../../../libs/components/form/Select2.vue'
+import vSelect from '../../../libs/components/form/Select2.vue';
 
 export default {
   props: [
@@ -43,11 +43,11 @@ export default {
   },
   methods: {
     mapResult(value, index) {
-      value.text = `${value.name} (${value.code})`
-      return value
+      value.text = `${value.name} (${value.code})`;
+      return value;
     },
   },
-}
+};
 </script>
 
 <style scoped></style>

@@ -1,71 +1,71 @@
-const nconf = require('nconf')
-const { Sequelize, DataTypes } = require('sequelize')
+const nconf = require('nconf');
+const { Sequelize, DataTypes } = require('sequelize');
 
-const { mainDb } = require('../database/main_connection')
-const { BaseModel, jsonSerializer } = require('./base_model')
+const { mainDb } = require('../database/main_connection');
+const { BaseModel, jsonSerializer } = require('./base_model');
 
 const {
   model: CityModel,
   jsonSerializer: cityJsonSerializer,
-} = require('./gl_city')
+} = require('./gl_city');
 
 // legalType
-const LEGAL_TYPE_PERSON = 1
-const LEGAL_TYPE_JURIDICAL_PRIVATE = 2
-const LEGAL_TYPE_JURIDICAL_PUBLIC = 3
-const LEGAL_TYPE_CIVIL_ORGANIZATION = 4
-const LEGAL_TYPE_SUB_ENTITY = 5
+const LEGAL_TYPE_PERSON = 1;
+const LEGAL_TYPE_JURIDICAL_PRIVATE = 2;
+const LEGAL_TYPE_JURIDICAL_PUBLIC = 3;
+const LEGAL_TYPE_CIVIL_ORGANIZATION = 4;
+const LEGAL_TYPE_SUB_ENTITY = 5;
 
-exports.LEGAL_TYPE_PERSON = LEGAL_TYPE_PERSON
-exports.LEGAL_TYPE_JURIDICAL_PRIVATE = LEGAL_TYPE_JURIDICAL_PRIVATE
-exports.LEGAL_TYPE_JURIDICAL_PUBLIC = LEGAL_TYPE_JURIDICAL_PUBLIC
-exports.LEGAL_TYPE_CIVIL_ORGANIZATION = LEGAL_TYPE_CIVIL_ORGANIZATION
-exports.LEGAL_TYPE_SUB_ENTITY = LEGAL_TYPE_SUB_ENTITY
+exports.LEGAL_TYPE_PERSON = LEGAL_TYPE_PERSON;
+exports.LEGAL_TYPE_JURIDICAL_PRIVATE = LEGAL_TYPE_JURIDICAL_PRIVATE;
+exports.LEGAL_TYPE_JURIDICAL_PUBLIC = LEGAL_TYPE_JURIDICAL_PUBLIC;
+exports.LEGAL_TYPE_CIVIL_ORGANIZATION = LEGAL_TYPE_CIVIL_ORGANIZATION;
+exports.LEGAL_TYPE_SUB_ENTITY = LEGAL_TYPE_SUB_ENTITY;
 exports.LEGAL_TYPE_ALL = [
   LEGAL_TYPE_PERSON,
   LEGAL_TYPE_JURIDICAL_PRIVATE,
   LEGAL_TYPE_JURIDICAL_PUBLIC,
   LEGAL_TYPE_CIVIL_ORGANIZATION,
   LEGAL_TYPE_SUB_ENTITY,
-]
+];
 
 const legalTypeToString = value => {
   switch (parseInt(value)) {
     case LEGAL_TYPE_PERSON:
-      return 'Pessoa Física'
+      return 'Pessoa Física';
 
     case LEGAL_TYPE_JURIDICAL_PRIVATE:
-      return 'Pessoa Jurídica de direito PRIVADO'
+      return 'Pessoa Jurídica de direito PRIVADO';
 
     case LEGAL_TYPE_JURIDICAL_PUBLIC:
-      return 'Pessoa Jurídica de direito PÚBLICO'
+      return 'Pessoa Jurídica de direito PÚBLICO';
 
     case LEGAL_TYPE_CIVIL_ORGANIZATION:
-      return 'Organização Civil'
+      return 'Organização Civil';
 
     case LEGAL_TYPE_SUB_ENTITY:
-      return 'Setor ou Subentidade (sem CNPJ)'
+      return 'Setor ou Subentidade (sem CNPJ)';
   }
-  return 'Desconhecido'
-}
-exports.legalTypeToString = legalTypeToString
+  return 'Desconhecido';
+};
+exports.legalTypeToString = legalTypeToString;
 
 // legalIdentifierType
-const LEGAL_IDENTIFIER_TYPE_BR_CPF = 'CPF'
-const LEGAL_IDENTIFIER_TYPE_BR_CNPJ = 'CNPJ'
-const LEGAL_IDENTIFIER_TYPE_BR_OTHER = 'OTHER'
+const LEGAL_IDENTIFIER_TYPE_BR_CPF = 'CPF';
+const LEGAL_IDENTIFIER_TYPE_BR_CNPJ = 'CNPJ';
+const LEGAL_IDENTIFIER_TYPE_BR_OTHER = 'OTHER';
 
-exports.LEGAL_IDENTIFIER_TYPE_BR_CPF = LEGAL_IDENTIFIER_TYPE_BR_CPF
-exports.LEGAL_IDENTIFIER_TYPE_BR_CNPJ = LEGAL_IDENTIFIER_TYPE_BR_CNPJ
-exports.LEGAL_IDENTIFIER_TYPE_BR_OTHER = LEGAL_IDENTIFIER_TYPE_BR_OTHER
+exports.LEGAL_IDENTIFIER_TYPE_BR_CPF = LEGAL_IDENTIFIER_TYPE_BR_CPF;
+exports.LEGAL_IDENTIFIER_TYPE_BR_CNPJ = LEGAL_IDENTIFIER_TYPE_BR_CNPJ;
+exports.LEGAL_IDENTIFIER_TYPE_BR_OTHER = LEGAL_IDENTIFIER_TYPE_BR_OTHER;
 exports.LEGAL_IDENTIFIER_TYPE_ALL = [
   LEGAL_IDENTIFIER_TYPE_BR_CPF,
   LEGAL_IDENTIFIER_TYPE_BR_CNPJ,
   LEGAL_IDENTIFIER_TYPE_BR_OTHER,
-]
+];
 
 // model
-const modelName = 'gl_person'
+const modelName = 'gl_person';
 class MyModel extends BaseModel {}
 
 MyModel.init(
@@ -88,7 +88,7 @@ MyModel.init(
     legalTypeDesc: {
       type: new DataTypes.VIRTUAL(DataTypes.STRING, ['legalType']),
       get: function () {
-        return legalTypeToString(this.get('legalType'))
+        return legalTypeToString(this.get('legalType'));
       },
     },
     legalIdentifierType: Sequelize.STRING(60),
@@ -134,16 +134,16 @@ MyModel.init(
     modelName: modelName,
     tableName: modelName,
   }
-)
+);
 
 CityModel.hasMany(MyModel, {
   foreignKey: 'cityId',
   as: 'persons',
-})
+});
 MyModel.belongsTo(CityModel, {
   foreignKey: 'cityId',
   as: 'city',
-})
+});
 
 const scopes = {
   def: {
@@ -164,16 +164,16 @@ const scopes = {
         await cityJsonSerializer(value, scopeName),
     },
   },
-}
+};
 
-exports.model = MyModel
-exports.modelName = modelName
+exports.model = MyModel;
+exports.modelName = modelName;
 exports.jsonSerializer = async (value, scopeName) => {
   if (!scopeName) {
-    scopeName = 'def'
+    scopeName = 'def';
   }
   if (!scopes[scopeName]) {
-    scopeName = 'def'
+    scopeName = 'def';
   }
-  return await jsonSerializer(value, scopes[scopeName], scopeName)
-}
+  return await jsonSerializer(value, scopes[scopeName], scopeName);
+};

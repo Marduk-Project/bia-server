@@ -1,56 +1,56 @@
-const nconf = require('nconf')
-const { Sequelize, DataTypes } = require('sequelize')
+const nconf = require('nconf');
+const { Sequelize, DataTypes } = require('sequelize');
 
-const { mainDb } = require('../database/main_connection')
-const { BaseModel, jsonSerializer } = require('./base_model')
+const { mainDb } = require('../database/main_connection');
+const { BaseModel, jsonSerializer } = require('./base_model');
 
 // level
-const TYPE_STRING = 1
-const TYPE_INT = 2
-const TYPE_DOUBLE = 3
-const TYPE_BOOLEAN = 4
-const TYPE_SELECT = 5
+const TYPE_STRING = 1;
+const TYPE_INT = 2;
+const TYPE_DOUBLE = 3;
+const TYPE_BOOLEAN = 4;
+const TYPE_SELECT = 5;
 
-exports.TYPE_STRING = TYPE_STRING
-exports.TYPE_INT = TYPE_INT
-exports.TYPE_DOUBLE = TYPE_DOUBLE
-exports.TYPE_BOOLEAN = TYPE_BOOLEAN
-exports.TYPE_SELECT = TYPE_SELECT
+exports.TYPE_STRING = TYPE_STRING;
+exports.TYPE_INT = TYPE_INT;
+exports.TYPE_DOUBLE = TYPE_DOUBLE;
+exports.TYPE_BOOLEAN = TYPE_BOOLEAN;
+exports.TYPE_SELECT = TYPE_SELECT;
 exports.TYPE_ALL = [
   TYPE_STRING,
   TYPE_INT,
   TYPE_DOUBLE,
   TYPE_BOOLEAN,
   TYPE_SELECT,
-]
+];
 
-const DESTINATION_GL_PERSON = 'gl_person'
-exports.DESTINATION_GL_PERSON = DESTINATION_GL_PERSON
-exports.DESTINATION_ALL = [DESTINATION_GL_PERSON]
+const DESTINATION_GL_PERSON = 'gl_person';
+exports.DESTINATION_GL_PERSON = DESTINATION_GL_PERSON;
+exports.DESTINATION_ALL = [DESTINATION_GL_PERSON];
 
 const typeToString = value => {
   switch (parseInt(value)) {
     case TYPE_STRING:
-      return 'Texto (String)'
+      return 'Texto (String)';
 
     case TYPE_INT:
-      return 'Inteiro (Int)'
+      return 'Inteiro (Int)';
 
     case TYPE_DOUBLE:
-      return 'Número com virgula (Double)'
+      return 'Número com virgula (Double)';
 
     case TYPE_BOOLEAN:
-      return 'Checkbox (Boolean)'
+      return 'Checkbox (Boolean)';
 
     case TYPE_SELECT:
-      return 'Com itens (Select)'
+      return 'Com itens (Select)';
   }
-  return 'Desconhecido'
-}
-exports.typeToString = typeToString
+  return 'Desconhecido';
+};
+exports.typeToString = typeToString;
 
 // model
-const modelName = 'gl_field'
+const modelName = 'gl_field';
 class MyModel extends BaseModel {}
 
 MyModel.init(
@@ -99,7 +99,7 @@ MyModel.init(
     typeDesc: {
       type: new DataTypes.VIRTUAL(DataTypes.STRING, ['type']),
       get: function () {
-        return typeToString(this.get('type'))
+        return typeToString(this.get('type'));
       },
     },
     order: {
@@ -115,7 +115,7 @@ MyModel.init(
     modelName: modelName,
     tableName: modelName,
   }
-)
+);
 
 // relations
 
@@ -134,16 +134,16 @@ const scopes = {
     ],
   },
   admin: {}, // all
-}
+};
 
-exports.model = MyModel
-exports.modelName = modelName
+exports.model = MyModel;
+exports.modelName = modelName;
 exports.jsonSerializer = async (value, scopeName) => {
   if (!scopeName) {
-    scopeName = 'def'
+    scopeName = 'def';
   }
   if (!scopes[scopeName]) {
-    scopeName = 'def'
+    scopeName = 'def';
   }
-  return await jsonSerializer(value, scopes[scopeName], scopeName)
-}
+  return await jsonSerializer(value, scopes[scopeName], scopeName);
+};

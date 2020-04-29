@@ -90,10 +90,10 @@
 </template>
 
 <script>
-import { crudMixin } from '@mixins/crud-mixin'
-import axios from '@mixins/axios-auth'
+import { crudMixin } from '@mixins/crud-mixin';
+import axios from '@mixins/axios-auth';
 
-import UnitSelect from '@resources/gl_unit/UnitSelect.vue'
+import UnitSelect from '@resources/gl_unit/UnitSelect.vue';
 
 export default {
   mixins: [crudMixin],
@@ -112,7 +112,7 @@ export default {
         // objects
         unit: null,
       },
-    }
+    };
   },
   methods: {
     crud_data() {
@@ -123,36 +123,36 @@ export default {
         healthCode: this.entity.healthCode,
         requestFormActive: !!this.entity.requestFormActive,
         unitId: this.entity.unit ? this.entity.unit.id : null,
-      }
+      };
     },
     crud_validate() {
       if (!this.entity.unit) {
-        this.notify_warning('Selecione a Unidade.')
-        return false
+        this.notify_warning('Selecione a Unidade.');
+        return false;
       }
-      return true
+      return true;
     },
   },
   computed: {
     crud_title() {
-      var ok = this.entity != null
+      var ok = this.entity != null;
       if (ok) {
-        ok = this.entity.name != null
+        ok = this.entity.name != null;
       }
       if (ok) {
-        return '' + this.entity.name
+        return '' + this.entity.name;
       } else {
-        return 'Cadastro de Produto'
+        return 'Cadastro de Produto';
       }
     },
     crud_url_base() {
-      return '/api/admin/gl_product'
+      return '/api/admin/gl_product';
     },
     crud_route_base() {
-      return 'gl_product'
+      return 'gl_product';
     },
   },
-}
+};
 </script>
 
 <style scoped></style>

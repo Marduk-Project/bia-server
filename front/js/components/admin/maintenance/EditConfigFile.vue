@@ -35,8 +35,8 @@
 </template>
 
 <script>
-import axios from '@mixins/axios-auth'
-import { apiMixin } from '@mixins/api-mixin'
+import axios from '@mixins/axios-auth';
+import { apiMixin } from '@mixins/api-mixin';
 
 export default {
   mixins: [apiMixin],
@@ -44,42 +44,42 @@ export default {
     return {
       file_content: '',
       wsLoadOK: false,
-    }
+    };
   },
   methods: {
     onSaveClick() {
-      this.api_loadingShow()
+      this.api_loadingShow();
       axios
         .post('api/admin/maintenance/config_update', {
           file_content: this.file_content,
         })
         .then(this.api_thenDone())
-        .catch(this.api_catch())
+        .catch(this.api_catch());
     },
     reloadContent() {
-      this.api_loadingShow()
+      this.api_loadingShow();
       axios
         .get('api/admin/maintenance/config_get')
         .then(res => {
           if (!this.api_parseOK(res, false)) {
-            return
+            return;
           }
-          this.file_content = res.data.file_content
-          this.wsLoadOK = true
-          this.api_loadingHide()
+          this.file_content = res.data.file_content;
+          this.wsLoadOK = true;
+          this.api_loadingHide();
         })
         .catch(
           this.api_catch(error => {
-            this.wsLoadOK = false
+            this.wsLoadOK = false;
           })
-        )
+        );
     },
   },
   mounted() {
-    this.$store.dispatch('setTitle', 'Editar config.json')
-    this.reloadContent()
+    this.$store.dispatch('setTitle', 'Editar config.json');
+    this.reloadContent();
   },
-}
+};
 </script>
 
 <style scoped></style>

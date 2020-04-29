@@ -279,12 +279,12 @@
 </template>
 
 <script>
-import { crudMixin } from '@mixins/crud-mixin'
-import axios from '@mixins/axios-auth'
-import _axios from 'axios'
-import PersonTypeSelect from '@resources/gl_person/PersonTypeSelect.vue'
-import CitySelect from '@resources/gl_city/CitySelect.vue'
-import PersonFieldTableRow from '@resources/gl_person_field/PersonFieldTableRow.vue'
+import { crudMixin } from '@mixins/crud-mixin';
+import axios from '@mixins/axios-auth';
+import _axios from 'axios';
+import PersonTypeSelect from '@resources/gl_person/PersonTypeSelect.vue';
+import CitySelect from '@resources/gl_city/CitySelect.vue';
+import PersonFieldTableRow from '@resources/gl_person_field/PersonFieldTableRow.vue';
 
 export default {
   mixins: [crudMixin],
@@ -320,7 +320,7 @@ export default {
         city: null,
       },
       fieldList: [],
-    }
+    };
   },
   methods: {
     crud_data() {
@@ -346,54 +346,54 @@ export default {
         longitude: this.entity.longitude,
         obs: this.entity.obs,
         fields: this.fieldList.map(field => {
-          let value = null
+          let value = null;
           switch (parseInt(field.field.type)) {
             case 1:
-              value = field.valueString
-              break
+              value = field.valueString;
+              break;
 
             case 2:
-              value = field.valueInt
-              break
+              value = field.valueInt;
+              break;
 
             case 3:
-              value = field.valueDouble
-              break
+              value = field.valueDouble;
+              break;
 
             case 4:
-              value = field.valueBoolean
-              break
+              value = field.valueBoolean;
+              break;
 
             case 5:
-              value = field.fieldItemId
-              break
+              value = field.fieldItemId;
+              break;
           }
           return {
             id: field.id,
             fieldItemId: field.fieldItemId,
             value: value,
-          }
+          };
         }),
-      }
+      };
     },
     crud_validate() {
       if (!this.entity.city) {
-        this.notify_warning('Selecione uma cidade.')
-        return false
+        this.notify_warning('Selecione uma cidade.');
+        return false;
       }
     },
     crud_requestEntityParseResponse(res) {
       if (res.data.fieldList) {
-        this.fieldList = res.data.fieldList
+        this.fieldList = res.data.fieldList;
       }
-      this.wsRequested = true
+      this.wsRequested = true;
       if (res.data.entity) {
-        return res.data.entity
+        return res.data.entity;
       }
       if (res.data.data) {
-        return res.data.data
+        return res.data.data;
       }
-      return null
+      return null;
     },
     onGetZipcodeBlur() {
       if (
@@ -401,33 +401,33 @@ export default {
         this.entity.addressZipcode.length < 8 ||
         this.entity.addressZipcode.length > 9
       ) {
-        return
+        return;
       }
       if (this.entity.address) {
-        return
+        return;
       }
-      this.onGetZipcodeClick()
+      this.onGetZipcodeClick();
     },
     onGetZipcodeClick() {
       if (!this.entity.addressZipcode) {
-        this.notify_warning('Preencha um CEP válido.')
-        return
+        this.notify_warning('Preencha um CEP válido.');
+        return;
       }
       if (
         this.entity.addressZipcode.length < 8 ||
         this.entity.addressZipcode.length > 9
       ) {
-        this.notify_warning('Preencha um CEP válido.')
-        return
+        this.notify_warning('Preencha um CEP válido.');
+        return;
       }
 
-      const zipCodeOnlyNumbers = this.entity.addressZipcode.replace('-', '')
+      const zipCodeOnlyNumbers = this.entity.addressZipcode.replace('-', '');
 
-      this.api_loadingShow()
+      this.api_loadingShow();
 
-      const externalAxios = _axios.create()
-      externalAxios.defaults.headers.common = {}
-      externalAxios.defaults.headers.common.accept = 'application/json'
+      const externalAxios = _axios.create();
+      externalAxios.defaults.headers.common = {};
+      externalAxios.defaults.headers.common.accept = 'application/json';
 
       this.searchingZipCode = externalAxios
         .get(`//viacep.com.br/ws/${zipCodeOnlyNumbers}/json/`)
@@ -435,97 +435,97 @@ export default {
           this.api_thenDone(res => {
             // the api won't return these fields
             // in case the zip code doesn't exist.
-            this.entity.address = res.data.logradouro || ''
-            this.entity.addressNeighborhood = res.data.bairro || ''
-            this.entity.addressNumber = ''
+            this.entity.address = res.data.logradouro || '';
+            this.entity.addressNeighborhood = res.data.bairro || '';
+            this.entity.addressNumber = '';
           }, true)
         )
-        .catch(this.api_catch())
+        .catch(this.api_catch());
     },
     onFieldInput(value) {
       this.fieldList.forEach(item => {
         if (item.id == value.id) {
-          Object.assign(item, value)
+          Object.assign(item, value);
         }
-      })
+      });
     },
   },
   computed: {
     legalIdentifierType() {
       switch (parseInt(this.entity.legalType)) {
         case 1:
-          return 'CPF'
+          return 'CPF';
 
         case 2:
         case 4:
-          return 'CNPJ'
+          return 'CNPJ';
 
         case 3:
         case 5:
-          return 'OTHER'
+          return 'OTHER';
       }
-      return 'Desconhecido'
+      return 'Desconhecido';
     },
     legalIdentifierTypeDesc() {
       switch (parseInt(this.entity.legalType)) {
         case 1:
-          return 'CPF'
+          return 'CPF';
 
         case 2:
         case 4:
-          return 'CNPJ'
+          return 'CNPJ';
 
         case 3:
         case 5:
-          return 'Outro identificador'
+          return 'Outro identificador';
       }
-      return 'Desconhecido'
+      return 'Desconhecido';
     },
     legalIdentifierValidateRule() {
       switch (parseInt(this.entity.legalType)) {
         case 1:
-          return 'cpf-num|required'
+          return 'cpf-num|required';
 
         case 2:
         case 4:
-          return 'cnpj-num|required'
+          return 'cnpj-num|required';
 
         case 3:
         case 5:
-          return ''
+          return '';
       }
-      return ''
+      return '';
     },
     legalIdentifierIsRequired() {
       switch (parseInt(this.entity.legalType)) {
         case 1:
         case 2:
-          return true
+          return true;
 
         case 3:
-          return false
+          return false;
       }
-      return false
+      return false;
     },
     crud_title() {
-      var ok = this.entity != null
+      var ok = this.entity != null;
       if (ok) {
-        ok = this.entity.name != null
+        ok = this.entity.name != null;
       }
       if (ok) {
-        return '' + this.entity.name
+        return '' + this.entity.name;
       } else {
-        return 'Cadastro de Pessoa'
+        return 'Cadastro de Pessoa';
       }
     },
     crud_url_base() {
-      return '/api/admin/gl_person'
+      return '/api/admin/gl_person';
     },
     crud_route_base() {
-      return 'gl_person'
+      return 'gl_person';
     },
   },
-}
+};
 </script>
 
 <style scoped></style>

@@ -15,9 +15,9 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import util from 'util'
-import Notify from '@libComponents/common/Notify'
+import { mapGetters } from 'vuex';
+import util from 'util';
+import Notify from '@libComponents/common/Notify';
 
 export default {
   components: {
@@ -30,23 +30,23 @@ export default {
     checkFlashesMessages() {
       if (util.isArray(window.app_flashes)) {
         window.app_flashes.forEach(message => {
-          this.$store.dispatch('notify', message)
-        })
+          this.$store.dispatch('notify', message);
+        });
       } else {
-        console.warn('Flash messages not configured!')
+        console.warn('Flash messages not configured!');
       }
     },
   },
   created() {
     // var vm = this;
     if (window.app_loggedIn) {
-      this.$store.dispatch('loadSession')
+      this.$store.dispatch('loadSession');
     }
   },
   mounted() {
-    this.checkFlashesMessages()
+    this.checkFlashesMessages();
   },
-}
+};
 </script>
 
 <style lang="sass">

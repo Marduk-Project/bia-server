@@ -6,4 +6,4 @@ module.exports = {
     'config.json',
     'node_modules/*',
   ],
-}
+};

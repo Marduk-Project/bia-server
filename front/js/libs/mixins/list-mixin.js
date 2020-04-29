@@ -1,12 +1,12 @@
-import axios from './axios-auth'
-import { apiMixin } from './api-mixin'
+import axios from './axios-auth';
+import { apiMixin } from './api-mixin';
 
-import RefreshButton from '../components/common/RefreshButton.vue'
-import AddButton from '../components/crud/AddButton.vue'
-import Pagination from '../components/crud/Pagination.vue'
-import { mapGetters } from 'vuex'
-import moment from 'moment'
-import _ from 'lodash'
+import RefreshButton from '../components/common/RefreshButton.vue';
+import AddButton from '../components/crud/AddButton.vue';
+import Pagination from '../components/crud/Pagination.vue';
+import { mapGetters } from 'vuex';
+import moment from 'moment';
+import _ from 'lodash';
 
 // list mixin
 export const listMixin = {
@@ -43,7 +43,7 @@ export const listMixin = {
       parentEntityId: null,
       searchText: '',
       filters: null,
-    }
+    };
   },
   computed: {
     ...mapGetters({
@@ -52,15 +52,15 @@ export const listMixin = {
     list_hasParentEntity() {
       return this.useRoute
         ? this.$route.params.parentEntityId != null
-        : this.parentEntityId
+        : this.parentEntityId;
     },
     list_hasNavBackRoute() {
       if (this.useRoute) {
         if (this.$route.params.navBackRoute) {
-          return true
+          return true;
         }
       }
-      return false
+      return false;
     },
     // list_url_base()
     // list_route_base()
@@ -73,11 +73,11 @@ export const listMixin = {
      * @returns {string}
      */
     list_buildURL(page) {
-      let url = `${this.list_url_base}?page=${page}`
+      let url = `${this.list_url_base}?page=${page}`;
       if (this.searchText) {
-        url += `&q=${encodeURIComponent(this.searchText)}`
+        url += `&q=${encodeURIComponent(this.searchText)}`;
       }
-      return url
+      return url;
     },
 
     /**
@@ -100,28 +100,28 @@ export const listMixin = {
             filters: this.filters,
           },
         },
-      }
+      };
     },
 
     /**
      *
      */
     list_onAddClick() {
-      this.$router.push(this.list_onAddBuildRoute())
+      this.$router.push(this.list_onAddBuildRoute());
     },
 
     /**
      * Refresh current page
      */
     list_refreshCurrentPage() {
-      var page
+      var page;
       if (this.list) {
-        page = this.list.current_page
+        page = this.list.current_page;
       }
       if (!page) {
-        page = 1
+        page = 1;
       }
-      this.list_refreshPage(page)
+      this.list_refreshPage(page);
     },
 
     /**
@@ -129,7 +129,7 @@ export const listMixin = {
      * @returns {Promise}
      */
     list_requestParentEntity() {
-      return Promise.reject('Implementar list_requestParentEntity.')
+      return Promise.reject('Implementar list_requestParentEntity.');
     },
 
     /**
@@ -139,12 +139,12 @@ export const listMixin = {
      */
     list_requestParentEntityParseResponse(res) {
       if (res.data.entity) {
-        return res.data.entity
+        return res.data.entity;
       }
       if (res.data.data) {
-        return res.data.data
+        return res.data.data;
       }
-      return null
+      return null;
     },
 
     /**
@@ -157,23 +157,23 @@ export const listMixin = {
           this.list_requestParentEntity()
             .then(res => {
               if (!this.api_parseOK(res)) {
-                return
+                return;
               }
               this.parentEntity = this.list_requestParentEntityParseResponse(
                 res
-              )
-              this.api_loadingHide()
+              );
+              this.api_loadingHide();
               if (res.data.warnings) {
-                this.notify_warning(res.data.warnings)
+                this.notify_warning(res.data.warnings);
               }
-              this.list_requestPageAction(page)
+              this.list_requestPageAction(page);
             })
-            .catch(this.api_catch())
+            .catch(this.api_catch());
         } else {
-          this.list_requestPageAction(page)
+          this.list_requestPageAction(page);
         }
       } else {
-        this.list_requestPageAction(page)
+        this.list_requestPageAction(page);
       }
     },
 
@@ -182,7 +182,7 @@ export const listMixin = {
      * @returns {Promise}
      */
     list_requestForPage(page) {
-      return axios.get(this.list_buildURL(page))
+      return axios.get(this.list_buildURL(page));
     },
 
     /**
@@ -190,10 +190,10 @@ export const listMixin = {
      * @param {number} page
      */
     list_requestPageAction(page) {
-      this.api_loadingShow()
+      this.api_loadingShow();
       this.list_requestForPage(page)
         .then(this.list_parseResponse())
-        .catch(this.api_catch())
+        .catch(this.api_catch());
     },
 
     /**
@@ -204,19 +204,19 @@ export const listMixin = {
     list_parseResponse() {
       return res => {
         if (!this.api_parseOK(res)) {
-          return
+          return;
         }
         if (res.data.page) {
-          this.list = res.data.page
+          this.list = res.data.page;
         } else if (res.data.data) {
-          this.list = res.data
+          this.list = res.data;
         }
-        this.list_afterRequest(res)
-        this.api_loadingHide()
+        this.list_afterRequest(res);
+        this.api_loadingHide();
         if (res.data.warnings) {
-          this.notify_warning(res.data.warnings)
+          this.notify_warning(res.data.warnings);
         }
-      }
+      };
     },
 
     /**
@@ -239,7 +239,7 @@ export const listMixin = {
             filters: this.filters,
           },
         },
-      }
+      };
     },
 
     /**
@@ -255,7 +255,7 @@ export const listMixin = {
             filters: this.filters,
           },
         },
-      }
+      };
     },
 
     /**
@@ -263,9 +263,9 @@ export const listMixin = {
      */
     list_onItemClick(entity) {
       if (this.onItemClickCallback) {
-        this.onItemClickCallback(entity)
+        this.onItemClickCallback(entity);
       } else {
-        this.$router.push(this.list_onItemClickBuildRoute(entity))
+        this.$router.push(this.list_onItemClickBuildRoute(entity));
       }
     },
 
@@ -276,22 +276,22 @@ export const listMixin = {
     list_navBackBuildRoute() {
       if (this.useRoute) {
         if (this.$route.params.navBackRoute) {
-          let route = this.$route.params.navBackRoute
-          route.params.changed = this.$route.params.changed
-          return route
+          let route = this.$route.params.navBackRoute;
+          route.params.changed = this.$route.params.changed;
+          return route;
         }
       }
-      this.notify_warning('Implementar list_navBackBuildRoute')
-      return null
+      this.notify_warning('Implementar list_navBackBuildRoute');
+      return null;
     },
 
     /**
      * Execute navBack event
      */
     list_navBack() {
-      let route = this.list_navBackBuildRoute()
+      let route = this.list_navBackBuildRoute();
       if (route) {
-        this.$router.push(route)
+        this.$router.push(route);
       }
     },
 
@@ -313,7 +313,7 @@ export const listMixin = {
      * Moment js
      */
     list_moment(date) {
-      return moment(date)
+      return moment(date);
     },
 
     /**
@@ -327,46 +327,46 @@ export const listMixin = {
      * Should refresh on mount
      */
     list_refrehOnMount() {
-      return true
+      return true;
     },
 
     /**
      * force refresh on params
      */
     list_forceRefrehOnMountWithParam() {
-      return false
+      return false;
     },
   },
   mounted() {
-    this.list_beforeMount()
+    this.list_beforeMount();
     if (this.useRoute) {
-      this.$store.dispatch('setTitle', this.list_title)
-      this.parentEntity = this.$route.params.parentEntity
-      this.parentEntityId = this.$route.params.parentEntityId
+      this.$store.dispatch('setTitle', this.list_title);
+      this.parentEntity = this.$route.params.parentEntity;
+      this.parentEntityId = this.$route.params.parentEntityId;
     } else {
-      this.parentEntityId = this.parentEntityIdParam
+      this.parentEntityId = this.parentEntityIdParam;
     }
     // load
     if (this.$route.params.page && this.useRoute) {
-      let refresh = true
+      let refresh = true;
       if (this.$route.params.page.page) {
-        this.list = this.$route.params.page.page
-        refresh = false
+        this.list = this.$route.params.page.page;
+        refresh = false;
       }
-      this.searchText = this.$route.params.page.searchText
-      this.filters = _.merge(this.filters, this.$route.params.page.filters)
+      this.searchText = this.$route.params.page.searchText;
+      this.filters = _.merge(this.filters, this.$route.params.page.filters);
       if (
         this.$route.params.changed ||
         refresh ||
         this.list_forceRefrehOnMountWithParam()
       ) {
-        this.list_refreshCurrentPage()
+        this.list_refreshCurrentPage();
       }
     } else {
       if (this.list_refrehOnMount()) {
-        this.list_refreshPage(1)
+        this.list_refreshPage(1);
       }
     }
-    this.list_afterMount()
+    this.list_afterMount();
   },
-}
+};

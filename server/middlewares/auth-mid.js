@@ -1,6 +1,6 @@
-const UserModule = require('../models/gl_user')
+const UserModule = require('../models/gl_user');
 // const AccountUserModule = require('../models/account/user');
-const User = UserModule.model
+const User = UserModule.model;
 
 /**
  * Creates a function middleware with roles
@@ -12,7 +12,7 @@ const User = UserModule.model
  */
 exports.rolesMiddleware = config => {
   const middleware = (req, res, next) => {
-    const user = req.user
+    const user = req.user;
     if (typeof config === 'object') {
       // user logged
       if (typeof config.userLogged === 'boolean') {
@@ -23,22 +23,22 @@ exports.rolesMiddleware = config => {
               req.flash('messages', {
                 message: 'Usuário não está logado.',
                 type: 'info',
-              })
-              res.redirect('/#/auth/login')
+              });
+              res.redirect('/#/auth/login');
             } else {
-              res.sendJsonForbiddenError()
+              res.sendJsonForbiddenError();
             }
-            return
+            return;
           }
         } else {
           if (user) {
             // logged
             if (config.responseRedirect) {
-              res.redirect('/home')
+              res.redirect('/home');
             } else {
-              res.sendJsonForbiddenError('Usuário já está logado.')
+              res.sendJsonForbiddenError('Usuário já está logado.');
             }
-            return
+            return;
           }
         } // if user logged
       } // if user logged boolean
@@ -48,30 +48,30 @@ exports.rolesMiddleware = config => {
           // has user
           res
             .status(403)
-            .json({ ok: false, message: 'Usuário não autorizado.' })
-          return
+            .json({ ok: false, message: 'Usuário não autorizado.' });
+          return;
         }
         if (parseInt(user.level) > config.userLevel) {
           // user level
           res
             .status(403)
-            .json({ ok: false, message: 'Usuário não autorizado.' })
-          return
+            .json({ ok: false, message: 'Usuário não autorizado.' });
+          return;
         }
       }
     } // if config object
     // ok
-    next()
-  }
-  return middleware
-}
+    next();
+  };
+  return middleware;
+};
 
 /**
  * User is logged middleware
  */
 exports.userIsLoggedMiddleware = exports.rolesMiddleware({
   userLogged: true,
-})
+});
 
 /**
  * User is admin middleware
@@ -79,7 +79,7 @@ exports.userIsLoggedMiddleware = exports.rolesMiddleware({
 exports.userIsAdminMiddleware = exports.rolesMiddleware({
   userLevel: UserModule.LEVEL_ADMIN,
   userLogged: true,
-})
+});
 
 /**
  * User is manager staff
@@ -87,7 +87,7 @@ exports.userIsAdminMiddleware = exports.rolesMiddleware({
 exports.userIsStaffMiddleware = exports.rolesMiddleware({
   userLevel: UserModule.LEVEL_STAFF,
   userLogged: true,
-})
+});
 
 /**
  * User is account middleware
@@ -95,16 +95,16 @@ exports.userIsStaffMiddleware = exports.rolesMiddleware({
 exports.userIsAccountMiddleware = exports.rolesMiddleware({
   userLevel: UserModule.LEVEL_ACCOUNT,
   userLogged: true,
-})
+});
 
 /**
  * Stores user on the middleware
  */
 exports.fetchUserMiddleware = async (req, res, next) => {
   if (req.session.user_id) {
-    req.user = await User.findByPk(req.session.user_id)
+    req.user = await User.findByPk(req.session.user_id);
   } else {
-    req.user = null
+    req.user = null;
   }
-  next()
-}
+  next();
+};

@@ -10,7 +10,7 @@
 <script>
 export default {
   props: ['entity'],
-}
+};
 </script>
 
 <style scoped></style>

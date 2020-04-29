@@ -1,7 +1,7 @@
-const xlsxFile = require('read-excel-file/node')
+const xlsxFile = require('read-excel-file/node');
 
-const USE_MOCK_DATA = true
-let excelData
+const USE_MOCK_DATA = true;
+let excelData;
 
 const schema = {
   Hospital: {
@@ -119,7 +119,7 @@ const schema = {
   //   type: String,
   //   oneOf: ['IMEDIATO', '30 DIAS'],
   // },
-}
+};
 
 // Disabled for development performance
 // ---
@@ -152,30 +152,30 @@ const mockData = [
     quantity: 40,
     notes: 'Luiz Carlos solicitou',
   },
-]
+];
 
 function getBreakdownToMatch() {
-  const input = USE_MOCK_DATA ? mockData : excelData
+  const input = USE_MOCK_DATA ? mockData : excelData;
 
   const breakdown = [
     { key: 'productName', model: 'gl_product' },
     { key: 'unitName', model: 'gl_unit' },
     { key: 'personName', model: 'gl_person' },
   ].map(item => {
-    return { ...item, list: [], modelField: item.modelField || 'name' }
-  })
+    return { ...item, list: [], modelField: item.modelField || 'name' };
+  });
 
   input.forEach(row => {
     breakdown.forEach(({ key, list }) => {
       // create list for each type of unique values
       // to avoid requesting to the db for the same ids.
-      if (list.includes(row[key])) return
-      list.push({ name: row[key] })
-    })
-  })
+      if (list.includes(row[key])) return;
+      list.push({ name: row[key] });
+    });
+  });
 
-  return breakdown
+  return breakdown;
 }
 
-exports.excelData = USE_MOCK_DATA ? mockData : excelData
-exports.breakdownToMatch = getBreakdownToMatch()
+exports.excelData = USE_MOCK_DATA ? mockData : excelData;
+exports.breakdownToMatch = getBreakdownToMatch();

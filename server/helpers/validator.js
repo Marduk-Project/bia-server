@@ -1,91 +1,91 @@
-const moment = require('moment')
+const moment = require('moment');
 
 exports.isCNPJ_Num = cnpj => {
   if (cnpj == null) {
-    return false
+    return false;
   }
   if (cnpj == undefined) {
-    return false
+    return false;
   }
   if (cnpj == '') {
-    return false
+    return false;
   }
-  var numeros, digitos, soma, i, resultado, pos, tamanho, digitos_iguais
+  var numeros, digitos, soma, i, resultado, pos, tamanho, digitos_iguais;
   if (cnpj.length != 14) {
-    return false
+    return false;
   }
-  digitos_iguais = true
+  digitos_iguais = true;
   for (i = 0; i < cnpj.length - 1; i++) {
     if (cnpj.charAt(i) != cnpj.charAt(i + 1)) {
-      digitos_iguais = false
-      break
+      digitos_iguais = false;
+      break;
     }
   }
   if (digitos_iguais) {
-    return false
+    return false;
   }
-  tamanho = cnpj.length - 2
-  numeros = cnpj.substring(0, tamanho)
-  digitos = cnpj.substring(tamanho)
-  soma = 0
-  pos = tamanho - 7
+  tamanho = cnpj.length - 2;
+  numeros = cnpj.substring(0, tamanho);
+  digitos = cnpj.substring(tamanho);
+  soma = 0;
+  pos = tamanho - 7;
   for (i = tamanho; i >= 1; i--) {
-    soma += numeros.charAt(tamanho - i) * pos--
+    soma += numeros.charAt(tamanho - i) * pos--;
     if (pos < 2) {
-      pos = 9
+      pos = 9;
     }
   }
-  resultado = soma % 11 < 2 ? 0 : 11 - (soma % 11)
+  resultado = soma % 11 < 2 ? 0 : 11 - (soma % 11);
   if (resultado != digitos.charAt(0)) {
-    return false
+    return false;
   }
-  tamanho = tamanho + 1
-  numeros = cnpj.substring(0, tamanho)
-  soma = 0
-  pos = tamanho - 7
+  tamanho = tamanho + 1;
+  numeros = cnpj.substring(0, tamanho);
+  soma = 0;
+  pos = tamanho - 7;
   for (i = tamanho; i >= 1; i--) {
-    soma += numeros.charAt(tamanho - i) * pos--
+    soma += numeros.charAt(tamanho - i) * pos--;
     if (pos < 2) {
-      pos = 9
+      pos = 9;
     }
   }
-  resultado = soma % 11 < 2 ? 0 : 11 - (soma % 11)
+  resultado = soma % 11 < 2 ? 0 : 11 - (soma % 11);
   if (resultado != digitos.charAt(1)) {
-    return false
+    return false;
   }
-  return true
-}
+  return true;
+};
 
 exports.isCNPJ = cnpj => {
   if (cnpj == null) {
-    return false
+    return false;
   }
   if (cnpj == undefined) {
-    return false
+    return false;
   }
   if (cnpj == '') {
-    return false
+    return false;
   }
   if (cnpj.length != 18) {
-    return false
+    return false;
   }
-  var regex = /^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$/ //eslint-disable-line no-useless-escape
+  var regex = /^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$/; //eslint-disable-line no-useless-escape
   if (!regex.test(cnpj)) {
-    return false
+    return false;
   }
-  regex = /[\.\-\/]/g //eslint-disable-line no-useless-escape
-  return exports.isCNPJ_Num(cnpj.replace(regex, ''))
-}
+  regex = /[\.\-\/]/g; //eslint-disable-line no-useless-escape
+  return exports.isCNPJ_Num(cnpj.replace(regex, ''));
+};
 
 exports.isCPF_Num = cpf => {
   if (cpf == null) {
-    return false
+    return false;
   }
   if (cpf == undefined) {
-    return false
+    return false;
   }
   if (cpf == '') {
-    return false
+    return false;
   }
   if (
     cpf.length != 11 ||
@@ -100,83 +100,83 @@ exports.isCPF_Num = cpf => {
     cpf == '88888888888' ||
     cpf == '99999999999'
   ) {
-    return false
+    return false;
   }
-  var add = 0
-  var i
-  var rev
+  var add = 0;
+  var i;
+  var rev;
   for (i = 0; i < 9; i++) {
-    add += parseInt(cpf.charAt(i)) * (10 - i)
+    add += parseInt(cpf.charAt(i)) * (10 - i);
   }
-  rev = 11 - (add % 11)
+  rev = 11 - (add % 11);
   if (rev == 10 || rev == 11) {
-    rev = 0
+    rev = 0;
   }
   if (rev != parseInt(cpf.charAt(9))) {
-    return false
+    return false;
   }
-  add = 0
+  add = 0;
   for (i = 0; i < 10; i++) {
-    add += parseInt(cpf.charAt(i)) * (11 - i)
+    add += parseInt(cpf.charAt(i)) * (11 - i);
   }
-  rev = 11 - (add % 11)
+  rev = 11 - (add % 11);
   if (rev == 10 || rev == 11) {
-    rev = 0
+    rev = 0;
   }
   if (rev != parseInt(cpf.charAt(10))) {
-    return false
+    return false;
   }
-  return true
-}
+  return true;
+};
 
 exports.isCPF = cpf => {
   if (cpf == null) {
-    return false
+    return false;
   }
   if (cpf == undefined) {
-    return false
+    return false;
   }
   if (cpf == '') {
-    return false
+    return false;
   }
   if (cpf.length != 14) {
-    return false
+    return false;
   }
-  var regex = /^\d{3}\.\d{3}\.\d{3}\-\d{2}$/g //eslint-disable-line no-useless-escape
+  var regex = /^\d{3}\.\d{3}\.\d{3}\-\d{2}$/g; //eslint-disable-line no-useless-escape
   if (!regex.test(cpf)) {
-    return false
+    return false;
   }
-  regex = /[.-]/g
-  return exports.isCPF_Num(cpf.replace(regex, ''))
-}
+  regex = /[.-]/g;
+  return exports.isCPF_Num(cpf.replace(regex, ''));
+};
 
 exports.isDate8601 = (value, exNeeded) => {
   if (!value) {
-    return false
+    return false;
   }
   if (moment(value, moment.ISO_8601, true).isValid()) {
-    return true
+    return true;
   }
   if (exNeeded) {
-    throw new Error('Formato de data inválido!')
+    throw new Error('Formato de data inválido!');
   }
-  return false
-}
+  return false;
+};
 
 exports.isDate8601Func = (exNeeded, required) => {
   return value => {
     if (!value) {
       if (required) {
-        return false
+        return false;
       }
-      return true
+      return true;
     }
     if (moment(value, moment.ISO_8601, true).isValid()) {
-      return true
+      return true;
     }
     if (exNeeded) {
-      throw new Error('Formato de data inválido!')
+      throw new Error('Formato de data inválido!');
     }
-    return false
-  }
-}
+    return false;
+  };
+};

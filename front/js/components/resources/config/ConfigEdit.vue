@@ -48,9 +48,9 @@
 </template>
 
 <script>
-import { apiMixin } from '@mixins/api-mixin'
-import axios from '@mixins/axios-auth'
-import CrudButtons from '@libComponents/crud/CrudButtons.vue'
+import { apiMixin } from '@mixins/api-mixin';
+import axios from '@mixins/axios-auth';
+import CrudButtons from '@libComponents/crud/CrudButtons.vue';
 
 export default {
   mixins: [apiMixin],
@@ -67,60 +67,60 @@ export default {
           color_lh_low: '#00AA00',
         },
       },
-    }
+    };
   },
   methods: {
     crud_data() {
       return {
         alert: this.entity.alert,
-      }
+      };
     },
     crud_navBack() {
       this.$router.push({
         name: 'dashboard',
-      })
+      });
     },
     crud_requestEntity() {
-      var url = this.crud_url_edit
+      var url = this.crud_url_edit;
       if (!url) {
-        url = this.crud_url_base + '/edit'
+        url = this.crud_url_base + '/edit';
       }
-      this.api_loadingShow()
+      this.api_loadingShow();
       axios
         .get(url)
         .then(res => {
-          this.api_loadingHide()
-          this.entity = res.data.data
+          this.api_loadingHide();
+          this.entity = res.data.data;
         })
-        .catch(this.api_catch())
+        .catch(this.api_catch());
     },
     crud_onSaveAction() {
-      this.api_loadingShow()
+      this.api_loadingShow();
       axios
         .put(this.crud_url_base, this.crud_data())
         .then(
           this.api_thenDone(res => {
-            this.crud_navBack()
+            this.crud_navBack();
           })
         )
-        .catch(this.api_catch())
+        .catch(this.api_catch());
     },
   },
   computed: {
     crud_title() {
-      return 'Configurações da conta'
+      return 'Configurações da conta';
     },
     crud_url_base() {
-      return '/api/account/config'
+      return '/api/account/config';
     },
     crud_route_base() {
-      return 'config'
+      return 'config';
     },
   },
   mounted() {
-    this.crud_requestEntity()
+    this.crud_requestEntity();
   },
-}
+};
 </script>
 
 <style scoped></style>

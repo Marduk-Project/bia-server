@@ -1,19 +1,19 @@
-const path = require('path')
-const winston = require('winston')
-const nconf = require('nconf')
+const path = require('path');
+const winston = require('winston');
+const nconf = require('nconf');
 
-require('winston-daily-rotate-file')
+require('winston-daily-rotate-file');
 
-const { format } = require('logform')
+const { format } = require('logform');
 
 const logFormatter = format.combine(
   format.timestamp(),
   format.printf(info => {
-    return `${info.timestamp} ${info.level}: ${info.message}`
+    return `${info.timestamp} ${info.level}: ${info.message}`;
   })
-)
+);
 
-const logPath = path.join(__dirname, '../../logs')
+const logPath = path.join(__dirname, '../../logs');
 
 const logger = winston.createLogger({
   level: 'info',
@@ -35,7 +35,7 @@ const logger = winston.createLogger({
     }),
   ],
   exitOnError: false,
-})
+});
 
 if (nconf.get('NODE_ENV') !== 'production') {
   logger.add(
@@ -45,7 +45,7 @@ if (nconf.get('NODE_ENV') !== 'production') {
       format: winston.format.simple(),
       colorize: true,
     })
-  )
+  );
 }
 
-exports.logger = logger
+exports.logger = logger;

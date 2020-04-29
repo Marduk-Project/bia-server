@@ -1,10 +1,10 @@
-'use strict'
+'use strict';
 
-const tableName = 'gl_person'
+const tableName = 'gl_person';
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    const transaction = await queryInterface.sequelize.transaction()
+    const transaction = await queryInterface.sequelize.transaction();
     try {
       await queryInterface.createTable(
         tableName,
@@ -66,28 +66,28 @@ module.exports = {
         {
           transaction: transaction,
         }
-      )
+      );
       // indexes
       await queryInterface.addIndex(tableName, ['name'], {
         name: `${tableName}_name_idx`,
         transaction: transaction,
-      })
+      });
       await queryInterface.addIndex(tableName, ['shortname'], {
         name: `${tableName}_shortname_idx`,
         transaction: transaction,
-      })
+      });
       await queryInterface.addIndex(tableName, ['legalIdentifierCode'], {
         name: `${tableName}_legalIdentifierCode_idx`,
         transaction: transaction,
-      })
+      });
       await queryInterface.addIndex(tableName, ['latitude', 'longitude'], {
         name: `${tableName}_latlng_idx`,
         transaction: transaction,
-      })
+      });
       await queryInterface.addIndex(tableName, ['longitude', 'latitude'], {
         name: `${tableName}_lnglat_idx`,
         transaction: transaction,
-      })
+      });
       await queryInterface.addIndex(
         tableName,
         ['cityId', 'addressNeighborhood', 'name'],
@@ -95,23 +95,23 @@ module.exports = {
           name: `${tableName}_cityId_neighbor_idx`,
           transaction: transaction,
         }
-      )
-      await transaction.commit()
+      );
+      await transaction.commit();
     } catch (err) {
-      await transaction.rollback()
-      throw err
+      await transaction.rollback();
+      throw err;
     }
   },
   down: async (queryInterface, Sequelize) => {
-    const transaction = await queryInterface.sequelize.transaction()
+    const transaction = await queryInterface.sequelize.transaction();
     try {
       await queryInterface.dropTable(tableName, {
         transaction: transaction,
-      })
-      await transaction.commit()
+      });
+      await transaction.commit();
     } catch (err) {
-      await transaction.rollback()
-      throw err
+      await transaction.rollback();
+      throw err;
     }
   },
-}
+};

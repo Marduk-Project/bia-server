@@ -1,25 +1,25 @@
-const nconf = require('nconf')
-const { Sequelize, DataTypes } = require('sequelize')
+const nconf = require('nconf');
+const { Sequelize, DataTypes } = require('sequelize');
 
-const { mainDb } = require('../database/main_connection')
-const { BaseModel, jsonSerializer } = require('./base_model')
+const { mainDb } = require('../database/main_connection');
+const { BaseModel, jsonSerializer } = require('./base_model');
 
 const {
   model: FieldModel,
   jsonSerializer: fieldJsonSerializer,
   DESTINATION_GL_PERSON,
-} = require('./gl_field')
+} = require('./gl_field');
 const {
   model: FieldItemModel,
   jsonSerializer: fieldItemJsonSerializer,
-} = require('./gl_field_item')
+} = require('./gl_field_item');
 const {
   model: PersonModel,
   jsonSerializer: personJsonSerializer,
-} = require('./gl_person')
+} = require('./gl_person');
 
 // model
-const modelName = 'gl_person_field'
+const modelName = 'gl_person_field';
 class MyModel extends BaseModel {}
 
 MyModel.init(
@@ -59,33 +59,33 @@ MyModel.init(
     modelName: modelName,
     tableName: modelName,
   }
-)
+);
 
 // relations
 FieldModel.hasMany(MyModel, {
   foreignKey: 'fieldId',
   as: 'personFields',
-})
+});
 MyModel.belongsTo(FieldModel, {
   foreignKey: 'fieldId',
   as: 'field',
-})
+});
 FieldItemModel.hasMany(MyModel, {
   foreignKey: 'fieldItemId',
   as: 'personFields',
-})
+});
 MyModel.belongsTo(FieldItemModel, {
   foreignKey: 'fieldItemId',
   as: 'fieldItem',
-})
+});
 PersonModel.hasMany(MyModel, {
   foreignKey: 'personId',
   as: 'fields',
-})
+});
 MyModel.belongsTo(PersonModel, {
   foreignKey: 'personId',
   as: 'person',
-})
+});
 
 // scopes
 const scopes = {
@@ -100,19 +100,19 @@ const scopes = {
     person: async (value, scopeName) =>
       await personJsonSerializer(value, scopeName),
   },
-}
+};
 
-exports.model = MyModel
-exports.modelName = modelName
+exports.model = MyModel;
+exports.modelName = modelName;
 exports.jsonSerializer = async (value, scopeName) => {
   if (!scopeName) {
-    scopeName = 'def'
+    scopeName = 'def';
   }
   if (!scopes[scopeName]) {
-    scopeName = 'def'
+    scopeName = 'def';
   }
-  return await jsonSerializer(value, scopes[scopeName], scopeName)
-}
+  return await jsonSerializer(value, scopes[scopeName], scopeName);
+};
 
 /**
  * Find or create the fields for this person
@@ -127,8 +127,8 @@ exports.findAllOrCreateByPerson = async personId => {
       ['order', 'asc'],
       ['name', 'asc'],
     ],
-  })
-  let list = []
+  });
+  let list = [];
   await Promise.all(
     fieldList.map(async field => {
       const load = async () => {
@@ -138,30 +138,30 @@ exports.findAllOrCreateByPerson = async personId => {
             fieldId: field.id,
           },
           include: ['field', 'fieldItem'],
-        })
-      }
-      let entity = await load()
+        });
+      };
+      let entity = await load();
       if (!entity) {
         entity = MyModel.build({
           personId: personId,
           fieldId: field.id,
-        })
-        await entity.save()
-        entity = await load()
+        });
+        await entity.save();
+        entity = await load();
       }
-      list.push(entity)
+      list.push(entity);
     })
-  )
+  );
   // need to sort, promisse is async
   list = list.sort((a, b) => {
     if (a.field.order == b.field.order) {
       if (a.field.name < b.field.name) {
-        return -1
+        return -1;
       }
-      return 1
+      return 1;
     }
     // todo tratar acentos
-    return a.field.order - b.field.order
-  })
-  return list
-}
+    return a.field.order - b.field.order;
+  });
+  return list;
+};

@@ -71,8 +71,8 @@
 </template>
 
 <script>
-import { crudMixin } from '@mixins/crud-mixin'
-import axios from '@mixins/axios-auth'
+import { crudMixin } from '@mixins/crud-mixin';
+import axios from '@mixins/axios-auth';
 
 export default {
   mixins: [crudMixin],
@@ -86,7 +86,7 @@ export default {
         unit: null,
         // objects
       },
-    }
+    };
   },
   methods: {
     crud_data() {
@@ -95,32 +95,32 @@ export default {
         nameSingular: this.entity.nameSingular,
         namePlural: this.entity.namePlural,
         unit: this.entity.unit,
-      }
+      };
     },
     crud_validate() {
-      return true
+      return true;
     },
   },
   computed: {
     crud_title() {
-      var ok = this.entity != null
+      var ok = this.entity != null;
       if (ok) {
-        ok = this.entity.name != null
+        ok = this.entity.name != null;
       }
       if (ok) {
-        return '' + this.entity.name
+        return '' + this.entity.name;
       } else {
-        return 'Cadastro de Unidade'
+        return 'Cadastro de Unidade';
       }
     },
     crud_url_base() {
-      return '/api/admin/gl_unit'
+      return '/api/admin/gl_unit';
     },
     crud_route_base() {
-      return 'gl_unit'
+      return 'gl_unit';
     },
   },
-}
+};
 </script>
 
 <style scoped></style>

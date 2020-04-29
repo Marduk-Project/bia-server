@@ -1,45 +1,45 @@
-const nconf = require('nconf')
-const { Sequelize, DataTypes } = require('sequelize')
+const nconf = require('nconf');
+const { Sequelize, DataTypes } = require('sequelize');
 
-const { mainDb } = require('../database/main_connection')
-const { BaseModel, jsonSerializer } = require('./base_model')
+const { mainDb } = require('../database/main_connection');
+const { BaseModel, jsonSerializer } = require('./base_model');
 
 const {
   model: PersonModel,
   jsonSerializer: personJsonSerializer,
-} = require('./gl_person')
+} = require('./gl_person');
 const {
   model: UserModel,
   jsonSerializer: userJsonSerializer,
-} = require('./gl_user')
+} = require('./gl_user');
 
 // legalType
-const LEVEL_ADMIN = 1
-const LEVEL_STAFF = 5
-const LEVEL_NORMAL = 10
+const LEVEL_ADMIN = 1;
+const LEVEL_STAFF = 5;
+const LEVEL_NORMAL = 10;
 
-exports.LEVEL_ADMIN = LEVEL_ADMIN
-exports.LEVEL_STAFF = LEVEL_STAFF
-exports.LEVEL_NORMAL = LEVEL_NORMAL
-exports.LEVEL_ALL = [LEVEL_ADMIN, LEVEL_STAFF, LEVEL_NORMAL]
+exports.LEVEL_ADMIN = LEVEL_ADMIN;
+exports.LEVEL_STAFF = LEVEL_STAFF;
+exports.LEVEL_NORMAL = LEVEL_NORMAL;
+exports.LEVEL_ALL = [LEVEL_ADMIN, LEVEL_STAFF, LEVEL_NORMAL];
 
 const levelToString = value => {
   switch (parseInt(value)) {
     case LEVEL_ADMIN:
-      return 'Administrador'
+      return 'Administrador';
 
     case LEVEL_STAFF:
-      return 'Gestão'
+      return 'Gestão';
 
     case LEVEL_NORMAL:
-      return 'Normal'
+      return 'Normal';
   }
-  return 'Desconhecido'
-}
-exports.levelToString = levelToString
+  return 'Desconhecido';
+};
+exports.levelToString = levelToString;
 
 // model
-const modelName = 'gl_person_contact'
+const modelName = 'gl_person_contact';
 class MyModel extends BaseModel {}
 
 MyModel.init(
@@ -71,7 +71,7 @@ MyModel.init(
     levelDesc: {
       type: new DataTypes.VIRTUAL(DataTypes.STRING, ['level']),
       get: function () {
-        return levelToString(this.get('level'))
+        return levelToString(this.get('level'));
       },
     },
     canRegisterPPERequest: {
@@ -85,34 +85,34 @@ MyModel.init(
     modelName: modelName,
     tableName: modelName,
   }
-)
+);
 
 PersonModel.hasMany(MyModel, {
   foreignKey: 'personId',
   as: 'contacts',
-})
+});
 MyModel.belongsTo(PersonModel, {
   foreignKey: 'personId',
   as: 'person',
-})
+});
 
 PersonModel.hasMany(MyModel, {
   foreignKey: 'personReferenceId',
   as: 'contactReferences',
-})
+});
 MyModel.belongsTo(PersonModel, {
   foreignKey: 'personReferenceId',
   as: 'personReference',
-})
+});
 
 UserModel.hasMany(MyModel, {
   foreignKey: 'userId',
   as: 'personContacts',
-})
+});
 MyModel.belongsTo(UserModel, {
   foreignKey: 'userId',
   as: 'user',
-})
+});
 
 const scopes = {
   def: {
@@ -128,16 +128,16 @@ const scopes = {
         await userJsonSerializer(value, scopeName),
     },
   },
-}
+};
 
-exports.model = MyModel
-exports.modelName = modelName
+exports.model = MyModel;
+exports.modelName = modelName;
 exports.jsonSerializer = async (value, scopeName) => {
   if (!scopeName) {
-    scopeName = 'def'
+    scopeName = 'def';
   }
   if (!scopes[scopeName]) {
-    scopeName = 'def'
+    scopeName = 'def';
   }
-  return await jsonSerializer(value, scopes[scopeName], scopeName)
-}
+  return await jsonSerializer(value, scopes[scopeName], scopeName);
+};

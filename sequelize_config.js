@@ -1,10 +1,10 @@
-const nconf = require('nconf')
-const config = require('./config.js') // necessario
+const nconf = require('nconf');
+const config = require('./config.js'); // necessario
 
 const useSSL =
   typeof nconf.get('MAINDB_SSL') == 'boolean'
     ? nconf.get('MAINDB_SSL')
-    : nconf.get('MAINDB_SSL') == 'true'
+    : nconf.get('MAINDB_SSL') == 'true';
 
 module.exports = {
   development: {
@@ -46,4 +46,4 @@ module.exports = {
       ssl: useSSL,
     },
   },
-}
+};

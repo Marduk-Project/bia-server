@@ -1,10 +1,10 @@
-'use strict'
+'use strict';
 
-const tableName = 'gl_person_contact'
+const tableName = 'gl_person_contact';
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    const transaction = await queryInterface.sequelize.transaction()
+    const transaction = await queryInterface.sequelize.transaction();
     try {
       await queryInterface.createTable(
         tableName,
@@ -71,40 +71,40 @@ module.exports = {
         {
           transaction: transaction,
         }
-      )
+      );
       // indexes
       await queryInterface.addIndex(tableName, ['name'], {
         name: `${tableName}_name_idx`,
         transaction: transaction,
-      })
+      });
       await queryInterface.addIndex(tableName, ['userId'], {
         name: `${tableName}_userId_idx`,
         transaction: transaction,
-      })
+      });
       await queryInterface.addIndex(tableName, ['personId'], {
         name: `${tableName}_personId_idx`,
         transaction: transaction,
-      })
+      });
       await queryInterface.addIndex(tableName, ['personReferenceId'], {
         name: `${tableName}_personReferenceId_idx`,
         transaction: transaction,
-      })
-      await transaction.commit()
+      });
+      await transaction.commit();
     } catch (err) {
-      await transaction.rollback()
-      throw err
+      await transaction.rollback();
+      throw err;
     }
   },
   down: async (queryInterface, Sequelize) => {
-    const transaction = await queryInterface.sequelize.transaction()
+    const transaction = await queryInterface.sequelize.transaction();
     try {
       await queryInterface.dropTable(tableName, {
         transaction: transaction,
-      })
-      await transaction.commit()
+      });
+      await transaction.commit();
     } catch (err) {
-      await transaction.rollback()
-      throw err
+      await transaction.rollback();
+      throw err;
     }
   },
-}
+};

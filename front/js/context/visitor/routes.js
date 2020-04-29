@@ -1,12 +1,12 @@
 // basics
 // import Dashboard from '../../components/customer/Dashboard.vue';
-import Header from '../../components/visitor/Header.vue'
-import NotFound from '../../components/common/NotFound.vue'
-import Footer from '../../components/common/Footer.vue'
-import Login from '../../components/visitor/auth/Login.vue'
-import Logout from '../../components/visitor/auth/Logout.vue'
-import RecoverRequest from '../../components/visitor/auth/RecoverRequest.vue'
-import RecoverChangePwd from '../../components/visitor/auth/RecoverChangePwd.vue'
+import Header from '../../components/visitor/Header.vue';
+import NotFound from '../../components/common/NotFound.vue';
+import Footer from '../../components/common/Footer.vue';
+import Login from '../../components/visitor/auth/Login.vue';
+import Logout from '../../components/visitor/auth/Logout.vue';
+import RecoverRequest from '../../components/visitor/auth/RecoverRequest.vue';
+import RecoverChangePwd from '../../components/visitor/auth/RecoverChangePwd.vue';
 // generator-inject-new-file-here
 // account
 // import MeusDados from '../components/customer/MeusDados.vue';
@@ -40,4 +40,4 @@ export default [
     path: '*',
     components: { default: NotFound, header: Header, footer: Footer },
   },
-]
+];

@@ -1,22 +1,22 @@
-const validator = require('validator')
-const { Sequelize, Model } = require('sequelize')
-const _ = require('lodash')
-const util = require('util')
+const validator = require('validator');
+const { Sequelize, Model } = require('sequelize');
+const _ = require('lodash');
+const util = require('util');
 
-const PAGINATION_PER_PAGE = 100
-const { mainDb } = require('../database/main_connection')
-const ApiError = require('../middlewares/error-mid').ApiError
+const PAGINATION_PER_PAGE = 100;
+const { mainDb } = require('../database/main_connection');
+const ApiError = require('../middlewares/error-mid').ApiError;
 
 const sanitizePage = page => {
   if (typeof page != 'number') {
     try {
-      page = parseInt(page || 1)
+      page = parseInt(page || 1);
     } catch (err) {
-      page = 1
+      page = 1;
     }
   }
-  return Math.max(page, 1)
-}
+  return Math.max(page, 1);
+};
 
 /**
  * Alter query options to put limit and offset for page
@@ -26,18 +26,18 @@ const sanitizePage = page => {
  * @returns {object} queryOptions
  */
 const setLimitOffsetForPage = (page, queryOptions, itemsPerPage) => {
-  page = sanitizePage(page)
+  page = sanitizePage(page);
   if (!itemsPerPage) {
-    itemsPerPage = PAGINATION_PER_PAGE
+    itemsPerPage = PAGINATION_PER_PAGE;
   }
   if (!queryOptions) {
-    queryOptions = { limit: 0, offset: 0 }
+    queryOptions = { limit: 0, offset: 0 };
   }
-  queryOptions.offset = (page - 1) * itemsPerPage
-  queryOptions.limit = itemsPerPage
-  return queryOptions
-}
-exports.setLimitOffsetForPage = setLimitOffsetForPage
+  queryOptions.offset = (page - 1) * itemsPerPage;
+  queryOptions.limit = itemsPerPage;
+  return queryOptions;
+};
+exports.setLimitOffsetForPage = setLimitOffsetForPage;
 
 /**
  * Creates the std pagination meta object
@@ -49,15 +49,15 @@ exports.setLimitOffsetForPage = setLimitOffsetForPage
  * @returns {object} paginateMeta
  */
 const paginateMeta = (queryResult, page, itemsPerPage) => {
-  let totalCount = 0
+  let totalCount = 0;
   if (queryResult) {
-    totalCount = queryResult.count ? queryResult.count : 0
+    totalCount = queryResult.count ? queryResult.count : 0;
   }
-  page = sanitizePage(page)
+  page = sanitizePage(page);
   if (!itemsPerPage) {
-    itemsPerPage = PAGINATION_PER_PAGE
+    itemsPerPage = PAGINATION_PER_PAGE;
   }
-  const toTmp = page * itemsPerPage
+  const toTmp = page * itemsPerPage;
   return {
     from: (page - 1) * itemsPerPage + 1,
     to: totalCount < toTmp ? totalCount : toTmp,
@@ -65,15 +65,15 @@ const paginateMeta = (queryResult, page, itemsPerPage) => {
     current_page: page,
     per_page: itemsPerPage,
     last_page: Math.ceil(totalCount / itemsPerPage),
-  }
-}
-exports.paginateMeta = paginateMeta
+  };
+};
+exports.paginateMeta = paginateMeta;
 
 // TODO pagination / pagination meta
 // id exists
 // id exists func
 
-exports.PAGINATION_PER_PAGE = PAGINATION_PER_PAGE
+exports.PAGINATION_PER_PAGE = PAGINATION_PER_PAGE;
 
 class BaseModel extends Model {
   /**
@@ -84,7 +84,7 @@ class BaseModel extends Model {
    * @returns {object} queryOptions
    */
   static setLimitOffsetForPage(page, queryOptions, itemsPerPage) {
-    return setLimitOffsetForPage(page, queryOptions, itemsPerPage)
+    return setLimitOffsetForPage(page, queryOptions, itemsPerPage);
   }
 
   /**
@@ -97,7 +97,7 @@ class BaseModel extends Model {
    * @returns {object} paginateMeta
    */
   static paginateMeta(queryResult, page, itemsPerPage) {
-    return paginateMeta(queryResult, page, itemsPerPage)
+    return paginateMeta(queryResult, page, itemsPerPage);
   }
 
   /**
@@ -108,17 +108,17 @@ class BaseModel extends Model {
    */
   static async idExists(id, scope) {
     if (!validator.isInt(id)) {
-      throw new ApiError('Is not an ID.')
+      throw new ApiError('Is not an ID.');
     }
     if (scope) {
-      const count = await this.scope(scope).count({ where: { id: id } })
-      return count > 0
+      const count = await this.scope(scope).count({ where: { id: id } });
+      return count > 0;
     }
-    return (await this.count({ where: { id: id } })) > 0
+    return (await this.count({ where: { id: id } })) > 0;
   }
 }
 
-exports.BaseModel = BaseModel
+exports.BaseModel = BaseModel;
 
 /**
  * JSON parser
@@ -132,41 +132,41 @@ exports.BaseModel = BaseModel
  */
 const jsonSerializer = async (rs, options, scopeName) => {
   if (!rs) {
-    return rs
+    return rs;
   }
   if (!options) {
-    options = {}
+    options = {};
   }
   if (_.isArray(rs)) {
-    let rsList = []
+    let rsList = [];
     await Promise.all(
       rs.map(async item => {
-        rsList.push(await jsonSerializer(item, options, scopeName))
+        rsList.push(await jsonSerializer(item, options, scopeName));
       })
-    )
-    return rsList
+    );
+    return rsList;
   } else {
-    let json = rs instanceof Model ? rs.toJSON() : rs
+    let json = rs instanceof Model ? rs.toJSON() : rs;
     if (options.include) {
-      json = _.pick(json, options.include)
+      json = _.pick(json, options.include);
     }
     if (options.exclude) {
-      json = _.omit(json, options.exclude)
+      json = _.omit(json, options.exclude);
     }
     if (options.maps) {
       await Promise.all(
         Object.keys(options.maps).map(async key => {
-          const item = options.maps[key]
+          const item = options.maps[key];
           if (util.types.isAsyncFunction(item) || util.types.isPromise(item)) {
-            json[key] = await item(json[key], scopeName, json)
+            json[key] = await item(json[key], scopeName, json);
           } else {
-            json[key] = item(json[key], scopeName, json)
+            json[key] = item(json[key], scopeName, json);
           }
         })
-      )
+      );
     }
-    return json
+    return json;
   }
-}
+};
 
-exports.jsonSerializer = jsonSerializer
+exports.jsonSerializer = jsonSerializer;

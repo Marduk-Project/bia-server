@@ -67,11 +67,11 @@
 </template>
 
 <script>
-import { crudMixin } from '@mixins/crud-mixin'
-import axios from '@mixins/axios-auth'
+import { crudMixin } from '@mixins/crud-mixin';
+import axios from '@mixins/axios-auth';
 
-import FieldSelect from '@resources/gl_field/FieldSelect.vue'
-import FieldItemSelect from '@resources/gl_field_item/FieldItemSelect.vue'
+import FieldSelect from '@resources/gl_field/FieldSelect.vue';
+import FieldItemSelect from '@resources/gl_field_item/FieldItemSelect.vue';
 
 export default {
   mixins: [crudMixin],
@@ -94,7 +94,7 @@ export default {
         fieldItem: null,
         person: null,
       },
-    }
+    };
   },
   methods: {
     crud_data() {
@@ -106,39 +106,39 @@ export default {
         valueInt: this.entity.valueInt,
         valueDouble: this.entity.valueDouble,
         valueBoolean: !!this.entity.valueBoolean,
-      }
+      };
     },
     crud_validate() {
       if (!this.entity.field) {
-        this.notify_warning('Selecione field.')
-        return false
+        this.notify_warning('Selecione field.');
+        return false;
       }
-      return true
+      return true;
     },
     crud_requestParentEntity() {
-      return axios.get(`/api/admin/gl_person/${this.parentEntityId}/edit`)
+      return axios.get(`/api/admin/gl_person/${this.parentEntityId}/edit`);
     },
   },
   computed: {
     crud_title() {
-      var ok = this.entity != null
+      var ok = this.entity != null;
       if (ok) {
-        ok = this.entity.name != null
+        ok = this.entity.name != null;
       }
       if (ok) {
-        return '' + this.entity.name
+        return '' + this.entity.name;
       } else {
-        return 'Cadastro de gl_person_field'
+        return 'Cadastro de gl_person_field';
       }
     },
     crud_url_base() {
-      return '/api/admin/gl_person_field'
+      return '/api/admin/gl_person_field';
     },
     crud_route_base() {
-      return 'gl_person_field'
+      return 'gl_person_field';
     },
   },
-}
+};
 </script>
 
 <style scoped></style>

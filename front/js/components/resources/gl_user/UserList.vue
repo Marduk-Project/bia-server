@@ -85,8 +85,8 @@
 </template>
 
 <script>
-import { listMixin } from '@mixins/list-mixin'
-import UserLevelSelect from '@resources/gl_user/UserLevelSelect.vue'
+import { listMixin } from '@mixins/list-mixin';
+import UserLevelSelect from '@resources/gl_user/UserLevelSelect.vue';
 
 export default {
   mixins: [listMixin],
@@ -98,17 +98,17 @@ export default {
       filters: {
         level: 0,
       },
-    }
+    };
   },
   computed: {
     list_title() {
-      return 'Usuários'
+      return 'Usuários';
     },
     list_url_base() {
-      return '/api/admin/gl_user'
+      return '/api/admin/gl_user';
     },
     list_route_base() {
-      return 'gl_user'
+      return 'gl_user';
     },
   },
   methods: {
@@ -118,14 +118,14 @@ export default {
         '?page=' +
         page +
         '&q=' +
-        encodeURIComponent(this.searchText ? this.searchText : '')
+        encodeURIComponent(this.searchText ? this.searchText : '');
       if (this.filters.level > 0) {
-        url += `&level=${this.filters.level}`
+        url += `&level=${this.filters.level}`;
       }
-      return url
+      return url;
     },
   },
-}
+};
 </script>
 
 <style scoped></style>

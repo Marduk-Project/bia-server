@@ -50,8 +50,8 @@
 </template>
 
 <script>
-import { crudMixin } from '@mixins/crud-mixin'
-import axios from '@mixins/axios-auth'
+import { crudMixin } from '@mixins/crud-mixin';
+import axios from '@mixins/axios-auth';
 
 export default {
   mixins: [crudMixin],
@@ -66,7 +66,7 @@ export default {
         // objects
         state: null,
       },
-    }
+    };
   },
   methods: {
     crud_data() {
@@ -75,48 +75,48 @@ export default {
         code: this.entity.code,
         type: this.$route.params.type,
         stateId: this.parentEntityId,
-      }
+      };
     },
     crud_validate() {
-      return true
+      return true;
     },
     crud_requestParentEntity() {
-      return axios.get(`/api/admin/gl_state/${this.parentEntityId}/edit`)
+      return axios.get(`/api/admin/gl_state/${this.parentEntityId}/edit`);
     },
   },
   computed: {
     crud_subtitle() {
       switch (this.$route.params.type) {
         case 'meso':
-          return 'Mesorregião'
+          return 'Mesorregião';
 
         case 'micro':
-          return 'Microrregião'
+          return 'Microrregião';
 
         case 'dre':
-          return 'Região DRE'
+          return 'Região DRE';
       }
-      return 'Desconhecido'
+      return 'Desconhecido';
     },
     crud_title() {
-      var ok = this.entity != null
+      var ok = this.entity != null;
       if (ok) {
-        ok = this.entity.name != null
+        ok = this.entity.name != null;
       }
       if (ok) {
-        return '' + this.entity.name
+        return '' + this.entity.name;
       } else {
-        return `Cadastro de ${this.crud_subtitle}`
+        return `Cadastro de ${this.crud_subtitle}`;
       }
     },
     crud_url_base() {
-      return '/api/admin/gl_state_region'
+      return '/api/admin/gl_state_region';
     },
     crud_route_base() {
-      return 'gl_state_region'
+      return 'gl_state_region';
     },
   },
-}
+};
 </script>
 
 <style scoped></style>

@@ -80,10 +80,10 @@
 </template>
 
 <script>
-import { listMixin } from '@mixins/list-mixin'
-import axios from '@mixins/axios-auth'
-import _ from 'lodash'
-import FieldDestinationSelect from '@resources/gl_field/FieldDestinationSelect.vue'
+import { listMixin } from '@mixins/list-mixin';
+import axios from '@mixins/axios-auth';
+import _ from 'lodash';
+import FieldDestinationSelect from '@resources/gl_field/FieldDestinationSelect.vue';
 
 export default {
   mixins: [listMixin],
@@ -95,31 +95,31 @@ export default {
       filters: {
         destination: 'gl_person',
       },
-    }
+    };
   },
   computed: {
     list_title() {
-      return 'Campos dinâmicos'
+      return 'Campos dinâmicos';
     },
     list_url_base() {
-      return '/api/admin/gl_field'
+      return '/api/admin/gl_field';
     },
     list_route_base() {
-      return 'gl_field'
+      return 'gl_field';
     },
   },
   methods: {
     list_buildURL(page) {
       let url = `${this.list_url_base}?page=${page}&q=${encodeURIComponent(
         this.searchText
-      )}`
+      )}`;
       if (this.filters.destination) {
-        url += `&destination=${this.filters.destination}`
+        url += `&destination=${this.filters.destination}`;
       }
-      return url
+      return url;
     },
   },
-}
+};
 </script>
 
 <style scoped></style>

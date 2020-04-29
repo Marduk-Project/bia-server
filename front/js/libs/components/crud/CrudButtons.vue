@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import DeleteModal from '@libComponents/crud/DeleteModal.vue'
+import DeleteModal from '@libComponents/crud/DeleteModal.vue';
 
 export default {
   components: {
@@ -43,16 +43,16 @@ export default {
   },
   methods: {
     onSaveClick() {
-      this.$emit('onSave')
+      this.$emit('onSave');
     },
     onDeleteClick() {
-      this.$refs.modal.show()
+      this.$refs.modal.show();
     },
     onDeleteAction() {
-      this.$emit('onDelete')
+      this.$emit('onDelete');
     },
   },
-}
+};
 </script>
 
 <style scoped></style>

@@ -1,6 +1,6 @@
-import { Bar, mixins } from 'vue-chartjs'
-const { reactiveProp } = mixins
-import _ from 'lodash'
+import { Bar, mixins } from 'vue-chartjs';
+const { reactiveProp } = mixins;
+import _ from 'lodash';
 
 export default {
   extends: Bar,
@@ -25,14 +25,14 @@ export default {
           ],
         },
         maintainAspectRatio: false,
-      }
+      };
       if (this.options) {
-        _.merge(options, this.options)
+        _.merge(options, this.options);
       }
-      return options
+      return options;
     },
   },
   mounted() {
-    this.renderChart(this.chartData, this.computedOptions)
+    this.renderChart(this.chartData, this.computedOptions);
   },
-}
+};

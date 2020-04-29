@@ -87,12 +87,12 @@
 </template>
 
 <script>
-import { listMixin } from '@mixins/list-mixin'
-import axios from '@mixins/axios-auth'
-import _ from 'lodash'
+import { listMixin } from '@mixins/list-mixin';
+import axios from '@mixins/axios-auth';
+import _ from 'lodash';
 
-import FieldSelect from '@resources/gl_field/FieldSelect.vue'
-import FieldItemSelect from '@resources/gl_field_item/FieldItemSelect.vue'
+import FieldSelect from '@resources/gl_field/FieldSelect.vue';
+import FieldItemSelect from '@resources/gl_field_item/FieldItemSelect.vue';
 
 export default {
   mixins: [listMixin],
@@ -106,38 +106,38 @@ export default {
         field: null,
         fieldItem: null,
       },
-    }
+    };
   },
   computed: {
     list_title() {
-      return 'Título gl_person_field'
+      return 'Título gl_person_field';
     },
     list_url_base() {
-      return '/api/admin/gl_person_field'
+      return '/api/admin/gl_person_field';
     },
     list_route_base() {
-      return 'gl_person_field'
+      return 'gl_person_field';
     },
   },
   methods: {
     list_buildURL(page) {
       let url = `${this.list_url_base}?page=${page}&q=${encodeURIComponent(
         this.searchText
-      )}`
+      )}`;
       if (this.filters.field) {
-        url += `&fieldId=${this.filters.field.id}`
+        url += `&fieldId=${this.filters.field.id}`;
       }
       if (this.filters.fieldItem) {
-        url += `&fieldItemId=${this.filters.fieldItem.id}`
+        url += `&fieldItemId=${this.filters.fieldItem.id}`;
       }
-      url += `&personId=${this.parentEntityId}`
-      return url
+      url += `&personId=${this.parentEntityId}`;
+      return url;
     },
     list_requestParentEntity() {
-      return axios.get(`/api/admin/gl_person/${this.parentEntityId}/edit`)
+      return axios.get(`/api/admin/gl_person/${this.parentEntityId}/edit`);
     },
   },
-}
+};
 </script>
 
 <style scoped></style>

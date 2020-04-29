@@ -191,7 +191,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters } from 'vuex';
 
 export default {
   computed: {
@@ -203,10 +203,10 @@ export default {
       // isEnvProduction: "isEnvProduction"
     }),
     app_current_name() {
-      return window.app_short_name
+      return window.app_short_name;
     },
   },
-}
+};
 </script>
 
 <style scoped>

@@ -1,3 +1,3 @@
-const { importToDatabase } = require('./import-to-database')
+const { importToDatabase } = require('./import-to-database');
 
-importToDatabase(false)
+importToDatabase(false);

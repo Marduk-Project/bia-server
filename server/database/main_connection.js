@@ -1,12 +1,12 @@
-const logger = require('../helpers/winston').logger
-const chalk = require('chalk')
-const nconf = require('nconf')
-const { Sequelize, Op } = require('sequelize')
+const logger = require('../helpers/winston').logger;
+const chalk = require('chalk');
+const nconf = require('nconf');
+const { Sequelize, Op } = require('sequelize');
 
 const useSSL =
   typeof nconf.get('MAINDB_SSL') == 'boolean'
     ? nconf.get('MAINDB_SSL')
-    : nconf.get('MAINDB_SSL') == 'true'
+    : nconf.get('MAINDB_SSL') == 'true';
 
 const database = new Sequelize({
   dialect: nconf.get('MAINDB_DIALECT'),
@@ -27,9 +27,9 @@ const database = new Sequelize({
   dialectOptions: {
     ssl: useSSL,
   },
-})
+});
 
-let connectionWasTryed = false
+let connectionWasTryed = false;
 
 console.log(
   chalk.green(
@@ -37,19 +37,19 @@ console.log(
       'MAINDB_HOST'
     )}:${nconf.get('MAINDB_PORT')}...`
   )
-)
+);
 database
   .authenticate()
   .then(() => {
     if (process.env.NODE_ENV != 'test') {
-      console.log(chalk.green('First database connection was successful!'))
+      console.log(chalk.green('First database connection was successful!'));
     }
-    exports.mainDbConnected = true
-    connectionWasTryed = true
+    exports.mainDbConnected = true;
+    connectionWasTryed = true;
   })
   .catch(err => {
     // first time
-    connectionWasTryed = true
+    connectionWasTryed = true;
     if (process.env.NODE_ENV != 'test') {
       console.error(
         chalk.red(`
@@ -60,13 +60,13 @@ database
       * After the first connection, other attempts will recconect      *
       * automatically while the application is runing.                 *
       ******************************************************************`)
-      )
-      exports.mainDbConnected = false
-      process.exit(1)
+      );
+      exports.mainDbConnected = false;
+      process.exit(1);
     }
-  })
+  });
 
-exports.mainDb = database
+exports.mainDb = database;
 
 /**
  * @returns {Promise}
@@ -74,14 +74,14 @@ exports.mainDb = database
 exports.checkIsConnected = async resolve => {
   do {
     if (!connectionWasTryed) {
-      await new Promise(resolve => setTimeout(resolve, 500))
-      continue
+      await new Promise(resolve => setTimeout(resolve, 500));
+      continue;
     } else {
       if (resolve) {
-        resolve(exports.mainDbConnected)
+        resolve(exports.mainDbConnected);
       } else {
-        return exports.mainDbConnected
+        return exports.mainDbConnected;
       }
     }
-  } while (true)
-}
+  } while (true);
+};

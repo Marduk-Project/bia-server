@@ -100,11 +100,11 @@
 </template>
 
 <script>
-import { crudMixin } from '@mixins/crud-mixin'
-import axios from '@mixins/axios-auth'
+import { crudMixin } from '@mixins/crud-mixin';
+import axios from '@mixins/axios-auth';
 
-import FieldDestinationSelect from '@resources/gl_field/FieldDestinationSelect.vue'
-import FieldTypeSelect from '@resources/gl_field/FieldTypeSelect.vue'
+import FieldDestinationSelect from '@resources/gl_field/FieldDestinationSelect.vue';
+import FieldTypeSelect from '@resources/gl_field/FieldTypeSelect.vue';
 
 export default {
   mixins: [crudMixin],
@@ -123,7 +123,7 @@ export default {
         defaultValue: null,
         // objects
       },
-    }
+    };
   },
   methods: {
     crud_data() {
@@ -134,35 +134,35 @@ export default {
         type: this.entity.type,
         order: this.entity.order,
         defaultValue: this.entity.defaultValue,
-      }
+      };
     },
     crud_validate() {
-      return true
+      return true;
     },
     crud_shouldNavBackAfterSave() {
-      return false
+      return false;
     },
   },
   computed: {
     crud_title() {
-      var ok = this.entity != null
+      var ok = this.entity != null;
       if (ok) {
-        ok = this.entity.name != null
+        ok = this.entity.name != null;
       }
       if (ok) {
-        return '' + this.entity.name
+        return '' + this.entity.name;
       } else {
-        return 'Cadastro de Campo'
+        return 'Cadastro de Campo';
       }
     },
     crud_url_base() {
-      return '/api/admin/gl_field'
+      return '/api/admin/gl_field';
     },
     crud_route_base() {
-      return 'gl_field'
+      return 'gl_field';
     },
   },
-}
+};
 </script>
 
 <style scoped></style>

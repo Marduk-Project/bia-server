@@ -7,10 +7,10 @@ export const utilsMixin = {
      */
     utils_hexToIntColor(rrggbb) {
       if (!rrggbb) {
-        return 0
+        return 0;
       }
-      rrggbb = rrggbb.replace('#', '')
-      return parseInt(rrggbb, 16)
+      rrggbb = rrggbb.replace('#', '');
+      return parseInt(rrggbb, 16);
     },
 
     /**
@@ -19,7 +19,7 @@ export const utilsMixin = {
      * @returns {String}
      */
     utils_intColorToHex(d) {
-      return `#${this.utils_decimalToHexString(d, 6)}`
+      return `#${this.utils_decimalToHexString(d, 6)}`;
     },
 
     /**
@@ -28,16 +28,16 @@ export const utilsMixin = {
      * @returns {String}
      */
     utils_decimalToHexString(d, padding = null) {
-      let hex = Number(d).toString(16)
-      hex = hex.replace('-', '')
+      let hex = Number(d).toString(16);
+      hex = hex.replace('-', '');
       padding =
         typeof padding === 'undefined' || padding === null
           ? (padding = 2)
-          : padding
+          : padding;
       while (hex.length < padding) {
-        hex = '0' + hex
+        hex = '0' + hex;
       }
-      return hex
+      return hex;
     },
   },
-}
+};

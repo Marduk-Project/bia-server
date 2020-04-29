@@ -1,6 +1,6 @@
-const fs = require('fs')
-const { uniqBy } = require('lodash')
-const xlsxFile = require('read-excel-file/node')
+const fs = require('fs');
+const { uniqBy } = require('lodash');
+const xlsxFile = require('read-excel-file/node');
 
 const schema = {
   Item: {
@@ -11,7 +11,7 @@ const schema = {
     prop: 'isPriority',
     type: String,
     parse(value) {
-      return value === 'Prioritário'
+      return value === 'Prioritário';
     },
   },
   Tipo: {
@@ -19,9 +19,11 @@ const schema = {
     type: String,
     oneOf: ['INSUMOS', 'EQUIPAMENTOS'],
   },
-}
+};
 
-console.log('Attempting to extract data from: ./Consolidado_Demandas_1904.xlsx')
+console.log(
+  'Attempting to extract data from: ./Consolidado_Demandas_1904.xlsx'
+);
 const excelData = xlsxFile('../Consolidado_Demandas_1904.xlsx', {
   sheet: '0.Consolidado_BOLETIM',
   schema,
@@ -29,14 +31,14 @@ const excelData = xlsxFile('../Consolidado_Demandas_1904.xlsx', {
   .then(({ rows, errors }) => rows)
   .then(rows => uniqBy(rows, 'name'))
   .then(rows => rows.filter(row => Boolean(row.name && row.type)))
-  .then(writeToJSONFile)
+  .then(writeToJSONFile);
 
 function writeToJSONFile(data) {
   console.log(
     'Saving extracted date to: ./products-list-from-consolidated.json'
-  )
+  );
   return fs.writeFileSync(
     './products-list-from-consolidated.json',
     JSON.stringify(data, null, 2)
-  )
+  );
 }

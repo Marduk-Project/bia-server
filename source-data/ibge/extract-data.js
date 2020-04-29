@@ -1,5 +1,5 @@
-const fs = require('fs')
-const xlsxFile = require('read-excel-file/node')
+const fs = require('fs');
+const xlsxFile = require('read-excel-file/node');
 
 const schema = {
   UF: {
@@ -34,11 +34,11 @@ const schema = {
     prop: 'cityName',
     type: String,
   },
-}
+};
 
 console.log(
   'Attempting to extract data from: ./RELATORIO_DTB_BRASIL_MUNICIPIO.xlsx'
-)
+);
 const excelData = xlsxFile('./RELATORIO_DTB_BRASIL_MUNICIPIO.xlsx', {
   schema,
 })
@@ -46,7 +46,7 @@ const excelData = xlsxFile('./RELATORIO_DTB_BRASIL_MUNICIPIO.xlsx', {
     regions: getRegions(rows),
     cities: rows,
   }))
-  .then(writeToJSONFile)
+  .then(writeToJSONFile);
 
 const mockData = [
   {
@@ -67,37 +67,37 @@ const mockData = [
     cityCode: 500,
     cityName: 'Sena Madureira',
   },
-]
+];
 // console.log(JSON.stringify(getRegions(mockData), null, 2));
 
 function getRegions(rows) {
-  console.log('Grouping regions data...')
+  console.log('Grouping regions data...');
   return rows.reduce(
     (list, region) => {
       if (!list.meso.codes.includes(region.mesoRegionCode)) {
-        list.meso.codes.push(region.mesoRegionCode)
+        list.meso.codes.push(region.mesoRegionCode);
         list.meso.maps.push({
           code: region.mesoRegionCode,
           name: region.mesoRegionName,
-        })
+        });
       }
       if (!list.micro.codes.includes(region.microRegionCode)) {
-        list.micro.codes.push(region.microRegionCode)
+        list.micro.codes.push(region.microRegionCode);
         list.micro.maps.push({
           code: region.microRegionCode,
           name: region.microRegionName,
-        })
+        });
       }
-      return list
+      return list;
     },
     { micro: { codes: [], maps: [] }, meso: { codes: [], maps: [] } }
-  )
+  );
 }
 
 function writeToJSONFile(data) {
-  console.log('Saving extracted date to: ./cities-micro-meso-regions.json')
+  console.log('Saving extracted date to: ./cities-micro-meso-regions.json');
   return fs.writeFileSync(
     './cities-micro-meso-regions.json',
     JSON.stringify(data, null, 2)
-  )
+  );
 }

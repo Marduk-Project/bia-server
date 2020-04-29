@@ -25,10 +25,10 @@ export default {
   },
   methods: {
     onValueSelect(e) {
-      this.$emit('input', e.target.value)
+      this.$emit('input', e.target.value);
     },
   },
-}
+};
 </script>
 
 <style scoped></style>

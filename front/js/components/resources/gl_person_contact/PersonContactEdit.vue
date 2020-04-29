@@ -150,10 +150,10 @@
 </template>
 
 <script>
-import { crudMixin } from '@mixins/crud-mixin'
-import axios from '@mixins/axios-auth'
-import PersonSelect from '@resources/gl_person/PersonSelect.vue'
-import UserSelect from '@resources/gl_user/UserSelect.vue'
+import { crudMixin } from '@mixins/crud-mixin';
+import axios from '@mixins/axios-auth';
+import PersonSelect from '@resources/gl_person/PersonSelect.vue';
+import UserSelect from '@resources/gl_user/UserSelect.vue';
 
 export default {
   mixins: [crudMixin],
@@ -182,7 +182,7 @@ export default {
         personReference: null,
         user: null,
       },
-    }
+    };
   },
   methods: {
     crud_data() {
@@ -210,41 +210,41 @@ export default {
             : this.entity.person
             ? this.entity.person.id
             : null,
-      }
+      };
     },
     crud_validate() {
       if (this.origin == 'u') {
         if (!this.entity.person) {
-          this.notify_warning('Selecione uma pessoa para vicular o contato.')
-          return false
+          this.notify_warning('Selecione uma pessoa para vicular o contato.');
+          return false;
         }
       }
-      return true
+      return true;
     },
   },
   computed: {
     origin() {
-      return this.$route.params.origin
+      return this.$route.params.origin;
     },
     crud_title() {
-      var ok = this.entity != null
+      var ok = this.entity != null;
       if (ok) {
-        ok = this.entity.name != null
+        ok = this.entity.name != null;
       }
       if (ok) {
-        return '' + this.entity.name
+        return '' + this.entity.name;
       } else {
-        return 'Cadastro de Contato'
+        return 'Cadastro de Contato';
       }
     },
     crud_url_base() {
-      return '/api/admin/gl_person_contact'
+      return '/api/admin/gl_person_contact';
     },
     crud_route_base() {
-      return 'gl_person_contact'
+      return 'gl_person_contact';
     },
   },
-}
+};
 </script>
 
 <style scoped></style>

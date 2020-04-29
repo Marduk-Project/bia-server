@@ -1,41 +1,41 @@
-const nconf = require('nconf')
-const { Sequelize, DataTypes } = require('sequelize')
+const nconf = require('nconf');
+const { Sequelize, DataTypes } = require('sequelize');
 
-const { mainDb } = require('../database/main_connection')
-const { BaseModel, jsonSerializer } = require('./base_model')
+const { mainDb } = require('../database/main_connection');
+const { BaseModel, jsonSerializer } = require('./base_model');
 
 const {
   model: StateModel,
   jsonSerializer: stateJsonSerializer,
-} = require('./gl_state')
+} = require('./gl_state');
 
 // type
-const TYPE_MESO = 'meso'
-const TYPE_MICRO = 'micro'
-const TYPE_DRE = 'dre'
+const TYPE_MESO = 'meso';
+const TYPE_MICRO = 'micro';
+const TYPE_DRE = 'dre';
 
-exports.TYPE_MESO = TYPE_MESO
-exports.TYPE_MICRO = TYPE_MICRO
-exports.TYPE_DRE = TYPE_DRE
-exports.TYPE_ALL = [TYPE_MESO, TYPE_MICRO, TYPE_DRE]
+exports.TYPE_MESO = TYPE_MESO;
+exports.TYPE_MICRO = TYPE_MICRO;
+exports.TYPE_DRE = TYPE_DRE;
+exports.TYPE_ALL = [TYPE_MESO, TYPE_MICRO, TYPE_DRE];
 
 const typeToString = value => {
   switch (value) {
     case TYPE_MESO:
-      return 'Mesorregião'
+      return 'Mesorregião';
 
     case TYPE_MICRO:
-      return 'Microrregião'
+      return 'Microrregião';
 
     case TYPE_DRE:
-      return 'Região DRE'
+      return 'Região DRE';
   }
-  return 'Desconhecido'
-}
-exports.typeToString = typeToString
+  return 'Desconhecido';
+};
+exports.typeToString = typeToString;
 
 // model
-const modelName = 'gl_state_region'
+const modelName = 'gl_state_region';
 class MyModel extends BaseModel {
   static async findByIdAndTypeAndStateId(id, type, stateId) {
     return await this.findOne({
@@ -43,7 +43,7 @@ class MyModel extends BaseModel {
         id: id,
         type: type,
       },
-    })
+    });
   }
 
   static async existsByIdAndTypeStateId(id, type, stateId) {
@@ -54,7 +54,7 @@ class MyModel extends BaseModel {
           type: type,
         },
       })) > 0
-    )
+    );
   }
 }
 
@@ -105,7 +105,7 @@ MyModel.init(
     typeDesc: {
       type: new DataTypes.VIRTUAL(DataTypes.STRING, ['type']),
       get: function () {
-        return typeToString(this.get('type'))
+        return typeToString(this.get('type'));
       },
     },
   },
@@ -115,17 +115,17 @@ MyModel.init(
     modelName: modelName,
     tableName: modelName,
   }
-)
+);
 
 // relations
 StateModel.hasMany(MyModel, {
   foreignKey: 'stateId',
   as: 'regions',
-})
+});
 MyModel.belongsTo(StateModel, {
   foreignKey: 'stateId',
   as: 'state',
-})
+});
 
 // scopes
 const scopes = {
@@ -136,16 +136,16 @@ const scopes = {
     state: async (value, scopeName) =>
       await stateJsonSerializer(value, scopeName),
   },
-}
+};
 
-exports.model = MyModel
-exports.modelName = modelName
+exports.model = MyModel;
+exports.modelName = modelName;
 exports.jsonSerializer = async (value, scopeName) => {
   if (!scopeName) {
-    scopeName = 'def'
+    scopeName = 'def';
   }
   if (!scopes[scopeName]) {
-    scopeName = 'def'
+    scopeName = 'def';
   }
-  return await jsonSerializer(value, scopes[scopeName], scopeName)
-}
+  return await jsonSerializer(value, scopes[scopeName], scopeName);
+};

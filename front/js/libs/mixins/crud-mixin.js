@@ -1,8 +1,8 @@
-import axios from './axios-auth'
-import { apiMixin } from './api-mixin'
-import CrudButtons from '../components/crud/CrudButtons.vue'
-import moment from 'moment'
-import _ from 'lodash'
+import axios from './axios-auth';
+import { apiMixin } from './api-mixin';
+import CrudButtons from '../components/crud/CrudButtons.vue';
+import moment from 'moment';
+import _ from 'lodash';
 
 /**
  * Crud mixin utility
@@ -42,7 +42,7 @@ export const crudMixin = {
       parentEntity: null,
       parentEntityId: null,
       wsRequested: false,
-    }
+    };
   },
   watch: {
     /**
@@ -50,7 +50,7 @@ export const crudMixin = {
      * @param {string} title
      */
     crud_title(title) {
-      this.$store.dispatch('setTitle', title)
+      this.$store.dispatch('setTitle', title);
     },
 
     /**
@@ -59,35 +59,35 @@ export const crudMixin = {
      */
     entity(entity) {
       if (!entity) {
-        return
+        return;
       }
-      this.id = entity._id ? entity._id : entity.id
+      this.id = entity._id ? entity._id : entity.id;
     },
   },
   computed: {
     crud_hasParentEntity() {
       if (this.useRoute) {
-        return this.$route.params.parentEntityId != null
+        return this.$route.params.parentEntityId != null;
       } else {
-        return this.parentEntityIdParam != null
+        return this.parentEntityIdParam != null;
       }
     },
     // crud_title()
     // crud_url_base()
     // crud_route_base()
     crud_url_edit() {
-      return null
+      return null;
     },
     crud_scope() {
-      return null
+      return null;
     },
     crud_hasNavBackRoute() {
       if (this.useRoute) {
         if (this.$route.params.navBackRoute) {
-          return true
+          return true;
         }
       }
-      return false
+      return false;
     },
   },
   methods: {
@@ -96,7 +96,7 @@ export const crudMixin = {
      * @returns {object}
      */
     crud_data() {
-      return null
+      return null;
     },
 
     /**
@@ -104,7 +104,7 @@ export const crudMixin = {
      * @returns {boolean}
      */
     crud_validate() {
-      return true
+      return true;
     },
 
     /**
@@ -119,7 +119,7 @@ export const crudMixin = {
      * @returns {Promise}
      */
     crud_requestParentEntity() {
-      return Promise.reject('Implementar crud_requestParentEntity')
+      return Promise.reject('Implementar crud_requestParentEntity');
     },
 
     /**
@@ -129,12 +129,12 @@ export const crudMixin = {
      */
     crud_requestParentEntityParseResponse(res) {
       if (res.data.entity) {
-        return res.data.entity
+        return res.data.entity;
       }
       if (res.data.data) {
-        return res.data.data
+        return res.data.data;
       }
-      return null
+      return null;
     },
 
     /**
@@ -143,27 +143,27 @@ export const crudMixin = {
     crud_refreshEntity() {
       if (this.crud_hasParentEntity) {
         if (this.parentEntity == null) {
-          this.api_loadingShow()
+          this.api_loadingShow();
           this.crud_requestParentEntity()
             .then(res => {
               if (!this.api_parseOK(res)) {
-                return
+                return;
               }
               if (res.data.warnings) {
-                this.notify_warning(res.data.warnings)
+                this.notify_warning(res.data.warnings);
               }
               this.parentEntity = this.crud_requestParentEntityParseResponse(
                 res
-              )
-              this.api_loadingHide()
-              this.crud_refreshEntityAction()
+              );
+              this.api_loadingHide();
+              this.crud_refreshEntityAction();
             })
-            .catch(this.api_catch())
+            .catch(this.api_catch());
         } else {
-          this.crud_refreshEntityAction()
+          this.crud_refreshEntityAction();
         }
       } else {
-        this.crud_refreshEntityAction()
+        this.crud_refreshEntityAction();
       }
     },
 
@@ -172,11 +172,11 @@ export const crudMixin = {
      * @returns {Promise}
      */
     crud_requestEntity() {
-      var url = this.crud_url_edit
+      var url = this.crud_url_edit;
       if (!url) {
-        url = this.crud_url_base + '/' + this.id + '/edit'
+        url = this.crud_url_base + '/' + this.id + '/edit';
       }
-      return axios.get(url)
+      return axios.get(url);
     },
 
     /**
@@ -185,108 +185,108 @@ export const crudMixin = {
      * @returns {object}
      */
     crud_requestEntityParseResponse(res) {
-      this.wsRequested = true
+      this.wsRequested = true;
       if (res.data.entity) {
-        return res.data.entity
+        return res.data.entity;
       }
       if (res.data.data) {
-        return res.data.data
+        return res.data.data;
       }
-      return null
+      return null;
     },
 
     /**
      * Do the request only for the entity
      */
     crud_refreshEntityAction() {
-      this.api_loadingShow()
+      this.api_loadingShow();
       this.crud_requestEntity()
         .then(res => {
           if (!this.api_parseOK(res)) {
-            return
+            return;
           }
           if (res.data.warnings) {
-            this.notify_warning(res.data.warnings)
+            this.notify_warning(res.data.warnings);
           }
-          this.entity = this.crud_requestEntityParseResponse(res)
-          this.api_loadingHide()
-          this.crud_afterRefresh()
+          this.entity = this.crud_requestEntityParseResponse(res);
+          this.api_loadingHide();
+          this.crud_afterRefresh();
         })
-        .catch(this.api_catch())
+        .catch(this.api_catch());
     },
 
     /**
      * Actions for onDelete event
      */
     crud_onDeleteAction() {
-      this.api_loadingShow()
+      this.api_loadingShow();
       axios
         .delete(this.crud_url_base + '/' + this.id)
         .then(
           this.api_thenDone(res => {
-            this.changed = true
+            this.changed = true;
             if (res.data.warnings) {
-              this.notify_warning(res.data.warnings)
+              this.notify_warning(res.data.warnings);
             }
-            this.crud_navBack()
+            this.crud_navBack();
           })
         )
-        .catch(this.api_catch())
+        .catch(this.api_catch());
     },
 
     /**
      * Crud has custom request
      */
     crud_saveHasCustomRequest() {
-      return false
+      return false;
     },
 
     /**
      * build custom request
      */
     crud_saveBuildRequest() {
-      return Promise.reject('Implementar crud_saveBuildRequest()')
+      return Promise.reject('Implementar crud_saveBuildRequest()');
     },
 
     /**
      * Actions for on save event
      */
     crud_onSaveAction() {
-      var validated
+      var validated;
       if (this.crud_scope) {
-        validated = this.$validator.validateAll(this.crud_scope)
+        validated = this.$validator.validateAll(this.crud_scope);
       } else {
-        validated = this.$validator.validateAll()
+        validated = this.$validator.validateAll();
       }
       validated.then(result => {
         if (!result) {
-          this.crud_onValidateError()
-          return
+          this.crud_onValidateError();
+          return;
         }
         if (!this.crud_validate()) {
-          return
+          return;
         }
-        var ax
+        var ax;
         if (this.crud_saveHasCustomRequest()) {
-          ax = this.crud_saveBuildRequest()
+          ax = this.crud_saveBuildRequest();
         } else {
-          let data = this.crud_data()
+          let data = this.crud_data();
           if (!data) {
             this.notify_warning(
               'Implemente o metodo <b>crud_data()</b>, retornando o objeto de dados.'
-            )
-            return
+            );
+            return;
           }
-          this.api_loadingShow()
+          this.api_loadingShow();
           if (this.entity.id) {
             if (data instanceof FormData) {
               ax = axios.put(this.crud_url_base + '/' + this.id, data, {
                 headers: {
                   'Content-Type': 'multipart/form-data',
                 },
-              })
+              });
             } else {
-              ax = axios.put(this.crud_url_base + '/' + this.id, data)
+              ax = axios.put(this.crud_url_base + '/' + this.id, data);
             }
           } else {
             if (data instanceof FormData) {
@@ -294,37 +294,37 @@ export const crudMixin = {
                 headers: {
                   'Content-Type': 'multipart/form-data',
                 },
-              })
+              });
             } else {
-              ax = axios.post(this.crud_url_base, data)
+              ax = axios.post(this.crud_url_base, data);
             }
           }
         }
         ax.then(
           this.api_thenDone(res => {
-            this.changed = true
-            const entity = this.crud_requestEntityParseResponse(res)
-            const id = entity._id ? entity._id : entity.id
-            this.id = id
+            this.changed = true;
+            const entity = this.crud_requestEntityParseResponse(res);
+            const id = entity._id ? entity._id : entity.id;
+            this.id = id;
             if (res.data.warnings) {
-              this.notify_warning(res.data.warnings)
+              this.notify_warning(res.data.warnings);
             }
             if (this.crud_shouldNavBackAfterSave()) {
-              this.crud_navBack()
+              this.crud_navBack();
             } else {
               if (this.crud_shouldRefreshAfterSave()) {
-                this.crud_refreshEntity()
+                this.crud_refreshEntity();
               } else {
                 if (this.crud_shouldEditAfterSave()) {
-                  const nav = this.crud_editBuildRoute(id)
-                  this.$router.push(nav)
+                  const nav = this.crud_editBuildRoute(id);
+                  this.$router.push(nav);
                 }
               }
             }
-            this.crud_afterSave()
+            this.crud_afterSave();
           })
-        ).catch(this.api_catch())
-      })
+        ).catch(this.api_catch());
+      });
     },
 
     /**
@@ -334,12 +334,12 @@ export const crudMixin = {
     crud_navBackBuildRoute() {
       if (this.useRoute) {
         if (this.$route.params.navBackRoute) {
-          let route = this.$route.params.navBackRoute
+          let route = this.$route.params.navBackRoute;
           if (!route.params) {
-            route.params = {}
+            route.params = {};
           }
-          route.params.changed = this.changed
-          return route
+          route.params.changed = this.changed;
+          return route;
         }
       }
       return {
@@ -352,7 +352,7 @@ export const crudMixin = {
             ? this.$route.params.parentEntityId
             : this.parentEntityId,
         },
-      }
+      };
     },
 
     /**
@@ -370,14 +370,14 @@ export const crudMixin = {
             ? this.$route.params.parentEntityId
             : this.parentEntityId,
         },
-      }
+      };
     },
 
     /**
      * Execute navBack route
      */
     crud_navBack() {
-      this.$router.push(this.crud_navBackBuildRoute())
+      this.$router.push(this.crud_navBackBuildRoute());
     },
 
     /**
@@ -387,7 +387,7 @@ export const crudMixin = {
       return {
         name: this.$route.name,
         params: this.$route.params,
-      }
+      };
     },
 
     /**
@@ -409,7 +409,7 @@ export const crudMixin = {
      * @returns {boolean}
      */
     crud_shouldNavBackAfterSave() {
-      return true
+      return true;
     },
 
     /**
@@ -430,48 +430,48 @@ export const crudMixin = {
      * Callback for crud after save
      */
     crud_shouldRefreshAfterSave() {
-      return true
+      return true;
     },
 
     /**
      * Callback for crud after save
      */
     crud_shouldEditAfterSave() {
-      return false
+      return false;
     },
 
     /**
      * Moment js
      */
     crud_moment(date) {
-      return moment(date)
+      return moment(date);
     },
   },
   mounted() {
-    this.crud_beforeMount()
+    this.crud_beforeMount();
     if (this.useRoute) {
-      this.$store.dispatch('setTitle', this.crud_title)
-      this.parentEntity = this.$route.params.parentEntity
-      this.parentEntityId = this.$route.params.parentEntityId
+      this.$store.dispatch('setTitle', this.crud_title);
+      this.parentEntity = this.$route.params.parentEntity;
+      this.parentEntityId = this.$route.params.parentEntityId;
       if (this.$route.params.changed !== undefined) {
-        this.changed = this.$route.params.changed
+        this.changed = this.$route.params.changed;
       }
       if (this.$route.params.entity) {
-        _.merge(this.entity, this.$route.params.entity)
+        _.merge(this.entity, this.$route.params.entity);
         // this.entity = this.$route.params.entity;
-        this.id = this.entity._id ? this.entity._id : this.entity.id
+        this.id = this.entity._id ? this.entity._id : this.entity.id;
       } else {
-        this.id = this.$route.params.id
+        this.id = this.$route.params.id;
       }
     } else {
-      this.entity = this.entityParam
-      this.id = this.idParam
-      this.parentEntityId = this.parentEntityIdParam
+      this.entity = this.entityParam;
+      this.id = this.idParam;
+      this.parentEntityId = this.parentEntityIdParam;
     }
     // sempre busca
     if (this.id) {
-      this.crud_refreshEntity()
+      this.crud_refreshEntity();
     }
-    this.crud_afterMount()
+    this.crud_afterMount();
   },
-}
+};

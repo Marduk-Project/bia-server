@@ -19,19 +19,19 @@ export default {
   props: ['title', 'value'],
   methods: {
     onDeleteClick() {
-      this.$emit('ok', this.value)
+      this.$emit('ok', this.value);
     },
     onCancelClick() {
-      this.$emit('cancel', this.value)
+      this.$emit('cancel', this.value);
     },
     show() {
-      this.$refs.modal.show()
+      this.$refs.modal.show();
     },
     hide() {
-      this.$refs.modal.hide()
+      this.$refs.modal.hide();
     },
   },
-}
+};
 </script>
 
 <style scoped></style>

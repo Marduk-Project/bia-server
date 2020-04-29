@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import { crudMixin } from '@mixins/crud-mixin'
+import { crudMixin } from '@mixins/crud-mixin';
 
 export default {
   mixins: [crudMixin],
@@ -70,7 +70,7 @@ export default {
         code: null,
         priority: 0,
       },
-    }
+    };
   },
   methods: {
     crud_data() {
@@ -79,29 +79,29 @@ export default {
         name: this.entity.name,
         code: this.entity.code,
         priority: this.entity.priority,
-      }
+      };
     },
   },
   computed: {
     crud_title() {
-      var ok = this.entity != null
+      var ok = this.entity != null;
       if (ok) {
-        ok = this.entity.name
+        ok = this.entity.name;
       }
       if (ok) {
-        return '' + this.entity.name
+        return '' + this.entity.name;
       } else {
-        return 'Cadastro de País'
+        return 'Cadastro de País';
       }
     },
     crud_url_base() {
-      return '/api/admin/gl_country'
+      return '/api/admin/gl_country';
     },
     crud_route_base() {
-      return 'gl_country'
+      return 'gl_country';
     },
   },
-}
+};
 </script>
 
 <style scoped></style>

@@ -1,10 +1,10 @@
-'use strict'
+'use strict';
 
-const tableName = 'gl_city_state_region'
+const tableName = 'gl_city_state_region';
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    const transaction = await queryInterface.sequelize.transaction()
+    const transaction = await queryInterface.sequelize.transaction();
     try {
       await queryInterface.createTable(
         tableName,
@@ -51,32 +51,32 @@ module.exports = {
         {
           transaction: transaction,
         }
-      )
+      );
       // indexes
       await queryInterface.addIndex(tableName, ['cityId', 'type'], {
         name: `${tableName}_cityId_type_idx`,
         transaction: transaction,
-      })
+      });
       await queryInterface.addIndex(tableName, ['stateRegionId', 'type'], {
         name: `${tableName}_stateRegionId_type_idx`,
         transaction: transaction,
-      })
-      await transaction.commit()
+      });
+      await transaction.commit();
     } catch (err) {
-      await transaction.rollback()
-      throw err
+      await transaction.rollback();
+      throw err;
     }
   },
   down: async (queryInterface, Sequelize) => {
-    const transaction = await queryInterface.sequelize.transaction()
+    const transaction = await queryInterface.sequelize.transaction();
     try {
       await queryInterface.dropTable(tableName, {
         transaction: transaction,
-      })
-      await transaction.commit()
+      });
+      await transaction.commit();
     } catch (err) {
-      await transaction.rollback()
-      throw err
+      await transaction.rollback();
+      throw err;
     }
   },
-}
+};

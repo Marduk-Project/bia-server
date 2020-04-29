@@ -81,36 +81,36 @@
 </template>
 
 <script>
-import { listMixin } from '@mixins/list-mixin'
-import axios from '@mixins/axios-auth'
-import _ from 'lodash'
+import { listMixin } from '@mixins/list-mixin';
+import axios from '@mixins/axios-auth';
+import _ from 'lodash';
 
 export default {
   mixins: [listMixin],
   computed: {
     list_title() {
-      return 'Itens'
+      return 'Itens';
     },
     list_url_base() {
-      return '/api/admin/gl_field_item'
+      return '/api/admin/gl_field_item';
     },
     list_route_base() {
-      return 'gl_field_item'
+      return 'gl_field_item';
     },
   },
   methods: {
     list_buildURL(page) {
       let url = `${this.list_url_base}?page=${page}&q=${encodeURIComponent(
         this.searchText
-      )}`
-      url += `&fieldId=${this.parentEntityId}`
-      return url
+      )}`;
+      url += `&fieldId=${this.parentEntityId}`;
+      return url;
     },
     list_requestParentEntity() {
-      return axios.get(`/api/admin/gl_field/${this.parentEntityId}/edit`)
+      return axios.get(`/api/admin/gl_field/${this.parentEntityId}/edit`);
     },
   },
-}
+};
 </script>
 
 <style scoped></style>

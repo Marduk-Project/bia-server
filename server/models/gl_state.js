@@ -1,22 +1,22 @@
-const nconf = require('nconf')
-const { mainDb } = require('../database/main_connection')
-const { BaseModel, jsonSerializer } = require('./base_model')
-const { Sequelize, DataTypes } = require('sequelize')
+const nconf = require('nconf');
+const { mainDb } = require('../database/main_connection');
+const { BaseModel, jsonSerializer } = require('./base_model');
+const { Sequelize, DataTypes } = require('sequelize');
 
 const {
   model: CountryModel,
   jsonSerializer: countryJsonSerializer,
-} = require('./gl_country')
+} = require('./gl_country');
 
 // model
-const modelName = 'gl_state'
+const modelName = 'gl_state';
 class MyModel extends BaseModel {
   static async findByCode(code) {
     return await this.findOne({
       where: {
         code: code,
       },
-    })
+    });
   }
 }
 
@@ -60,16 +60,16 @@ MyModel.init(
     modelName: modelName,
     tableName: modelName,
   }
-)
+);
 
 CountryModel.hasMany(MyModel, {
   foreignKey: 'countryId',
   as: 'states',
-})
+});
 MyModel.belongsTo(CountryModel, {
   foreignKey: 'countryId',
   as: 'country',
-})
+});
 
 const scopes = {
   def: {
@@ -81,16 +81,16 @@ const scopes = {
         await countryJsonSerializer(value, scopeName),
     },
   },
-}
+};
 
-exports.model = MyModel
-exports.modelName = modelName
+exports.model = MyModel;
+exports.modelName = modelName;
 exports.jsonSerializer = async (value, scopeName) => {
   if (!scopeName) {
-    scopeName = 'def'
+    scopeName = 'def';
   }
   if (!scopes[scopeName]) {
-    scopeName = 'def'
+    scopeName = 'def';
   }
-  return await jsonSerializer(value, scopes[scopeName], scopeName)
-}
+  return await jsonSerializer(value, scopes[scopeName], scopeName);
+};
