@@ -11,6 +11,7 @@
     :placeholder="placeholder"
     :mapResult="mapResult"
     :multiple="multiple"
+    :id="id"
     url="/api/admin/gl_person"
     @onOpen="$emit('onOpen')"
     @onClose="$emit('onClose')"
@@ -26,6 +27,7 @@
 
   export default {
     props: [
+      'id',
       'elid',
       'readonly',
       'disabled',
