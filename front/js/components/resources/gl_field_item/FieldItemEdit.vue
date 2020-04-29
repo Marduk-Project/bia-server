@@ -57,8 +57,8 @@
 </template>
 
 <script>
-import { crudMixin } from "@mixins/crud-mixin";
-import axios from "@mixins/axios-auth";
+import { crudMixin } from '@mixins/crud-mixin'
+import axios from '@mixins/axios-auth'
 
 export default {
   mixins: [crudMixin],
@@ -73,7 +73,7 @@ export default {
         // objects
         field: null,
       },
-    };
+    }
   },
   methods: {
     crud_data() {
@@ -83,35 +83,35 @@ export default {
         code: this.entity.code,
         order: this.entity.order,
         valueString: this.entity.valueString,
-      };
+      }
     },
     crud_validate() {
-      return true;
+      return true
     },
     crud_requestParentEntity() {
-      return axios.get(`/api/admin/gl_field/${this.parentEntityId}/edit`);
+      return axios.get(`/api/admin/gl_field/${this.parentEntityId}/edit`)
     },
   },
   computed: {
     crud_title() {
-      var ok = this.entity != null;
+      var ok = this.entity != null
       if (ok) {
-        ok = this.entity.name != null;
+        ok = this.entity.name != null
       }
       if (ok) {
-        return "" + this.entity.name;
+        return '' + this.entity.name
       } else {
-        return "Cadastro de Item";
+        return 'Cadastro de Item'
       }
     },
     crud_url_base() {
-      return "/api/admin/gl_field_item";
+      return '/api/admin/gl_field_item'
     },
     crud_route_base() {
-      return "gl_field_item";
+      return 'gl_field_item'
     },
   },
-};
+}
 </script>
 
 <style scoped></style>

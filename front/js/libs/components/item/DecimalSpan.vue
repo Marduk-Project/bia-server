@@ -21,15 +21,15 @@ export default {
     preffix: {
       type: String,
       required: false,
-      default: "",
+      default: '',
     },
     suffix: {
       type: String,
       required: false,
-      default: "",
+      default: '',
     },
   },
-};
+}
 </script>
 
 <style scoped></style>

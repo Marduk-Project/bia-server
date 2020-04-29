@@ -72,61 +72,61 @@
 </template>
 
 <script>
-import axios from "@mixins/axios-auth";
-import { listMixin } from "@mixins/list-mixin";
-import StateSelect from "@resources/gl_state/StateSelect.vue";
+import axios from '@mixins/axios-auth'
+import { listMixin } from '@mixins/list-mixin'
+import StateSelect from '@resources/gl_state/StateSelect.vue'
 
 export default {
   mixins: [listMixin],
   components: {
-    "app-state-select": StateSelect,
+    'app-state-select': StateSelect,
   },
   data() {
     return {
       filters: {
         state: null,
       },
-    };
+    }
   },
   computed: {
     list_title() {
-      return "Cidades";
+      return 'Cidades'
     },
     list_url_base() {
-      return "/api/admin/gl_city";
+      return '/api/admin/gl_city'
     },
     list_route_base() {
-      return "gl_city";
+      return 'gl_city'
     },
   },
   methods: {
     list_buildURL(page) {
       let url =
         this.list_url_base +
-        "?page=" +
+        '?page=' +
         page +
-        "&q=" +
-        encodeURIComponent(this.searchText ? this.searchText : "");
+        '&q=' +
+        encodeURIComponent(this.searchText ? this.searchText : '')
       if (this.filters.state) {
-        url += `&stateId=${this.filters.state.id}`;
+        url += `&stateId=${this.filters.state.id}`
       }
-      return url;
+      return url
     },
     onIbgeImportClick() {
       const response = prompt(
         'Esta rotina é longa, e pode deixar o servidor bastante lento. Digite "importar" para prosseguir.',
-        "não"
-      );
-      if (response != "importar") {
-        return;
+        'não'
+      )
+      if (response != 'importar') {
+        return
       }
       axios
         .post(`${this.list_url_base}/ibgeImport`)
         .then(this.api_thenDone())
-        .catch(this.api_catch());
+        .catch(this.api_catch())
     },
   },
-};
+}
 </script>
 
 <style scoped></style>

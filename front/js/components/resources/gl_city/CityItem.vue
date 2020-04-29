@@ -6,8 +6,8 @@
 
 <script>
 export default {
-  props: ["entity"],
-};
+  props: ['entity'],
+}
 </script>
 
 <style scoped></style>

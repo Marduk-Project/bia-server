@@ -17,7 +17,7 @@ export default {
     name: {
       type: String,
       required: false,
-      default: "type",
+      default: 'type',
     },
     value: {
       type: [Number, String],
@@ -32,15 +32,15 @@ export default {
     classes: {
       type: [String, Object],
       required: false,
-      default: "",
+      default: '',
     },
   },
   methods: {
     onValueSelect(e) {
-      this.$emit("input", e.target.value);
+      this.$emit('input', e.target.value)
     },
   },
-};
+}
 </script>
 
 <style scoped></style>

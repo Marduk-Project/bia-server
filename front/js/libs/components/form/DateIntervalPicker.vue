@@ -67,8 +67,8 @@
 </template>
 
 <script>
-import moment from "moment";
-import _ from "lodash";
+import moment from 'moment'
+import _ from 'lodash'
 
 export default {
   props: {
@@ -77,10 +77,10 @@ export default {
       required: false,
       default: () => {
         return {
-          currentDate: moment().format("YYYY-MM-DDTHH:mm:ss"),
-          type: "month",
+          currentDate: moment().format('YYYY-MM-DDTHH:mm:ss'),
+          type: 'month',
           checked: true,
-        };
+        }
       },
     },
     checkboxShow: {
@@ -91,109 +91,109 @@ export default {
   },
   data() {
     let data = {
-      periodString: "-",
-      helpString: "-",
-    };
-    return data;
+      periodString: '-',
+      helpString: '-',
+    }
+    return data
   },
   watch: {
     value(newValue) {
-      this.sendInputNotify(false);
+      this.sendInputNotify(false)
     },
   },
   methods: {
     sendInputNotify(notify, changes = {}) {
       if (!this.value) {
-        this.periodString = "-";
-        this.helpString = "-";
-        return;
+        this.periodString = '-'
+        this.helpString = '-'
+        return
       }
       if (!this.value.currentDate) {
-        return;
+        return
       }
       // check
-      let checked = this.value.checked;
+      let checked = this.value.checked
       if (changes.checkedChange) {
-        checked = changes.checked;
+        checked = changes.checked
       }
       // type
-      const type = changes.type ? changes.type : this.value.type;
-      let currentDate = moment(this.value.currentDate);
+      const type = changes.type ? changes.type : this.value.type
+      let currentDate = moment(this.value.currentDate)
       if (changes.add && changes.addType) {
-        currentDate.add(changes.add, changes.addType);
-        checked = true;
+        currentDate.add(changes.add, changes.addType)
+        checked = true
       }
       // calc
-      let startDate = currentDate.clone().startOf(type);
-      let endDate = currentDate.clone().endOf(type);
+      let startDate = currentDate.clone().startOf(type)
+      let endDate = currentDate.clone().endOf(type)
       switch (type) {
-        case "month":
-          this.periodString = currentDate.format("MMMM YYYY");
-          break;
+        case 'month':
+          this.periodString = currentDate.format('MMMM YYYY')
+          break
 
-        case "year":
-          this.periodString = currentDate.format("YYYY");
-          break;
+        case 'year':
+          this.periodString = currentDate.format('YYYY')
+          break
       }
-      this.helpString = `${startDate.format("L LTS")} - ${endDate.format(
-        "L LTS"
-      )}`;
+      this.helpString = `${startDate.format('L LTS')} - ${endDate.format(
+        'L LTS'
+      )}`
       // send
       if (notify) {
         let newValue = {
           type: type,
-          currentDate: currentDate.format("YYYY-MM-DDTHH:mm:ss"),
-          startDate: startDate.format("YYYY-MM-DDTHH:mm:ss"),
-          endDate: endDate.format("YYYY-MM-DDTHH:mm:ss"),
+          currentDate: currentDate.format('YYYY-MM-DDTHH:mm:ss'),
+          startDate: startDate.format('YYYY-MM-DDTHH:mm:ss'),
+          endDate: endDate.format('YYYY-MM-DDTHH:mm:ss'),
           checked: checked,
-        };
-        this.$emit("input", newValue);
+        }
+        this.$emit('input', newValue)
       }
     },
     onAdd(amount, type) {
-      this.sendInputNotify(true, { add: amount, addType: type });
+      this.sendInputNotify(true, { add: amount, addType: type })
     },
     onAddMonthClick() {
-      this.onAdd(1, "month");
+      this.onAdd(1, 'month')
     },
     onSubMonthClick() {
-      this.onAdd(-1, "month");
+      this.onAdd(-1, 'month')
     },
     onAddYearClick() {
-      this.onAdd(1, "year");
+      this.onAdd(1, 'year')
     },
     onSubYearClick() {
-      this.onAdd(-1, "year");
+      this.onAdd(-1, 'year')
     },
     onChangeTypeClick() {
       if (!this.value) {
-        this.sendInputNotify(true, { type: "month" });
-        return;
+        this.sendInputNotify(true, { type: 'month' })
+        return
       }
       switch (this.value.type) {
         default:
-        case "month":
-          this.sendInputNotify(true, { type: "year" });
-          break;
+        case 'month':
+          this.sendInputNotify(true, { type: 'year' })
+          break
 
-        case "year":
-          this.sendInputNotify(true, { type: "month" });
-          break;
+        case 'year':
+          this.sendInputNotify(true, { type: 'month' })
+          break
       }
     },
     onCheckedClick() {
       this.sendInputNotify(true, {
         checkedChange: true,
         checked: !this.value.checked,
-      });
+      })
     },
   },
   mounted() {
     setTimeout(() => {
-      this.sendInputNotify(false);
-    }, 1);
+      this.sendInputNotify(false)
+    }, 1)
   },
-};
+}
 </script>
 
 <style scoped></style>

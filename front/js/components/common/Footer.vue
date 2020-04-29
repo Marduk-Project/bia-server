@@ -26,9 +26,9 @@ export default {
     return {
       git_v: window.app_gitv,
       window: window,
-    };
+    }
   },
-};
+}
 </script>
 
 <style scoped></style>

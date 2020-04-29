@@ -21,11 +21,11 @@ export default {
   },
   methods: {
     onClick() {
-      const text = this.details ? this.details : this.title;
-      alert(text);
+      const text = this.details ? this.details : this.title
+      alert(text)
     },
   },
-};
+}
 </script>
 
 <style scoped></style>

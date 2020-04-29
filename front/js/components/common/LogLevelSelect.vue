@@ -26,30 +26,30 @@ export default {
   },
   methods: {
     onValueSelect(e) {
-      this.$emit("input", e.target.value);
+      this.$emit('input', e.target.value)
     },
     levelToString(value) {
-      value = parseInt(value);
+      value = parseInt(value)
       switch (value) {
         case exports.LEVEL_ERROR:
-          return "error";
+          return 'error'
 
         case exports.LEVEL_WARN:
-          return "warn";
+          return 'warn'
 
         case exports.LEVEL_INFO:
-          return "info";
+          return 'info'
 
         case exports.LEVEL_DEBUG:
-          return "debug";
+          return 'debug'
 
         case exports.LEVEL_SILLY:
-          return "silly";
+          return 'silly'
       }
-      return "unknow";
+      return 'unknow'
     },
   },
-};
+}
 </script>
 
 <style scoped></style>

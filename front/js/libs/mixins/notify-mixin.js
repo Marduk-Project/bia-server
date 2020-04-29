@@ -15,7 +15,7 @@ export const notifyMixin = {
      * @returns {void}
      */
     api_notifyDone() {
-      this.$store.dispatch("notifyDone");
+      this.$store.dispatch('notifyDone')
     },
 
     /**
@@ -23,7 +23,7 @@ export const notifyMixin = {
      * @returns {void}
      */
     notify_done() {
-      this.$store.dispatch("notifyDone");
+      this.$store.dispatch('notifyDone')
     },
 
     /**
@@ -33,7 +33,7 @@ export const notifyMixin = {
      * @returns {void}
      */
     api_notifySuccess(message) {
-      this.$store.dispatch("notifySuccess", message);
+      this.$store.dispatch('notifySuccess', message)
     },
 
     /**
@@ -42,7 +42,7 @@ export const notifyMixin = {
      * @returns {void}
      */
     notify_success(message) {
-      this.$store.dispatch("notifySuccess", message);
+      this.$store.dispatch('notifySuccess', message)
     },
 
     /**
@@ -52,7 +52,7 @@ export const notifyMixin = {
      * @returns {void}
      */
     api_notifyInfo(message) {
-      this.$store.dispatch("notifyInfo", message);
+      this.$store.dispatch('notifyInfo', message)
     },
 
     /**
@@ -61,7 +61,7 @@ export const notifyMixin = {
      * @returns {void}
      */
     notify_info(message) {
-      this.$store.dispatch("notifyInfo", message);
+      this.$store.dispatch('notifyInfo', message)
     },
 
     /**
@@ -71,7 +71,7 @@ export const notifyMixin = {
      * @returns {void}
      */
     api_notifyWarning(message) {
-      this.$store.dispatch("notifyWarning", message);
+      this.$store.dispatch('notifyWarning', message)
     },
 
     /**
@@ -80,7 +80,7 @@ export const notifyMixin = {
      * @returns {void}
      */
     notify_warning(message) {
-      this.$store.dispatch("notifyWarning", message);
+      this.$store.dispatch('notifyWarning', message)
     },
 
     /**
@@ -90,7 +90,7 @@ export const notifyMixin = {
      * @returns {void}
      */
     api_notifyDanger(message) {
-      this.$store.dispatch("notifyDanger", message);
+      this.$store.dispatch('notifyDanger', message)
     },
 
     /**
@@ -99,7 +99,7 @@ export const notifyMixin = {
      * @returns {void}
      */
     notify_danger(message) {
-      this.$store.dispatch("notifyDanger", message);
+      this.$store.dispatch('notifyDanger', message)
     },
   },
-};
+}

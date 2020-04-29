@@ -122,13 +122,13 @@
 </template>
 
 <script>
-import { crudMixin } from "@mixins/crud-mixin";
-import CountrySelect from "@resources/gl_country/CountrySelect.vue";
+import { crudMixin } from '@mixins/crud-mixin'
+import CountrySelect from '@resources/gl_country/CountrySelect.vue'
 
 export default {
   mixins: [crudMixin],
   components: {
-    "app-country-select": CountrySelect,
+    'app-country-select': CountrySelect,
   },
   data() {
     return {
@@ -142,7 +142,7 @@ export default {
         // objects
         country: null,
       },
-    };
+    }
   },
   methods: {
     crud_data() {
@@ -153,36 +153,36 @@ export default {
         initials: this.entity.initials,
         priority: this.entity.priority,
         countryId: this.entity.country ? this.entity.country.id : null,
-      };
+      }
     },
     crud_validate() {
       if (!this.entity.country) {
-        this.notify_warning("Selecione um País.");
-        return false;
+        this.notify_warning('Selecione um País.')
+        return false
       }
-      return true;
+      return true
     },
   },
   computed: {
     crud_title() {
-      var ok = this.entity != null;
+      var ok = this.entity != null
       if (ok) {
-        ok = this.entity.name;
+        ok = this.entity.name
       }
       if (ok) {
-        return "" + this.entity.name;
+        return '' + this.entity.name
       } else {
-        return "Cadastro de Estado";
+        return 'Cadastro de Estado'
       }
     },
     crud_url_base() {
-      return "/api/admin/gl_state";
+      return '/api/admin/gl_state'
     },
     crud_route_base() {
-      return "gl_state";
+      return 'gl_state'
     },
   },
-};
+}
 </script>
 
 <style scoped></style>

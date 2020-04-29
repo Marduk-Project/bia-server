@@ -12,14 +12,14 @@
 </template>
 
 <script>
-import moment from "moment";
+import moment from 'moment'
 
 export default {
   props: {
     type: {
       type: String,
       required: false,
-      default: "datetime-local",
+      default: 'datetime-local',
     },
     value: {
       type: [Date, String],
@@ -29,7 +29,7 @@ export default {
     classes: {
       type: [String, Array, Object],
       required: false,
-      default: "",
+      default: '',
     },
     readonly: {
       type: Boolean,
@@ -45,36 +45,36 @@ export default {
   data() {
     return {
       currentDate: this.value
-        ? moment(this.value).format("YYYY-MM-DDTHH:mm:ss")
+        ? moment(this.value).format('YYYY-MM-DDTHH:mm:ss')
         : null,
       currentDateChangeIgnore: false,
       valueChangeIgnore: false,
-    };
+    }
   },
   watch: {
     value(value) {
       if (this.valueChangeIgnore) {
-        this.valueChangeIgnore = false;
+        this.valueChangeIgnore = false
       } else {
-        this.currentDateChangeIgnore = true;
-        this.currentDate = moment(value).format("YYYY-MM-DDTHH:mm:ss");
+        this.currentDateChangeIgnore = true
+        this.currentDate = moment(value).format('YYYY-MM-DDTHH:mm:ss')
       }
     },
     currentDate(value) {
       if (this.currentDateChangeIgnore) {
-        this.currentDateChangeIgnore = false;
+        this.currentDateChangeIgnore = false
       } else {
-        this.valueChangeIgnore = true;
-        this.$emit("input", value);
+        this.valueChangeIgnore = true
+        this.$emit('input', value)
       }
     },
   },
   methods: {
     moment(date) {
-      return moment(date);
+      return moment(date)
     },
   },
-};
+}
 </script>
 
 <style scoped></style>

@@ -96,17 +96,17 @@
 </template>
 
 <script>
-import { listMixin } from "@mixins/list-mixin";
-import axios from "@mixins/axios-auth";
-import _ from "lodash";
-import UnitItem from "@resources/gl_unit/UnitItem.vue";
+import { listMixin } from '@mixins/list-mixin'
+import axios from '@mixins/axios-auth'
+import _ from 'lodash'
+import UnitItem from '@resources/gl_unit/UnitItem.vue'
 
 // import UnitSelect from "@resources/gl_unit/UnitSelect.vue";
 
 export default {
   mixins: [listMixin],
   components: {
-    "app-unit-item": UnitItem,
+    'app-unit-item': UnitItem,
     // "app-unit-select": UnitSelect,
   },
   data() {
@@ -115,34 +115,34 @@ export default {
         unit: null,
         requestFormActive: false,
       },
-    };
+    }
   },
   computed: {
     list_title() {
-      return "Produtos";
+      return 'Produtos'
     },
     list_url_base() {
-      return "/api/admin/gl_product";
+      return '/api/admin/gl_product'
     },
     list_route_base() {
-      return "gl_product";
+      return 'gl_product'
     },
   },
   methods: {
     list_buildURL(page) {
       let url = `${this.list_url_base}?page=${page}&q=${encodeURIComponent(
         this.searchText
-      )}`;
+      )}`
       if (this.filters.unit) {
-        url += `&unitId=${this.filters.unit.id}`;
+        url += `&unitId=${this.filters.unit.id}`
       }
       if (this.filters.requestFormActive) {
-        url += `&requestFormActive=1`;
+        url += `&requestFormActive=1`
       }
-      return url;
+      return url
     },
   },
-};
+}
 </script>
 
 <style scoped></style>

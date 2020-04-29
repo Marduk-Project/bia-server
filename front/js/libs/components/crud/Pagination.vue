@@ -88,7 +88,7 @@ export default {
   computed: {
     meta() {
       if (this.pagination.meta) {
-        return this.pagination.meta;
+        return this.pagination.meta
       } else {
         return {
           current_page: this.pagination.current_page,
@@ -98,44 +98,44 @@ export default {
           per_page: this.pagination.per_page,
           to: this.pagination.to,
           total: this.pagination.total,
-        };
+        }
       }
     },
     links() {
       if (this.pagination.links) {
-        return this.pagination.links;
+        return this.pagination.links
       } else {
         return {
           first: this.pagination.first_page_url,
           last: this.pagination.last_page_url,
           prev: this.pagination.prev_page_url,
           next: this.pagination.next_page_url,
-        };
+        }
       }
     },
     pagesNumber() {
       if (!this.meta.to) {
-        return [];
+        return []
       }
-      let from = this.meta.current_page - this.offset;
+      let from = this.meta.current_page - this.offset
       if (from < 1) {
-        from = 1;
+        from = 1
       }
-      let to = from + this.offset * 2;
+      let to = from + this.offset * 2
       if (to >= this.meta.last_page) {
-        to = this.meta.last_page;
+        to = this.meta.last_page
       }
-      let pagesArray = [];
+      let pagesArray = []
       for (let page = from; page <= to; page++) {
-        pagesArray.push(page);
+        pagesArray.push(page)
       }
-      return pagesArray;
+      return pagesArray
     },
   },
   methods: {
     changePage(page) {
-      this.$emit("paginate", page);
+      this.$emit('paginate', page)
     },
   },
-};
+}
 </script>

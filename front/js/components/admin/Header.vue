@@ -191,22 +191,22 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters } from 'vuex'
 
 export default {
   computed: {
     ...mapGetters({
-      isUserAdmin: "isUserAdmin",
-      isUserStaff: "isUserStaff",
-      userName: "getUserName",
-      userNickname: "getUserNickname",
+      isUserAdmin: 'isUserAdmin',
+      isUserStaff: 'isUserStaff',
+      userName: 'getUserName',
+      userNickname: 'getUserNickname',
       // isEnvProduction: "isEnvProduction"
     }),
     app_current_name() {
-      return window.app_short_name;
+      return window.app_short_name
     },
   },
-};
+}
 </script>
 
 <style scoped>

@@ -66,8 +66,8 @@
 </template>
 
 <script>
-import axios from "@mixins/axios-auth";
-import { apiMixin } from "@mixins/api-mixin";
+import axios from '@mixins/axios-auth'
+import { apiMixin } from '@mixins/api-mixin'
 
 export default {
   mixins: [apiMixin],
@@ -78,41 +78,41 @@ export default {
         try: false,
         username: null,
       },
-    };
+    }
   },
   methods: {
     onBackClick() {
       this.$router.push({
-        name: "auth.login",
-      });
+        name: 'auth.login',
+      })
     },
     onRecoverClick() {
-      this.$validator.validateAll().then((result) => {
-        this.wasValidated = true;
+      this.$validator.validateAll().then(result => {
+        this.wasValidated = true
         if (!result) {
-          return;
+          return
         }
         let data = {
           username: this.login.username,
-        };
-        this.api_loadingShow();
+        }
+        this.api_loadingShow()
         axios
-          .post("/api/auth/recoverRequest", data)
+          .post('/api/auth/recoverRequest', data)
           .then(
-            this.api_thenDone((res) => {
+            this.api_thenDone(res => {
               this.notify_success(
-                "E-mail enviado com sucesso. Por favor verifique seu sua caixa e siga as instruções."
-              );
+                'E-mail enviado com sucesso. Por favor verifique seu sua caixa e siga as instruções.'
+              )
             }, true)
           )
-          .catch(this.api_catch());
-      });
+          .catch(this.api_catch())
+      })
     },
   },
   mounted() {
-    this.$store.dispatch("setTitle", "Esqueci minha senha");
+    this.$store.dispatch('setTitle', 'Esqueci minha senha')
   },
-};
+}
 </script>
 
 <style type="text/css" scoped></style>

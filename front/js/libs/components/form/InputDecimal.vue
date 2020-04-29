@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import moment from "moment";
+import moment from 'moment'
 
 export default {
   props: {
@@ -29,12 +29,12 @@ export default {
     classes: {
       type: [String, Object, Array],
       required: false,
-      default: "",
+      default: '',
     },
     step: {
       type: String,
       required: false,
-      default: "0.01",
+      default: '0.01',
     },
     readonly: {
       type: Boolean,
@@ -49,10 +49,10 @@ export default {
   },
   methods: {
     moment(date) {
-      return moment(date);
+      return moment(date)
     },
   },
-};
+}
 </script>
 
 <style scoped></style>

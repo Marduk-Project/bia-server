@@ -112,15 +112,15 @@
 </template>
 
 <script>
-import { crudMixin } from "@mixins/crud-mixin";
-import StateSelect from "@resources/gl_state/StateSelect.vue";
-import StateRegionSelect from "@resources/gl_state_region/StateRegionSelect.vue";
+import { crudMixin } from '@mixins/crud-mixin'
+import StateSelect from '@resources/gl_state/StateSelect.vue'
+import StateRegionSelect from '@resources/gl_state_region/StateRegionSelect.vue'
 
 export default {
   mixins: [crudMixin],
   components: {
-    "app-state-select": StateSelect,
-    "app-state-region-select": StateRegionSelect,
+    'app-state-select': StateSelect,
+    'app-state-region-select': StateRegionSelect,
   },
   data() {
     return {
@@ -137,7 +137,7 @@ export default {
         microRegion: null,
         dreRegion: null,
       },
-    };
+    }
   },
   methods: {
     crud_data() {
@@ -153,48 +153,48 @@ export default {
           ? this.entity.microRegion.id
           : null,
         dreRegionId: this.entity.dreRegion ? this.entity.dreRegion.id : null,
-      };
+      }
     },
     crud_validate() {
       if (!this.entity.state) {
-        this.notify_warning("Selecione um Estado.");
-        return false;
+        this.notify_warning('Selecione um Estado.')
+        return false
       }
-      return true;
+      return true
     },
   },
   watch: {
     entity_state(newValue, oldValue) {
       if (!newValue) {
-        this.entity.mesoRegion = null;
-        this.entity.microRegion = null;
-        this.entity.dreRegion = null;
+        this.entity.mesoRegion = null
+        this.entity.microRegion = null
+        this.entity.dreRegion = null
       }
     },
   },
   computed: {
     entity_state() {
-      return this.entity.state;
+      return this.entity.state
     },
     crud_title() {
-      var ok = this.entity != null;
+      var ok = this.entity != null
       if (ok) {
-        ok = this.entity.name;
+        ok = this.entity.name
       }
       if (ok) {
-        return "" + this.entity.name;
+        return '' + this.entity.name
       } else {
-        return "Cadastro de Cidade";
+        return 'Cadastro de Cidade'
       }
     },
     crud_url_base() {
-      return "/api/admin/gl_city";
+      return '/api/admin/gl_city'
     },
     crud_route_base() {
-      return "gl_city";
+      return 'gl_city'
     },
   },
-};
+}
 </script>
 
 <style scoped></style>

@@ -47,8 +47,8 @@
 </template>
 
 <script>
-import axios from "@mixins/axios-auth";
-import FieldItemSelect from "@resources/gl_field_item/FieldItemSelect.vue";
+import axios from '@mixins/axios-auth'
+import FieldItemSelect from '@resources/gl_field_item/FieldItemSelect.vue'
 
 export default {
   props: {
@@ -58,114 +58,114 @@ export default {
     },
   },
   components: {
-    "app-field-item-select": FieldItemSelect,
+    'app-field-item-select': FieldItemSelect,
   },
   data() {
-    return {};
+    return {}
   },
   methods: {
     onValueChange(value) {
-      this.emitValueEvent(value.target.value);
+      this.emitValueEvent(value.target.value)
     },
     onSelectChanged(value) {
-      this.emitValueEvent(value);
+      this.emitValueEvent(value)
     },
     onCheckBoxChange(value) {
-      this.emitValueEvent(value.target.checked);
+      this.emitValueEvent(value.target.checked)
     },
     emitValueEvent(value) {
-      const ret = Object.assign({}, this.field);
-      ret.fieldItemId = null;
-      ret.fieldItem = null;
+      const ret = Object.assign({}, this.field)
+      ret.fieldItemId = null
+      ret.fieldItem = null
       switch (parseInt(this.type)) {
         case 1:
-          ret.valueString = value;
-          break;
+          ret.valueString = value
+          break
 
         case 2:
-          ret.valueInt = parseFloat(value);
+          ret.valueInt = parseFloat(value)
           if (!ret.valueInt) {
-            ret.valueInt = 0;
+            ret.valueInt = 0
           }
-          break;
+          break
 
         case 3:
-          ret.valueDouble = parseFloat(value);
+          ret.valueDouble = parseFloat(value)
           if (!ret.valueDouble) {
-            ret.valueDouble = 0;
+            ret.valueDouble = 0
           }
-          break;
+          break
 
         case 4:
-          ret.valueBoolean = value;
-          break;
+          ret.valueBoolean = value
+          break
 
         case 5:
           if (value) {
-            ret.fieldItemId = value.id;
-            ret.fieldItem = value;
+            ret.fieldItemId = value.id
+            ret.fieldItem = value
           }
-          break;
+          break
       }
-      this.$emit("input", ret);
+      this.$emit('input', ret)
     },
   },
   computed: {
     type() {
-      return this.field.field.type;
+      return this.field.field.type
     },
     input_type() {
       switch (parseInt(this.type)) {
         case 1:
-          return "text";
+          return 'text'
 
         case 2:
         case 3:
-          return "number";
+          return 'number'
 
         case 4:
-          return null;
+          return null
 
         case 5:
-          return null;
+          return null
       }
     },
     input_value() {
       switch (parseInt(this.type)) {
         case 1:
-          return this.field.valueString;
+          return this.field.valueString
 
         case 2:
-          return this.field.valueInt;
+          return this.field.valueInt
 
         case 3:
-          return this.field.valueDouble;
+          return this.field.valueDouble
 
         case 4:
-          return this.field.valueBoolean;
+          return this.field.valueBoolean
 
         case 5:
-          return null;
+          return null
       }
     },
     input_classes() {
       switch (parseInt(this.type)) {
         case 1:
-          return "col-lg-6";
+          return 'col-lg-6'
 
         case 2:
         case 3:
-          return "col-lg-3";
+          return 'col-lg-3'
 
         case 4:
-          return null;
+          return null
 
         case 5:
-          return null;
+          return null
       }
     },
   },
-};
+}
 </script>
 
 <style scoped></style>

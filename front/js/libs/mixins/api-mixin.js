@@ -1,53 +1,53 @@
-const { notifyMixin } = require("./notify-mixin");
-const _ = require("lodash");
+const { notifyMixin } = require('./notify-mixin')
+const _ = require('lodash')
 
 /**
  * Parse error if exists and return its string object.
  * @param error
  * @returns {string}
  */
-export const api_parseErrorMessage = (error) => {
-  var errorChecked = null;
+export const api_parseErrorMessage = error => {
+  var errorChecked = null
   if (_.isObject(error)) {
     if (_.isObject(error.response)) {
       if (_.isObject(error.response.data)) {
         if (_.isString(error.response.data.message)) {
           if (error.response.data.message.length > 0) {
-            var message = error.response.data.message;
+            var message = error.response.data.message
             if (error.response.data.errors) {
-              const errors = error.response.data.errors;
+              const errors = error.response.data.errors
               if (_.isObject(errors)) {
-                message += "<ul>";
+                message += '<ul>'
                 for (var key in errors) {
-                  var element = errors[key];
-                  message += `<li><strong>${key}:</strong> ${element}</li>`;
+                  var element = errors[key]
+                  message += `<li><strong>${key}:</strong> ${element}</li>`
                 }
-                message += "</ul>";
+                message += '</ul>'
               } else if (_.isArray(errors)) {
-                message += "<ul>";
-                errors.forEach((element) => {
-                  message += `<li>${element}</li>`;
-                });
-                message += "</ul>";
+                message += '<ul>'
+                errors.forEach(element => {
+                  message += `<li>${element}</li>`
+                })
+                message += '</ul>'
               } else if (_.isString(errors)) {
-                message += `<strong>${errors}</strong>`;
+                message += `<strong>${errors}</strong>`
               } else {
                 // check if ist not string
-                message += `<strong>${errors}</strong>`;
+                message += `<strong>${errors}</strong>`
               }
             }
-            errorChecked = message;
+            errorChecked = message
           }
         }
       }
     }
   }
   if (errorChecked == null) {
-    errorChecked = `Erro na página, tente recarregar seu navegador. <br/><strong>${error}</strong>`;
-    console.warn(error);
+    errorChecked = `Erro na página, tente recarregar seu navegador. <br/><strong>${error}</strong>`
+    console.warn(error)
   }
-  return errorChecked;
-};
+  return errorChecked
+}
 
 /**
  * Api mixin that works with axios / std results.
@@ -63,31 +63,31 @@ export const apiMixin = {
      * @returns {boolean}
      */
     api_parseOK(res, ignoreLoading = false) {
-      var err = false;
+      var err = false
       if (!res) {
-        err = true;
+        err = true
       }
       if (!res.data) {
-        err = true;
+        err = true
       }
       if (err) {
         if (!ignoreLoading) {
-          this.api_loadingHide();
+          this.api_loadingHide()
         }
-        console.warn('Objeto axios de resposta "undefined|null"');
+        console.warn('Objeto axios de resposta "undefined|null"')
         this.notify_danger(
           'Objeto de resposta "undefined|null". Verificar axios.<br /> Esta mensagem é um erro interno, por favor informe a administração do sistema.'
-        );
-        return false;
+        )
+        return false
       }
       if (res.data.status == 400) {
         if (!ignoreLoading) {
-          this.api_loadingHide();
+          this.api_loadingHide()
         }
-        this.notify_danger(res.data.message);
-        return false;
+        this.notify_danger(res.data.message)
+        return false
       }
-      return true;
+      return true
     },
 
     /**
@@ -96,18 +96,18 @@ export const apiMixin = {
      * @param {boolean} ignoreDone does not call notify_done if set
      */
     api_thenDone(callback = undefined, ignoreDone = false) {
-      return (res) => {
+      return res => {
         if (!this.api_parseOK(res)) {
-          return;
+          return
         }
-        this.api_loadingHide();
+        this.api_loadingHide()
         if (!ignoreDone) {
-          this.notify_done();
+          this.notify_done()
         }
         if (_.isFunction(callback)) {
-          callback(res);
+          callback(res)
         }
-      };
+      }
     },
 
     /**
@@ -116,12 +116,12 @@ export const apiMixin = {
      * @returns {function}
      */
     api_catch(callback = undefined) {
-      return (error) => {
-        this.api_parseError(error, false);
+      return error => {
+        this.api_parseError(error, false)
         if (_.isFunction(callback)) {
-          callback(error);
+          callback(error)
         }
-      };
+      }
     },
 
     /**
@@ -132,10 +132,10 @@ export const apiMixin = {
      */
     api_parseError(error, ignoreLoading) {
       if (!ignoreLoading) {
-        this.api_loadingHide();
+        this.api_loadingHide()
       }
-      var message = api_parseErrorMessage(error);
-      this.notify_danger(message);
+      var message = api_parseErrorMessage(error)
+      this.notify_danger(message)
     },
 
     /**
@@ -143,7 +143,7 @@ export const apiMixin = {
      * @returns {void}
      */
     api_loadingHide() {
-      this.$store.commit("setLoading", false);
+      this.$store.commit('setLoading', false)
     },
 
     /**
@@ -151,7 +151,7 @@ export const apiMixin = {
      * @returns {void}
      */
     api_loadingShow() {
-      this.$store.commit("setLoading", true);
+      this.$store.commit('setLoading', true)
     },
   },
-};
+}

@@ -22,36 +22,36 @@
 </template>
 
 <script>
-import vSelect from "@libComponents/form/Select2.vue";
+import vSelect from '@libComponents/form/Select2.vue'
 
 export default {
   props: [
-    "elid",
-    "readonly",
-    "disabled",
-    "name",
-    "required",
-    "url",
-    "value",
-    "options",
-    "extraparams",
-    "placeholder",
-    "multiple",
+    'elid',
+    'readonly',
+    'disabled',
+    'name',
+    'required',
+    'url',
+    'value',
+    'options',
+    'extraparams',
+    'placeholder',
+    'multiple',
   ],
   components: {
-    "v-select": vSelect,
+    'v-select': vSelect,
   },
   methods: {
     mapResult(value, index) {
       if (value.shortname) {
-        value.text = `${value.shortname} - (${value.name})`;
+        value.text = `${value.shortname} - (${value.name})`
       } else {
-        value.text = `${value.name}`;
+        value.text = `${value.name}`
       }
-      return value;
+      return value
     },
   },
-};
+}
 </script>
 
 <style scoped></style>

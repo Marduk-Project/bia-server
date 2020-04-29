@@ -18,12 +18,12 @@ export default {
   mounted() {
     if (this.$store.getters.getUser) {
       if (!this.$store.getters.isUserAdmin) {
-        this.$store.dispatch("notifyDanger", "Não autorizado.");
-        this.$router.push("/");
+        this.$store.dispatch('notifyDanger', 'Não autorizado.')
+        this.$router.push('/')
       }
     }
   },
-};
+}
 </script>
 
 <style scoped></style>

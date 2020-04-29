@@ -89,18 +89,18 @@
 </template>
 
 <script>
-import axios from "@mixins/axios-auth";
-import { apiMixin } from "@mixins/api-mixin";
-import loginInfoMixin from "@mixins/login-info-mixin";
+import axios from '@mixins/axios-auth'
+import { apiMixin } from '@mixins/api-mixin'
+import loginInfoMixin from '@mixins/login-info-mixin'
 
 export default {
   mixins: [apiMixin, loginInfoMixin],
   computed: {
     login_redirectIfNotLogged() {
-      return false;
+      return false
     },
     app_website() {
-      return window.app_website;
+      return window.app_website
     },
   },
   data() {
@@ -111,56 +111,56 @@ export default {
         username: null,
         password: null,
       },
-    };
+    }
   },
   methods: {
     onEnterClick() {
-      this.$validator.validateAll().then((result) => {
-        this.wasValidated = true;
+      this.$validator.validateAll().then(result => {
+        this.wasValidated = true
         if (!result) {
-          return;
+          return
         }
         let data = {
           username: this.login.username,
           password: this.login.password,
-        };
-        this.api_loadingShow();
+        }
+        this.api_loadingShow()
         axios
-          .post("/api/auth/login", data)
+          .post('/api/auth/login', data)
           .then(
-            this.api_thenDone((res) => {
+            this.api_thenDone(res => {
               // redirect to home
-              const user = res.data;
+              const user = res.data
               if (user.isStaff) {
-                this.api_loadingShow();
-                window.location.href = "/home";
+                this.api_loadingShow()
+                window.location.href = '/home'
               } else {
                 this.notify_warning(
-                  "Usuário com implementação pendente... aguarde!"
-                );
+                  'Usuário com implementação pendente... aguarde!'
+                )
               }
             }, true)
           )
           .catch(
-            this.api_catch((error) => {
-              this.$refs.pwd.focus();
+            this.api_catch(error => {
+              this.$refs.pwd.focus()
             })
-          );
-      });
+          )
+      })
     },
     login_refreshInfoOKAfter() {
       if (this.loginInfo.user != null) {
         // redirect to home
-        this.api_loadingShow();
-        window.location.href = "/home";
+        this.api_loadingShow()
+        window.location.href = '/home'
       }
     },
   },
   mounted() {
-    this.$store.dispatch("setTitle", "Portal");
-    this.login_refreshInfo();
+    this.$store.dispatch('setTitle', 'Portal')
+    this.login_refreshInfo()
   },
-};
+}
 </script>
 
 <style type="text/css" scoped></style>

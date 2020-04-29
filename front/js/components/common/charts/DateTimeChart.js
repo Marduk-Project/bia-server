@@ -1,7 +1,7 @@
-import { Line, mixins } from "vue-chartjs";
-const { reactiveProp } = mixins;
-import _ from "lodash";
-import moment from "moment";
+import { Line, mixins } from 'vue-chartjs'
+const { reactiveProp } = mixins
+import _ from 'lodash'
+import moment from 'moment'
 
 export default {
   extends: Line,
@@ -24,12 +24,12 @@ export default {
             // },
             title: function (tooltipItem, data) {
               if (_.isArray(tooltipItem)) {
-                tooltipItem = tooltipItem[0];
+                tooltipItem = tooltipItem[0]
               }
               const dt =
                 data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index]
-                  .x || "";
-              return moment(dt).format("L LTS");
+                  .x || ''
+              return moment(dt).format('L LTS')
             },
           },
         },
@@ -48,13 +48,13 @@ export default {
           ],
           xAxes: [
             {
-              type: "time",
+              type: 'time',
               time: {
                 displayFormats: {
-                  hour: "HH",
-                  minute: "HH:mm",
-                  second: "HH:mm:ss",
-                  millisecond: "HH:mm:ss.SSS",
+                  hour: 'HH',
+                  minute: 'HH:mm',
+                  second: 'HH:mm:ss',
+                  millisecond: 'HH:mm:ss.SSS',
                 },
               },
             },
@@ -62,19 +62,19 @@ export default {
         },
         maintainAspectRatio: false,
         bezierCurve: false,
-      };
-      if (this.options) {
-        _.merge(options, this.options);
       }
-      return options;
+      if (this.options) {
+        _.merge(options, this.options)
+      }
+      return options
     },
   },
   methods: {
     renderTheChart() {
-      this.renderChart(this.chartData, this.computedOptions);
+      this.renderChart(this.chartData, this.computedOptions)
     },
   },
   mounted() {
-    this.renderTheChart();
+    this.renderTheChart()
   },
-};
+}
