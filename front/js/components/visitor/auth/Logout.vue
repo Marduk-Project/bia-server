@@ -41,36 +41,36 @@
 </template>
 
 <script>
-import axios from '@mixins/axios-auth';
-import { apiMixin } from '@mixins/api-mixin';
+  import axios from '@mixins/axios-auth';
+  import { apiMixin } from '@mixins/api-mixin';
 
-export default {
-  mixins: [apiMixin],
-  computed: {
-    login_redirectIfNotLogged() {
-      return false;
+  export default {
+    mixins: [apiMixin],
+    computed: {
+      login_redirectIfNotLogged() {
+        return false;
+      },
     },
-  },
-  data() {
-    return {};
-  },
-  methods: {
-    onLoginClick() {
-      this.$router.push({
-        name: 'auth.login',
-      });
+    data() {
+      return {};
     },
-    login_refreshInfoOKAfter() {
-      if (this.loginInfo.user == null) {
-        // nao faz nada
-      }
+    methods: {
+      onLoginClick() {
+        this.$router.push({
+          name: 'auth.login',
+        });
+      },
+      login_refreshInfoOKAfter() {
+        if (this.loginInfo.user == null) {
+          // nao faz nada
+        }
+      },
     },
-  },
-  mounted() {
-    this.$store.dispatch('setTitle', 'Logout com sucesso');
-    this.notify_success('Você realizou um logout com sucesso.');
-  },
-};
+    mounted() {
+      this.$store.dispatch('setTitle', 'Logout com sucesso');
+      this.notify_success('Você realizou um logout com sucesso.');
+    },
+  };
 </script>
 
 <style type="text/css" scoped></style>

@@ -72,61 +72,61 @@
 </template>
 
 <script>
-import axios from '@mixins/axios-auth';
-import { listMixin } from '@mixins/list-mixin';
-import StateSelect from '@resources/gl_state/StateSelect.vue';
+  import axios from '@mixins/axios-auth';
+  import { listMixin } from '@mixins/list-mixin';
+  import StateSelect from '@resources/gl_state/StateSelect.vue';
 
-export default {
-  mixins: [listMixin],
-  components: {
-    'app-state-select': StateSelect,
-  },
-  data() {
-    return {
-      filters: {
-        state: null,
+  export default {
+    mixins: [listMixin],
+    components: {
+      'app-state-select': StateSelect,
+    },
+    data() {
+      return {
+        filters: {
+          state: null,
+        },
+      };
+    },
+    computed: {
+      list_title() {
+        return 'Cidades';
       },
-    };
-  },
-  computed: {
-    list_title() {
-      return 'Cidades';
+      list_url_base() {
+        return '/api/admin/gl_city';
+      },
+      list_route_base() {
+        return 'gl_city';
+      },
     },
-    list_url_base() {
-      return '/api/admin/gl_city';
+    methods: {
+      list_buildURL(page) {
+        let url =
+          this.list_url_base +
+          '?page=' +
+          page +
+          '&q=' +
+          encodeURIComponent(this.searchText ? this.searchText : '');
+        if (this.filters.state) {
+          url += `&stateId=${this.filters.state.id}`;
+        }
+        return url;
+      },
+      onIbgeImportClick() {
+        const response = prompt(
+          'Esta rotina é longa, e pode deixar o servidor bastante lento. Digite "importar" para prosseguir.',
+          'não'
+        );
+        if (response != 'importar') {
+          return;
+        }
+        axios
+          .post(`${this.list_url_base}/ibgeImport`)
+          .then(this.api_thenDone())
+          .catch(this.api_catch());
+      },
     },
-    list_route_base() {
-      return 'gl_city';
-    },
-  },
-  methods: {
-    list_buildURL(page) {
-      let url =
-        this.list_url_base +
-        '?page=' +
-        page +
-        '&q=' +
-        encodeURIComponent(this.searchText ? this.searchText : '');
-      if (this.filters.state) {
-        url += `&stateId=${this.filters.state.id}`;
-      }
-      return url;
-    },
-    onIbgeImportClick() {
-      const response = prompt(
-        'Esta rotina é longa, e pode deixar o servidor bastante lento. Digite "importar" para prosseguir.',
-        'não'
-      );
-      if (response != 'importar') {
-        return;
-      }
-      axios
-        .post(`${this.list_url_base}/ibgeImport`)
-        .then(this.api_thenDone())
-        .catch(this.api_catch());
-    },
-  },
-};
+  };
 </script>
 
 <style scoped></style>

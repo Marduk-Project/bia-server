@@ -1,7 +1,7 @@
 module.exports = {
   ...require('prettier-config-standard'),
   trailingComma: 'es5',
-  vueIndentScriptAndStyle: false,
+  vueIndentScriptAndStyle: true,
   htmlWhitespaceSensitivity: 'strict',
   semi: true,
 };

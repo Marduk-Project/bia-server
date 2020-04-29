@@ -17,22 +17,22 @@
 </template>
 
 <script>
-import axios from '@mixins/axios-auth';
-import { apiMixin } from '@mixins/api-mixin';
-import { mapGetters } from 'vuex';
+  import axios from '@mixins/axios-auth';
+  import { apiMixin } from '@mixins/api-mixin';
+  import { mapGetters } from 'vuex';
 
-export default {
-  mixins: [apiMixin],
-  data() {
-    return {
-      account: null,
-      level: 10,
-    };
-  },
-  mounted() {
-    this.$store.dispatch('setTitle', 'Dashboard');
-  },
-};
+  export default {
+    mixins: [apiMixin],
+    data() {
+      return {
+        account: null,
+        level: 10,
+      };
+    },
+    mounted() {
+      this.$store.dispatch('setTitle', 'Dashboard');
+    },
+  };
 </script>
 
 <style scoped></style>

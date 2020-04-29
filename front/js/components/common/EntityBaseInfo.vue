@@ -44,16 +44,16 @@
 </template>
 
 <script>
-import moment from 'moment';
+  import moment from 'moment';
 
-export default {
-  props: ['entity'],
-  methods: {
-    moment(date) {
-      return moment(date);
+  export default {
+    props: ['entity'],
+    methods: {
+      moment(date) {
+        return moment(date);
+      },
     },
-  },
-};
+  };
 </script>
 
 <style scoped></style>

@@ -73,47 +73,47 @@
 </template>
 
 <script>
-import { listMixin } from '@mixins/list-mixin';
-import CitySelect from '@resources/gl_city/CitySelect.vue';
+  import { listMixin } from '@mixins/list-mixin';
+  import CitySelect from '@resources/gl_city/CitySelect.vue';
 
-export default {
-  mixins: [listMixin],
-  components: {
-    'app-city-select': CitySelect,
-  },
-  data() {
-    return {
-      filters: {
-        city: null,
+  export default {
+    mixins: [listMixin],
+    components: {
+      'app-city-select': CitySelect,
+    },
+    data() {
+      return {
+        filters: {
+          city: null,
+        },
+      };
+    },
+    computed: {
+      list_title() {
+        return 'Pessoas físicas e jurídicas';
       },
-    };
-  },
-  computed: {
-    list_title() {
-      return 'Pessoas físicas e jurídicas';
+      list_url_base() {
+        return '/api/admin/gl_person';
+      },
+      list_route_base() {
+        return 'gl_person';
+      },
     },
-    list_url_base() {
-      return '/api/admin/gl_person';
+    methods: {
+      list_buildURL(page) {
+        let url =
+          this.list_url_base +
+          '?page=' +
+          page +
+          '&q=' +
+          encodeURIComponent(this.searchText ? this.searchText : '');
+        if (this.filters.city) {
+          url += `&cityId=${this.filters.city.id}`;
+        }
+        return url;
+      },
     },
-    list_route_base() {
-      return 'gl_person';
-    },
-  },
-  methods: {
-    list_buildURL(page) {
-      let url =
-        this.list_url_base +
-        '?page=' +
-        page +
-        '&q=' +
-        encodeURIComponent(this.searchText ? this.searchText : '');
-      if (this.filters.city) {
-        url += `&cityId=${this.filters.city.id}`;
-      }
-      return url;
-    },
-  },
-};
+  };
 </script>
 
 <style scoped></style>

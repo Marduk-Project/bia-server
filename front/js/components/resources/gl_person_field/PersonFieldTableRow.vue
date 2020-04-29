@@ -47,125 +47,125 @@
 </template>
 
 <script>
-import axios from '@mixins/axios-auth';
-import FieldItemSelect from '@resources/gl_field_item/FieldItemSelect.vue';
+  import axios from '@mixins/axios-auth';
+  import FieldItemSelect from '@resources/gl_field_item/FieldItemSelect.vue';
 
-export default {
-  props: {
-    field: {
-      type: Object,
-      required: true,
+  export default {
+    props: {
+      field: {
+        type: Object,
+        required: true,
+      },
     },
-  },
-  components: {
-    'app-field-item-select': FieldItemSelect,
-  },
-  data() {
-    return {};
-  },
-  methods: {
-    onValueChange(value) {
-      this.emitValueEvent(value.target.value);
+    components: {
+      'app-field-item-select': FieldItemSelect,
     },
-    onSelectChanged(value) {
-      this.emitValueEvent(value);
+    data() {
+      return {};
     },
-    onCheckBoxChange(value) {
-      this.emitValueEvent(value.target.checked);
+    methods: {
+      onValueChange(value) {
+        this.emitValueEvent(value.target.value);
+      },
+      onSelectChanged(value) {
+        this.emitValueEvent(value);
+      },
+      onCheckBoxChange(value) {
+        this.emitValueEvent(value.target.checked);
+      },
+      emitValueEvent(value) {
+        const ret = Object.assign({}, this.field);
+        ret.fieldItemId = null;
+        ret.fieldItem = null;
+        switch (parseInt(this.type)) {
+          case 1:
+            ret.valueString = value;
+            break;
+
+          case 2:
+            ret.valueInt = parseFloat(value);
+            if (!ret.valueInt) {
+              ret.valueInt = 0;
+            }
+            break;
+
+          case 3:
+            ret.valueDouble = parseFloat(value);
+            if (!ret.valueDouble) {
+              ret.valueDouble = 0;
+            }
+            break;
+
+          case 4:
+            ret.valueBoolean = value;
+            break;
+
+          case 5:
+            if (value) {
+              ret.fieldItemId = value.id;
+              ret.fieldItem = value;
+            }
+            break;
+        }
+        this.$emit('input', ret);
+      },
     },
-    emitValueEvent(value) {
-      const ret = Object.assign({}, this.field);
-      ret.fieldItemId = null;
-      ret.fieldItem = null;
-      switch (parseInt(this.type)) {
-        case 1:
-          ret.valueString = value;
-          break;
+    computed: {
+      type() {
+        return this.field.field.type;
+      },
+      input_type() {
+        switch (parseInt(this.type)) {
+          case 1:
+            return 'text';
 
-        case 2:
-          ret.valueInt = parseFloat(value);
-          if (!ret.valueInt) {
-            ret.valueInt = 0;
-          }
-          break;
+          case 2:
+          case 3:
+            return 'number';
 
-        case 3:
-          ret.valueDouble = parseFloat(value);
-          if (!ret.valueDouble) {
-            ret.valueDouble = 0;
-          }
-          break;
+          case 4:
+            return null;
 
-        case 4:
-          ret.valueBoolean = value;
-          break;
+          case 5:
+            return null;
+        }
+      },
+      input_value() {
+        switch (parseInt(this.type)) {
+          case 1:
+            return this.field.valueString;
 
-        case 5:
-          if (value) {
-            ret.fieldItemId = value.id;
-            ret.fieldItem = value;
-          }
-          break;
-      }
-      this.$emit('input', ret);
+          case 2:
+            return this.field.valueInt;
+
+          case 3:
+            return this.field.valueDouble;
+
+          case 4:
+            return this.field.valueBoolean;
+
+          case 5:
+            return null;
+        }
+      },
+      input_classes() {
+        switch (parseInt(this.type)) {
+          case 1:
+            return 'col-lg-6';
+
+          case 2:
+          case 3:
+            return 'col-lg-3';
+
+          case 4:
+            return null;
+
+          case 5:
+            return null;
+        }
+      },
     },
-  },
-  computed: {
-    type() {
-      return this.field.field.type;
-    },
-    input_type() {
-      switch (parseInt(this.type)) {
-        case 1:
-          return 'text';
-
-        case 2:
-        case 3:
-          return 'number';
-
-        case 4:
-          return null;
-
-        case 5:
-          return null;
-      }
-    },
-    input_value() {
-      switch (parseInt(this.type)) {
-        case 1:
-          return this.field.valueString;
-
-        case 2:
-          return this.field.valueInt;
-
-        case 3:
-          return this.field.valueDouble;
-
-        case 4:
-          return this.field.valueBoolean;
-
-        case 5:
-          return null;
-      }
-    },
-    input_classes() {
-      switch (parseInt(this.type)) {
-        case 1:
-          return 'col-lg-6';
-
-        case 2:
-        case 3:
-          return 'col-lg-3';
-
-        case 4:
-          return null;
-
-        case 5:
-          return null;
-      }
-    },
-  },
-};
+  };
 </script>
 
 <style scoped></style>

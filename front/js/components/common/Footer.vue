@@ -21,14 +21,14 @@
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      git_v: window.app_gitv,
-      window: window,
-    };
-  },
-};
+  export default {
+    data() {
+      return {
+        git_v: window.app_gitv,
+        window: window,
+      };
+    },
+  };
 </script>
 
 <style scoped></style>

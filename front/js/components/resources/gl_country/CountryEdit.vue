@@ -58,50 +58,50 @@
 </template>
 
 <script>
-import { crudMixin } from '@mixins/crud-mixin';
+  import { crudMixin } from '@mixins/crud-mixin';
 
-export default {
-  mixins: [crudMixin],
-  data() {
-    return {
-      entity: {
-        id: null,
-        name: null,
-        code: null,
-        priority: 0,
-      },
-    };
-  },
-  methods: {
-    crud_data() {
+  export default {
+    mixins: [crudMixin],
+    data() {
       return {
-        id: this.entity.id,
-        name: this.entity.name,
-        code: this.entity.code,
-        priority: this.entity.priority,
+        entity: {
+          id: null,
+          name: null,
+          code: null,
+          priority: 0,
+        },
       };
     },
-  },
-  computed: {
-    crud_title() {
-      var ok = this.entity != null;
-      if (ok) {
-        ok = this.entity.name;
-      }
-      if (ok) {
-        return '' + this.entity.name;
-      } else {
-        return 'Cadastro de País';
-      }
+    methods: {
+      crud_data() {
+        return {
+          id: this.entity.id,
+          name: this.entity.name,
+          code: this.entity.code,
+          priority: this.entity.priority,
+        };
+      },
     },
-    crud_url_base() {
-      return '/api/admin/gl_country';
+    computed: {
+      crud_title() {
+        var ok = this.entity != null;
+        if (ok) {
+          ok = this.entity.name;
+        }
+        if (ok) {
+          return '' + this.entity.name;
+        } else {
+          return 'Cadastro de País';
+        }
+      },
+      crud_url_base() {
+        return '/api/admin/gl_country';
+      },
+      crud_route_base() {
+        return 'gl_country';
+      },
     },
-    crud_route_base() {
-      return 'gl_country';
-    },
-  },
-};
+  };
 </script>
 
 <style scoped></style>

@@ -73,38 +73,38 @@
 </template>
 
 <script>
-import { listMixin } from '@mixins/list-mixin';
-import axios from '@mixins/axios-auth';
-import _ from 'lodash';
+  import { listMixin } from '@mixins/list-mixin';
+  import axios from '@mixins/axios-auth';
+  import _ from 'lodash';
 
-export default {
-  mixins: [listMixin],
-  components: {},
-  data() {
-    return {
-      filters: {},
-    };
-  },
-  computed: {
-    list_title() {
-      return 'Unidades de medida';
+  export default {
+    mixins: [listMixin],
+    components: {},
+    data() {
+      return {
+        filters: {},
+      };
     },
-    list_url_base() {
-      return '/api/admin/gl_unit';
+    computed: {
+      list_title() {
+        return 'Unidades de medida';
+      },
+      list_url_base() {
+        return '/api/admin/gl_unit';
+      },
+      list_route_base() {
+        return 'gl_unit';
+      },
     },
-    list_route_base() {
-      return 'gl_unit';
+    methods: {
+      list_buildURL(page) {
+        let url = `${this.list_url_base}?page=${page}&q=${encodeURIComponent(
+          this.searchText
+        )}`;
+        return url;
+      },
     },
-  },
-  methods: {
-    list_buildURL(page) {
-      let url = `${this.list_url_base}?page=${page}&q=${encodeURIComponent(
-        this.searchText
-      )}`;
-      return url;
-    },
-  },
-};
+  };
 </script>
 
 <style scoped></style>

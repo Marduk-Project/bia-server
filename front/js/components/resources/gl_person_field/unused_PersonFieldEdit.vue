@@ -67,78 +67,78 @@
 </template>
 
 <script>
-import { crudMixin } from '@mixins/crud-mixin';
-import axios from '@mixins/axios-auth';
+  import { crudMixin } from '@mixins/crud-mixin';
+  import axios from '@mixins/axios-auth';
 
-import FieldSelect from '@resources/gl_field/FieldSelect.vue';
-import FieldItemSelect from '@resources/gl_field_item/FieldItemSelect.vue';
+  import FieldSelect from '@resources/gl_field/FieldSelect.vue';
+  import FieldItemSelect from '@resources/gl_field_item/FieldItemSelect.vue';
 
-export default {
-  mixins: [crudMixin],
-  components: {
-    'app-field-select': FieldSelect,
-    'app-fieldItem-select': FieldItemSelect,
-  },
-  data() {
-    return {
-      entity: {
-        fieldId: null,
-        fieldItemId: null,
-        personId: null,
-        valueString: null,
-        valueInt: null,
-        valueDouble: null,
-        valueBoolean: false,
-        // objects
-        field: null,
-        fieldItem: null,
-        person: null,
-      },
-    };
-  },
-  methods: {
-    crud_data() {
+  export default {
+    mixins: [crudMixin],
+    components: {
+      'app-field-select': FieldSelect,
+      'app-fieldItem-select': FieldItemSelect,
+    },
+    data() {
       return {
-        fieldId: this.entity.field ? this.entity.field.id : null,
-        fieldItemId: this.entity.fieldItem ? this.entity.fieldItem.id : null,
-        personId: this.parentEntityId,
-        valueString: this.entity.valueString,
-        valueInt: this.entity.valueInt,
-        valueDouble: this.entity.valueDouble,
-        valueBoolean: !!this.entity.valueBoolean,
+        entity: {
+          fieldId: null,
+          fieldItemId: null,
+          personId: null,
+          valueString: null,
+          valueInt: null,
+          valueDouble: null,
+          valueBoolean: false,
+          // objects
+          field: null,
+          fieldItem: null,
+          person: null,
+        },
       };
     },
-    crud_validate() {
-      if (!this.entity.field) {
-        this.notify_warning('Selecione field.');
-        return false;
-      }
-      return true;
+    methods: {
+      crud_data() {
+        return {
+          fieldId: this.entity.field ? this.entity.field.id : null,
+          fieldItemId: this.entity.fieldItem ? this.entity.fieldItem.id : null,
+          personId: this.parentEntityId,
+          valueString: this.entity.valueString,
+          valueInt: this.entity.valueInt,
+          valueDouble: this.entity.valueDouble,
+          valueBoolean: !!this.entity.valueBoolean,
+        };
+      },
+      crud_validate() {
+        if (!this.entity.field) {
+          this.notify_warning('Selecione field.');
+          return false;
+        }
+        return true;
+      },
+      crud_requestParentEntity() {
+        return axios.get(`/api/admin/gl_person/${this.parentEntityId}/edit`);
+      },
     },
-    crud_requestParentEntity() {
-      return axios.get(`/api/admin/gl_person/${this.parentEntityId}/edit`);
+    computed: {
+      crud_title() {
+        var ok = this.entity != null;
+        if (ok) {
+          ok = this.entity.name != null;
+        }
+        if (ok) {
+          return '' + this.entity.name;
+        } else {
+          return 'Cadastro de gl_person_field';
+        }
+      },
+      crud_url_base() {
+        return '/api/admin/gl_person_field';
+      },
+      crud_route_base() {
+        return 'gl_person_field';
+      },
     },
-  },
-  computed: {
-    crud_title() {
-      var ok = this.entity != null;
-      if (ok) {
-        ok = this.entity.name != null;
-      }
-      if (ok) {
-        return '' + this.entity.name;
-      } else {
-        return 'Cadastro de gl_person_field';
-      }
-    },
-    crud_url_base() {
-      return '/api/admin/gl_person_field';
-    },
-    crud_route_base() {
-      return 'gl_person_field';
-    },
-  },
-};
+  };
 </script>
 
 <style scoped></style>

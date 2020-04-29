@@ -16,35 +16,35 @@
 </template>
 
 <script>
-export default {
-  props: {
-    name: {
-      type: String,
-      required: false,
-      default: 'type',
+  export default {
+    props: {
+      name: {
+        type: String,
+        required: false,
+        default: 'type',
+      },
+      value: {
+        type: [Number, String],
+        required: false,
+        default: null,
+      },
+      showAll: {
+        type: Boolean,
+        required: false,
+        default: false,
+      },
+      classes: {
+        type: [String, Object],
+        required: false,
+        default: '',
+      },
     },
-    value: {
-      type: [Number, String],
-      required: false,
-      default: null,
+    methods: {
+      onValueSelect(e) {
+        this.$emit('input', e.target.value);
+      },
     },
-    showAll: {
-      type: Boolean,
-      required: false,
-      default: false,
-    },
-    classes: {
-      type: [String, Object],
-      required: false,
-      default: '',
-    },
-  },
-  methods: {
-    onValueSelect(e) {
-      this.$emit('input', e.target.value);
-    },
-  },
-};
+  };
 </script>
 
 <style scoped></style>

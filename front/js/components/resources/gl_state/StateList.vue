@@ -60,23 +60,23 @@
 </template>
 
 <script>
-import { listMixin } from '@mixins/list-mixin';
+  import { listMixin } from '@mixins/list-mixin';
 
-export default {
-  mixins: [listMixin],
-  components: {},
-  computed: {
-    list_title() {
-      return 'Estados';
+  export default {
+    mixins: [listMixin],
+    components: {},
+    computed: {
+      list_title() {
+        return 'Estados';
+      },
+      list_url_base() {
+        return '/api/admin/gl_state';
+      },
+      list_route_base() {
+        return 'gl_state';
+      },
     },
-    list_url_base() {
-      return '/api/admin/gl_state';
-    },
-    list_route_base() {
-      return 'gl_state';
-    },
-  },
-};
+  };
 </script>
 
 <style scoped></style>

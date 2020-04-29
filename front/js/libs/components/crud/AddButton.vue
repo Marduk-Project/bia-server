@@ -5,15 +5,15 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-export default {
-  props: ['value'],
-  methods: {
-    onButtonClick() {
-      this.$emit('click', this.value);
+  import { mapGetters } from 'vuex';
+  export default {
+    props: ['value'],
+    methods: {
+      onButtonClick() {
+        this.$emit('click', this.value);
+      },
     },
-  },
-};
+  };
 </script>
 
 <style scoped></style>

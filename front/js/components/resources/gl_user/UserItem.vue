@@ -3,14 +3,14 @@
 </template>
 
 <script>
-export default {
-  props: {
-    entity: {
-      type: Object,
-      validator: entity => Boolean(entity.name && entity.email),
+  export default {
+    props: {
+      entity: {
+        type: Object,
+        validator: entity => Boolean(entity.name && entity.email),
+      },
     },
-  },
-};
+  };
 </script>
 
 <style scoped></style>

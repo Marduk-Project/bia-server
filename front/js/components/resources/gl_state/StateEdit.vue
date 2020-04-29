@@ -122,67 +122,67 @@
 </template>
 
 <script>
-import { crudMixin } from '@mixins/crud-mixin';
-import CountrySelect from '@resources/gl_country/CountrySelect.vue';
+  import { crudMixin } from '@mixins/crud-mixin';
+  import CountrySelect from '@resources/gl_country/CountrySelect.vue';
 
-export default {
-  mixins: [crudMixin],
-  components: {
-    'app-country-select': CountrySelect,
-  },
-  data() {
-    return {
-      entity: {
-        id: null,
-        name: null,
-        code: null,
-        initials: null,
-        priority: 0,
-        countryId: null,
-        // objects
-        country: null,
-      },
-    };
-  },
-  methods: {
-    crud_data() {
+  export default {
+    mixins: [crudMixin],
+    components: {
+      'app-country-select': CountrySelect,
+    },
+    data() {
       return {
-        id: this.entity.id,
-        name: this.entity.name,
-        code: this.entity.code,
-        initials: this.entity.initials,
-        priority: this.entity.priority,
-        countryId: this.entity.country ? this.entity.country.id : null,
+        entity: {
+          id: null,
+          name: null,
+          code: null,
+          initials: null,
+          priority: 0,
+          countryId: null,
+          // objects
+          country: null,
+        },
       };
     },
-    crud_validate() {
-      if (!this.entity.country) {
-        this.notify_warning('Selecione um País.');
-        return false;
-      }
-      return true;
+    methods: {
+      crud_data() {
+        return {
+          id: this.entity.id,
+          name: this.entity.name,
+          code: this.entity.code,
+          initials: this.entity.initials,
+          priority: this.entity.priority,
+          countryId: this.entity.country ? this.entity.country.id : null,
+        };
+      },
+      crud_validate() {
+        if (!this.entity.country) {
+          this.notify_warning('Selecione um País.');
+          return false;
+        }
+        return true;
+      },
     },
-  },
-  computed: {
-    crud_title() {
-      var ok = this.entity != null;
-      if (ok) {
-        ok = this.entity.name;
-      }
-      if (ok) {
-        return '' + this.entity.name;
-      } else {
-        return 'Cadastro de Estado';
-      }
+    computed: {
+      crud_title() {
+        var ok = this.entity != null;
+        if (ok) {
+          ok = this.entity.name;
+        }
+        if (ok) {
+          return '' + this.entity.name;
+        } else {
+          return 'Cadastro de Estado';
+        }
+      },
+      crud_url_base() {
+        return '/api/admin/gl_state';
+      },
+      crud_route_base() {
+        return 'gl_state';
+      },
     },
-    crud_url_base() {
-      return '/api/admin/gl_state';
-    },
-    crud_route_base() {
-      return 'gl_state';
-    },
-  },
-};
+  };
 </script>
 
 <style scoped></style>

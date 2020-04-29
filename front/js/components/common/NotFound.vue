@@ -10,39 +10,39 @@
 </template>
 
 <script>
-export default {};
+  export default {};
 </script>
 
 <style scoped>
-#pg-container {
-  background-color: #fff;
-  color: #636b6f;
-  font-family: 'Raleway', sans-serif;
-  font-weight: 100;
-  height: 100vh;
-  margin: 0;
-}
+  #pg-container {
+    background-color: #fff;
+    color: #636b6f;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 100;
+    height: 100vh;
+    margin: 0;
+  }
 
-.full-height {
-  height: 100vh;
-}
+  .full-height {
+    height: 100vh;
+  }
 
-.flex-center {
-  align-items: center;
-  display: flex;
-  justify-content: center;
-}
+  .flex-center {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+  }
 
-.position-ref {
-  position: relative;
-}
+  .position-ref {
+    position: relative;
+  }
 
-.content {
-  text-align: center;
-}
+  .content {
+    text-align: center;
+  }
 
-.title {
-  font-size: 36px;
-  padding: 20px;
-}
+  .title {
+    font-size: 36px;
+    padding: 20px;
+  }
 </style>

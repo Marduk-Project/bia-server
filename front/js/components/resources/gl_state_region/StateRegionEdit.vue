@@ -50,73 +50,73 @@
 </template>
 
 <script>
-import { crudMixin } from '@mixins/crud-mixin';
-import axios from '@mixins/axios-auth';
+  import { crudMixin } from '@mixins/crud-mixin';
+  import axios from '@mixins/axios-auth';
 
-export default {
-  mixins: [crudMixin],
-  components: {},
-  data() {
-    return {
-      entity: {
-        name: null,
-        code: null,
-        type: null,
-        stateId: null,
-        // objects
-        state: null,
-      },
-    };
-  },
-  methods: {
-    crud_data() {
+  export default {
+    mixins: [crudMixin],
+    components: {},
+    data() {
       return {
-        name: this.entity.name,
-        code: this.entity.code,
-        type: this.$route.params.type,
-        stateId: this.parentEntityId,
+        entity: {
+          name: null,
+          code: null,
+          type: null,
+          stateId: null,
+          // objects
+          state: null,
+        },
       };
     },
-    crud_validate() {
-      return true;
+    methods: {
+      crud_data() {
+        return {
+          name: this.entity.name,
+          code: this.entity.code,
+          type: this.$route.params.type,
+          stateId: this.parentEntityId,
+        };
+      },
+      crud_validate() {
+        return true;
+      },
+      crud_requestParentEntity() {
+        return axios.get(`/api/admin/gl_state/${this.parentEntityId}/edit`);
+      },
     },
-    crud_requestParentEntity() {
-      return axios.get(`/api/admin/gl_state/${this.parentEntityId}/edit`);
-    },
-  },
-  computed: {
-    crud_subtitle() {
-      switch (this.$route.params.type) {
-        case 'meso':
-          return 'Mesorregião';
+    computed: {
+      crud_subtitle() {
+        switch (this.$route.params.type) {
+          case 'meso':
+            return 'Mesorregião';
 
-        case 'micro':
-          return 'Microrregião';
+          case 'micro':
+            return 'Microrregião';
 
-        case 'dre':
-          return 'Região DRE';
-      }
-      return 'Desconhecido';
+          case 'dre':
+            return 'Região DRE';
+        }
+        return 'Desconhecido';
+      },
+      crud_title() {
+        var ok = this.entity != null;
+        if (ok) {
+          ok = this.entity.name != null;
+        }
+        if (ok) {
+          return '' + this.entity.name;
+        } else {
+          return `Cadastro de ${this.crud_subtitle}`;
+        }
+      },
+      crud_url_base() {
+        return '/api/admin/gl_state_region';
+      },
+      crud_route_base() {
+        return 'gl_state_region';
+      },
     },
-    crud_title() {
-      var ok = this.entity != null;
-      if (ok) {
-        ok = this.entity.name != null;
-      }
-      if (ok) {
-        return '' + this.entity.name;
-      } else {
-        return `Cadastro de ${this.crud_subtitle}`;
-      }
-    },
-    crud_url_base() {
-      return '/api/admin/gl_state_region';
-    },
-    crud_route_base() {
-      return 'gl_state_region';
-    },
-  },
-};
+  };
 </script>
 
 <style scoped></style>

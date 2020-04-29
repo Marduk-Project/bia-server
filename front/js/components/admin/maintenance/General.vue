@@ -9,20 +9,20 @@
 </template>
 
 <script>
-import axios from '@mixins/axios-auth';
-import { apiMixin } from '@mixins/api-mixin';
+  import axios from '@mixins/axios-auth';
+  import { apiMixin } from '@mixins/api-mixin';
 
-export default {
-  mixins: [apiMixin],
-  data() {
-    return {
-      artisanCommand: '',
-    };
-  },
-  mounted() {
-    this.$store.dispatch('setTitle', 'Manutenção');
-  },
-};
+  export default {
+    mixins: [apiMixin],
+    data() {
+      return {
+        artisanCommand: '',
+      };
+    },
+    mounted() {
+      this.$store.dispatch('setTitle', 'Manutenção');
+    },
+  };
 </script>
 
 <style scoped></style>

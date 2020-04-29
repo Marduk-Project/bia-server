@@ -8,16 +8,16 @@
 </template>
 
 <script>
-import moment from 'moment';
+  import moment from 'moment';
 
-export default {
-  props: ['value', 'modDate', 'createdDate'],
-  methods: {
-    moment(value) {
-      return moment(value);
+  export default {
+    props: ['value', 'modDate', 'createdDate'],
+    methods: {
+      moment(value) {
+        return moment(value);
+      },
     },
-  },
-};
+  };
 </script>
 
 <style scoped></style>

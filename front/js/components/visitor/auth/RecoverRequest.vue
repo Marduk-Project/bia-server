@@ -66,53 +66,53 @@
 </template>
 
 <script>
-import axios from '@mixins/axios-auth';
-import { apiMixin } from '@mixins/api-mixin';
+  import axios from '@mixins/axios-auth';
+  import { apiMixin } from '@mixins/api-mixin';
 
-export default {
-  mixins: [apiMixin],
-  data() {
-    return {
-      wasValidated: false,
-      login: {
-        try: false,
-        username: null,
+  export default {
+    mixins: [apiMixin],
+    data() {
+      return {
+        wasValidated: false,
+        login: {
+          try: false,
+          username: null,
+        },
+      };
+    },
+    methods: {
+      onBackClick() {
+        this.$router.push({
+          name: 'auth.login',
+        });
       },
-    };
-  },
-  methods: {
-    onBackClick() {
-      this.$router.push({
-        name: 'auth.login',
-      });
+      onRecoverClick() {
+        this.$validator.validateAll().then(result => {
+          this.wasValidated = true;
+          if (!result) {
+            return;
+          }
+          let data = {
+            username: this.login.username,
+          };
+          this.api_loadingShow();
+          axios
+            .post('/api/auth/recoverRequest', data)
+            .then(
+              this.api_thenDone(res => {
+                this.notify_success(
+                  'E-mail enviado com sucesso. Por favor verifique seu sua caixa e siga as instruções.'
+                );
+              }, true)
+            )
+            .catch(this.api_catch());
+        });
+      },
     },
-    onRecoverClick() {
-      this.$validator.validateAll().then(result => {
-        this.wasValidated = true;
-        if (!result) {
-          return;
-        }
-        let data = {
-          username: this.login.username,
-        };
-        this.api_loadingShow();
-        axios
-          .post('/api/auth/recoverRequest', data)
-          .then(
-            this.api_thenDone(res => {
-              this.notify_success(
-                'E-mail enviado com sucesso. Por favor verifique seu sua caixa e siga as instruções.'
-              );
-            }, true)
-          )
-          .catch(this.api_catch());
-      });
+    mounted() {
+      this.$store.dispatch('setTitle', 'Esqueci minha senha');
     },
-  },
-  mounted() {
-    this.$store.dispatch('setTitle', 'Esqueci minha senha');
-  },
-};
+  };
 </script>
 
 <style type="text/css" scoped></style>

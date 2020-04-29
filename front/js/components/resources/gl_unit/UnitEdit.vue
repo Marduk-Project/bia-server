@@ -71,56 +71,56 @@
 </template>
 
 <script>
-import { crudMixin } from '@mixins/crud-mixin';
-import axios from '@mixins/axios-auth';
+  import { crudMixin } from '@mixins/crud-mixin';
+  import axios from '@mixins/axios-auth';
 
-export default {
-  mixins: [crudMixin],
-  components: {},
-  data() {
-    return {
-      entity: {
-        name: null,
-        nameSingular: null,
-        namePlural: null,
-        unit: null,
-        // objects
-      },
-    };
-  },
-  methods: {
-    crud_data() {
+  export default {
+    mixins: [crudMixin],
+    components: {},
+    data() {
       return {
-        name: this.entity.name,
-        nameSingular: this.entity.nameSingular,
-        namePlural: this.entity.namePlural,
-        unit: this.entity.unit,
+        entity: {
+          name: null,
+          nameSingular: null,
+          namePlural: null,
+          unit: null,
+          // objects
+        },
       };
     },
-    crud_validate() {
-      return true;
+    methods: {
+      crud_data() {
+        return {
+          name: this.entity.name,
+          nameSingular: this.entity.nameSingular,
+          namePlural: this.entity.namePlural,
+          unit: this.entity.unit,
+        };
+      },
+      crud_validate() {
+        return true;
+      },
     },
-  },
-  computed: {
-    crud_title() {
-      var ok = this.entity != null;
-      if (ok) {
-        ok = this.entity.name != null;
-      }
-      if (ok) {
-        return '' + this.entity.name;
-      } else {
-        return 'Cadastro de Unidade';
-      }
+    computed: {
+      crud_title() {
+        var ok = this.entity != null;
+        if (ok) {
+          ok = this.entity.name != null;
+        }
+        if (ok) {
+          return '' + this.entity.name;
+        } else {
+          return 'Cadastro de Unidade';
+        }
+      },
+      crud_url_base() {
+        return '/api/admin/gl_unit';
+      },
+      crud_route_base() {
+        return 'gl_unit';
+      },
     },
-    crud_url_base() {
-      return '/api/admin/gl_unit';
-    },
-    crud_route_base() {
-      return 'gl_unit';
-    },
-  },
-};
+  };
 </script>
 
 <style scoped></style>
