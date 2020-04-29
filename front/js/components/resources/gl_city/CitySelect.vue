@@ -1,5 +1,6 @@
 <template>
   <v-select
+    :id="id"
     :elid="elid"
     :readonly="readonly"
     :disabled="disabled"
@@ -24,18 +25,19 @@
   import vSelect from '@libComponents/form/Select2.vue';
 
   export default {
-    props: [
-      'elid',
-      'readonly',
-      'disabled',
-      'name',
-      'required',
-      'url',
-      'value',
-      'options',
-      'extraparams',
-      'placeholder',
-    ],
+    props: {
+      id: { type: String },
+      elid: { type: Number, default: null },
+      readonly: { type: Boolean, default: false },
+      disabled: { type: Boolean, default: false },
+      name: { type: String },
+      required: { type: Boolean, default: false },
+      url: { type: String },
+      value: { type: String },
+      options: { type: Array },
+      extraparams: { type: Object },
+      placeholder: { type: String },
+    },
     components: {
       'v-select': vSelect,
     },
