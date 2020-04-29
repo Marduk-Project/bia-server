@@ -1,18 +1,21 @@
 <template>
   <div class="container-fluid">
     <br />
+    <button
+      type="button"
+      class="btn btn-link"
+      @click="
+        $router.push({ name: 'gl_state.edit', params: { id: parentEntityId } })
+      "
+    >
+      <i class="fa fa-chevron-left"></i> Voltar
+    </button>
+    <br />
     <h1>{{ list_title }}</h1>
     <app-add-button @click="list_onAddClick"></app-add-button>
-    <button class="btn btn-outline-danger ml-1" @click="onIbgeImportClick">
-      <i class="fas fa-database"></i> Importar do IBGE
-    </button>
     <br />
     <br />
     <div class="form-row">
-      <div class="form-group col-12">
-        <label>Estado</label>
-        <app-state-select v-model="filters.state"></app-state-select>
-      </div>
       <div class="form-group col-12">
         <div class="input-group mb-3">
           <input
@@ -40,16 +43,16 @@
         <tr class>
           <th>#</th>
           <th>Nome</th>
-          <th>Estado</th>
           <th>
-            IBGE
-            <i
-              class="fa fa-question-circle"
-              v-b-tooltip.hover
-              title="Código no IBGE"
-            ></i>
+            Código
+            <app-info title="Código no IBGE ou órgão competente."></app-info>
           </th>
-          <th class="text-right">Prioridade</th>
+          <!--
+          <th class="app-table-actions">
+            S.
+            <i class="fa fa-info-circle" v-b-tooltip.hover title="Situação"></i>
+          </th>
+          -->
         </tr>
       </thead>
       <tbody>
@@ -61,9 +64,20 @@
         >
           <td>{{ entity.id }}</td>
           <td>{{ entity.name }}</td>
-          <td>{{ entity.state ? entity.state.initials : null }}</td>
           <td>{{ entity.code }}</td>
-          <td class="text-right">{{ entity.priority }}</td>
+          <!--
+          <td class="app-table-actions">
+            <i
+              v-b-tooltip.hover
+              title="Verificado"
+              class="fas fa-check-circle"
+              :class="{
+              'app-table-action-disabled': !entity.trusted,
+              'text-success': entity.trusted,
+            }"
+            ></i>
+          </td>
+          -->
         </tr>
       </tbody>
     </table>
@@ -72,58 +86,50 @@
 </template>
 
 <script>
-import axios from "@mixins/axios-auth";
 import { listMixin } from "@mixins/list-mixin";
-import StateSelect from "@resources/gl_state/StateSelect.vue";
+import axios from "@mixins/axios-auth";
+import _ from "lodash";
 
 export default {
   mixins: [listMixin],
-  components: {
-    "app-state-select": StateSelect,
-  },
+  components: {},
   data() {
     return {
-      filters: {
-        state: null,
-      },
+      filters: {},
     };
   },
   computed: {
     list_title() {
-      return "Cidades";
+      switch (this.$route.params.type) {
+        case "meso":
+          return "Mesorregiões";
+
+        case "micro":
+          return "Microrregiões";
+
+        case "dre":
+          return "Regiões DRE";
+      }
+      return "Desconhecido";
     },
     list_url_base() {
-      return "/api/admin/gl_city";
+      return "/api/admin/gl_state_region";
     },
     list_route_base() {
-      return "gl_city";
+      return "gl_state_region";
     },
   },
   methods: {
     list_buildURL(page) {
-      let url =
-        this.list_url_base +
-        "?page=" +
-        page +
-        "&q=" +
-        encodeURIComponent(this.searchText ? this.searchText : "");
-      if (this.filters.state) {
-        url += `&stateId=${this.filters.state.id}`;
-      }
+      let url = `${this.list_url_base}?page=${page}&q=${encodeURIComponent(
+        this.searchText
+      )}`;
+      url += `&stateId=${this.parentEntityId}`;
+      url += `&type=${this.$route.params.type}`;
       return url;
     },
-    onIbgeImportClick() {
-      const response = prompt(
-        'Esta rotina é longa, e pode deixar o servidor bastante lento. Digite "importar" para prosseguir.',
-        "não"
-      );
-      if (response != "importar") {
-        return;
-      }
-      axios
-        .post(`${this.list_url_base}/ibgeImport`)
-        .then(this.api_thenDone())
-        .catch(this.api_catch());
+    list_requestParentEntity() {
+      return axios.get(`/api/admin/gl_state/${this.parentEntityId}/edit`);
     },
   },
 };

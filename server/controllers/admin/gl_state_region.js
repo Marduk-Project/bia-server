@@ -10,9 +10,9 @@ const {
   ApiError,
   NotFoundError,
 } = require("../../middlewares/error-mid");
-const CtrModelModule = require("../../models/gl_field_item");
+const CtrModelModule = require("../../models/gl_state_region");
 const Model = CtrModelModule.model;
-const ParentModelModule = require("../../models/gl_field");
+const ParentModelModule = require("../../models/gl_state");
 const ParentModel = ParentModelModule.model;
 
 // const utils = require('../../helpers/utils');
@@ -26,7 +26,8 @@ const controllerDefaultQueryScope = "admin";
 exports.getIndexValidate = [
   query("page").optional().isInt(),
   query("q").optional().isString(),
-  query("fieldId").isInt(),
+  query("stateId").isInt(),
+  query("type").isString(),
   validationEndFunction,
 ];
 
@@ -45,7 +46,7 @@ exports.getIndex = async (req, res, next) => {
         name: {
           [Op.iLike]: `${q}%`,
         },
-        valueString: {
+        code: {
           [Op.iLike]: `${q}%`,
         },
       };
@@ -53,13 +54,15 @@ exports.getIndex = async (req, res, next) => {
         options.where[Op.or].id = q;
       }
     }
-    // fieldId
-    options.where.fieldId = req.query.fieldId;
+    // stateId
+    options.where.stateId = req.query.stateId;
+    // type
+    options.where.type = req.query.type;
     // query options
     const page = req.query.page || 1;
     Model.setLimitOffsetForPage(page, options);
     options.order = [
-      ["name", "asc"], // TODO check order
+      ["name", "asc"],
       ["id", "asc"],
     ];
     // exec
@@ -107,13 +110,16 @@ exports.getEdit = async (req, res, next) => {
  */
 const saveValidate = [
   param("id").optional().isInt(),
-  body("fieldId").isInt().custom(customFindByPkRelationValidation(ParentModel)),
   body("name").trim().not().isEmpty().isLength({
     min: 1,
     max: 60,
   }),
-  body("order").optional().isInt(),
-  body("valueString").optional().trim(),
+  body("code").optional().trim().isLength({
+    min: 0,
+    max: 60,
+  }),
+  body("type").trim().isIn(CtrModelModule.TYPE_ALL),
+  body("stateId").isInt().custom(customFindByPkRelationValidation(ParentModel)),
   // validationEndFunction, // dont need here, is attached below
 ];
 
@@ -127,11 +133,10 @@ const saveEntityFunc = async (req, res, next, id) => {
       entity = Model.build({});
     }
     // fields
-    entity.fieldId = body.fieldId;
     entity.name = body.name;
     entity.code = body.code;
-    entity.order = body.order;
-    entity.valueString = body.valueString || body.name;
+    entity.type = body.type;
+    entity.stateId = body.stateId;
     // save
     await entity.save();
     // send result

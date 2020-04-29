@@ -1,6 +1,7 @@
 const { body, query, param } = require("express-validator/check");
 const validator = require("validator");
 const { Op } = require("sequelize");
+const chalk = require("chalk");
 
 const {
   customFindByPkValidation,
@@ -15,6 +16,10 @@ const Model = CtrModelModule.model;
 const ParentModelModule = require("../../models/gl_state");
 const ParentModel = ParentModelModule.model;
 const utils = require("../../helpers/utils");
+const StateRegionModelModule = require("../../models/gl_state_region");
+const StateRegionModel = StateRegionModelModule.model;
+const CityStateRegionModelModule = require("../../models/gl_city_state_region");
+const CityStateRegionModel = CityStateRegionModelModule.model;
 
 const controllerDefaultQueryScope = "admin";
 
@@ -58,12 +63,11 @@ exports.getIndex = async (req, res, next) => {
     // query options
     const page = req.query.page || 1;
     Model.setLimitOffsetForPage(page, options);
-    options.order -
-      [
-        ["priority", "desc"],
-        ["name", "asc"],
-        ["id", "asc"],
-      ];
+    options.order = [
+      ["priority", "desc"],
+      ["name", "asc"],
+      ["id", "asc"],
+    ];
     options.include = ["state"];
     // exec
     const queryResult = await Model.findAndCountAll(options);
@@ -99,14 +103,32 @@ exports.getEdit = async (req, res, next) => {
   try {
     const entity = req.entity;
     res.sendJsonOK({
-      data: await CtrModelModule.jsonSerializer(
-        entity,
-        controllerDefaultQueryScope
-      ),
+      data: await CtrModelModule.jsonSerializer(entity, "admin_edit"),
     });
   } catch (err) {
     next(err);
   }
+};
+
+const stateRegionValidator = (type) => {
+  return async (value, { req }) => {
+    if (!req.body.stateId) {
+      throw new ApiError("Campo stateId precisa ser preenchido.");
+    }
+    if (!value) {
+      return true;
+    }
+    if (
+      !(await StateRegionModel.existsByIdAndTypeStateId(
+        value,
+        type,
+        req.body.stateId
+      ))
+    ) {
+      throw new ApiError(`Região $(type) não encontrada!`);
+    }
+    return true;
+  };
 };
 
 /**
@@ -129,6 +151,18 @@ const saveValidate = [
   body("stateId")
     .isInt()
     .custom(customFindByPkRelationValidation(ParentModel, null)),
+  body("mesoRegionId")
+    .optional({ checkFalsy: true })
+    .isInt()
+    .custom(stateRegionValidator(StateRegionModelModule.TYPE_MESO)),
+  body("microRegionId")
+    .optional({ checkFalsy: true })
+    .isInt()
+    .custom(stateRegionValidator(StateRegionModelModule.TYPE_MICRO)),
+  body("dreRegionId")
+    .optional({ checkFalsy: true })
+    .isInt()
+    .custom(stateRegionValidator(StateRegionModelModule.TYPE_DRE)),
   // validationEndFunction, // aqui nao tem validate
 ];
 
@@ -147,6 +181,18 @@ const saveEntityFunc = async (req, res, next, id) => {
     entity.priority = body.priority;
     entity.stateId = body.stateId;
     await entity.save();
+    await entity.setStateRegion(
+      body.mesoRegionId,
+      StateRegionModelModule.TYPE_MESO
+    );
+    await entity.setStateRegion(
+      body.microRegionId,
+      StateRegionModelModule.TYPE_MICRO
+    );
+    await entity.setStateRegion(
+      body.dreRegionId,
+      StateRegionModelModule.TYPE_DRE
+    );
     // send result
     const result = {
       entity: {
@@ -220,6 +266,24 @@ exports.delete = async (req, res, next) => {
         controllerDefaultQueryScope
       ),
     });
+  } catch (err) {
+    next(err);
+  }
+};
+
+/**
+ * Delete
+ */
+exports.postIbgeImport = async (req, res, next) => {
+  try {
+    const {
+      importToDatabase,
+    } = require("../../../source-data/ibge/import-to-database");
+    // start async
+    importToDatabase(true).catch((err) => {
+      console.log(chalk.red("Error importing IBGE data...", err));
+    });
+    res.sendJsonOK();
   } catch (err) {
     next(err);
   }

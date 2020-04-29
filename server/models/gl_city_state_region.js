@@ -4,14 +4,30 @@ const { Sequelize, DataTypes } = require("sequelize");
 const { mainDb } = require("../database/main_connection");
 const { BaseModel, jsonSerializer } = require("./base_model");
 
+const {
+  model: StateRegionModel,
+  jsonSerializer: stateRegionJsonSerializer,
+} = require("./gl_state_region");
+const {
+  model: CityModel,
+  jsonSerializer: cityJsonSerializer,
+} = require("./gl_city");
+
 // model
-const modelName = "gl_country";
+const modelName = "gl_city_state_region";
 class MyModel extends BaseModel {
-  static async findByCode(code) {
+  /**
+   * @param {int} cityId
+   * @param {string} type
+   * @returns {Promise<MyModel>|null}
+   */
+  static async findByCityAndType(cityId, type) {
     return await this.findOne({
       where: {
-        code: code,
+        cityId: cityId,
+        type: type,
       },
+      include: ["stateRegion"],
     });
   }
 }
@@ -30,21 +46,9 @@ MyModel.init(
     updatedAt: {
       type: Sequelize.DATE,
     },
-    name: {
+    type: {
       type: Sequelize.STRING,
-      validate: {
-        notEmpty: false,
-        len: {
-          args: [1, 60],
-          msg: "Nome deve ter de 1 a 60 caracteres.",
-        },
-      },
-    },
-    code: {
-      type: Sequelize.STRING,
-    },
-    priority: {
-      type: Sequelize.INTEGER,
+      allowNull: false,
     },
   },
   {
@@ -55,11 +59,35 @@ MyModel.init(
   }
 );
 
+// relations
+StateRegionModel.hasMany(MyModel, {
+  foreignKey: "stateRegionId",
+  as: "cities",
+});
+MyModel.belongsTo(StateRegionModel, {
+  foreignKey: "stateRegionId",
+  as: "stateRegion",
+});
+CityModel.hasMany(MyModel, {
+  foreignKey: "cityId",
+  as: "regions",
+});
+MyModel.belongsTo(CityModel, {
+  foreignKey: "cityId",
+  as: "city",
+});
+
+// scopes
 const scopes = {
   def: {
     include: ["id", "name", "code"],
   },
-  admin: {}, // all
+  admin: {
+    stateRegion: async (value, scopeName) =>
+      await stateRegionJsonSerializer(value, scopeName),
+    city: async (value, scopeName) =>
+      await cityJsonSerializer(value, scopeName),
+  },
 };
 
 exports.model = MyModel;

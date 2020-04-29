@@ -19,9 +19,9 @@
           },
         }"
       >
-        <i class="fas fa-id-card"></i> Contatos vinculados </router-link
-      >&nbsp;
-      <button class="btn btn-outline-danger" @click="onUserBlockClick">
+        <i class="fas fa-id-card"></i> Contatos vinculados
+      </router-link>
+      <button class="btn btn-outline-danger ml-1" @click="onUserBlockClick">
         <i class="fas fa-ban"></i> Bloquear / Desbloquear
       </button>
       <br />

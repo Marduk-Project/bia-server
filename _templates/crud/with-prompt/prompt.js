@@ -114,7 +114,7 @@ module.exports = {
           answers.crud_actions = ['controller', 'model', 'migration', 'vueEdit', 'vueList'];
           answers.name = 'gl_state';
         }
-        answers.inTestMode = inTestMode || true;
+        answers.inTestMode = inTestMode;
         answers.nowPreffix = moment().format("YYYYMMDDHmmss");
         answers.nameWithHyphen = answers.name.replace(/_/g, "-");
         answers.make = {

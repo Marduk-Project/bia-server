@@ -65,6 +65,39 @@
             >Campo obrigatório.</small
           >
         </div>
+        <div class="form-group col-lg-4">
+          <label>Mesorregião</label>
+          <app-state-region-select
+            :disabled="!entity.state"
+            :extraparams="{
+              stateId: entity.state ? entity.state.id : null,
+              type: 'meso',
+            }"
+            v-model="entity.mesoRegion"
+          ></app-state-region-select>
+        </div>
+        <div class="form-group col-lg-4">
+          <label>Microrregião</label>
+          <app-state-region-select
+            :disabled="!entity.state"
+            :extraparams="{
+              stateId: entity.state ? entity.state.id : null,
+              type: 'micro',
+            }"
+            v-model="entity.microRegion"
+          ></app-state-region-select>
+        </div>
+        <div class="form-group col-lg-4">
+          <label>Região DRE</label>
+          <app-state-region-select
+            :disabled="!entity.state"
+            :extraparams="{
+              stateId: entity.state ? entity.state.id : null,
+              type: 'dre',
+            }"
+            v-model="entity.dreRegion"
+          ></app-state-region-select>
+        </div>
       </div>
       <div class="form-row">
         <app-crud-buttons
@@ -81,11 +114,13 @@
 <script>
 import { crudMixin } from "@mixins/crud-mixin";
 import StateSelect from "@resources/gl_state/StateSelect.vue";
+import StateRegionSelect from "@resources/gl_state_region/StateRegionSelect.vue";
 
 export default {
   mixins: [crudMixin],
   components: {
     "app-state-select": StateSelect,
+    "app-state-region-select": StateRegionSelect,
   },
   data() {
     return {
@@ -98,6 +133,9 @@ export default {
         stateId: null,
         // objects
         state: null,
+        mesoRegion: null,
+        microRegion: null,
+        dreRegion: null,
       },
     };
   },
@@ -110,6 +148,11 @@ export default {
         code: this.entity.code,
         initials: this.entity.initials,
         stateId: this.entity.state ? this.entity.state.id : null,
+        mesoRegionId: this.entity.mesoRegion ? this.entity.mesoRegion.id : null,
+        microRegionId: this.entity.microRegion
+          ? this.entity.microRegion.id
+          : null,
+        dreRegionId: this.entity.dreRegion ? this.entity.dreRegion.id : null,
       };
     },
     crud_validate() {
@@ -120,7 +163,19 @@ export default {
       return true;
     },
   },
+  watch: {
+    entity_state(newValue, oldValue) {
+      if (!newValue) {
+        this.entity.mesoRegion = null;
+        this.entity.microRegion = null;
+        this.entity.dreRegion = null;
+      }
+    },
+  },
   computed: {
+    entity_state() {
+      return this.entity.state;
+    },
     crud_title() {
       var ok = this.entity != null;
       if (ok) {

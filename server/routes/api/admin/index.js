@@ -17,6 +17,8 @@ router.use("/gl_field_item", require("./gl_field_item"));
 router.use("/gl_unit", require("./gl_unit"));
 router.use("/gl_product", require("./gl_product"));
 
+router.use("/gl_state_region", require("./gl_state_region"));
+
 // generator-inject-new-here
 
 module.exports = router;

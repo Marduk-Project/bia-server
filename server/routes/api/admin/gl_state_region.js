@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router({ mergeParams: true });
 
-const controller = require("../../../controllers/admin/gl_city");
+const controller = require("../../../controllers/admin/gl_state_region");
 const authMid = require("../../../middlewares/auth-mid");
 
 router.get(
@@ -37,12 +37,6 @@ router.delete(
   authMid.userIsAdminMiddleware,
   controller.deleteValidate,
   controller.delete
-);
-
-router.post(
-  "/ibgeImport",
-  authMid.userIsAdminMiddleware,
-  controller.postIbgeImport
 );
 
 module.exports = router;
