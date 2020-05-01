@@ -11,45 +11,45 @@
 </template>
 
 <script>
-export default {
-  props: {
-    value: {
-      type: [Number, String],
-      required: false,
-      default: null,
+  export default {
+    props: {
+      value: {
+        type: [Number, String],
+        required: false,
+        default: null,
+      },
+      showAll: {
+        type: Boolean,
+        required: false,
+        default: false,
+      },
     },
-    showAll: {
-      type: Boolean,
-      required: false,
-      default: false,
+    methods: {
+      onValueSelect(e) {
+        this.$emit('input', e.target.value);
+      },
+      levelToString(value) {
+        value = parseInt(value);
+        switch (value) {
+          case exports.LEVEL_ERROR:
+            return 'error';
+
+          case exports.LEVEL_WARN:
+            return 'warn';
+
+          case exports.LEVEL_INFO:
+            return 'info';
+
+          case exports.LEVEL_DEBUG:
+            return 'debug';
+
+          case exports.LEVEL_SILLY:
+            return 'silly';
+        }
+        return 'unknow';
+      },
     },
-  },
-  methods: {
-    onValueSelect(e) {
-      this.$emit("input", e.target.value);
-    },
-    levelToString(value) {
-      value = parseInt(value);
-      switch (value) {
-        case exports.LEVEL_ERROR:
-          return "error";
-
-        case exports.LEVEL_WARN:
-          return "warn";
-
-        case exports.LEVEL_INFO:
-          return "info";
-
-        case exports.LEVEL_DEBUG:
-          return "debug";
-
-        case exports.LEVEL_SILLY:
-          return "silly";
-      }
-      return "unknow";
-    },
-  },
-};
+  };
 </script>
 
 <style scoped></style>

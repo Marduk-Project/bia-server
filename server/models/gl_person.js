@@ -1,13 +1,13 @@
-const nconf = require("nconf");
-const { Sequelize, DataTypes } = require("sequelize");
+const nconf = require('nconf');
+const { Sequelize, DataTypes } = require('sequelize');
 
-const { mainDb } = require("../database/main_connection");
-const { BaseModel, jsonSerializer } = require("./base_model");
+const { mainDb } = require('../database/main_connection');
+const { BaseModel, jsonSerializer } = require('./base_model');
 
 const {
   model: CityModel,
   jsonSerializer: cityJsonSerializer,
-} = require("./gl_city");
+} = require('./gl_city');
 
 // legalType
 const LEGAL_TYPE_PERSON = 1;
@@ -29,31 +29,31 @@ exports.LEGAL_TYPE_ALL = [
   LEGAL_TYPE_SUB_ENTITY,
 ];
 
-const legalTypeToString = (value) => {
+const legalTypeToString = value => {
   switch (parseInt(value)) {
     case LEGAL_TYPE_PERSON:
-      return "Pessoa Física";
+      return 'Pessoa Física';
 
     case LEGAL_TYPE_JURIDICAL_PRIVATE:
-      return "Pessoa Jurídica de direito PRIVADO";
+      return 'Pessoa Jurídica de direito PRIVADO';
 
     case LEGAL_TYPE_JURIDICAL_PUBLIC:
-      return "Pessoa Jurídica de direito PÚBLICO";
+      return 'Pessoa Jurídica de direito PÚBLICO';
 
     case LEGAL_TYPE_CIVIL_ORGANIZATION:
-      return "Organização Civil";
+      return 'Organização Civil';
 
     case LEGAL_TYPE_SUB_ENTITY:
-      return "Setor ou Subentidade (sem CNPJ)";
+      return 'Setor ou Subentidade (sem CNPJ)';
   }
-  return "Desconhecido";
+  return 'Desconhecido';
 };
 exports.legalTypeToString = legalTypeToString;
 
 // legalIdentifierType
-const LEGAL_IDENTIFIER_TYPE_BR_CPF = "CPF";
-const LEGAL_IDENTIFIER_TYPE_BR_CNPJ = "CNPJ";
-const LEGAL_IDENTIFIER_TYPE_BR_OTHER = "OTHER";
+const LEGAL_IDENTIFIER_TYPE_BR_CPF = 'CPF';
+const LEGAL_IDENTIFIER_TYPE_BR_CNPJ = 'CNPJ';
+const LEGAL_IDENTIFIER_TYPE_BR_OTHER = 'OTHER';
 
 exports.LEGAL_IDENTIFIER_TYPE_BR_CPF = LEGAL_IDENTIFIER_TYPE_BR_CPF;
 exports.LEGAL_IDENTIFIER_TYPE_BR_CNPJ = LEGAL_IDENTIFIER_TYPE_BR_CNPJ;
@@ -65,7 +65,7 @@ exports.LEGAL_IDENTIFIER_TYPE_ALL = [
 ];
 
 // model
-const modelName = "gl_person";
+const modelName = 'gl_person';
 class MyModel extends BaseModel {}
 
 MyModel.init(
@@ -86,9 +86,9 @@ MyModel.init(
     },
     legalType: Sequelize.INTEGER,
     legalTypeDesc: {
-      type: new DataTypes.VIRTUAL(DataTypes.STRING, ["legalType"]),
+      type: new DataTypes.VIRTUAL(DataTypes.STRING, ['legalType']),
       get: function () {
-        return legalTypeToString(this.get("legalType"));
+        return legalTypeToString(this.get('legalType'));
       },
     },
     legalIdentifierType: Sequelize.STRING(60),
@@ -100,7 +100,7 @@ MyModel.init(
         notEmpty: false,
         len: {
           args: [1, 90],
-          msg: "Nome deve ter de 1 a 90 caracteres.",
+          msg: 'Nome deve ter de 1 a 90 caracteres.',
         },
       },
     },
@@ -126,7 +126,7 @@ MyModel.init(
       type: Sequelize.DECIMAL(10, 7),
       defaultValue: 0,
     },
-    obs: Sequelize.TEXT("medium"),
+    obs: Sequelize.TEXT('medium'),
   },
   {
     // options
@@ -137,25 +137,25 @@ MyModel.init(
 );
 
 CityModel.hasMany(MyModel, {
-  foreignKey: "cityId",
-  as: "persons",
+  foreignKey: 'cityId',
+  as: 'persons',
 });
 MyModel.belongsTo(CityModel, {
-  foreignKey: "cityId",
-  as: "city",
+  foreignKey: 'cityId',
+  as: 'city',
 });
 
 const scopes = {
   def: {
     include: [
-      "id",
-      "name",
-      "shortname",
-      "email",
-      "legalType",
-      "legalTypeDesc",
-      "legalIdentifierType",
-      "legalIdentifierCode",
+      'id',
+      'name',
+      'shortname',
+      'email',
+      'legalType',
+      'legalTypeDesc',
+      'legalIdentifierType',
+      'legalIdentifierCode',
     ],
   },
   admin: {
@@ -170,10 +170,10 @@ exports.model = MyModel;
 exports.modelName = modelName;
 exports.jsonSerializer = async (value, scopeName) => {
   if (!scopeName) {
-    scopeName = "def";
+    scopeName = 'def';
   }
   if (!scopes[scopeName]) {
-    scopeName = "def";
+    scopeName = 'def';
   }
   return await jsonSerializer(value, scopes[scopeName], scopeName);
 };

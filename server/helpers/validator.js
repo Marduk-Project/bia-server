@@ -1,13 +1,13 @@
-const moment = require("moment");
+const moment = require('moment');
 
-exports.isCNPJ_Num = (cnpj) => {
+exports.isCNPJ_Num = cnpj => {
   if (cnpj == null) {
     return false;
   }
   if (cnpj == undefined) {
     return false;
   }
-  if (cnpj == "") {
+  if (cnpj == '') {
     return false;
   }
   var numeros, digitos, soma, i, resultado, pos, tamanho, digitos_iguais;
@@ -56,14 +56,14 @@ exports.isCNPJ_Num = (cnpj) => {
   return true;
 };
 
-exports.isCNPJ = (cnpj) => {
+exports.isCNPJ = cnpj => {
   if (cnpj == null) {
     return false;
   }
   if (cnpj == undefined) {
     return false;
   }
-  if (cnpj == "") {
+  if (cnpj == '') {
     return false;
   }
   if (cnpj.length != 18) {
@@ -74,31 +74,31 @@ exports.isCNPJ = (cnpj) => {
     return false;
   }
   regex = /[\.\-\/]/g; //eslint-disable-line no-useless-escape
-  return exports.isCNPJ_Num(cnpj.replace(regex, ""));
+  return exports.isCNPJ_Num(cnpj.replace(regex, ''));
 };
 
-exports.isCPF_Num = (cpf) => {
+exports.isCPF_Num = cpf => {
   if (cpf == null) {
     return false;
   }
   if (cpf == undefined) {
     return false;
   }
-  if (cpf == "") {
+  if (cpf == '') {
     return false;
   }
   if (
     cpf.length != 11 ||
-    cpf == "00000000000" ||
-    cpf == "11111111111" ||
-    cpf == "22222222222" ||
-    cpf == "33333333333" ||
-    cpf == "44444444444" ||
-    cpf == "55555555555" ||
-    cpf == "66666666666" ||
-    cpf == "77777777777" ||
-    cpf == "88888888888" ||
-    cpf == "99999999999"
+    cpf == '00000000000' ||
+    cpf == '11111111111' ||
+    cpf == '22222222222' ||
+    cpf == '33333333333' ||
+    cpf == '44444444444' ||
+    cpf == '55555555555' ||
+    cpf == '66666666666' ||
+    cpf == '77777777777' ||
+    cpf == '88888888888' ||
+    cpf == '99999999999'
   ) {
     return false;
   }
@@ -129,14 +129,14 @@ exports.isCPF_Num = (cpf) => {
   return true;
 };
 
-exports.isCPF = (cpf) => {
+exports.isCPF = cpf => {
   if (cpf == null) {
     return false;
   }
   if (cpf == undefined) {
     return false;
   }
-  if (cpf == "") {
+  if (cpf == '') {
     return false;
   }
   if (cpf.length != 14) {
@@ -147,7 +147,7 @@ exports.isCPF = (cpf) => {
     return false;
   }
   regex = /[.-]/g;
-  return exports.isCPF_Num(cpf.replace(regex, ""));
+  return exports.isCPF_Num(cpf.replace(regex, ''));
 };
 
 exports.isDate8601 = (value, exNeeded) => {
@@ -158,13 +158,13 @@ exports.isDate8601 = (value, exNeeded) => {
     return true;
   }
   if (exNeeded) {
-    throw new Error("Formato de data inválido!");
+    throw new Error('Formato de data inválido!');
   }
   return false;
 };
 
 exports.isDate8601Func = (exNeeded, required) => {
-  return (value) => {
+  return value => {
     if (!value) {
       if (required) {
         return false;
@@ -175,7 +175,7 @@ exports.isDate8601Func = (exNeeded, required) => {
       return true;
     }
     if (exNeeded) {
-      throw new Error("Formato de data inválido!");
+      throw new Error('Formato de data inválido!');
     }
     return false;
   };

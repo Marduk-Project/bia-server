@@ -13,11 +13,11 @@
 // 5. set normalized object to save in db
 // 6. save in db
 
-require("../config.js");
-const { checkIsConnected } = require("../server/database/main_connection.js");
+require('../config.js');
+const { checkIsConnected } = require('../server/database/main_connection.js');
 
-const { breakdownToMatch, excelData } = require("./read-consolidated");
-const { matchItems, idByModel } = require("./match-item-to-id");
+const { breakdownToMatch, excelData } = require('./read-consolidated');
+const { matchItems, idByModel } = require('./match-item-to-id');
 
 const failureRows = [];
 
@@ -28,13 +28,13 @@ checkIsConnected()
   .then(handleBrokenData);
 
 function normalizeDataForDB() {
-  return excelData.map(normalizeRowDataForDB).filter((x) => x !== null);
+  return excelData.map(normalizeRowDataForDB).filter(x => x !== null);
 }
 function normalizeRowDataForDB(row) {
   const { productName, unitName, personName, quantity, notes } = row;
-  const glProductId = idByModel["gl_product"][productName];
-  const glUnitId = idByModel["gl_unit"][unitName];
-  const glPersonRequestingId = idByModel["gl_person"][personName];
+  const glProductId = idByModel['gl_product'][productName];
+  const glUnitId = idByModel['gl_unit'][unitName];
+  const glPersonRequestingId = idByModel['gl_person'][personName];
 
   if (glProductId && glUnitId && glPersonRequestingId) {
     return {
@@ -64,19 +64,19 @@ function normalizeRowDataForDB(row) {
 }
 
 function saveDataToDB(data) {
-  console.error("\n");
-  console.log("DATA TO BE SAVED");
-  console.log("---");
+  console.error('\n');
+  console.log('DATA TO BE SAVED');
+  console.log('---');
   console.log(JSON.stringify(data, null, 2));
 }
 
 function handleBrokenData() {
   const numFailures = failureRows.length;
   if (numFailures) {
-    console.error("\n\n");
+    console.error('\n\n');
     console.error(`${numFailures} FAILURES FOUND`);
-    console.log("---");
-    console.error("there rows failed:", failureRows);
+    console.log('---');
+    console.error('there rows failed:', failureRows);
 
     // should we
     // - save some log file?

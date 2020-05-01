@@ -191,31 +191,31 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+  import { mapGetters } from 'vuex';
 
-export default {
-  computed: {
-    ...mapGetters({
-      isUserAdmin: "isUserAdmin",
-      isUserStaff: "isUserStaff",
-      userName: "getUserName",
-      userNickname: "getUserNickname",
-      // isEnvProduction: "isEnvProduction"
-    }),
-    app_current_name() {
-      return window.app_short_name;
+  export default {
+    computed: {
+      ...mapGetters({
+        isUserAdmin: 'isUserAdmin',
+        isUserStaff: 'isUserStaff',
+        userName: 'getUserName',
+        userNickname: 'getUserNickname',
+        // isEnvProduction: "isEnvProduction"
+      }),
+      app_current_name() {
+        return window.app_short_name;
+      },
     },
-  },
-};
+  };
 </script>
 
 <style scoped>
-nav .fa,
-nav .fas,
-nav .far,
-nav .fab {
-  width: 22px;
-  text-align: center;
-  margin-right: 2px;
-}
+  nav .fa,
+  nav .fas,
+  nav .far,
+  nav .fab {
+    width: 22px;
+    text-align: center;
+    margin-right: 2px;
+  }
 </style>

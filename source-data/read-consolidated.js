@@ -1,24 +1,24 @@
-const xlsxFile = require("read-excel-file/node");
+const xlsxFile = require('read-excel-file/node');
 
 const USE_MOCK_DATA = true;
 let excelData;
 
 const schema = {
   Hospital: {
-    prop: "personName",
+    prop: 'personName',
     type: String,
-    parse: (value) => value.replace(/(.*)(\s-[\w\s]+)$/, "$1").toLowerString(),
+    parse: value => value.replace(/(.*)(\s-[\w\s]+)$/, '$1').toLowerString(),
   },
   Item: {
-    prop: "productName",
+    prop: 'productName',
     type: String,
   },
   Quantidade: {
-    prop: "quantity",
+    prop: 'quantity',
     type: Number,
   },
   Unidade: {
-    prop: "unitName",
+    prop: 'unitName',
     type: String,
     // Should we assume "Unidade(s) is the default"
     // ---
@@ -31,7 +31,7 @@ const schema = {
     // },
   },
   Descrição: {
-    prop: "notes",
+    prop: 'notes',
     type: String,
   },
 
@@ -135,22 +135,22 @@ const schema = {
 const mockData = [
   {
     // glProductId
-    productName: "PROTETOR/ESCUDO FACIAL",
+    productName: 'PROTETOR/ESCUDO FACIAL',
     // glUnitId
-    unitName: "Unidade(s)",
+    unitName: 'Unidade(s)',
     // glPersonRequestingId
-    personName: "HOSPITAL PRONTO SOCORRO HPS",
+    personName: 'HOSPITAL PRONTO SOCORRO HPS',
     // remainingQuantity
     quantity: 600,
     // notes
-    notes: "Solicitação 16/04",
+    notes: 'Solicitação 16/04',
   },
   {
-    productName: "PROTETOR/ESCUDO FACIAL",
-    unitName: "Unidade(s)",
-    personName: "9º bpm",
+    productName: 'PROTETOR/ESCUDO FACIAL',
+    unitName: 'Unidade(s)',
+    personName: '9º bpm',
     quantity: 40,
-    notes: "Luiz Carlos solicitou",
+    notes: 'Luiz Carlos solicitou',
   },
 ];
 
@@ -158,14 +158,14 @@ function getBreakdownToMatch() {
   const input = USE_MOCK_DATA ? mockData : excelData;
 
   const breakdown = [
-    { key: "productName", model: "gl_product" },
-    { key: "unitName", model: "gl_unit" },
-    { key: "personName", model: "gl_person" },
-  ].map((item) => {
-    return { ...item, list: [], modelField: item.modelField || "name" };
+    { key: 'productName', model: 'gl_product' },
+    { key: 'unitName', model: 'gl_unit' },
+    { key: 'personName', model: 'gl_person' },
+  ].map(item => {
+    return { ...item, list: [], modelField: item.modelField || 'name' };
   });
 
-  input.forEach((row) => {
+  input.forEach(row => {
     breakdown.forEach(({ key, list }) => {
       // create list for each type of unique values
       // to avoid requesting to the db for the same ids.

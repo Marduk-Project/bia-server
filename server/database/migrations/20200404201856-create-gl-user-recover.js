@@ -1,6 +1,6 @@
-"use strict";
+'use strict';
 
-const tableName = "gl_user_recover";
+const tableName = 'gl_user_recover';
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -28,22 +28,22 @@ module.exports = {
           type: Sequelize.INTEGER,
           allowNull: false,
           references: {
-            model: "gl_user",
-            key: "id",
+            model: 'gl_user',
+            key: 'id',
           },
-          onUpdate: "CASCADE",
-          onDelete: "CASCADE",
+          onUpdate: 'CASCADE',
+          onDelete: 'CASCADE',
         },
         expiresWhen: {
           type: Sequelize.DATE,
         },
       });
       // indexes
-      await queryInterface.addIndex(tableName, ["expiresWhen"], {
+      await queryInterface.addIndex(tableName, ['expiresWhen'], {
         name: `${tableName}_expiresWhen_idx`,
         transaction: transaction,
       });
-      await queryInterface.addIndex(tableName, ["userId"], {
+      await queryInterface.addIndex(tableName, ['userId'], {
         name: `${tableName}_userId_idx`,
         transaction: transaction,
       });

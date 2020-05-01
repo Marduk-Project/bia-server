@@ -1,4 +1,4 @@
-const { Op } = require("sequelize");
+const { Op } = require('sequelize');
 
 const models = {
   gl_product: require(`../server/models/gl_product`).model,
@@ -28,7 +28,7 @@ function matchItems(breakdown) {
 async function fetchIdFromModel({ modelName, modelField, itemName }) {
   return await models[modelName]
     .findAll({
-      attributes: ["id"],
+      attributes: ['id'],
       where: {
         [modelField]: {
           [Op.iLike]: `%${itemName}%`,

@@ -1,45 +1,45 @@
-const fs = require("fs");
-const xlsxFile = require("read-excel-file/node");
+const fs = require('fs');
+const xlsxFile = require('read-excel-file/node');
 
 const schema = {
   UF: {
-    prop: "stateCode",
+    prop: 'stateCode',
     type: String,
   },
-  "Mesorregião Geográfica": {
-    prop: "mesoRegionCode",
+  'Mesorregião Geográfica': {
+    prop: 'mesoRegionCode',
     type: String,
   },
   Nome_Mesorregião: {
-    prop: "mesoRegionName",
+    prop: 'mesoRegionName',
     type: String,
   },
-  "Microrregião Geográfica": {
-    prop: "microRegionCode",
+  'Microrregião Geográfica': {
+    prop: 'microRegionCode',
     type: String,
   },
   Nome_Microrregião: {
-    prop: "microRegionName",
+    prop: 'microRegionName',
     type: String,
   },
   Município: {
-    prop: "cityCode",
+    prop: 'cityCode',
     type: String,
   },
-  "Código Município Completo": {
-    prop: "cityCodeComplete",
+  'Código Município Completo': {
+    prop: 'cityCodeComplete',
     type: String,
   },
   Nome_Município: {
-    prop: "cityName",
+    prop: 'cityName',
     type: String,
   },
 };
 
 console.log(
-  "Attempting to extract data from: ./RELATORIO_DTB_BRASIL_MUNICIPIO.xlsx"
+  'Attempting to extract data from: ./RELATORIO_DTB_BRASIL_MUNICIPIO.xlsx'
 );
-const excelData = xlsxFile("./RELATORIO_DTB_BRASIL_MUNICIPIO.xlsx", {
+const excelData = xlsxFile('./RELATORIO_DTB_BRASIL_MUNICIPIO.xlsx', {
   schema,
 })
   .then(({ rows, errors }) => ({
@@ -52,26 +52,26 @@ const mockData = [
   {
     stateCode: 12,
     mesoRegionCode: 2,
-    mesoRegionName: "Vale do Acre",
+    mesoRegionName: 'Vale do Acre',
     microRegionCode: 3,
-    microRegionName: "Sena Madureira",
+    microRegionName: 'Sena Madureira',
     cityCode: 435,
-    cityName: "Santa Rosa do Purus",
+    cityName: 'Santa Rosa do Purus',
   },
   {
     stateCode: 12,
     mesoRegionCode: 2,
-    mesoRegionName: "Vale do Acre",
+    mesoRegionName: 'Vale do Acre',
     microRegionCode: 3,
-    microRegionName: "Sena Madureira",
+    microRegionName: 'Sena Madureira',
     cityCode: 500,
-    cityName: "Sena Madureira",
+    cityName: 'Sena Madureira',
   },
 ];
 // console.log(JSON.stringify(getRegions(mockData), null, 2));
 
 function getRegions(rows) {
-  console.log("Grouping regions data...");
+  console.log('Grouping regions data...');
   return rows.reduce(
     (list, region) => {
       if (!list.meso.codes.includes(region.mesoRegionCode)) {
@@ -95,9 +95,9 @@ function getRegions(rows) {
 }
 
 function writeToJSONFile(data) {
-  console.log("Saving extracted date to: ./cities-micro-meso-regions.json");
+  console.log('Saving extracted date to: ./cities-micro-meso-regions.json');
   return fs.writeFileSync(
-    "./cities-micro-meso-regions.json",
+    './cities-micro-meso-regions.json',
     JSON.stringify(data, null, 2)
   );
 }

@@ -1,6 +1,6 @@
-"use strict";
+'use strict';
 
-const tableName = "gl_field";
+const tableName = 'gl_field';
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -50,11 +50,11 @@ module.exports = {
         }
       );
       // indexes
-      await queryInterface.addIndex(tableName, ["destination", "name"], {
+      await queryInterface.addIndex(tableName, ['destination', 'name'], {
         name: `${tableName}_destName_idx`,
         transaction: transaction,
       });
-      await queryInterface.addIndex(tableName, ["name"], {
+      await queryInterface.addIndex(tableName, ['name'], {
         name: `${tableName}_name_idx`,
         transaction: transaction,
       });

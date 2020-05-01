@@ -1,6 +1,6 @@
-const { body, query, param } = require("express-validator/check");
-const validator = require("validator");
-const { Op } = require("sequelize");
+const { body, query, param } = require('express-validator/check');
+const validator = require('validator');
+const { Op } = require('sequelize');
 
 const {
   customFindByPkValidation,
@@ -9,22 +9,22 @@ const {
   BadRequestError,
   ApiError,
   NotFoundError,
-} = require("../../middlewares/error-mid");
-const CtrModelModule = require("../../models/gl_state");
+} = require('../../middlewares/error-mid');
+const CtrModelModule = require('../../models/gl_state');
 const Model = CtrModelModule.model;
-const ParentModelModule = require("../../models/gl_country");
+const ParentModelModule = require('../../models/gl_country');
 const ParentModel = ParentModelModule.model;
-const utils = require("../../helpers/utils");
+const utils = require('../../helpers/utils');
 
-const controllerDefaultQueryScope = "admin";
+const controllerDefaultQueryScope = 'admin';
 
 /**
  * List Validation
  */
 exports.getIndexValidate = [
-  query("page").optional().isInt(),
-  query("q").optional().isString(),
-  query("countryId").optional().isInt(),
+  query('page').optional().isInt(),
+  query('q').optional().isString(),
+  query('countryId').optional().isInt(),
   validationEndFunction,
 ];
 
@@ -59,11 +59,11 @@ exports.getIndex = async (req, res, next) => {
     const page = req.query.page || 1;
     Model.setLimitOffsetForPage(page, options);
     options.order = [
-      ["priority", "desc"],
-      ["name", "asc"],
-      ["id", "asc"],
+      ['priority', 'desc'],
+      ['name', 'asc'],
+      ['id', 'asc'],
     ];
-    options.include = ["country"];
+    options.include = ['country'];
     // exec
     const queryResult = await Model.findAndCountAll(options);
     const meta = Model.paginateMeta(queryResult, page);
@@ -83,11 +83,11 @@ exports.getIndex = async (req, res, next) => {
  * Get for Edit Validate
  */
 exports.getEditValidate = [
-  param("id")
+  param('id')
     .isInt()
     .not()
     .isEmpty()
-    .custom(customFindByPkValidation(Model, null, { include: ["country"] })),
+    .custom(customFindByPkValidation(Model, null, { include: ['country'] })),
   validationEndFunction,
 ];
 
@@ -112,20 +112,20 @@ exports.getEdit = async (req, res, next) => {
  * Save validation
  */
 const saveValidate = [
-  param("id").optional().isInt(),
-  body("name").isString().trim().not().isEmpty().isLength({
+  param('id').optional().isInt(),
+  body('name').isString().trim().not().isEmpty().isLength({
     min: 1,
     max: 60,
   }),
-  body("code").isString().trim().isLength({
+  body('code').isString().trim().isLength({
     min: 1,
     max: 60,
   }),
-  body("initials").optional().trim().isLength({
+  body('initials').optional().trim().isLength({
     min: 0,
     max: 60,
   }),
-  body("countryId")
+  body('countryId')
     .isInt()
     .custom(customFindByPkRelationValidation(ParentModel)),
   // validationEndFunction, // aqui nao tem validate
@@ -166,7 +166,7 @@ const saveEntityFunc = async (req, res, next, id) => {
 /** Update validation */
 exports.putUpdateValidate = [
   ...saveValidate,
-  param("id").isInt().custom(customFindByPkValidation(Model)),
+  param('id').isInt().custom(customFindByPkValidation(Model)),
   validationEndFunction,
 ];
 
@@ -201,7 +201,7 @@ exports.postCreate = async (req, res, next) => {
  * Delete Validate
  */
 exports.deleteValidate = [
-  param("id").isInt().custom(customFindByPkValidation(Model)),
+  param('id').isInt().custom(customFindByPkValidation(Model)),
   validationEndFunction,
 ];
 

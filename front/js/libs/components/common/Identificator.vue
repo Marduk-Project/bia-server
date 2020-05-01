@@ -8,24 +8,24 @@
 </template>
 
 <script>
-export default {
-  props: {
-    title: {
-      type: [String, Number],
-      required: true,
+  export default {
+    props: {
+      title: {
+        type: [String, Number],
+        required: true,
+      },
+      details: {
+        type: [String, Number],
+        required: false,
+      },
     },
-    details: {
-      type: [String, Number],
-      required: false,
+    methods: {
+      onClick() {
+        const text = this.details ? this.details : `ID: ${this.title}`;
+        alert(text);
+      },
     },
-  },
-  methods: {
-    onClick() {
-      const text = this.details ? this.details : `ID: ${this.title}`;
-      alert(text);
-    },
-  },
-};
+  };
 </script>
 
 <style scoped></style>

@@ -1,6 +1,6 @@
-const { body, query, param } = require("express-validator/check");
-const validator = require("validator");
-const { Op } = require("sequelize");
+const { body, query, param } = require('express-validator/check');
+const validator = require('validator');
+const { Op } = require('sequelize');
 
 const {
   customFindByPkValidation,
@@ -9,29 +9,29 @@ const {
   BadRequestError,
   ApiError,
   NotFoundError,
-} = require("../../middlewares/error-mid");
-const CtrModelModule = require("../../models/gl_person");
+} = require('../../middlewares/error-mid');
+const CtrModelModule = require('../../models/gl_person');
 const Model = CtrModelModule.model;
-const CityModelModule = require("../../models/gl_city");
+const CityModelModule = require('../../models/gl_city');
 const CityModel = CityModelModule.model;
-const PersonFieldModelModule = require("../../models/gl_person_field");
+const PersonFieldModelModule = require('../../models/gl_person_field');
 const PersonFieldModel = PersonFieldModelModule.model;
-const FieldModelModule = require("../../models/gl_field");
+const FieldModelModule = require('../../models/gl_field');
 const FieldModel = FieldModelModule.model;
-const FieldItemModelModule = require("../../models/gl_field_item");
+const FieldItemModelModule = require('../../models/gl_field_item');
 const FieldItemModel = FieldItemModelModule.model;
 
-const helperValidator = require("../../helpers/validator");
+const helperValidator = require('../../helpers/validator');
 
-const controllerDefaultQueryScope = "admin";
+const controllerDefaultQueryScope = 'admin';
 
 /**
  * List Validation
  */
 exports.getIndexValidate = [
-  query("page").optional().isInt(),
-  query("q").optional().isString(),
-  query("cityId").optional().isInt(),
+  query('page').optional().isInt(),
+  query('q').optional().isString(),
+  query('cityId').optional().isInt(),
   validationEndFunction,
 ];
 
@@ -69,10 +69,10 @@ exports.getIndex = async (req, res, next) => {
     const page = req.query.page || 1;
     Model.setLimitOffsetForPage(page, options);
     options.order = [
-      ["name", "asc"],
-      ["id", "asc"],
+      ['name', 'asc'],
+      ['id', 'asc'],
     ];
-    options.include = ["city"];
+    options.include = ['city'];
     // exec
     const queryResult = await Model.findAndCountAll(options);
     const meta = Model.paginateMeta(queryResult, page);
@@ -92,11 +92,11 @@ exports.getIndex = async (req, res, next) => {
  * Get for Edit Validate
  */
 exports.getEditValidate = [
-  param("id")
+  param('id')
     .isInt()
     .not()
     .isEmpty()
-    .custom(customFindByPkValidation(Model, null, { include: ["city"] })),
+    .custom(customFindByPkValidation(Model, null, { include: ['city'] })),
   validationEndFunction,
 ];
 
@@ -125,20 +125,20 @@ exports.getEdit = async (req, res, next) => {
  * Save validation
  */
 const saveValidate = [
-  param("id").optional().isInt(),
-  body("legalType").isIn(CtrModelModule.LEGAL_TYPE_ALL),
-  body("legalIdentifierType").isIn(CtrModelModule.LEGAL_IDENTIFIER_TYPE_ALL),
-  body("legalIdentifierCode").custom(async (value, { req }) => {
+  param('id').optional().isInt(),
+  body('legalType').isIn(CtrModelModule.LEGAL_TYPE_ALL),
+  body('legalIdentifierType').isIn(CtrModelModule.LEGAL_IDENTIFIER_TYPE_ALL),
+  body('legalIdentifierCode').custom(async (value, { req }) => {
     switch (req.body.legalIdentifierType) {
       case CtrModelModule.LEGAL_IDENTIFIER_TYPE_BR_CPF:
         if (!helperValidator.isCPF_Num(value)) {
-          throw new ApiError("CPF inválido.");
+          throw new ApiError('CPF inválido.');
         }
         break;
 
       case CtrModelModule.LEGAL_IDENTIFIER_TYPE_BR_CNPJ:
         if (!helperValidator.isCNPJ_Num(value)) {
-          throw new ApiError("CNPJ inválido.");
+          throw new ApiError('CNPJ inválido.');
         }
         break;
 
@@ -146,7 +146,7 @@ const saveValidate = [
         return true;
 
       default:
-        throw new ApiError("Unknow Legal Identifier Type.");
+        throw new ApiError('Unknow Legal Identifier Type.');
     }
     let count = 0;
     // check for duplicated
@@ -180,58 +180,58 @@ const saveValidate = [
     }
     return true;
   }),
-  body("name").isString().trim().not().isEmpty().isLength({
+  body('name').isString().trim().not().isEmpty().isLength({
     min: 1,
     max: 90,
   }),
-  body("shortname").optional().trim().isLength({
+  body('shortname').optional().trim().isLength({
     max: 90,
   }),
-  body("phone")
+  body('phone')
     .optional()
     .isLength({
       max: 90,
     })
-    .custom((value) => {
+    .custom(value => {
       // TODO phone validator
       return true;
     }),
-  body("cellphone")
+  body('cellphone')
     .optional()
     .trim()
     .isLength({
       max: 90,
     })
-    .custom((value) => {
+    .custom(value => {
       // TODO phone validator
       return true;
     }),
-  body("address").optional().trim().isLength({
+  body('address').optional().trim().isLength({
     max: 90,
   }),
-  body("email").optional({ checkFalsy: true }).isEmail(),
-  body("addressZipcode").optional().trim().isLength({
+  body('email').optional({ checkFalsy: true }).isEmail(),
+  body('addressZipcode').optional().trim().isLength({
     max: 60,
   }),
-  body("addressNumber").optional().trim().isLength({
+  body('addressNumber').optional().trim().isLength({
     max: 60,
   }),
-  body("addressExtra").optional().trim().isLength({
+  body('addressExtra').optional().trim().isLength({
     max: 60,
   }),
-  body("addressNeighborhood").optional().trim().isLength({
+  body('addressNeighborhood').optional().trim().isLength({
     max: 60,
   }),
-  body("cityId").isInt().custom(customFindByPkRelationValidation(CityModel)),
-  body("birthdate").optional().custom(helperValidator.isDate8601Func(true)),
-  body("latitude").optional().isNumeric(),
-  body("longitude").optional().isNumeric(),
-  body("obs").optional().trim().isLength({
+  body('cityId').isInt().custom(customFindByPkRelationValidation(CityModel)),
+  body('birthdate').optional().custom(helperValidator.isDate8601Func(true)),
+  body('latitude').optional().isNumeric(),
+  body('longitude').optional().isNumeric(),
+  body('obs').optional().trim().isLength({
     max: 5000,
   }),
-  body("fields.*.id").isInt(),
-  body("fields.*.fieldItemId").optional({ checkFalsy: true }).isInt(),
-  body("fields.*")
+  body('fields.*.id').isInt(),
+  body('fields.*.fieldItemId').optional({ checkFalsy: true }).isInt(),
+  body('fields.*')
     .optional()
     .custom(async (value, { req }) => {
       if (req.body.id) {
@@ -240,23 +240,23 @@ const saveValidate = [
             personId: req.body.id,
             id: value.id,
           },
-          include: ["field"],
+          include: ['field'],
         });
         if (!value.personField) {
-          throw new ApiError("Campo não pertence à esta pessoa.");
+          throw new ApiError('Campo não pertence à esta pessoa.');
         }
         if (value.fieldItemId) {
           const fieldItem = await FieldItemModel.findByPk(value.fieldItemId, {
-            include: ["field"],
+            include: ['field'],
           });
           if (!fieldItem) {
-            throw new ApiError("Item não pertence à este cadastro.");
+            throw new ApiError('Item não pertence à este cadastro.');
           }
           if (
             fieldItem.field.destination !=
             FieldModelModule.DESTINATION_GL_PERSON
           ) {
-            throw new ApiError("Campo Item não pertence à este cadastro.");
+            throw new ApiError('Campo Item não pertence à este cadastro.');
           }
           value.fieldItem = fieldItem;
         }
@@ -296,13 +296,13 @@ const saveEntityFunc = async (req, res, next, id) => {
     await entity.save();
     // fields
     await Promise.all(
-      body.fields.map(async (personFieldBody) => {
+      body.fields.map(async personFieldBody => {
         const personField = personFieldBody.personField;
         switch (parseInt(personField.field.type)) {
           case FieldModelModule.TYPE_STRING:
             personField.valueString = personFieldBody.value
               ? `${personFieldBody.value}`
-              : "";
+              : '';
             personField.valueSearch = personFieldBody.value
               ? `${personFieldBody.value}`
               : null;
@@ -364,7 +364,7 @@ const saveEntityFunc = async (req, res, next, id) => {
 /** Update validation */
 exports.putUpdateValidate = [
   ...saveValidate,
-  param("id").isInt().custom(customFindByPkValidation(Model)),
+  param('id').isInt().custom(customFindByPkValidation(Model)),
   validationEndFunction,
 ];
 
@@ -399,7 +399,7 @@ exports.postCreate = async (req, res, next) => {
  * Delete Validate
  */
 exports.deleteValidate = [
-  param("id").isInt().custom(customFindByPkValidation(Model)),
+  param('id').isInt().custom(customFindByPkValidation(Model)),
   validationEndFunction,
 ];
 

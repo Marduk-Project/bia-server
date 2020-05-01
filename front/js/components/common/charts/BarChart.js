@@ -1,6 +1,6 @@
-import { Bar, mixins } from "vue-chartjs";
+import { Bar, mixins } from 'vue-chartjs';
 const { reactiveProp } = mixins;
-import _ from "lodash";
+import _ from 'lodash';
 
 export default {
   extends: Bar,

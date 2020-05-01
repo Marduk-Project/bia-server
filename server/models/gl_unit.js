@@ -1,11 +1,11 @@
-const nconf = require("nconf");
-const { Sequelize, DataTypes } = require("sequelize");
+const nconf = require('nconf');
+const { Sequelize, DataTypes } = require('sequelize');
 
-const { mainDb } = require("../database/main_connection");
-const { BaseModel, jsonSerializer } = require("./base_model");
+const { mainDb } = require('../database/main_connection');
+const { BaseModel, jsonSerializer } = require('./base_model');
 
 // model
-const modelName = "gl_unit";
+const modelName = 'gl_unit';
 class MyModel extends BaseModel {}
 
 MyModel.init(
@@ -28,7 +28,7 @@ MyModel.init(
         notEmpty: true,
         len: {
           args: [1, 60],
-          msg: "Nome deve ter de 1 a 60 caracteres.",
+          msg: 'Nome deve ter de 1 a 60 caracteres.',
         },
       },
     },
@@ -55,7 +55,7 @@ MyModel.init(
 // scopes
 const scopes = {
   def: {
-    include: ["id", "name"],
+    include: ['id', 'name'],
   },
   admin: {},
 };
@@ -64,10 +64,10 @@ exports.model = MyModel;
 exports.modelName = modelName;
 exports.jsonSerializer = async (value, scopeName) => {
   if (!scopeName) {
-    scopeName = "def";
+    scopeName = 'def';
   }
   if (!scopes[scopeName]) {
-    scopeName = "def";
+    scopeName = 'def';
   }
   return await jsonSerializer(value, scopes[scopeName], scopeName);
 };

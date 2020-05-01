@@ -1,7 +1,7 @@
-const { body, query, param } = require("express-validator/check");
-const validator = require("validator");
-const { Op } = require("sequelize");
-const chalk = require("chalk");
+const { body, query, param } = require('express-validator/check');
+const validator = require('validator');
+const { Op } = require('sequelize');
+const chalk = require('chalk');
 
 const {
   customFindByPkValidation,
@@ -10,26 +10,26 @@ const {
   BadRequestError,
   ApiError,
   NotFoundError,
-} = require("../../middlewares/error-mid");
-const CtrModelModule = require("../../models/gl_city");
+} = require('../../middlewares/error-mid');
+const CtrModelModule = require('../../models/gl_city');
 const Model = CtrModelModule.model;
-const ParentModelModule = require("../../models/gl_state");
+const ParentModelModule = require('../../models/gl_state');
 const ParentModel = ParentModelModule.model;
-const utils = require("../../helpers/utils");
-const StateRegionModelModule = require("../../models/gl_state_region");
+const utils = require('../../helpers/utils');
+const StateRegionModelModule = require('../../models/gl_state_region');
 const StateRegionModel = StateRegionModelModule.model;
-const CityStateRegionModelModule = require("../../models/gl_city_state_region");
+const CityStateRegionModelModule = require('../../models/gl_city_state_region');
 const CityStateRegionModel = CityStateRegionModelModule.model;
 
-const controllerDefaultQueryScope = "admin";
+const controllerDefaultQueryScope = 'admin';
 
 /**
  * List Validation
  */
 exports.getIndexValidate = [
-  query("page").optional().isInt(),
-  query("q").optional().isString(),
-  query("stateId").optional().isInt(),
+  query('page').optional().isInt(),
+  query('q').optional().isString(),
+  query('stateId').optional().isInt(),
   validationEndFunction,
 ];
 
@@ -64,11 +64,11 @@ exports.getIndex = async (req, res, next) => {
     const page = req.query.page || 1;
     Model.setLimitOffsetForPage(page, options);
     options.order = [
-      ["priority", "desc"],
-      ["name", "asc"],
-      ["id", "asc"],
+      ['priority', 'desc'],
+      ['name', 'asc'],
+      ['id', 'asc'],
     ];
-    options.include = ["state"];
+    options.include = ['state'];
     // exec
     const queryResult = await Model.findAndCountAll(options);
     const meta = Model.paginateMeta(queryResult, page);
@@ -88,11 +88,11 @@ exports.getIndex = async (req, res, next) => {
  * Get for Edit Validate
  */
 exports.getEditValidate = [
-  param("id")
+  param('id')
     .isInt()
     .not()
     .isEmpty()
-    .custom(customFindByPkValidation(Model, null, { include: ["state"] })),
+    .custom(customFindByPkValidation(Model, null, { include: ['state'] })),
   validationEndFunction,
 ];
 
@@ -103,17 +103,17 @@ exports.getEdit = async (req, res, next) => {
   try {
     const entity = req.entity;
     res.sendJsonOK({
-      data: await CtrModelModule.jsonSerializer(entity, "admin_edit"),
+      data: await CtrModelModule.jsonSerializer(entity, 'admin_edit'),
     });
   } catch (err) {
     next(err);
   }
 };
 
-const stateRegionValidator = (type) => {
+const stateRegionValidator = type => {
   return async (value, { req }) => {
     if (!req.body.stateId) {
-      throw new ApiError("Campo stateId precisa ser preenchido.");
+      throw new ApiError('Campo stateId precisa ser preenchido.');
     }
     if (!value) {
       return true;
@@ -135,31 +135,31 @@ const stateRegionValidator = (type) => {
  * Save validation
  */
 const saveValidate = [
-  param("id").optional().isInt(),
-  body("name").isString().trim().not().isEmpty().isLength({
+  param('id').optional().isInt(),
+  body('name').isString().trim().not().isEmpty().isLength({
     min: 1,
     max: 60,
   }),
-  body("code").isString().trim().isLength({
+  body('code').isString().trim().isLength({
     min: 1,
     max: 60,
   }),
-  body("initials").optional().trim().isLength({
+  body('initials').optional().trim().isLength({
     min: 0,
     max: 60,
   }),
-  body("stateId")
+  body('stateId')
     .isInt()
     .custom(customFindByPkRelationValidation(ParentModel, null)),
-  body("mesoRegionId")
+  body('mesoRegionId')
     .optional({ checkFalsy: true })
     .isInt()
     .custom(stateRegionValidator(StateRegionModelModule.TYPE_MESO)),
-  body("microRegionId")
+  body('microRegionId')
     .optional({ checkFalsy: true })
     .isInt()
     .custom(stateRegionValidator(StateRegionModelModule.TYPE_MICRO)),
-  body("dreRegionId")
+  body('dreRegionId')
     .optional({ checkFalsy: true })
     .isInt()
     .custom(stateRegionValidator(StateRegionModelModule.TYPE_DRE)),
@@ -213,7 +213,7 @@ const saveEntityFunc = async (req, res, next, id) => {
 /** Update validation */
 exports.putUpdateValidate = [
   ...saveValidate,
-  param("id").isInt().custom(customFindByPkValidation(Model)),
+  param('id').isInt().custom(customFindByPkValidation(Model)),
   validationEndFunction,
 ];
 
@@ -248,7 +248,7 @@ exports.postCreate = async (req, res, next) => {
  * Delete Validate
  */
 exports.deleteValidate = [
-  param("id").isInt().custom(customFindByPkValidation(Model)),
+  param('id').isInt().custom(customFindByPkValidation(Model)),
   validationEndFunction,
 ];
 
@@ -278,10 +278,10 @@ exports.postIbgeImport = async (req, res, next) => {
   try {
     const {
       importToDatabase,
-    } = require("../../../source-data/ibge/import-to-database");
+    } = require('../../../source-data/ibge/import-to-database');
     // start async
-    importToDatabase(true).catch((err) => {
-      console.log(chalk.red("Error importing IBGE data...", err));
+    importToDatabase(true).catch(err => {
+      console.log(chalk.red('Error importing IBGE data...', err));
     });
     res.sendJsonOK();
   } catch (err) {

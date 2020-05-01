@@ -1,6 +1,6 @@
-"use strict";
+'use strict';
 
-const tableName = "gl_user";
+const tableName = 'gl_user';
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -57,21 +57,21 @@ module.exports = {
         }
       );
       // indexes
-      await queryInterface.addIndex(tableName, ["email"], {
+      await queryInterface.addIndex(tableName, ['email'], {
         name: `${tableName}_email_idx`,
         transaction: transaction,
       });
-      await queryInterface.addIndex(tableName, ["name"], {
+      await queryInterface.addIndex(tableName, ['name'], {
         name: `${tableName}_name_idx`,
         transaction: transaction,
       });
-      await queryInterface.addIndex(tableName, ["nickname"], {
+      await queryInterface.addIndex(tableName, ['nickname'], {
         name: `${tableName}_nickname_idx`,
         transaction: transaction,
       });
       // constraints
-      await queryInterface.addConstraint(tableName, ["email"], {
-        type: "unique",
+      await queryInterface.addConstraint(tableName, ['email'], {
+        type: 'unique',
         name: `${tableName}_email_ct`,
         transaction: transaction,
       });

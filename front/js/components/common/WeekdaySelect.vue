@@ -18,26 +18,26 @@
 </template>
 
 <script>
-export default {
-  props: {
-    showAll: {
-      type: Boolean,
-      default: false,
-      required: false,
+  export default {
+    props: {
+      showAll: {
+        type: Boolean,
+        default: false,
+        required: false,
+      },
+      value: {
+        type: [String, Number],
+        default: 0,
+        required: false,
+      },
+      required: {
+        type: Boolean,
+        default: false,
+        required: false,
+      },
     },
-    value: {
-      type: [String, Number],
-      default: 0,
-      required: false,
-    },
-    required: {
-      type: Boolean,
-      default: false,
-      required: false,
-    },
-  },
-  methods: {},
-};
+    methods: {},
+  };
 </script>
 
 <style scoped></style>

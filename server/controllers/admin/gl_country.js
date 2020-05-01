@@ -1,6 +1,6 @@
-const { body, query, param } = require("express-validator/check");
-const validator = require("validator");
-const { Op } = require("sequelize");
+const { body, query, param } = require('express-validator/check');
+const validator = require('validator');
+const { Op } = require('sequelize');
 
 const {
   customFindByPkValidation,
@@ -9,19 +9,19 @@ const {
   BadRequestError,
   ApiError,
   NotFoundError,
-} = require("../../middlewares/error-mid");
-const CtrModelModule = require("../../models/gl_country");
+} = require('../../middlewares/error-mid');
+const CtrModelModule = require('../../models/gl_country');
 const Model = CtrModelModule.model;
-const utils = require("../../helpers/utils");
+const utils = require('../../helpers/utils');
 
-const controllerDefaultQueryScope = "admin";
+const controllerDefaultQueryScope = 'admin';
 
 /**
  * List Validation
  */
 exports.getIndexValidate = [
-  query("page").optional().isInt(),
-  query("q").optional().isString(),
+  query('page').optional().isInt(),
+  query('q').optional().isString(),
   validationEndFunction,
 ];
 
@@ -52,9 +52,9 @@ exports.getIndex = async (req, res, next) => {
     const page = req.query.page || 1;
     Model.setLimitOffsetForPage(page, options);
     options.order = [
-      ["priority", "desc"],
-      ["name", "asc"],
-      ["id", "asc"],
+      ['priority', 'desc'],
+      ['name', 'asc'],
+      ['id', 'asc'],
     ];
     // exec
     const queryResult = await Model.findAndCountAll(options);
@@ -75,7 +75,7 @@ exports.getIndex = async (req, res, next) => {
  * Get for Edit Validate
  */
 exports.getEditValidate = [
-  param("id").isInt().not().isEmpty().custom(customFindByPkValidation(Model)),
+  param('id').isInt().not().isEmpty().custom(customFindByPkValidation(Model)),
   validationEndFunction,
 ];
 
@@ -100,12 +100,12 @@ exports.getEdit = async (req, res, next) => {
  * Save validation
  */
 const saveValidate = [
-  param("id").optional().isInt(),
-  body("name").isString().trim().not().isEmpty().isLength({
+  param('id').optional().isInt(),
+  body('name').isString().trim().not().isEmpty().isLength({
     min: 1,
     max: 60,
   }),
-  body("code").isString().trim().isLength({
+  body('code').isString().trim().isLength({
     min: 1,
     max: 60,
   }),
@@ -145,7 +145,7 @@ const saveEntityFunc = async (req, res, next, id) => {
 /** Update validation */
 exports.putUpdateValidate = [
   ...saveValidate,
-  param("id").isInt().custom(customFindByPkValidation(Model)),
+  param('id').isInt().custom(customFindByPkValidation(Model)),
   validationEndFunction,
 ];
 
@@ -180,7 +180,7 @@ exports.postCreate = async (req, res, next) => {
  * Delete Validate
  */
 exports.deleteValidate = [
-  param("id").isInt().custom(customFindByPkValidation(Model)),
+  param('id').isInt().custom(customFindByPkValidation(Model)),
   validationEndFunction,
 ];
 

@@ -1,8 +1,8 @@
-const nconf = require("nconf");
-const { Sequelize, DataTypes } = require("sequelize");
+const nconf = require('nconf');
+const { Sequelize, DataTypes } = require('sequelize');
 
-const { mainDb } = require("../database/main_connection");
-const { BaseModel, jsonSerializer } = require("./base_model");
+const { mainDb } = require('../database/main_connection');
+const { BaseModel, jsonSerializer } = require('./base_model');
 
 // level
 const TYPE_STRING = 1;
@@ -24,33 +24,33 @@ exports.TYPE_ALL = [
   TYPE_SELECT,
 ];
 
-const DESTINATION_GL_PERSON = "gl_person";
+const DESTINATION_GL_PERSON = 'gl_person';
 exports.DESTINATION_GL_PERSON = DESTINATION_GL_PERSON;
 exports.DESTINATION_ALL = [DESTINATION_GL_PERSON];
 
-const typeToString = (value) => {
+const typeToString = value => {
   switch (parseInt(value)) {
     case TYPE_STRING:
-      return "Texto (String)";
+      return 'Texto (String)';
 
     case TYPE_INT:
-      return "Inteiro (Int)";
+      return 'Inteiro (Int)';
 
     case TYPE_DOUBLE:
-      return "Número com virgula (Double)";
+      return 'Número com virgula (Double)';
 
     case TYPE_BOOLEAN:
-      return "Checkbox (Boolean)";
+      return 'Checkbox (Boolean)';
 
     case TYPE_SELECT:
-      return "Com itens (Select)";
+      return 'Com itens (Select)';
   }
-  return "Desconhecido";
+  return 'Desconhecido';
 };
 exports.typeToString = typeToString;
 
 // model
-const modelName = "gl_field";
+const modelName = 'gl_field';
 class MyModel extends BaseModel {}
 
 MyModel.init(
@@ -73,7 +73,7 @@ MyModel.init(
         notEmpty: true,
         len: {
           args: [1, 60],
-          msg: "Nome deve ter de 1 a 60 caracteres.",
+          msg: 'Nome deve ter de 1 a 60 caracteres.',
         },
       },
     },
@@ -83,7 +83,7 @@ MyModel.init(
         notEmpty: true,
         len: {
           args: [1, 60],
-          msg: "Nome deve ter de 1 a 60 caracteres.",
+          msg: 'Nome deve ter de 1 a 60 caracteres.',
         },
       },
     },
@@ -97,9 +97,9 @@ MyModel.init(
       },
     },
     typeDesc: {
-      type: new DataTypes.VIRTUAL(DataTypes.STRING, ["type"]),
+      type: new DataTypes.VIRTUAL(DataTypes.STRING, ['type']),
       get: function () {
-        return typeToString(this.get("type"));
+        return typeToString(this.get('type'));
       },
     },
     order: {
@@ -123,14 +123,14 @@ MyModel.init(
 const scopes = {
   def: {
     include: [
-      "id",
-      "destination",
-      "name",
-      "code",
-      "type",
-      "typeDesc",
-      "order",
-      "defaultValue",
+      'id',
+      'destination',
+      'name',
+      'code',
+      'type',
+      'typeDesc',
+      'order',
+      'defaultValue',
     ],
   },
   admin: {}, // all
@@ -140,10 +140,10 @@ exports.model = MyModel;
 exports.modelName = modelName;
 exports.jsonSerializer = async (value, scopeName) => {
   if (!scopeName) {
-    scopeName = "def";
+    scopeName = 'def';
   }
   if (!scopes[scopeName]) {
-    scopeName = "def";
+    scopeName = 'def';
   }
   return await jsonSerializer(value, scopes[scopeName], scopeName);
 };

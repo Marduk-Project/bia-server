@@ -1,6 +1,6 @@
-"use strict";
+'use strict';
 
-const tableName = "gl_person_contact";
+const tableName = 'gl_person_contact';
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -31,38 +31,38 @@ module.exports = {
             type: Sequelize.INTEGER,
             allowNull: true,
             references: {
-              model: "gl_user",
-              key: "id",
+              model: 'gl_user',
+              key: 'id',
             },
-            onUpdate: "CASCADE",
-            onDelete: "CASCADE",
+            onUpdate: 'CASCADE',
+            onDelete: 'CASCADE',
           },
           personId: {
             type: Sequelize.INTEGER,
             allowNull: false,
             references: {
-              model: "gl_person",
-              key: "id",
+              model: 'gl_person',
+              key: 'id',
             },
-            onUpdate: "CASCADE",
-            onDelete: "CASCADE",
+            onUpdate: 'CASCADE',
+            onDelete: 'CASCADE',
           },
           personReferenceId: {
             type: Sequelize.INTEGER,
             allowNull: true,
             references: {
-              model: "gl_person",
-              key: "id",
+              model: 'gl_person',
+              key: 'id',
             },
-            onUpdate: "CASCADE",
-            onDelete: "SET NULL",
+            onUpdate: 'CASCADE',
+            onDelete: 'SET NULL',
           },
           trusted: {
             type: Sequelize.BOOLEAN,
             defaultValue: false,
           },
           level: Sequelize.INTEGER,
-          obs: Sequelize.TEXT("medium"),
+          obs: Sequelize.TEXT('medium'),
           canRegisterPPERequest: {
             type: Sequelize.BOOLEAN,
             defaultValue: false,
@@ -73,19 +73,19 @@ module.exports = {
         }
       );
       // indexes
-      await queryInterface.addIndex(tableName, ["name"], {
+      await queryInterface.addIndex(tableName, ['name'], {
         name: `${tableName}_name_idx`,
         transaction: transaction,
       });
-      await queryInterface.addIndex(tableName, ["userId"], {
+      await queryInterface.addIndex(tableName, ['userId'], {
         name: `${tableName}_userId_idx`,
         transaction: transaction,
       });
-      await queryInterface.addIndex(tableName, ["personId"], {
+      await queryInterface.addIndex(tableName, ['personId'], {
         name: `${tableName}_personId_idx`,
         transaction: transaction,
       });
-      await queryInterface.addIndex(tableName, ["personReferenceId"], {
+      await queryInterface.addIndex(tableName, ['personReferenceId'], {
         name: `${tableName}_personReferenceId_idx`,
         transaction: transaction,
       });

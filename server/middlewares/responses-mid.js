@@ -1,7 +1,7 @@
-const _ = require("lodash");
-const nconf = require("nconf");
+const _ = require('lodash');
+const nconf = require('nconf');
 
-const errorMid = require("./error-mid");
+const errorMid = require('./error-mid');
 const UnauthenticatedError = errorMid.UnauthenticatedError;
 const ForbiddenError = errorMid.ForbiddenError;
 const BadRequestError = errorMid.BadRequestError;
@@ -14,7 +14,7 @@ const ServerError = errorMid.ServerError;
  * @param {number|undefined} status
  */
 const sendJsonError = function (message, status) {
-  message = message || "Usuário não autorizado a realizar esta operação.";
+  message = message || 'Usuário não autorizado a realizar esta operação.';
   this.status(status || 403).json({
     ok: false,
     message: message,
@@ -27,7 +27,7 @@ const sendJsonError = function (message, status) {
  * @param {string|undefined} message
  */
 const sendJsonForbiddenError = function (message) {
-  message = message || "Usuário não autorizado a realizar esta operação.";
+  message = message || 'Usuário não autorizado a realizar esta operação.';
   throw new ForbiddenError(message);
 };
 
@@ -36,7 +36,7 @@ const sendJsonForbiddenError = function (message) {
  * @param {string} message
  */
 const sendJsonUnauthorizedError = function (message) {
-  message = message || "Usuário não está logado.";
+  message = message || 'Usuário não está logado.';
   throw new UnauthenticatedError(message);
 };
 
@@ -45,7 +45,7 @@ const sendJsonUnauthorizedError = function (message) {
  * @param {string} message
  */
 const sendJsonServerError = function (message) {
-  message = message || "Erro no servidor.";
+  message = message || 'Erro no servidor.';
   throw new ServerError(message);
 };
 
@@ -54,7 +54,7 @@ const sendJsonServerError = function (message) {
  * @param {string} message
  */
 const sendJsonBadRequestError = function (message) {
-  message = message || "Requisição inválida.";
+  message = message || 'Requisição inválida.';
   throw new BadRequestError(message);
 };
 
@@ -63,7 +63,7 @@ const sendJsonBadRequestError = function (message) {
  * @param {string} message
  */
 const sendJsonApiError = function (message) {
-  message = message || "Erro de aplicação / API.";
+  message = message || 'Erro de aplicação / API.';
   throw new ApiError(message);
 };
 
@@ -101,7 +101,7 @@ const sendJsonCreatedOK = function (data) {
  * Generate app url
  */
 const appUrl = function (path) {
-  return `${nconf.get("APP_URL")}${path}`;
+  return `${nconf.get('APP_URL')}${path}`;
 };
 
 /**

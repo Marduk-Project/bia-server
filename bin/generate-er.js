@@ -5,7 +5,7 @@ require('../config.js');
 
 const date = new Date().toISOString();
 
-(async function() {
+(async function () {
   const { mainDb } = require('../server/database/main_connection.js');
   require('../server/models');
 

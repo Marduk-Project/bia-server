@@ -10,25 +10,25 @@
 </template>
 
 <script>
-export default {
-  props: {
-    value: {
-      type: [Number, String],
-      required: false,
-      default: null,
+  export default {
+    props: {
+      value: {
+        type: [Number, String],
+        required: false,
+        default: null,
+      },
+      showAll: {
+        type: Boolean,
+        required: false,
+        default: false,
+      },
     },
-    showAll: {
-      type: Boolean,
-      required: false,
-      default: false,
+    methods: {
+      onValueSelect(e) {
+        this.$emit('input', e.target.value);
+      },
     },
-  },
-  methods: {
-    onValueSelect(e) {
-      this.$emit("input", e.target.value);
-    },
-  },
-};
+  };
 </script>
 
 <style scoped></style>
