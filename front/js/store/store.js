@@ -3,6 +3,9 @@ import Vuex from 'vuex';
 
 import notification from './modules/notification';
 
+// Modules
+import glProduct from './gl_product';
+
 import * as actions from './actions';
 import * as mutations from './mutations';
 import * as getters from './getters';
@@ -19,5 +22,6 @@ export default new Vuex.Store({
   mutations,
   modules: {
     notification,
+    glProduct,
   },
 });
