@@ -1,12 +1,12 @@
-const { notifyMixin } = require("./notify-mixin");
-const _ = require("lodash");
+const { notifyMixin } = require('./notify-mixin');
+const _ = require('lodash');
 
 /**
  * Parse error if exists and return its string object.
  * @param error
  * @returns {string}
  */
-export const api_parseErrorMessage = (error) => {
+export const api_parseErrorMessage = error => {
   var errorChecked = null;
   if (_.isObject(error)) {
     if (_.isObject(error.response)) {
@@ -17,18 +17,18 @@ export const api_parseErrorMessage = (error) => {
             if (error.response.data.errors) {
               const errors = error.response.data.errors;
               if (_.isObject(errors)) {
-                message += "<ul>";
+                message += '<ul>';
                 for (var key in errors) {
                   var element = errors[key];
                   message += `<li><strong>${key}:</strong> ${element}</li>`;
                 }
-                message += "</ul>";
+                message += '</ul>';
               } else if (_.isArray(errors)) {
-                message += "<ul>";
-                errors.forEach((element) => {
+                message += '<ul>';
+                errors.forEach(element => {
                   message += `<li>${element}</li>`;
                 });
-                message += "</ul>";
+                message += '</ul>';
               } else if (_.isString(errors)) {
                 message += `<strong>${errors}</strong>`;
               } else {
@@ -96,7 +96,7 @@ export const apiMixin = {
      * @param {boolean} ignoreDone does not call notify_done if set
      */
     api_thenDone(callback = undefined, ignoreDone = false) {
-      return (res) => {
+      return res => {
         if (!this.api_parseOK(res)) {
           return;
         }
@@ -116,7 +116,7 @@ export const apiMixin = {
      * @returns {function}
      */
     api_catch(callback = undefined) {
-      return (error) => {
+      return error => {
         this.api_parseError(error, false);
         if (_.isFunction(callback)) {
           callback(error);
@@ -143,7 +143,7 @@ export const apiMixin = {
      * @returns {void}
      */
     api_loadingHide() {
-      this.$store.commit("setLoading", false);
+      this.$store.commit('setLoading', false);
     },
 
     /**
@@ -151,7 +151,7 @@ export const apiMixin = {
      * @returns {void}
      */
     api_loadingShow() {
-      this.$store.commit("setLoading", true);
+      this.$store.commit('setLoading', true);
     },
   },
 };

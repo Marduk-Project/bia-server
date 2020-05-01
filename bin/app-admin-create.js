@@ -1,17 +1,17 @@
-const program = require("commander");
-const validator = require("validator");
+const program = require('commander');
+const validator = require('validator');
 const {
   handleError,
   findAccount,
   rand,
   mainDbEndFinally,
   outputNotRunned,
-} = require("./common");
-const config = require("../config");
-const chalk = require("chalk");
-const { randomString } = require("../server/helpers/utils");
+} = require('./common');
+const config = require('../config');
+const chalk = require('chalk');
+const { randomString } = require('../server/helpers/utils');
 
-const UserModule = require("../server/models/gl_user");
+const UserModule = require('../server/models/gl_user');
 const { model: User } = UserModule;
 let runStart = false;
 
@@ -30,7 +30,7 @@ const run = async (email, pwd, options) => {
         throw new Error(`User ${email} already exists.`);
       }
     } else {
-      const name = email.split("@")[0];
+      const name = email.split('@')[0];
       user = User.build({
         name: name,
         nickname: name,
@@ -54,8 +54,8 @@ const run = async (email, pwd, options) => {
 };
 
 program
-  .arguments("<email> [pwd]")
-  .option("-f --force", "forces overwrite of the user data")
+  .arguments('<email> [pwd]')
+  .option('-f --force', 'forces overwrite of the user data')
   .action(run);
 
 try {

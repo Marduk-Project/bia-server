@@ -1,6 +1,6 @@
-const moment = require("moment");
+const moment = require('moment');
 
-const mailer = require("./mailer");
+const mailer = require('./mailer');
 const BaseMail = mailer.BaseMail;
 
 /**
@@ -24,26 +24,26 @@ class RecoverPasswordMail extends BaseMail {
         id: this.user.id,
         token: this.resetToken.token,
       };
-      jwt = Buffer.from(JSON.stringify(jwt), "utf-8").toString("base64");
+      jwt = Buffer.from(JSON.stringify(jwt), 'utf-8').toString('base64');
       const url = res.appUrl(`auth/recover/${jwt}`);
       // calc
       mailer
         .markdownHtml(
           res,
-          this.isInvite ? "emails/auth/recover_invite" : "emails/auth/recover",
+          this.isInvite ? 'emails/auth/recover_invite' : 'emails/auth/recover',
           {
-            expiresWhen: moment(this.resetToken.expiresWhen).format("L LTS"),
+            expiresWhen: moment(this.resetToken.expiresWhen).format('L LTS'),
             url: url,
           }
         )
-        .then((html) => {
+        .then(html => {
           this.html = html;
           this.subject = this.isInvite
             ? `Criar a senha ${this.user.name} - ${req.app.locals.app_short_name}`
             : `Recuperar a senha de ${this.user.name} - ${req.app.locals.app_short_name}`;
           resolve(html);
         })
-        .catch((e) => {
+        .catch(e => {
           reject(e);
         });
     });

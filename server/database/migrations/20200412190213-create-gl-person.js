@@ -1,6 +1,6 @@
-"use strict";
+'use strict';
 
-const tableName = "gl_person";
+const tableName = 'gl_person';
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -42,11 +42,11 @@ module.exports = {
           cityId: {
             type: Sequelize.INTEGER,
             references: {
-              model: "gl_city",
-              key: "id",
+              model: 'gl_city',
+              key: 'id',
             },
-            onUpdate: "CASCADE",
-            onDelete: "SET NULL",
+            onUpdate: 'CASCADE',
+            onDelete: 'SET NULL',
           },
           birthdate: Sequelize.DATE,
           trusted: {
@@ -61,36 +61,36 @@ module.exports = {
             type: Sequelize.DECIMAL(10, 7),
             defaultValue: 0,
           },
-          obs: Sequelize.TEXT("medium"),
+          obs: Sequelize.TEXT('medium'),
         },
         {
           transaction: transaction,
         }
       );
       // indexes
-      await queryInterface.addIndex(tableName, ["name"], {
+      await queryInterface.addIndex(tableName, ['name'], {
         name: `${tableName}_name_idx`,
         transaction: transaction,
       });
-      await queryInterface.addIndex(tableName, ["shortname"], {
+      await queryInterface.addIndex(tableName, ['shortname'], {
         name: `${tableName}_shortname_idx`,
         transaction: transaction,
       });
-      await queryInterface.addIndex(tableName, ["legalIdentifierCode"], {
+      await queryInterface.addIndex(tableName, ['legalIdentifierCode'], {
         name: `${tableName}_legalIdentifierCode_idx`,
         transaction: transaction,
       });
-      await queryInterface.addIndex(tableName, ["latitude", "longitude"], {
+      await queryInterface.addIndex(tableName, ['latitude', 'longitude'], {
         name: `${tableName}_latlng_idx`,
         transaction: transaction,
       });
-      await queryInterface.addIndex(tableName, ["longitude", "latitude"], {
+      await queryInterface.addIndex(tableName, ['longitude', 'latitude'], {
         name: `${tableName}_lnglat_idx`,
         transaction: transaction,
       });
       await queryInterface.addIndex(
         tableName,
-        ["cityId", "addressNeighborhood", "name"],
+        ['cityId', 'addressNeighborhood', 'name'],
         {
           name: `${tableName}_cityId_neighbor_idx`,
           transaction: transaction,

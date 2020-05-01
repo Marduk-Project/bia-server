@@ -9,7 +9,7 @@ export const utilsMixin = {
       if (!rrggbb) {
         return 0;
       }
-      rrggbb = rrggbb.replace("#", "");
+      rrggbb = rrggbb.replace('#', '');
       return parseInt(rrggbb, 16);
     },
 
@@ -29,13 +29,13 @@ export const utilsMixin = {
      */
     utils_decimalToHexString(d, padding = null) {
       let hex = Number(d).toString(16);
-      hex = hex.replace("-", "");
+      hex = hex.replace('-', '');
       padding =
-        typeof padding === "undefined" || padding === null
+        typeof padding === 'undefined' || padding === null
           ? (padding = 2)
           : padding;
       while (hex.length < padding) {
-        hex = "0" + hex;
+        hex = '0' + hex;
       }
       return hex;
     },

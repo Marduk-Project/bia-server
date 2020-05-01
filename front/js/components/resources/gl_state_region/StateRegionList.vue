@@ -86,26 +86,26 @@
 </template>
 
 <script>
-import { listMixin } from "@mixins/list-mixin";
-import axios from "@mixins/axios-auth";
-import _ from "lodash";
+  import { listMixin } from '@mixins/list-mixin';
+  import axios from '@mixins/axios-auth';
+  import _ from 'lodash';
 
-export default {
-  mixins: [listMixin],
-  components: {},
-  data() {
-    return {
-      filters: {},
-    };
-  },
-  computed: {
-    list_title() {
-      switch (this.$route.params.type) {
-        case "meso":
-          return "Mesorregiões";
+  export default {
+    mixins: [listMixin],
+    components: {},
+    data() {
+      return {
+        filters: {},
+      };
+    },
+    computed: {
+      list_title() {
+        switch (this.$route.params.type) {
+          case 'meso':
+            return 'Mesorregiões';
 
-        case "micro":
-          return "Microrregiões";
+          case 'micro':
+            return 'Microrregiões';
 
         case "macro":
           return "Macrorregiões";
@@ -134,11 +134,20 @@ export default {
       url += `&type=${this.$route.params.type}`;
       return url;
     },
-    list_requestParentEntity() {
-      return axios.get(`/api/admin/gl_state/${this.parentEntityId}/edit`);
+    methods: {
+      list_buildURL(page) {
+        let url = `${this.list_url_base}?page=${page}&q=${encodeURIComponent(
+          this.searchText
+        )}`;
+        url += `&stateId=${this.parentEntityId}`;
+        url += `&type=${this.$route.params.type}`;
+        return url;
+      },
+      list_requestParentEntity() {
+        return axios.get(`/api/admin/gl_state/${this.parentEntityId}/edit`);
+      },
     },
-  },
-};
+  };
 </script>
 
 <style scoped></style>

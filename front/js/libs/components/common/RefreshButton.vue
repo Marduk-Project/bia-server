@@ -9,20 +9,20 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-export default {
-  props: ["value"],
-  methods: {
-    onButtonClick() {
-      this.$emit("click", this.value);
+  import { mapGetters } from 'vuex';
+  export default {
+    props: ['value'],
+    methods: {
+      onButtonClick() {
+        this.$emit('click', this.value);
+      },
     },
-  },
-  computed: {
-    ...mapGetters({
-      isLoading: "isLoading",
-    }),
-  },
-};
+    computed: {
+      ...mapGetters({
+        isLoading: 'isLoading',
+      }),
+    },
+  };
 </script>
 
 <style scoped></style>

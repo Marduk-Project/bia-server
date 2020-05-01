@@ -1,20 +1,20 @@
-const nconf = require("nconf");
-const { Sequelize, DataTypes } = require("sequelize");
+const nconf = require('nconf');
+const { Sequelize, DataTypes } = require('sequelize');
 
-const { mainDb } = require("../database/main_connection");
-const { BaseModel, jsonSerializer } = require("./base_model");
+const { mainDb } = require('../database/main_connection');
+const { BaseModel, jsonSerializer } = require('./base_model');
 
 const {
   model: StateRegionModel,
   jsonSerializer: stateRegionJsonSerializer,
-} = require("./gl_state_region");
+} = require('./gl_state_region');
 const {
   model: CityModel,
   jsonSerializer: cityJsonSerializer,
-} = require("./gl_city");
+} = require('./gl_city');
 
 // model
-const modelName = "gl_city_state_region";
+const modelName = 'gl_city_state_region';
 class MyModel extends BaseModel {
   /**
    * @param {int} cityId
@@ -27,7 +27,7 @@ class MyModel extends BaseModel {
         cityId: cityId,
         type: type,
       },
-      include: ["stateRegion"],
+      include: ['stateRegion'],
     });
   }
 }
@@ -61,26 +61,26 @@ MyModel.init(
 
 // relations
 StateRegionModel.hasMany(MyModel, {
-  foreignKey: "stateRegionId",
-  as: "cities",
+  foreignKey: 'stateRegionId',
+  as: 'cities',
 });
 MyModel.belongsTo(StateRegionModel, {
-  foreignKey: "stateRegionId",
-  as: "stateRegion",
+  foreignKey: 'stateRegionId',
+  as: 'stateRegion',
 });
 CityModel.hasMany(MyModel, {
-  foreignKey: "cityId",
-  as: "regions",
+  foreignKey: 'cityId',
+  as: 'regions',
 });
 MyModel.belongsTo(CityModel, {
-  foreignKey: "cityId",
-  as: "city",
+  foreignKey: 'cityId',
+  as: 'city',
 });
 
 // scopes
 const scopes = {
   def: {
-    include: ["id", "name", "code"],
+    include: ['id', 'name', 'code'],
   },
   admin: {
     stateRegion: async (value, scopeName) =>
@@ -94,10 +94,10 @@ exports.model = MyModel;
 exports.modelName = modelName;
 exports.jsonSerializer = async (value, scopeName) => {
   if (!scopeName) {
-    scopeName = "def";
+    scopeName = 'def';
   }
   if (!scopes[scopeName]) {
-    scopeName = "def";
+    scopeName = 'def';
   }
   return await jsonSerializer(value, scopes[scopeName], scopeName);
 };

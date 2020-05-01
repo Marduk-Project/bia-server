@@ -1,6 +1,6 @@
-"use strict";
+'use strict';
 
-const tableName = "gl_field_item";
+const tableName = 'gl_field_item';
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -27,11 +27,11 @@ module.exports = {
             type: Sequelize.INTEGER,
             allowNull: false,
             references: {
-              model: "gl_field",
-              key: "id",
+              model: 'gl_field',
+              key: 'id',
             },
-            onUpdate: "CASCADE",
-            onDelete: "CASCADE",
+            onUpdate: 'CASCADE',
+            onDelete: 'CASCADE',
           },
           name: {
             type: Sequelize.STRING(60),
@@ -49,11 +49,11 @@ module.exports = {
         }
       );
       // indexes
-      await queryInterface.addIndex(tableName, ["fieldId", "name"], {
+      await queryInterface.addIndex(tableName, ['fieldId', 'name'], {
         name: `${tableName}_fieldId_name_idx`,
         transaction: transaction,
       });
-      await queryInterface.addIndex(tableName, ["name"], {
+      await queryInterface.addIndex(tableName, ['name'], {
         name: `${tableName}_name_idx`,
         transaction: transaction,
       });

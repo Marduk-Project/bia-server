@@ -23,36 +23,36 @@
 </template>
 
 <script>
-import DeleteModal from "@libComponents/crud/DeleteModal.vue";
+  import DeleteModal from '@libComponents/crud/DeleteModal.vue';
 
-export default {
-  components: {
-    "app-delete-modal": DeleteModal,
-  },
-  props: {
-    deleteShow: {
-      type: Boolean,
-      required: false,
-      default: true,
+  export default {
+    components: {
+      'app-delete-modal': DeleteModal,
     },
-    saveShow: {
-      type: Boolean,
-      required: false,
-      default: true,
+    props: {
+      deleteShow: {
+        type: Boolean,
+        required: false,
+        default: true,
+      },
+      saveShow: {
+        type: Boolean,
+        required: false,
+        default: true,
+      },
     },
-  },
-  methods: {
-    onSaveClick() {
-      this.$emit("onSave");
+    methods: {
+      onSaveClick() {
+        this.$emit('onSave');
+      },
+      onDeleteClick() {
+        this.$refs.modal.show();
+      },
+      onDeleteAction() {
+        this.$emit('onDelete');
+      },
     },
-    onDeleteClick() {
-      this.$refs.modal.show();
-    },
-    onDeleteAction() {
-      this.$emit("onDelete");
-    },
-  },
-};
+  };
 </script>
 
 <style scoped></style>

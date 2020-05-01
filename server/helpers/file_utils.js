@@ -1,4 +1,4 @@
-const fs = require("fs");
+const fs = require('fs');
 
 /**
  * Delete folder recursive
@@ -7,7 +7,7 @@ const fs = require("fs");
 const deleteFolderRecursiveSync = function (path) {
   if (fs.existsSync(path)) {
     fs.readdirSync(path).forEach(function (file, index) {
-      var curPath = path + "/" + file;
+      var curPath = path + '/' + file;
       if (fs.lstatSync(curPath).isDirectory()) {
         // recurse
         deleteFolderRecursiveSync(curPath);
@@ -25,17 +25,17 @@ const deleteFolderRecursiveSync = function (path) {
  * @param {String} path
  * @returns {Promise}
  */
-const readFileToBase64 = (path) => {
+const readFileToBase64 = path => {
   return new Promise((resolve, reject) => {
     if (!path) {
-      reject(new Error("File not found!"));
+      reject(new Error('File not found!'));
       return;
     }
     fs.readFile(path, {}, (err, data) => {
       if (err) {
         reject(err);
       } else {
-        resolve(data.toString("base64"));
+        resolve(data.toString('base64'));
       }
     });
   });

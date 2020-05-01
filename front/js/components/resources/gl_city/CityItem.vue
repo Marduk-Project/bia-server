@@ -5,9 +5,9 @@
 </template>
 
 <script>
-export default {
-  props: ["entity"],
-};
+  export default {
+    props: ['entity'],
+  };
 </script>
 
 <style scoped></style>

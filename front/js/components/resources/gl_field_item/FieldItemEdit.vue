@@ -57,61 +57,61 @@
 </template>
 
 <script>
-import { crudMixin } from "@mixins/crud-mixin";
-import axios from "@mixins/axios-auth";
+  import { crudMixin } from '@mixins/crud-mixin';
+  import axios from '@mixins/axios-auth';
 
-export default {
-  mixins: [crudMixin],
-  data() {
-    return {
-      entity: {
-        fieldId: null,
-        name: null,
-        code: null,
-        order: 0,
-        valueString: null,
-        // objects
-        field: null,
-      },
-    };
-  },
-  methods: {
-    crud_data() {
+  export default {
+    mixins: [crudMixin],
+    data() {
       return {
-        fieldId: this.parentEntityId,
-        name: this.entity.name,
-        code: this.entity.code,
-        order: this.entity.order,
-        valueString: this.entity.valueString,
+        entity: {
+          fieldId: null,
+          name: null,
+          code: null,
+          order: 0,
+          valueString: null,
+          // objects
+          field: null,
+        },
       };
     },
-    crud_validate() {
-      return true;
+    methods: {
+      crud_data() {
+        return {
+          fieldId: this.parentEntityId,
+          name: this.entity.name,
+          code: this.entity.code,
+          order: this.entity.order,
+          valueString: this.entity.valueString,
+        };
+      },
+      crud_validate() {
+        return true;
+      },
+      crud_requestParentEntity() {
+        return axios.get(`/api/admin/gl_field/${this.parentEntityId}/edit`);
+      },
     },
-    crud_requestParentEntity() {
-      return axios.get(`/api/admin/gl_field/${this.parentEntityId}/edit`);
+    computed: {
+      crud_title() {
+        var ok = this.entity != null;
+        if (ok) {
+          ok = this.entity.name != null;
+        }
+        if (ok) {
+          return '' + this.entity.name;
+        } else {
+          return 'Cadastro de Item';
+        }
+      },
+      crud_url_base() {
+        return '/api/admin/gl_field_item';
+      },
+      crud_route_base() {
+        return 'gl_field_item';
+      },
     },
-  },
-  computed: {
-    crud_title() {
-      var ok = this.entity != null;
-      if (ok) {
-        ok = this.entity.name != null;
-      }
-      if (ok) {
-        return "" + this.entity.name;
-      } else {
-        return "Cadastro de Item";
-      }
-    },
-    crud_url_base() {
-      return "/api/admin/gl_field_item";
-    },
-    crud_route_base() {
-      return "gl_field_item";
-    },
-  },
-};
+  };
 </script>
 
 <style scoped></style>

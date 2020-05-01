@@ -50,48 +50,48 @@
 </template>
 
 <script>
-import { crudMixin } from "@mixins/crud-mixin";
-import axios from "@mixins/axios-auth";
+  import { crudMixin } from '@mixins/crud-mixin';
+  import axios from '@mixins/axios-auth';
 
-export default {
-  mixins: [crudMixin],
-  components: {},
-  data() {
-    return {
-      entity: {
-        name: null,
-        code: null,
-        type: null,
-        stateId: null,
-        // objects
-        state: null,
-      },
-    };
-  },
-  methods: {
-    crud_data() {
+  export default {
+    mixins: [crudMixin],
+    components: {},
+    data() {
       return {
-        name: this.entity.name,
-        code: this.entity.code,
-        type: this.$route.params.type,
-        stateId: this.parentEntityId,
+        entity: {
+          name: null,
+          code: null,
+          type: null,
+          stateId: null,
+          // objects
+          state: null,
+        },
       };
     },
-    crud_validate() {
-      return true;
+    methods: {
+      crud_data() {
+        return {
+          name: this.entity.name,
+          code: this.entity.code,
+          type: this.$route.params.type,
+          stateId: this.parentEntityId,
+        };
+      },
+      crud_validate() {
+        return true;
+      },
+      crud_requestParentEntity() {
+        return axios.get(`/api/admin/gl_state/${this.parentEntityId}/edit`);
+      },
     },
-    crud_requestParentEntity() {
-      return axios.get(`/api/admin/gl_state/${this.parentEntityId}/edit`);
-    },
-  },
-  computed: {
-    crud_subtitle() {
-      switch (this.$route.params.type) {
-        case "meso":
-          return "Mesorregião";
+    computed: {
+      crud_subtitle() {
+        switch (this.$route.params.type) {
+          case 'meso':
+            return 'Mesorregião';
 
-        case "micro":
-          return "Microrregião";
+          case 'micro':
+            return 'Microrregião';
 
         case "marco":
           return "Macrorregião";
@@ -121,8 +121,7 @@ export default {
     crud_route_base() {
       return "gl_state_region";
     },
-  },
-};
+  };
 </script>
 
 <style scoped></style>

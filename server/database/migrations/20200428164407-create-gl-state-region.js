@@ -1,6 +1,6 @@
-"use strict";
+'use strict';
 
-const tableName = "gl_state_region";
+const tableName = 'gl_state_region';
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -38,11 +38,11 @@ module.exports = {
             type: Sequelize.INTEGER,
             allowNull: false,
             references: {
-              model: "gl_state",
-              key: "id",
+              model: 'gl_state',
+              key: 'id',
             },
-            onUpdate: "CASCADE",
-            onDelete: "CASCADE",
+            onUpdate: 'CASCADE',
+            onDelete: 'CASCADE',
           },
         },
         {
@@ -50,19 +50,19 @@ module.exports = {
         }
       );
       // indexes
-      await queryInterface.addIndex(tableName, ["stateId"], {
+      await queryInterface.addIndex(tableName, ['stateId'], {
         name: `${tableName}_stateId_idx`,
         transaction: transaction,
       });
-      await queryInterface.addIndex(tableName, ["name", "type"], {
+      await queryInterface.addIndex(tableName, ['name', 'type'], {
         name: `${tableName}_name_type_idx`,
         transaction: transaction,
       });
-      await queryInterface.addIndex(tableName, ["type", "name"], {
+      await queryInterface.addIndex(tableName, ['type', 'name'], {
         name: `${tableName}_type_name_idx`,
         transaction: transaction,
       });
-      await queryInterface.addIndex(tableName, ["code", "type"], {
+      await queryInterface.addIndex(tableName, ['code', 'type'], {
         name: `${tableName}_code_type_idx`,
         transaction: transaction,
       });

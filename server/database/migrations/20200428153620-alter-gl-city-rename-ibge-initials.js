@@ -1,19 +1,19 @@
-"use strict";
+'use strict';
 
-const tableName = "gl_city";
+const tableName = 'gl_city';
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     const transaction = await queryInterface.sequelize.transaction();
     try {
       // alters
-      await queryInterface.renameColumn(tableName, "ibgeCode", "code");
+      await queryInterface.renameColumn(tableName, 'ibgeCode', 'code');
       await queryInterface.addColumn(
         tableName,
-        "initials",
+        'initials',
         Sequelize.STRING(60),
         {
-          after: "code",
+          after: 'code',
           allowNull: true,
         }
       );
@@ -22,7 +22,7 @@ module.exports = {
         tableName,
         `${tableName}_ibgeCode_priority_idx`
       );
-      await queryInterface.addIndex(tableName, ["code", "priority"], {
+      await queryInterface.addIndex(tableName, ['code', 'priority'], {
         name: `${tableName}_code_priority_idx`,
         transaction: transaction,
       });
@@ -36,14 +36,14 @@ module.exports = {
     const transaction = await queryInterface.sequelize.transaction();
     try {
       // alters
-      await queryInterface.renameColumn(tableName, "code", "ibgeCode");
-      await queryInterface.removeColumn(tableName, "initials");
+      await queryInterface.renameColumn(tableName, 'code', 'ibgeCode');
+      await queryInterface.removeColumn(tableName, 'initials');
       // indexes
       await queryInterface.removeIndex(
         tableName,
         `${tableName}_code_priority_idx`
       );
-      await queryInterface.addIndex(tableName, ["ibgeCode", "priority"], {
+      await queryInterface.addIndex(tableName, ['ibgeCode', 'priority'], {
         name: `${tableName}_ibgeCode_priority_idx`,
         transaction: transaction,
       });

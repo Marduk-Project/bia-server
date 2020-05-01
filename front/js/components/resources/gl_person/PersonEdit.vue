@@ -63,9 +63,9 @@
         </div>
         <div class="form-group col-xl-6">
           <label>{{
-            entity.legalIdentifierType == "CNPJ"
-              ? "Razão social"
-              : "Nome completo"
+            entity.legalIdentifierType == 'CNPJ'
+              ? 'Razão social'
+              : 'Nome completo'
           }}</label>
           <input
             class="form-control"
@@ -80,9 +80,9 @@
         </div>
         <div class="form-group col-xl-6">
           <label>{{
-            entity.legalIdentifierType == "CPF"
-              ? "Nome resumido ou apelido"
-              : "Nome fantasia"
+            entity.legalIdentifierType == 'CPF'
+              ? 'Nome resumido ou apelido'
+              : 'Nome fantasia'
           }}</label>
           <input
             class="form-control"
@@ -279,90 +279,90 @@
 </template>
 
 <script>
-import { crudMixin } from "@mixins/crud-mixin";
-import axios from "@mixins/axios-auth";
-import _axios from "axios";
-import PersonTypeSelect from "@resources/gl_person/PersonTypeSelect.vue";
-import CitySelect from "@resources/gl_city/CitySelect.vue";
-import PersonFieldTableRow from "@resources/gl_person_field/PersonFieldTableRow.vue";
+  import { crudMixin } from '@mixins/crud-mixin';
+  import axios from '@mixins/axios-auth';
+  import _axios from 'axios';
+  import PersonTypeSelect from '@resources/gl_person/PersonTypeSelect.vue';
+  import CitySelect from '@resources/gl_city/CitySelect.vue';
+  import PersonFieldTableRow from '@resources/gl_person_field/PersonFieldTableRow.vue';
 
-export default {
-  mixins: [crudMixin],
-  components: {
-    "app-person-type-select": PersonTypeSelect,
-    "app-city-select": CitySelect,
-    "app-field-row": PersonFieldTableRow,
-  },
-  data() {
-    return {
-      entity: {
-        id: null,
-        name: null,
-        shortname: null,
-        legalType: 2,
-        legalIdentifierType: null,
-        legalIdentifierCode: null,
-        address: null,
-        addressZipcode: null,
-        addressNumber: null,
-        addressExtra: null,
-        addressNeighborhood: null,
-        cityId: null,
-        email: null,
-        cellphone: null,
-        phone: null,
-        birthdate: null,
-        trusted: false,
-        latitude: 0,
-        longitude: 0,
-        obs: null,
-        // obs
-        city: null,
-      },
-      fieldList: [],
-    };
-  },
-  methods: {
-    crud_data() {
+  export default {
+    mixins: [crudMixin],
+    components: {
+      'app-person-type-select': PersonTypeSelect,
+      'app-city-select': CitySelect,
+      'app-field-row': PersonFieldTableRow,
+    },
+    data() {
       return {
-        id: this.entity.id,
-        name: this.entity.name,
-        shortname: this.entity.shortname,
-        legalType: this.entity.legalType,
-        legalIdentifierType: this.legalIdentifierType, // computed
-        legalIdentifierCode: this.entity.legalIdentifierCode,
-        address: this.entity.address,
-        addressZipcode: this.entity.addressZipcode,
-        addressNumber: this.entity.addressNumber,
-        addressExtra: this.entity.addressExtra,
-        addressNeighborhood: this.entity.addressNeighborhood,
-        cityId: this.entity.city ? this.entity.city.id : null,
-        email: this.entity.email,
-        cellphone: this.entity.cellphone,
-        phone: this.entity.phone,
-        birthdate: this.entity.birthdate,
-        trusted: this.entity.trusted ? true : false,
-        latitude: this.entity.latitude,
-        longitude: this.entity.longitude,
-        obs: this.entity.obs,
-        fields: this.fieldList.map((field) => {
-          let value = null;
-          switch (parseInt(field.field.type)) {
-            case 1:
-              value = field.valueString;
-              break;
+        entity: {
+          id: null,
+          name: null,
+          shortname: null,
+          legalType: 2,
+          legalIdentifierType: null,
+          legalIdentifierCode: null,
+          address: null,
+          addressZipcode: null,
+          addressNumber: null,
+          addressExtra: null,
+          addressNeighborhood: null,
+          cityId: null,
+          email: null,
+          cellphone: null,
+          phone: null,
+          birthdate: null,
+          trusted: false,
+          latitude: 0,
+          longitude: 0,
+          obs: null,
+          // obs
+          city: null,
+        },
+        fieldList: [],
+      };
+    },
+    methods: {
+      crud_data() {
+        return {
+          id: this.entity.id,
+          name: this.entity.name,
+          shortname: this.entity.shortname,
+          legalType: this.entity.legalType,
+          legalIdentifierType: this.legalIdentifierType, // computed
+          legalIdentifierCode: this.entity.legalIdentifierCode,
+          address: this.entity.address,
+          addressZipcode: this.entity.addressZipcode,
+          addressNumber: this.entity.addressNumber,
+          addressExtra: this.entity.addressExtra,
+          addressNeighborhood: this.entity.addressNeighborhood,
+          cityId: this.entity.city ? this.entity.city.id : null,
+          email: this.entity.email,
+          cellphone: this.entity.cellphone,
+          phone: this.entity.phone,
+          birthdate: this.entity.birthdate,
+          trusted: this.entity.trusted ? true : false,
+          latitude: this.entity.latitude,
+          longitude: this.entity.longitude,
+          obs: this.entity.obs,
+          fields: this.fieldList.map(field => {
+            let value = null;
+            switch (parseInt(field.field.type)) {
+              case 1:
+                value = field.valueString;
+                break;
 
-            case 2:
-              value = field.valueInt;
-              break;
+              case 2:
+                value = field.valueInt;
+                break;
 
-            case 3:
-              value = field.valueDouble;
-              break;
+              case 3:
+                value = field.valueDouble;
+                break;
 
-            case 4:
-              value = field.valueBoolean;
-              break;
+              case 4:
+                value = field.valueBoolean;
+                break;
 
             case 5:
               value = field.fieldItemId;
@@ -446,12 +446,11 @@ export default {
         }
       });
     },
-  },
-  computed: {
-    legalIdentifierType() {
-      switch (parseInt(this.entity.legalType)) {
-        case 1:
-          return "CPF";
+    computed: {
+      legalIdentifierType() {
+        switch (parseInt(this.entity.legalType)) {
+          case 1:
+            return 'CPF';
 
         case 2:
         case 3:
@@ -498,31 +497,31 @@ export default {
         case 1:
         case 2:
           return true;
-
-        case 3:
-          return false;
-      }
-      return false;
+          
+          case 3:
+            return false;
+        }
+        return false;
+      },
+      crud_title() {
+        var ok = this.entity != null;
+        if (ok) {
+          ok = this.entity.name != null;
+        }
+        if (ok) {
+          return '' + this.entity.name;
+        } else {
+          return 'Cadastro de Pessoa';
+        }
+      },
+      crud_url_base() {
+        return '/api/admin/gl_person';
+      },
+      crud_route_base() {
+        return 'gl_person';
+      },
     },
-    crud_title() {
-      var ok = this.entity != null;
-      if (ok) {
-        ok = this.entity.name != null;
-      }
-      if (ok) {
-        return "" + this.entity.name;
-      } else {
-        return "Cadastro de Pessoa";
-      }
-    },
-    crud_url_base() {
-      return "/api/admin/gl_person";
-    },
-    crud_route_base() {
-      return "gl_person";
-    },
-  },
-};
+  };
 </script>
 
 <style scoped></style>

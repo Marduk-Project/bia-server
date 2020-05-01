@@ -1,13 +1,13 @@
-const nconf = require("nconf");
-const { Sequelize, DataTypes } = require("sequelize");
+const nconf = require('nconf');
+const { Sequelize, DataTypes } = require('sequelize');
 
-const { mainDb } = require("../database/main_connection");
-const { BaseModel, jsonSerializer } = require("./base_model");
+const { mainDb } = require('../database/main_connection');
+const { BaseModel, jsonSerializer } = require('./base_model');
 
 const {
   model: StateModel,
   jsonSerializer: stateJsonSerializer,
-} = require("./gl_state");
+} = require('./gl_state');
 
 // type
 const TYPE_MESO = "meso";
@@ -29,13 +29,13 @@ exports.TYPE_ALL = [
   TYPE_HEALTH_MICRO,
 ];
 
-const typeToString = (value) => {
+const typeToString = value => {
   switch (value) {
     case TYPE_MESO:
-      return "Mesorregião";
+      return 'Mesorregião';
 
     case TYPE_MICRO:
-      return "Microrregião";
+      return 'Microrregião';
 
     case TYPE_MACRO:
       return "Macrorregião";
@@ -46,12 +46,12 @@ const typeToString = (value) => {
     case TYPE_HEALTH_MICRO:
       return "Região de Saúde";
   }
-  return "Desconhecido";
+  return 'Desconhecido';
 };
 exports.typeToString = typeToString;
 
 // model
-const modelName = "gl_state_region";
+const modelName = 'gl_state_region';
 class MyModel extends BaseModel {
   static async findByIdAndTypeAndStateId(id, type, stateId) {
     return await this.findOne({
@@ -94,7 +94,7 @@ MyModel.init(
         notEmpty: true,
         len: {
           args: [1, 60],
-          msg: "Nome deve ter de 1 a 60 caracteres.",
+          msg: 'Nome deve ter de 1 a 60 caracteres.',
         },
       },
     },
@@ -104,7 +104,7 @@ MyModel.init(
         notEmpty: true,
         len: {
           args: [1, 60],
-          msg: "Nome deve ter de 1 a 60 caracteres.",
+          msg: 'Nome deve ter de 1 a 60 caracteres.',
         },
       },
     },
@@ -114,14 +114,14 @@ MyModel.init(
         notEmpty: true,
         len: {
           args: [1, 60],
-          msg: "Nome deve ter de 1 a 60 caracteres.",
+          msg: 'Nome deve ter de 1 a 60 caracteres.',
         },
       },
     },
     typeDesc: {
-      type: new DataTypes.VIRTUAL(DataTypes.STRING, ["type"]),
+      type: new DataTypes.VIRTUAL(DataTypes.STRING, ['type']),
       get: function () {
-        return typeToString(this.get("type"));
+        return typeToString(this.get('type'));
       },
     },
   },
@@ -135,18 +135,18 @@ MyModel.init(
 
 // relations
 StateModel.hasMany(MyModel, {
-  foreignKey: "stateId",
-  as: "regions",
+  foreignKey: 'stateId',
+  as: 'regions',
 });
 MyModel.belongsTo(StateModel, {
-  foreignKey: "stateId",
-  as: "state",
+  foreignKey: 'stateId',
+  as: 'state',
 });
 
 // scopes
 const scopes = {
   def: {
-    include: ["id", "name", "code", "type", "typeDesc"],
+    include: ['id', 'name', 'code', 'type', 'typeDesc'],
   },
   admin: {
     state: async (value, scopeName) =>
@@ -158,10 +158,10 @@ exports.model = MyModel;
 exports.modelName = modelName;
 exports.jsonSerializer = async (value, scopeName) => {
   if (!scopeName) {
-    scopeName = "def";
+    scopeName = 'def';
   }
   if (!scopes[scopeName]) {
-    scopeName = "def";
+    scopeName = 'def';
   }
   return await jsonSerializer(value, scopes[scopeName], scopeName);
 };

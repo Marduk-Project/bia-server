@@ -1,7 +1,7 @@
-const program = require("commander");
-const config = require("../config");
-const chalk = require("chalk");
-const { handleError, mainDbEndFinally } = require("./common");
+const program = require('commander');
+const config = require('../config');
+const chalk = require('chalk');
+const { handleError, mainDbEndFinally } = require('./common');
 
 const run = async () => {
   try {

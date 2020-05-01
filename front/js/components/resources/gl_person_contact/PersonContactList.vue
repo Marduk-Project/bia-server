@@ -103,76 +103,78 @@
 </template>
 
 <script>
-import { listMixin } from "@mixins/list-mixin";
-import axios from "@mixins/axios-auth";
-import _ from "lodash";
-import PersonItem from "@resources/gl_person/PersonItem.vue";
-import PersonSelect from "@resources/gl_person/PersonSelect.vue";
-import UserItem from "@resources/gl_user/UserItem.vue";
-import UserSelect from "@resources/gl_user/UserSelect.vue";
+  import { listMixin } from '@mixins/list-mixin';
+  import axios from '@mixins/axios-auth';
+  import _ from 'lodash';
+  import PersonItem from '@resources/gl_person/PersonItem.vue';
+  import PersonSelect from '@resources/gl_person/PersonSelect.vue';
+  import UserItem from '@resources/gl_user/UserItem.vue';
+  import UserSelect from '@resources/gl_user/UserSelect.vue';
 
-export default {
-  mixins: [listMixin],
-  components: {
-    "app-person-item": PersonItem,
-    "app-person-select": PersonSelect,
-    "app-user-select": UserSelect,
-    "app-user-item": UserItem,
-  },
-  data() {
-    return {
-      filters: {
-        person: null,
-        user: null,
+  export default {
+    mixins: [listMixin],
+    components: {
+      'app-person-item': PersonItem,
+      'app-person-select': PersonSelect,
+      'app-user-select': UserSelect,
+      'app-user-item': UserItem,
+    },
+    data() {
+      return {
+        filters: {
+          person: null,
+          user: null,
+        },
+      };
+    },
+    computed: {
+      list_title() {
+        return 'Contatos vinculados';
       },
-    };
-  },
-  computed: {
-    list_title() {
-      return "Contatos vinculados";
+      list_url_base() {
+        return '/api/admin/gl_person_contact';
+      },
+      list_route_base() {
+        return 'gl_person_contact';
+      },
+      origin() {
+        if (this.useRoute) {
+          return this.$route.params.origin;
+        }
+        return 'p';
+      },
     },
-    list_url_base() {
-      return "/api/admin/gl_person_contact";
-    },
-    list_route_base() {
-      return "gl_person_contact";
-    },
-    origin() {
-      if (this.useRoute) {
-        return this.$route.params.origin;
-      }
-      return "p";
-    },
-  },
-  methods: {
-    list_buildURL(page) {
-      let url = `${this.list_url_base}?page=${page}&q=${encodeURIComponent(
-        this.searchText
-      )}`;
-      switch (this.origin) {
-        case "u":
-          url += `&userId=${this.parentEntityId}`;
-          break;
+    methods: {
+      list_buildURL(page) {
+        let url = `${this.list_url_base}?page=${page}&q=${encodeURIComponent(
+          this.searchText
+        )}`;
+        switch (this.origin) {
+          case 'u':
+            url += `&userId=${this.parentEntityId}`;
+            break;
 
-        default:
-        case "p":
-          url += `&personId=${this.parentEntityId}`;
-          break;
-      }
-      return url;
-    },
-    list_requestParentEntity() {
-      switch (this.origin) {
-        case "u":
-          return axios.get(`/api/admin/gl_user/${this.parentEntityId}/edit`);
+          default:
+          case 'p':
+            url += `&personId=${this.parentEntityId}`;
+            break;
+        }
+        return url;
+      },
+      list_requestParentEntity() {
+        switch (this.origin) {
+          case 'u':
+            return axios.get(`/api/admin/gl_user/${this.parentEntityId}/edit`);
 
-        default:
-        case "p":
-          return axios.get(`/api/admin/gl_person/${this.parentEntityId}/edit`);
-      }
+          default:
+          case 'p':
+            return axios.get(
+              `/api/admin/gl_person/${this.parentEntityId}/edit`
+            );
+        }
+      },
     },
-  },
-};
+  };
 </script>
 
 <style scoped></style>

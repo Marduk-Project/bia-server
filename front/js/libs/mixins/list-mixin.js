@@ -1,12 +1,12 @@
-import axios from "./axios-auth";
-import { apiMixin } from "./api-mixin";
+import axios from './axios-auth';
+import { apiMixin } from './api-mixin';
 
-import RefreshButton from "../components/common/RefreshButton.vue";
-import AddButton from "../components/crud/AddButton.vue";
-import Pagination from "../components/crud/Pagination.vue";
-import { mapGetters } from "vuex";
-import moment from "moment";
-import _ from "lodash";
+import RefreshButton from '../components/common/RefreshButton.vue';
+import AddButton from '../components/crud/AddButton.vue';
+import Pagination from '../components/crud/Pagination.vue';
+import { mapGetters } from 'vuex';
+import moment from 'moment';
+import _ from 'lodash';
 
 // list mixin
 export const listMixin = {
@@ -29,9 +29,9 @@ export const listMixin = {
     },
   },
   components: {
-    "app-pagination": Pagination,
-    "app-refresh-button": RefreshButton,
-    "app-add-button": AddButton,
+    'app-pagination': Pagination,
+    'app-refresh-button': RefreshButton,
+    'app-add-button': AddButton,
   },
   data() {
     return {
@@ -41,13 +41,13 @@ export const listMixin = {
       },
       parentEntity: null,
       parentEntityId: null,
-      searchText: "",
+      searchText: '',
       filters: null,
     };
   },
   computed: {
     ...mapGetters({
-      isLoading: "isLoading",
+      isLoading: 'isLoading',
     }),
     list_hasParentEntity() {
       return this.useRoute
@@ -86,7 +86,7 @@ export const listMixin = {
      */
     list_onAddBuildRoute() {
       return {
-        name: this.list_route_base + ".create",
+        name: this.list_route_base + '.create',
         params: {
           id: null,
           entity: null,
@@ -129,7 +129,7 @@ export const listMixin = {
      * @returns {Promise}
      */
     list_requestParentEntity() {
-      return Promise.reject("Implementar list_requestParentEntity.");
+      return Promise.reject('Implementar list_requestParentEntity.');
     },
 
     /**
@@ -155,7 +155,7 @@ export const listMixin = {
       if (this.list_hasParentEntity) {
         if (this.parentEntity == null) {
           this.list_requestParentEntity()
-            .then((res) => {
+            .then(res => {
               if (!this.api_parseOK(res)) {
                 return;
               }
@@ -202,7 +202,7 @@ export const listMixin = {
      * @returns {Function}
      */
     list_parseResponse() {
-      return (res) => {
+      return res => {
         if (!this.api_parseOK(res)) {
           return;
         }
@@ -225,7 +225,7 @@ export const listMixin = {
      */
     list_onItemClickBuildRoute(entity) {
       return {
-        name: this.list_route_base + ".edit",
+        name: this.list_route_base + '.edit',
         params: {
           id: entity ? entity.id : null,
           entity: entity,
@@ -281,7 +281,7 @@ export const listMixin = {
           return route;
         }
       }
-      this.notify_warning("Implementar list_navBackBuildRoute");
+      this.notify_warning('Implementar list_navBackBuildRoute');
       return null;
     },
 
@@ -340,7 +340,7 @@ export const listMixin = {
   mounted() {
     this.list_beforeMount();
     if (this.useRoute) {
-      this.$store.dispatch("setTitle", this.list_title);
+      this.$store.dispatch('setTitle', this.list_title);
       this.parentEntity = this.$route.params.parentEntity;
       this.parentEntityId = this.$route.params.parentEntityId;
     } else {

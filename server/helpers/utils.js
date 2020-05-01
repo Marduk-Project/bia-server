@@ -1,14 +1,14 @@
-const _ = require("lodash");
-const fs = require("fs");
+const _ = require('lodash');
+const fs = require('fs');
 
 /**
  * Generates random alphanumeric string
  * @param {Number} length
  */
-const randomString = (length) => {
-  var text = "";
+const randomString = length => {
+  var text = '';
   var possible =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   for (var i = 0; i < length; i++) {
     text += possible.charAt(Math.floor(Math.random() * possible.length));
   }
@@ -30,9 +30,9 @@ function diffObject(object, base) {
           result[key] = value;
         } else if (
           value.constructor &&
-          value.constructor.name == "ObjectId" &&
+          value.constructor.name == 'ObjectId' &&
           base[key].constructor &&
-          base[key].constructor.name == "ObjectId"
+          base[key].constructor.name == 'ObjectId'
         ) {
           // object id equals
           if (!value.equals(base[key])) {
@@ -43,10 +43,10 @@ function diffObject(object, base) {
         } else if (
           value &&
           value.constructor &&
-          value.constructor.name == "Object" &&
+          value.constructor.name == 'Object' &&
           base[key] &&
           base[key].constructor &&
-          base[key].constructor.name == "Object"
+          base[key].constructor.name == 'Object'
         ) {
           result[key] = changes(value, base[key]);
         } else {

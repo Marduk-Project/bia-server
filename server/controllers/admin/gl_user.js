@@ -1,6 +1,6 @@
-const { body, query, param } = require("express-validator/check");
-const validator = require("validator");
-const { Op } = require("sequelize");
+const { body, query, param } = require('express-validator/check');
+const validator = require('validator');
+const { Op } = require('sequelize');
 
 const {
   customFindByPkValidation,
@@ -9,20 +9,20 @@ const {
   BadRequestError,
   ApiError,
   NotFoundError,
-} = require("../../middlewares/error-mid");
-const CtrModelModule = require("../../models/gl_user");
+} = require('../../middlewares/error-mid');
+const CtrModelModule = require('../../models/gl_user');
 const Model = CtrModelModule.model;
-const utils = require("../../helpers/utils");
+const utils = require('../../helpers/utils');
 
-const controllerDefaultQueryScope = "admin";
+const controllerDefaultQueryScope = 'admin';
 
 /**
  * List Validation
  */
 exports.getIndexValidate = [
-  query("page").optional().isInt(),
-  query("q").optional().isString(),
-  query("level").optional().isInt(),
+  query('page').optional().isInt(),
+  query('q').optional().isString(),
+  query('level').optional().isInt(),
   validationEndFunction,
 ];
 
@@ -60,9 +60,9 @@ exports.getIndex = async (req, res, next) => {
     const page = req.query.page || 1;
     Model.setLimitOffsetForPage(page, options);
     options.order = [
-      ["name", "asc"],
-      ["email", "asc"],
-      ["id", "asc"],
+      ['name', 'asc'],
+      ['email', 'asc'],
+      ['id', 'asc'],
     ];
     // exec
     const queryResult = await Model.findAndCountAll(options);
@@ -83,7 +83,7 @@ exports.getIndex = async (req, res, next) => {
  * Get for Edit Validate
  */
 exports.getEditValidate = [
-  param("id").isInt().not().isEmpty().custom(customFindByPkValidation(Model)),
+  param('id').isInt().not().isEmpty().custom(customFindByPkValidation(Model)),
   validationEndFunction,
 ];
 
@@ -108,20 +108,20 @@ exports.getEdit = async (req, res, next) => {
  * Save validation
  */
 const saveValidate = [
-  param("id").optional().isInt(),
-  body("name").isString().trim(),
-  body("nickname").isString().trim(),
-  body("level")
+  param('id').optional().isInt(),
+  body('name').isString().trim(),
+  body('nickname').isString().trim(),
+  body('level')
     .isIn(CtrModelModule.LEVEL_ALL)
     .custom((value, { req }) => {
       if (value == CtrModelModule.LEVEL_ADMIN && !req.user.levelIsAdmin) {
         throw new ApiError(
-          "Apenas usuários administradores podem adicionar outros administradores."
+          'Apenas usuários administradores podem adicionar outros administradores.'
         );
       }
       return true;
     }),
-  body("email")
+  body('email')
     .isEmail()
     .not()
     .isEmpty()
@@ -150,11 +150,11 @@ const saveValidate = [
       }
       return true;
     }),
-  body("blocked")
+  body('blocked')
     .isBoolean()
     .custom((value, { req }) => {
       if (value && req.params.id == req.user.id) {
-        throw new ApiError("Você não pode bloquear a si mesmo.");
+        throw new ApiError('Você não pode bloquear a si mesmo.');
       }
       return true;
     }),
@@ -202,7 +202,7 @@ const saveEntityFunc = async (req, res, next, id) => {
 /** Update validation */
 exports.putUpdateValidate = [
   ...saveValidate,
-  param("id").isInt().custom(customFindByPkValidation(Model)),
+  param('id').isInt().custom(customFindByPkValidation(Model)),
   validationEndFunction,
 ];
 
@@ -237,12 +237,12 @@ exports.postCreate = async (req, res, next) => {
  * Delete Validate
  */
 exports.deleteValidate = [
-  param("id")
+  param('id')
     .isInt()
     .custom(customFindByPkValidation(Model))
     .custom((value, { req }) => {
       if (value == req.user.id.toString()) {
-        throw new ApiError("Você não pode excluir a si mesmo.");
+        throw new ApiError('Você não pode excluir a si mesmo.');
       }
       return true;
     }),
@@ -272,12 +272,12 @@ exports.delete = async (req, res, next) => {
  * Delete Validate
  */
 exports.blockToggleValidate = [
-  param("id")
+  param('id')
     .isInt()
     .custom(customFindByPkValidation(Model))
     .custom((value, { req }) => {
       if (value == req.user.id.toString()) {
-        throw new ApiError("Você não pode bloquear/desbloquear a si mesmo.");
+        throw new ApiError('Você não pode bloquear/desbloquear a si mesmo.');
       }
       return true;
     })
@@ -287,12 +287,12 @@ exports.blockToggleValidate = [
         !req.user.levelIsAdmin
       ) {
         throw new ApiError(
-          "Apenas usuários administradores podem alterar-se entre si."
+          'Apenas usuários administradores podem alterar-se entre si.'
         );
       }
       return true;
     }),
-  body("blocked").isBoolean(),
+  body('blocked').isBoolean(),
   validationEndFunction,
 ];
 
@@ -319,8 +319,8 @@ exports.blockToggle = async (req, res, next) => {
  * Test password Validate
  */
 exports.postPwdCheckValidate = [
-  param("id").isInt().not().isEmpty().custom(customFindByPkValidation(Model)), // no query scope
-  body("pwd").isString().trim().not().isEmpty(),
+  param('id').isInt().not().isEmpty().custom(customFindByPkValidation(Model)), // no query scope
+  body('pwd').isString().trim().not().isEmpty(),
   validationEndFunction,
 ];
 
@@ -330,7 +330,7 @@ exports.postPwdCheck = async (req, res, next) => {
     const pwd = req.body.pwd;
     const entity = req.entity;
     if (!entity.password_compare(pwd)) {
-      throw new ApiError("Senha errada!");
+      throw new ApiError('Senha errada!');
     }
     res.sendJsonOK();
   } catch (err) {
@@ -340,20 +340,20 @@ exports.postPwdCheck = async (req, res, next) => {
 
 /** Change password Validate */
 exports.postPwdChangeValidate = [
-  param("id")
+  param('id')
     .isInt()
     .not()
     .isEmpty()
     .custom((value, { req }) => {
       if (value == req.user.id.toString()) {
         throw new ApiError(
-          "Você não pode alterar sua própria senha desta forma."
+          'Você não pode alterar sua própria senha desta forma.'
         );
       }
       return true;
     })
     .custom(customFindByPkValidation(Model)), // no query scope
-  body("pwd").isString().trim().not().isEmpty(),
+  body('pwd').isString().trim().not().isEmpty(),
   validationEndFunction,
 ];
 
@@ -373,8 +373,8 @@ exports.postPwdChange = async (req, res, next) => {
 
 /** Invite or recover user password */
 exports.postPwdRecoverValidate = [
-  param("id").isInt().not().isEmpty().custom(customFindByPkValidation(Model)), // no query scope
-  body("isInvite").isBoolean(),
+  param('id').isInt().not().isEmpty().custom(customFindByPkValidation(Model)), // no query scope
+  body('isInvite').isBoolean(),
   validationEndFunction,
 ];
 

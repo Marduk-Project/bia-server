@@ -1,7 +1,7 @@
-import { Line, mixins } from "vue-chartjs";
+import { Line, mixins } from 'vue-chartjs';
 const { reactiveProp } = mixins;
-import _ from "lodash";
-import moment from "moment";
+import _ from 'lodash';
+import moment from 'moment';
 
 export default {
   extends: Line,
@@ -28,8 +28,8 @@ export default {
               }
               const dt =
                 data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index]
-                  .x || "";
-              return moment(dt).format("L LTS");
+                  .x || '';
+              return moment(dt).format('L LTS');
             },
           },
         },
@@ -48,13 +48,13 @@ export default {
           ],
           xAxes: [
             {
-              type: "time",
+              type: 'time',
               time: {
                 displayFormats: {
-                  hour: "HH",
-                  minute: "HH:mm",
-                  second: "HH:mm:ss",
-                  millisecond: "HH:mm:ss.SSS",
+                  hour: 'HH',
+                  minute: 'HH:mm',
+                  second: 'HH:mm:ss',
+                  millisecond: 'HH:mm:ss.SSS',
                 },
               },
             },

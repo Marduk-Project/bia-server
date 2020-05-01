@@ -1,5 +1,5 @@
-const winston = require("../helpers/winston");
-const nconf = require("nconf");
+const winston = require('../helpers/winston');
+const nconf = require('nconf');
 const logger = winston.logger;
 
 /**
@@ -16,7 +16,7 @@ class AppBaseError extends Error {
     super(message);
     this.name = this.constructor.name;
     this.status = status || 400;
-    this.logLevel = logLevel || "warn";
+    this.logLevel = logLevel || 'warn';
     // Capturing stack trace, excluding constructor call from it.
     // Error.captureStackTrace(this, this.constructor);
   }
@@ -70,12 +70,12 @@ class ServerError extends AppBaseError {
  * @param {Error} err
  * @returns {Object}
  */
-const errorToJson = (err) => {
+const errorToJson = err => {
   const json = {
     ok: false,
     message: err.message,
   };
-  if (nconf.get("NODE_ENV") != "production") {
+  if (nconf.get('NODE_ENV') != 'production') {
     json.stack = err.stack;
     json.error = err.toString();
   }
@@ -110,14 +110,14 @@ exports.handler = (err, req, res, next) => {
   }
   // set locals, only providing error in development
   res.locals.message = err.message;
-  res.locals.error = req.app.get("env") === "development" ? err : {};
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
   // render the error page
   res.status(err.status || 500);
   if (toJson) {
     res.json(err.toJson());
   } else {
-    if (req.method == "GET") {
-      res.render("errors/error");
+    if (req.method == 'GET') {
+      res.render('errors/error');
     } else {
       res.json(errorToJson(err));
     }
@@ -127,7 +127,7 @@ exports.handler = (err, req, res, next) => {
 /**
  * Validation error
  */
-exports.validationHandler = (next) => (result) => {
+exports.validationHandler = next => result => {
   if (result.isEmpty()) {
     if (next) {
       next();
@@ -138,16 +138,16 @@ exports.validationHandler = (next) => (result) => {
     throw new BadRequestError(
       result
         .array()
-        .map((i) => `'${i.param}' has ${i.msg}`)
-        .join("\n")
+        .map(i => `'${i.param}' has ${i.msg}`)
+        .join('\n')
     );
   } else {
     let str = result
       .array()
-      .map((i) => {
+      .map(i => {
         return `<li><b>${i.param}</b>: ${i.msg}</li>`;
       })
-      .join("\n");
+      .join('\n');
     str = `Ocorreram os seguintes erros na requisição:<br/><ul style="margin: 0px;">${str}</ul>`;
     return next(new BadRequestError(str));
   }

@@ -90,69 +90,69 @@
 </template>
 
 <script>
-import { crudMixin } from "@mixins/crud-mixin";
-import axios from "@mixins/axios-auth";
+  import { crudMixin } from '@mixins/crud-mixin';
+  import axios from '@mixins/axios-auth';
 
-import UnitSelect from "@resources/gl_unit/UnitSelect.vue";
+  import UnitSelect from '@resources/gl_unit/UnitSelect.vue';
 
-export default {
-  mixins: [crudMixin],
-  components: {
-    "app-unit-select": UnitSelect,
-  },
-  data() {
-    return {
-      entity: {
-        name: null,
-        description: null,
-        eanCode: null,
-        healthCode: null,
-        requestFormActive: false,
-        unitId: null,
-        // objects
-        unit: null,
-      },
-    };
-  },
-  methods: {
-    crud_data() {
+  export default {
+    mixins: [crudMixin],
+    components: {
+      'app-unit-select': UnitSelect,
+    },
+    data() {
       return {
-        name: this.entity.name,
-        description: this.entity.description,
-        eanCode: this.entity.eanCode,
-        healthCode: this.entity.healthCode,
-        requestFormActive: !!this.entity.requestFormActive,
-        unitId: this.entity.unit ? this.entity.unit.id : null,
+        entity: {
+          name: null,
+          description: null,
+          eanCode: null,
+          healthCode: null,
+          requestFormActive: false,
+          unitId: null,
+          // objects
+          unit: null,
+        },
       };
     },
-    crud_validate() {
-      if (!this.entity.unit) {
-        this.notify_warning("Selecione a Unidade.");
-        return false;
-      }
-      return true;
+    methods: {
+      crud_data() {
+        return {
+          name: this.entity.name,
+          description: this.entity.description,
+          eanCode: this.entity.eanCode,
+          healthCode: this.entity.healthCode,
+          requestFormActive: !!this.entity.requestFormActive,
+          unitId: this.entity.unit ? this.entity.unit.id : null,
+        };
+      },
+      crud_validate() {
+        if (!this.entity.unit) {
+          this.notify_warning('Selecione a Unidade.');
+          return false;
+        }
+        return true;
+      },
     },
-  },
-  computed: {
-    crud_title() {
-      var ok = this.entity != null;
-      if (ok) {
-        ok = this.entity.name != null;
-      }
-      if (ok) {
-        return "" + this.entity.name;
-      } else {
-        return "Cadastro de Produto";
-      }
+    computed: {
+      crud_title() {
+        var ok = this.entity != null;
+        if (ok) {
+          ok = this.entity.name != null;
+        }
+        if (ok) {
+          return '' + this.entity.name;
+        } else {
+          return 'Cadastro de Produto';
+        }
+      },
+      crud_url_base() {
+        return '/api/admin/gl_product';
+      },
+      crud_route_base() {
+        return 'gl_product';
+      },
     },
-    crud_url_base() {
-      return "/api/admin/gl_product";
-    },
-    crud_route_base() {
-      return "gl_product";
-    },
-  },
-};
+  };
 </script>
 
 <style scoped></style>

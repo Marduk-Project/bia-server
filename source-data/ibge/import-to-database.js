@@ -1,40 +1,40 @@
-const config = require("../../config");
-const chalk = require("chalk");
+const config = require('../../config');
+const chalk = require('chalk');
 const {
   checkIsConnected,
   mainDb,
-} = require("../../server/database/main_connection.js");
+} = require('../../server/database/main_connection.js');
 
-exports.importToDatabase = async (keepConnection) => {
+exports.importToDatabase = async keepConnection => {
   try {
     let count = 0;
     let lastMessageCount = 0;
     console.log(
       chalk.green(
-        "Starting to import... it will take time... are more then ~16k registers"
+        'Starting to import... it will take time... are more then ~16k registers'
       )
     );
     await checkIsConnected();
-    const { model: CountryModel } = require("../../server/models/gl_country");
-    const { model: StateModel } = require("../../server/models/gl_state");
-    const { model: CityModel } = require("../../server/models/gl_city");
-    const StateRegionModelModule = require("../../server/models/gl_state_region");
+    const { model: CountryModel } = require('../../server/models/gl_country');
+    const { model: StateModel } = require('../../server/models/gl_state');
+    const { model: CityModel } = require('../../server/models/gl_city');
+    const StateRegionModelModule = require('../../server/models/gl_state_region');
     const StateRegionModel = StateRegionModelModule.model;
-    const CityStateRegionModelModule = require("../../server/models/gl_city_state_region");
+    const CityStateRegionModelModule = require('../../server/models/gl_city_state_region');
     const CityStateRegionModel = CityStateRegionModelModule.model;
     // states
-    const states = require("./states.json");
+    const states = require('./states.json');
     let [country, countryCreated] = await CountryModel.findOrCreate({
       where: {
-        code: "BRA",
+        code: 'BRA',
       },
       defaults: {
-        name: "Brasil",
+        name: 'Brasil',
         priority: 1,
       },
     });
     await Promise.all(
-      states.map(async (stateJson) => {
+      states.map(async stateJson => {
         // state
         let [stateEntity, stateCreated] = await StateModel.findOrCreate({
           where: {
@@ -82,7 +82,7 @@ exports.importToDatabase = async (keepConnection) => {
     };
     // cities
     console.log(chalk.green(`States are done! Loading cities...`));
-    const { cities } = require("./cities.json");
+    const { cities } = require('./cities.json');
     console.log(chalk.green(`Cities loaded... starting script...`));
     for (let i = 0; i < cities.length; i++) {
       const cityJson = cities[i];
@@ -163,12 +163,12 @@ exports.importToDatabase = async (keepConnection) => {
       );
       incLogFunc();
     }
-    console.log(chalk.green("Cities import is completed!"));
+    console.log(chalk.green('Cities import is completed!'));
     if (!keepConnection) {
       await mainDb.close();
     }
-    console.log(chalk.green("Import is completed!"));
+    console.log(chalk.green('Import is completed!'));
   } catch (err) {
-    console.log(chalk.red("Error on importing IBGE data..."), err);
+    console.log(chalk.red('Error on importing IBGE data...'), err);
   }
 };

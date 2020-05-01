@@ -1,6 +1,6 @@
-const { body, query, param } = require("express-validator/check");
-const validator = require("validator");
-const { Op } = require("sequelize");
+const { body, query, param } = require('express-validator/check');
+const validator = require('validator');
+const { Op } = require('sequelize');
 
 const {
   customFindByPkValidation,
@@ -9,26 +9,26 @@ const {
   BadRequestError,
   ApiError,
   NotFoundError,
-} = require("../../middlewares/error-mid");
-const CtrModelModule = require("../../models/gl_person_contact");
+} = require('../../middlewares/error-mid');
+const CtrModelModule = require('../../models/gl_person_contact');
 const Model = CtrModelModule.model;
-const PersonModelModule = require("../../models/gl_person");
+const PersonModelModule = require('../../models/gl_person');
 const PersonModel = PersonModelModule.model;
-const UserModelModule = require("../../models/gl_user");
+const UserModelModule = require('../../models/gl_user');
 const UserModel = UserModelModule.model;
 
-const controllerDefaultQueryScope = "admin";
+const controllerDefaultQueryScope = 'admin';
 
-const includeDefaultOption = ["person", "personReference", "user"];
+const includeDefaultOption = ['person', 'personReference', 'user'];
 
 /**
  * List Validation
  */
 exports.getIndexValidate = [
-  query("page").optional().isInt(),
-  query("q").optional().isString(),
-  query("personId").optional().isInt(),
-  query("userId").optional().isInt(),
+  query('page').optional().isInt(),
+  query('q').optional().isString(),
+  query('personId').optional().isInt(),
+  query('userId').optional().isInt(),
   validationEndFunction,
 ];
 
@@ -64,8 +64,8 @@ exports.getIndex = async (req, res, next) => {
     const page = req.query.page || 1;
     Model.setLimitOffsetForPage(page, options);
     options.order = [
-      ["name", "asc"],
-      ["id", "asc"],
+      ['name', 'asc'],
+      ['id', 'asc'],
     ];
     options.include = includeDefaultOption;
     // exec
@@ -87,7 +87,7 @@ exports.getIndex = async (req, res, next) => {
  * Get for Edit Validate
  */
 exports.getEditValidate = [
-  param("id")
+  param('id')
     .isInt()
     .not()
     .isEmpty()
@@ -118,42 +118,42 @@ exports.getEdit = async (req, res, next) => {
  * Save validation
  */
 const saveValidate = [
-  param("id").optional().isInt(),
-  body("name").isString().trim().not().isEmpty().isLength({
+  param('id').optional().isInt(),
+  body('name').isString().trim().not().isEmpty().isLength({
     min: 1,
     max: 60,
   }),
-  body("phone")
+  body('phone')
     .optional()
     .isLength({
       max: 60,
     })
-    .custom((value) => {
+    .custom(value => {
       // TODO phone validator
       return true;
     }),
-  body("cellphone")
+  body('cellphone')
     .optional()
     .trim()
     .isLength({
       max: 60,
     })
-    .custom((value) => {
+    .custom(value => {
       // TODO phone validator
       return true;
     }),
-  body("email").optional({ checkFalsy: true }).isEmail(),
-  body("personId")
+  body('email').optional({ checkFalsy: true }).isEmail(),
+  body('personId')
     .isInt()
     .custom(customFindByPkRelationValidation(PersonModel)),
-  body("personReferenceId")
+  body('personReferenceId')
     .optional({ checkFalsy: true })
     .isInt()
     .custom(customFindByPkRelationValidation(PersonModel))
     .custom(async (value, { req }) => {
       if (value) {
         if (value == req.body.personId) {
-          throw new ApiError("Não pode vincular-se ao próprio registro pai.");
+          throw new ApiError('Não pode vincular-se ao próprio registro pai.');
         }
         let count = 0;
         if (req.params.id) {
@@ -176,13 +176,13 @@ const saveValidate = [
         }
         if (count > 0) {
           throw new ApiError(
-            "Pessoa referência já vinculada em outro cadastro."
+            'Pessoa referência já vinculada em outro cadastro.'
           );
         }
       }
       return true;
     }),
-  body("userId")
+  body('userId')
     .optional({ checkFalsy: true })
     .isInt()
     .custom(customFindByPkRelationValidation(UserModel))
@@ -208,16 +208,16 @@ const saveValidate = [
           });
         }
         if (count > 0) {
-          throw new ApiError("Usuário já vinculado à esta pessoa.");
+          throw new ApiError('Usuário já vinculado à esta pessoa.');
         }
       }
       return true;
     }),
-  body("level").isIn(CtrModelModule.LEVEL_ALL),
-  body("obs").optional().trim().isLength({
+  body('level').isIn(CtrModelModule.LEVEL_ALL),
+  body('obs').optional().trim().isLength({
     max: 5000,
   }),
-  body("canRegisterPPERequest").isBoolean(),
+  body('canRegisterPPERequest').isBoolean(),
   // validationEndFunction, // aqui nao tem validate
 ];
 
@@ -262,7 +262,7 @@ const saveEntityFunc = async (req, res, next, id) => {
 /** Update validation */
 exports.putUpdateValidate = [
   ...saveValidate,
-  param("id").isInt().custom(customFindByPkValidation(Model)),
+  param('id').isInt().custom(customFindByPkValidation(Model)),
   validationEndFunction,
 ];
 
@@ -297,7 +297,7 @@ exports.postCreate = async (req, res, next) => {
  * Delete Validate
  */
 exports.deleteValidate = [
-  param("id").isInt().custom(customFindByPkValidation(Model)),
+  param('id').isInt().custom(customFindByPkValidation(Model)),
   validationEndFunction,
 ];
 

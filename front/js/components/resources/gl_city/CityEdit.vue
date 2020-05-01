@@ -134,9 +134,9 @@
 </template>
 
 <script>
-import { crudMixin } from "@mixins/crud-mixin";
-import StateSelect from "@resources/gl_state/StateSelect.vue";
-import StateRegionSelect from "@resources/gl_state_region/StateRegionSelect.vue";
+  import { crudMixin } from '@mixins/crud-mixin';
+  import StateSelect from '@resources/gl_state/StateSelect.vue';
+  import StateRegionSelect from '@resources/gl_state_region/StateRegionSelect.vue';
 
 export default {
   mixins: [crudMixin],
@@ -227,14 +227,38 @@ export default {
         return "Cadastro de Cidade";
       }
     },
-    crud_url_base() {
-      return "/api/admin/gl_city";
+    watch: {
+      entity_state(newValue, oldValue) {
+        if (!newValue) {
+          this.entity.mesoRegion = null;
+          this.entity.microRegion = null;
+          this.entity.dreRegion = null;
+        }
+      },
     },
-    crud_route_base() {
-      return "gl_city";
+    computed: {
+      entity_state() {
+        return this.entity.state;
+      },
+      crud_title() {
+        var ok = this.entity != null;
+        if (ok) {
+          ok = this.entity.name;
+        }
+        if (ok) {
+          return '' + this.entity.name;
+        } else {
+          return 'Cadastro de Cidade';
+        }
+      },
+      crud_url_base() {
+        return '/api/admin/gl_city';
+      },
+      crud_route_base() {
+        return 'gl_city';
+      },
     },
-  },
-};
+  };
 </script>
 
 <style scoped></style>

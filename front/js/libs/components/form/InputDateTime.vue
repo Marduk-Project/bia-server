@@ -12,69 +12,69 @@
 </template>
 
 <script>
-import moment from "moment";
+  import moment from 'moment';
 
-export default {
-  props: {
-    type: {
-      type: String,
-      required: false,
-      default: "datetime-local",
+  export default {
+    props: {
+      type: {
+        type: String,
+        required: false,
+        default: 'datetime-local',
+      },
+      value: {
+        type: [Date, String],
+        required: false,
+        default: null,
+      },
+      classes: {
+        type: [String, Array, Object],
+        required: false,
+        default: '',
+      },
+      readonly: {
+        type: Boolean,
+        required: false,
+        default: false,
+      },
+      disabled: {
+        type: Boolean,
+        required: false,
+        default: false,
+      },
     },
-    value: {
-      type: [Date, String],
-      required: false,
-      default: null,
+    data() {
+      return {
+        currentDate: this.value
+          ? moment(this.value).format('YYYY-MM-DDTHH:mm:ss')
+          : null,
+        currentDateChangeIgnore: false,
+        valueChangeIgnore: false,
+      };
     },
-    classes: {
-      type: [String, Array, Object],
-      required: false,
-      default: "",
+    watch: {
+      value(value) {
+        if (this.valueChangeIgnore) {
+          this.valueChangeIgnore = false;
+        } else {
+          this.currentDateChangeIgnore = true;
+          this.currentDate = moment(value).format('YYYY-MM-DDTHH:mm:ss');
+        }
+      },
+      currentDate(value) {
+        if (this.currentDateChangeIgnore) {
+          this.currentDateChangeIgnore = false;
+        } else {
+          this.valueChangeIgnore = true;
+          this.$emit('input', value);
+        }
+      },
     },
-    readonly: {
-      type: Boolean,
-      required: false,
-      default: false,
+    methods: {
+      moment(date) {
+        return moment(date);
+      },
     },
-    disabled: {
-      type: Boolean,
-      required: false,
-      default: false,
-    },
-  },
-  data() {
-    return {
-      currentDate: this.value
-        ? moment(this.value).format("YYYY-MM-DDTHH:mm:ss")
-        : null,
-      currentDateChangeIgnore: false,
-      valueChangeIgnore: false,
-    };
-  },
-  watch: {
-    value(value) {
-      if (this.valueChangeIgnore) {
-        this.valueChangeIgnore = false;
-      } else {
-        this.currentDateChangeIgnore = true;
-        this.currentDate = moment(value).format("YYYY-MM-DDTHH:mm:ss");
-      }
-    },
-    currentDate(value) {
-      if (this.currentDateChangeIgnore) {
-        this.currentDateChangeIgnore = false;
-      } else {
-        this.valueChangeIgnore = true;
-        this.$emit("input", value);
-      }
-    },
-  },
-  methods: {
-    moment(date) {
-      return moment(date);
-    },
-  },
-};
+  };
 </script>
 
 <style scoped></style>

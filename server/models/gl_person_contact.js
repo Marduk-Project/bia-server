@@ -1,17 +1,17 @@
-const nconf = require("nconf");
-const { Sequelize, DataTypes } = require("sequelize");
+const nconf = require('nconf');
+const { Sequelize, DataTypes } = require('sequelize');
 
-const { mainDb } = require("../database/main_connection");
-const { BaseModel, jsonSerializer } = require("./base_model");
+const { mainDb } = require('../database/main_connection');
+const { BaseModel, jsonSerializer } = require('./base_model');
 
 const {
   model: PersonModel,
   jsonSerializer: personJsonSerializer,
-} = require("./gl_person");
+} = require('./gl_person');
 const {
   model: UserModel,
   jsonSerializer: userJsonSerializer,
-} = require("./gl_user");
+} = require('./gl_user');
 
 // legalType
 const LEVEL_ADMIN = 1;
@@ -23,23 +23,23 @@ exports.LEVEL_STAFF = LEVEL_STAFF;
 exports.LEVEL_NORMAL = LEVEL_NORMAL;
 exports.LEVEL_ALL = [LEVEL_ADMIN, LEVEL_STAFF, LEVEL_NORMAL];
 
-const levelToString = (value) => {
+const levelToString = value => {
   switch (parseInt(value)) {
     case LEVEL_ADMIN:
-      return "Administrador";
+      return 'Administrador';
 
     case LEVEL_STAFF:
-      return "Gestão";
+      return 'Gestão';
 
     case LEVEL_NORMAL:
-      return "Normal";
+      return 'Normal';
   }
-  return "Desconhecido";
+  return 'Desconhecido';
 };
 exports.levelToString = levelToString;
 
 // model
-const modelName = "gl_person_contact";
+const modelName = 'gl_person_contact';
 class MyModel extends BaseModel {}
 
 MyModel.init(
@@ -66,12 +66,12 @@ MyModel.init(
       type: Sequelize.BOOLEAN,
       defaultValue: false,
     },
-    obs: Sequelize.TEXT("medium"),
+    obs: Sequelize.TEXT('medium'),
     level: Sequelize.INTEGER,
     levelDesc: {
-      type: new DataTypes.VIRTUAL(DataTypes.STRING, ["level"]),
+      type: new DataTypes.VIRTUAL(DataTypes.STRING, ['level']),
       get: function () {
-        return levelToString(this.get("level"));
+        return levelToString(this.get('level'));
       },
     },
     canRegisterPPERequest: {
@@ -88,35 +88,35 @@ MyModel.init(
 );
 
 PersonModel.hasMany(MyModel, {
-  foreignKey: "personId",
-  as: "contacts",
+  foreignKey: 'personId',
+  as: 'contacts',
 });
 MyModel.belongsTo(PersonModel, {
-  foreignKey: "personId",
-  as: "person",
+  foreignKey: 'personId',
+  as: 'person',
 });
 
 PersonModel.hasMany(MyModel, {
-  foreignKey: "personReferenceId",
-  as: "contactReferences",
+  foreignKey: 'personReferenceId',
+  as: 'contactReferences',
 });
 MyModel.belongsTo(PersonModel, {
-  foreignKey: "personReferenceId",
-  as: "personReference",
+  foreignKey: 'personReferenceId',
+  as: 'personReference',
 });
 
 UserModel.hasMany(MyModel, {
-  foreignKey: "userId",
-  as: "personContacts",
+  foreignKey: 'userId',
+  as: 'personContacts',
 });
 MyModel.belongsTo(UserModel, {
-  foreignKey: "userId",
-  as: "user",
+  foreignKey: 'userId',
+  as: 'user',
 });
 
 const scopes = {
   def: {
-    include: ["id", "name", "shortname", "email", "level", "levelDesc"],
+    include: ['id', 'name', 'shortname', 'email', 'level', 'levelDesc'],
   },
   admin: {
     maps: {
@@ -134,10 +134,10 @@ exports.model = MyModel;
 exports.modelName = modelName;
 exports.jsonSerializer = async (value, scopeName) => {
   if (!scopeName) {
-    scopeName = "def";
+    scopeName = 'def';
   }
   if (!scopes[scopeName]) {
-    scopeName = "def";
+    scopeName = 'def';
   }
   return await jsonSerializer(value, scopes[scopeName], scopeName);
 };

@@ -1,14 +1,14 @@
-const validator = require("validator");
-const { Sequelize, Model } = require("sequelize");
-const _ = require("lodash");
-const util = require("util");
+const validator = require('validator');
+const { Sequelize, Model } = require('sequelize');
+const _ = require('lodash');
+const util = require('util');
 
 const PAGINATION_PER_PAGE = 100;
-const { mainDb } = require("../database/main_connection");
-const ApiError = require("../middlewares/error-mid").ApiError;
+const { mainDb } = require('../database/main_connection');
+const ApiError = require('../middlewares/error-mid').ApiError;
 
-const sanitizePage = (page) => {
-  if (typeof page != "number") {
+const sanitizePage = page => {
+  if (typeof page != 'number') {
     try {
       page = parseInt(page || 1);
     } catch (err) {
@@ -108,7 +108,7 @@ class BaseModel extends Model {
    */
   static async idExists(id, scope) {
     if (!validator.isInt(id)) {
-      throw new ApiError("Is not an ID.");
+      throw new ApiError('Is not an ID.');
     }
     if (scope) {
       const count = await this.scope(scope).count({ where: { id: id } });
@@ -140,7 +140,7 @@ const jsonSerializer = async (rs, options, scopeName) => {
   if (_.isArray(rs)) {
     let rsList = [];
     await Promise.all(
-      rs.map(async (item) => {
+      rs.map(async item => {
         rsList.push(await jsonSerializer(item, options, scopeName));
       })
     );
@@ -155,7 +155,7 @@ const jsonSerializer = async (rs, options, scopeName) => {
     }
     if (options.maps) {
       await Promise.all(
-        Object.keys(options.maps).map(async (key) => {
+        Object.keys(options.maps).map(async key => {
           const item = options.maps[key];
           if (util.types.isAsyncFunction(item) || util.types.isPromise(item)) {
             json[key] = await item(json[key], scopeName, json);

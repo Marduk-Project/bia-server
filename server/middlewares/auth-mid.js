@@ -1,4 +1,4 @@
-const UserModule = require("../models/gl_user");
+const UserModule = require('../models/gl_user');
 // const AccountUserModule = require('../models/account/user');
 const User = UserModule.model;
 
@@ -10,21 +10,21 @@ const User = UserModule.model;
  * @param {boolean} config.responseRedirect
  * @returns {function}
  */
-exports.rolesMiddleware = (config) => {
+exports.rolesMiddleware = config => {
   const middleware = (req, res, next) => {
     const user = req.user;
-    if (typeof config === "object") {
+    if (typeof config === 'object') {
       // user logged
-      if (typeof config.userLogged === "boolean") {
+      if (typeof config.userLogged === 'boolean') {
         if (config.userLogged) {
           if (!user) {
             // not logged
-            if (config.responseRedirect || req.method == "GET") {
-              req.flash("messages", {
-                message: "Usuário não está logado.",
-                type: "info",
+            if (config.responseRedirect || req.method == 'GET') {
+              req.flash('messages', {
+                message: 'Usuário não está logado.',
+                type: 'info',
               });
-              res.redirect("/#/auth/login");
+              res.redirect('/#/auth/login');
             } else {
               res.sendJsonForbiddenError();
             }
@@ -34,28 +34,28 @@ exports.rolesMiddleware = (config) => {
           if (user) {
             // logged
             if (config.responseRedirect) {
-              res.redirect("/home");
+              res.redirect('/home');
             } else {
-              res.sendJsonForbiddenError("Usuário já está logado.");
+              res.sendJsonForbiddenError('Usuário já está logado.');
             }
             return;
           }
         } // if user logged
       } // if user logged boolean
       // user level
-      if (typeof config.userLevel === "number") {
+      if (typeof config.userLevel === 'number') {
         if (!user) {
           // has user
           res
             .status(403)
-            .json({ ok: false, message: "Usuário não autorizado." });
+            .json({ ok: false, message: 'Usuário não autorizado.' });
           return;
         }
         if (parseInt(user.level) > config.userLevel) {
           // user level
           res
             .status(403)
-            .json({ ok: false, message: "Usuário não autorizado." });
+            .json({ ok: false, message: 'Usuário não autorizado.' });
           return;
         }
       }
