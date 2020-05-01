@@ -93,8 +93,14 @@ export default {
         case "micro":
           return "Microrregião";
 
-        case "dre":
-          return "Região DRE";
+        case "marco":
+          return "Macrorregião";
+
+        case "healthCoordenation":
+          return "Coordenação de Saúde";
+
+        case "healthMicro":
+          return "Região de Saúde";
       }
       return "Desconhecido";
     },

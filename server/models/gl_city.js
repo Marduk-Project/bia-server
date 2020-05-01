@@ -132,7 +132,13 @@ const scopes = {
         await stateJsonSerializer(value, scopeName),
       mesoRegion: regionSerializer(StateRegionModelModule.TYPE_MESO),
       microRegion: regionSerializer(StateRegionModelModule.TYPE_MICRO),
-      dreRegion: regionSerializer(StateRegionModelModule.TYPE_DRE),
+      macroRegion: regionSerializer(StateRegionModelModule.TYPE_MACRO),
+      healthCoordenationRegion: regionSerializer(
+        StateRegionModelModule.TYPE_HEALTH_COORDENATION
+      ),
+      healthMicroRegion: regionSerializer(
+        StateRegionModelModule.TYPE_HEALTH_MICRO
+      ),
     },
   },
 };

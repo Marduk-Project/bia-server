@@ -159,10 +159,20 @@ const saveValidate = [
     .optional({ checkFalsy: true })
     .isInt()
     .custom(stateRegionValidator(StateRegionModelModule.TYPE_MICRO)),
-  body("dreRegionId")
+  body("macroRegionId")
     .optional({ checkFalsy: true })
     .isInt()
-    .custom(stateRegionValidator(StateRegionModelModule.TYPE_DRE)),
+    .custom(stateRegionValidator(StateRegionModelModule.TYPE_MACRO)),
+  body("healthCoordenationRegionId")
+    .optional({ checkFalsy: true })
+    .isInt()
+    .custom(
+      stateRegionValidator(StateRegionModelModule.TYPE_HEALTH_COORDENATION)
+    ),
+  body("healthMicroRegionId")
+    .optional({ checkFalsy: true })
+    .isInt()
+    .custom(stateRegionValidator(StateRegionModelModule.TYPE_HEALTH_MICRO)),
   // validationEndFunction, // aqui nao tem validate
 ];
 
@@ -190,8 +200,16 @@ const saveEntityFunc = async (req, res, next, id) => {
       StateRegionModelModule.TYPE_MICRO
     );
     await entity.setStateRegion(
-      body.dreRegionId,
-      StateRegionModelModule.TYPE_DRE
+      body.macroRegionId,
+      StateRegionModelModule.TYPE_MACRO
+    );
+    await entity.setStateRegion(
+      body.healthCoordenationRegionId,
+      StateRegionModelModule.TYPE_HEALTH_COORDENATION
+    );
+    await entity.setStateRegion(
+      body.healthMicroRegionId,
+      StateRegionModelModule.TYPE_HEALTH_MICRO
     );
     // send result
     const result = {
@@ -266,24 +284,6 @@ exports.delete = async (req, res, next) => {
         controllerDefaultQueryScope
       ),
     });
-  } catch (err) {
-    next(err);
-  }
-};
-
-/**
- * Delete
- */
-exports.postIbgeImport = async (req, res, next) => {
-  try {
-    const {
-      importToDatabase,
-    } = require("../../../source-data/ibge/import-to-database");
-    // start async
-    importToDatabase(true).catch((err) => {
-      console.log(chalk.red("Error importing IBGE data...", err));
-    });
-    res.sendJsonOK();
   } catch (err) {
     next(err);
   }

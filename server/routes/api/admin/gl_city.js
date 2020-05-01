@@ -39,10 +39,4 @@ router.delete(
   controller.delete
 );
 
-router.post(
-  "/ibgeImport",
-  authMid.userIsAdminMiddleware,
-  controller.postIbgeImport
-);
-
 module.exports = router;

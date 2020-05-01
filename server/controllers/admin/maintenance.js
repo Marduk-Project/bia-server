@@ -1,4 +1,5 @@
 const fs = require("fs");
+const chalk = require("chalk");
 const { nconf, filepath } = require("../../../config.js");
 const { ApiError } = require("../../middlewares/error-mid");
 
@@ -32,4 +33,40 @@ exports.postConfig = (req, res, next) => {
     throw new Error('Formato do arquivo inválido ou erro ao salvar dados.');
   }
   */
+};
+
+/**
+ * Import data from IBGE
+ */
+exports.postIbgeImport = async (req, res, next) => {
+  try {
+    const {
+      importToDatabase,
+    } = require("../../../source-data/ibge/import-to-database");
+    // start async
+    importToDatabase(true).catch((err) => {
+      console.log(chalk.red("Error importing data...", err));
+    });
+    res.sendJsonOK();
+  } catch (err) {
+    next(err);
+  }
+};
+
+/**
+ * Import data city REGIONS
+ */
+exports.postCityRegionImport = async (req, res, next) => {
+  try {
+    const {
+      importToDatabase,
+    } = require("../../../source-data/cityregion/import-to-database");
+    // start async
+    importToDatabase(true).catch((err) => {
+      console.log(chalk.red("Error importing data...", err));
+    });
+    res.sendJsonOK();
+  } catch (err) {
+    next(err);
+  }
 };

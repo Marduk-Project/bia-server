@@ -3,7 +3,7 @@
     <option value="" v-if="showAll">Todos</option>
     <option value="meso">Mesorregião</option>
     <option value="micro">Microrregião</option>
-    <option value="dre">Região DRE</option>
+    <option value="macro">Macrorregião</option>
   </select>
 </template>
 

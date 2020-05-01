@@ -15,20 +15,6 @@
           params: {
             parentEntityId: entity.id,
             parentEntity: entity,
-            type: 'meso',
-          },
-        }"
-      >
-        <i class="fa fa-map-signs"></i> Mesorregiões
-      </router-link>
-      <router-link
-        class="btn btn-outline-secondary ml-1"
-        tag="button"
-        :to="{
-          name: 'gl_state_region.index',
-          params: {
-            parentEntityId: entity.id,
-            parentEntity: entity,
             type: 'micro',
           },
         }"
@@ -43,11 +29,25 @@
           params: {
             parentEntityId: entity.id,
             parentEntity: entity,
-            type: 'dre',
+            type: 'meso',
           },
         }"
       >
-        <i class="fa fa-map-signs"></i> Regiões DRE
+        <i class="fa fa-map-signs"></i> Mesorregiões
+      </router-link>
+      <router-link
+        class="btn btn-outline-secondary ml-1"
+        tag="button"
+        :to="{
+          name: 'gl_state_region.index',
+          params: {
+            parentEntityId: entity.id,
+            parentEntity: entity,
+            type: 'macro',
+          },
+        }"
+      >
+        <i class="fa fa-map-signs"></i> Macrorregiões
       </router-link>
       <br />
       <br />

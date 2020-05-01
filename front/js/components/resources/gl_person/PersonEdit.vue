@@ -381,6 +381,7 @@ export default {
         this.notify_warning("Selecione uma cidade.");
         return false;
       }
+      return true;
     },
     crud_requestEntityParseResponse(res) {
       if (res.data.fieldList) {
@@ -420,15 +421,11 @@ export default {
         this.notify_warning("Preencha um CEP válido.");
         return;
       }
-
       const zipCodeOnlyNumbers = this.entity.addressZipcode.replace("-", "");
-
       this.api_loadingShow();
-
       const externalAxios = _axios.create();
       externalAxios.defaults.headers.common = {};
       externalAxios.defaults.headers.common.accept = "application/json";
-
       this.searchingZipCode = externalAxios
         .get(`//viacep.com.br/ws/${zipCodeOnlyNumbers}/json/`)
         .then(
@@ -457,10 +454,10 @@ export default {
           return "CPF";
 
         case 2:
-        case 4:
+        case 3:
           return "CNPJ";
 
-        case 3:
+        case 4:
         case 5:
           return "OTHER";
       }
@@ -472,10 +469,10 @@ export default {
           return "CPF";
 
         case 2:
-        case 4:
+        case 3:
           return "CNPJ";
 
-        case 3:
+        case 4:
         case 5:
           return "Outro identificador";
       }
@@ -487,10 +484,10 @@ export default {
           return "cpf-num|required";
 
         case 2:
-        case 4:
+        case 3:
           return "cnpj-num|required";
 
-        case 3:
+        case 4:
         case 5:
           return "";
       }

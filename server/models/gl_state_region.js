@@ -12,12 +12,22 @@ const {
 // type
 const TYPE_MESO = "meso";
 const TYPE_MICRO = "micro";
-const TYPE_DRE = "dre";
+const TYPE_MACRO = "macro";
+const TYPE_HEALTH_COORDENATION = "healthCoordenation";
+const TYPE_HEALTH_MICRO = "healthMicro";
 
 exports.TYPE_MESO = TYPE_MESO;
 exports.TYPE_MICRO = TYPE_MICRO;
-exports.TYPE_DRE = TYPE_DRE;
-exports.TYPE_ALL = [TYPE_MESO, TYPE_MICRO, TYPE_DRE];
+exports.TYPE_MACRO = TYPE_MACRO;
+exports.TYPE_HEALTH_COORDENATION = TYPE_HEALTH_COORDENATION;
+exports.TYPE_HEALTH_MICRO = TYPE_HEALTH_MICRO;
+exports.TYPE_ALL = [
+  TYPE_MESO,
+  TYPE_MICRO,
+  TYPE_MACRO,
+  TYPE_HEALTH_COORDENATION,
+  TYPE_HEALTH_MICRO,
+];
 
 const typeToString = (value) => {
   switch (value) {
@@ -27,8 +37,14 @@ const typeToString = (value) => {
     case TYPE_MICRO:
       return "Microrregião";
 
-    case TYPE_DRE:
-      return "Região DRE";
+    case TYPE_MACRO:
+      return "Macrorregião";
+
+    case TYPE_HEALTH_COORDENATION:
+      return "Coordenadoria de Saúde";
+
+    case TYPE_HEALTH_MICRO:
+      return "Região de Saúde";
   }
   return "Desconhecido";
 };

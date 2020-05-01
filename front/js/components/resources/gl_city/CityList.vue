@@ -3,9 +3,6 @@
     <br />
     <h1>{{ list_title }}</h1>
     <app-add-button @click="list_onAddClick"></app-add-button>
-    <button class="btn btn-outline-danger ml-1" @click="onIbgeImportClick">
-      <i class="fas fa-database"></i> Importar do IBGE
-    </button>
     <br />
     <br />
     <div class="form-row">
@@ -111,19 +108,6 @@ export default {
         url += `&stateId=${this.filters.state.id}`;
       }
       return url;
-    },
-    onIbgeImportClick() {
-      const response = prompt(
-        'Esta rotina é longa, e pode deixar o servidor bastante lento. Digite "importar" para prosseguir.',
-        "não"
-      );
-      if (response != "importar") {
-        return;
-      }
-      axios
-        .post(`${this.list_url_base}/ibgeImport`)
-        .then(this.api_thenDone())
-        .catch(this.api_catch());
     },
   },
 };
