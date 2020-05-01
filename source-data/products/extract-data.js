@@ -3,15 +3,21 @@ const { uniqBy } = require('lodash');
 const xlsxFile = require('read-excel-file/node');
 
 const schema = {
-  nome: {
+  Item: {
     prop: 'name',
     type: String,
   },
-  priorizado: {
+  Unidade: {
+    prop: 'unit',
+    type: String,
+    oneOf: ['Unidade(s)', 'Litro(s)', 'Caixa(s) com 100', 'Caixa(s) com 50'],
+  },
+  'Prioridade do Item': {
     prop: 'isPriority',
     type: String,
+    oneOf: ['Prioritário', 'Não prioritário'],
     parse(value) {
-      return Boolean(value.trim().length > 0);
+      return value === 'Prioritário';
     },
   },
   Tipo: {
