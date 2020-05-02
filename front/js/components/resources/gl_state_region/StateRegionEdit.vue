@@ -93,7 +93,7 @@
           case 'micro':
             return 'Microrregião';
 
-          case 'marco':
+          case 'macro':
             return 'Macrorregião';
 
           case 'healthCoordenation':
@@ -107,7 +107,7 @@
       crud_title() {
         var ok = this.entity != null;
         if (ok) {
-          ok = this.entity.name != null;
+          ok = this.entity.name;
         }
         if (ok) {
           return '' + this.entity.name;

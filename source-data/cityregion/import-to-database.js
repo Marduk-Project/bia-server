@@ -133,7 +133,7 @@ exports.importToDatabase = async keepConnection => {
         continue;
       }
       // macro
-      let code = cityJson.macroRegion;
+      let code = cityJson.macroRegion.toUpperCase();
       name = cityJson.macroRegion;
       await stateRegionBuilder(
         StateRegionModelModule.TYPE_MACRO,
