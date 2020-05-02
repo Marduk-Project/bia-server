@@ -16,7 +16,7 @@
             name="name"
             type="text"
             v-model="entity.name"
-            maxlength="60"
+            maxlength="150"
             v-validate="'required'"
             :class="{ 'is-invalid': errors.has('name') }"
           />
@@ -58,6 +58,18 @@
             >Campo obrigatório.</small
           >
         </div>
+        <div class="form-group col-lg-4">
+          <label>Prioridade</label>
+          <input
+            class="form-control"
+            name="healthCode"
+            type="number"
+            step="1"
+            v-model="entity.priority"
+            maxlength="1"
+            max="9"
+          />
+        </div>
       </div>
       <br />
       <h4>Regras</h4>
@@ -72,6 +84,18 @@
                 v-model="entity.requestFormActive"
               />
               Exibir produto no formulário de solicitações.
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value="1"
+                v-model="entity.consumable"
+              />
+              Produto consumível
+              <small>(EPI, insumos, alimentos e semelhantes)</small>.
             </label>
           </div>
         </div>
@@ -109,6 +133,8 @@
           healthCode: null,
           requestFormActive: false,
           unitId: null,
+          priority: 0,
+          consumable: false,
           // objects
           unit: null,
         },
@@ -123,6 +149,8 @@
           healthCode: this.entity.healthCode,
           requestFormActive: !!this.entity.requestFormActive,
           unitId: this.entity.unit ? this.entity.unit.id : null,
+          priority: this.entity.priority,
+          consumable: !!this.entity.consumable,
         };
       },
       crud_validate() {

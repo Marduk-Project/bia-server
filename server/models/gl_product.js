@@ -32,8 +32,8 @@ MyModel.init(
       validate: {
         notEmpty: true,
         len: {
-          args: [1, 60],
-          msg: 'Nome deve ter de 1 a 60 caracteres.',
+          args: [1, 150],
+          msg: 'Nome deve ter de 1 a 150 caracteres.',
         },
       },
     },
@@ -47,6 +47,14 @@ MyModel.init(
       type: Sequelize.STRING,
     },
     requestFormActive: {
+      type: Sequelize.BOOLEAN,
+      defaultValue: false,
+    },
+    priority: {
+      type: Sequelize.INTEGER,
+      defaultValue: 0,
+    },
+    consumable: {
       type: Sequelize.BOOLEAN,
       defaultValue: false,
     },

@@ -33,3 +33,11 @@ exports.postConfig = (req, res, next) => {
   }
   */
 };
+
+exports.postProductImport = (req, res, next) => {
+  try {
+    console.log('here');
+  } catch (err) {
+    throw new ApiError(err);
+  }
+};
