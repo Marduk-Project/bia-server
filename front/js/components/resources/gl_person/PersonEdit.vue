@@ -381,6 +381,7 @@
           this.notify_warning('Selecione uma cidade.');
           return false;
         }
+        return true;
       },
       crud_requestEntityParseResponse(res) {
         if (res.data.fieldList) {
@@ -420,15 +421,11 @@
           this.notify_warning('Preencha um CEP válido.');
           return;
         }
-
         const zipCodeOnlyNumbers = this.entity.addressZipcode.replace('-', '');
-
         this.api_loadingShow();
-
         const externalAxios = _axios.create();
         externalAxios.defaults.headers.common = {};
         externalAxios.defaults.headers.common.accept = 'application/json';
-
         this.searchingZipCode = externalAxios
           .get(`//viacep.com.br/ws/${zipCodeOnlyNumbers}/json/`)
           .then(
@@ -449,80 +446,80 @@
           }
         });
       },
-    },
-    computed: {
-      legalIdentifierType() {
-        switch (parseInt(this.entity.legalType)) {
-          case 1:
-            return 'CPF';
+      computed: {
+        legalIdentifierType() {
+          switch (parseInt(this.entity.legalType)) {
+            case 1:
+              return 'CPF';
 
-          case 2:
-          case 4:
-            return 'CNPJ';
+            case 2:
+            case 3:
+              return 'CNPJ';
 
-          case 3:
-          case 5:
-            return 'OTHER';
-        }
-        return 'Desconhecido';
-      },
-      legalIdentifierTypeDesc() {
-        switch (parseInt(this.entity.legalType)) {
-          case 1:
-            return 'CPF';
+            case 4:
+            case 5:
+              return 'OTHER';
+          }
+          return 'Desconhecido';
+        },
+        legalIdentifierTypeDesc() {
+          switch (parseInt(this.entity.legalType)) {
+            case 1:
+              return 'CPF';
 
-          case 2:
-          case 4:
-            return 'CNPJ';
+            case 2:
+            case 3:
+              return 'CNPJ';
 
-          case 3:
-          case 5:
-            return 'Outro identificador';
-        }
-        return 'Desconhecido';
-      },
-      legalIdentifierValidateRule() {
-        switch (parseInt(this.entity.legalType)) {
-          case 1:
-            return 'cpf-num|required';
+            case 4:
+            case 5:
+              return 'Outro identificador';
+          }
+          return 'Desconhecido';
+        },
+        legalIdentifierValidateRule() {
+          switch (parseInt(this.entity.legalType)) {
+            case 1:
+              return 'cpf-num|required';
 
-          case 2:
-          case 4:
-            return 'cnpj-num|required';
+            case 2:
+            case 3:
+              return 'cnpj-num|required';
 
-          case 3:
-          case 5:
-            return '';
-        }
-        return '';
-      },
-      legalIdentifierIsRequired() {
-        switch (parseInt(this.entity.legalType)) {
-          case 1:
-          case 2:
-            return true;
+            case 4:
+            case 5:
+              return '';
+          }
+          return '';
+        },
+        legalIdentifierIsRequired() {
+          switch (parseInt(this.entity.legalType)) {
+            case 1:
+            case 2:
+              return true;
 
-          case 3:
-            return false;
-        }
-        return false;
-      },
-      crud_title() {
-        var ok = this.entity != null;
-        if (ok) {
-          ok = this.entity.name != null;
-        }
-        if (ok) {
-          return '' + this.entity.name;
-        } else {
-          return 'Cadastro de Pessoa';
-        }
-      },
-      crud_url_base() {
-        return '/api/admin/gl_person';
-      },
-      crud_route_base() {
-        return 'gl_person';
+            case 3:
+              return false;
+          }
+          return false;
+        },
+        crud_title() {
+          var ok = this.entity != null;
+          if (ok) {
+            ok = this.entity.name != null;
+          }
+          if (ok) {
+            return '' + this.entity.name;
+          } else {
+            return 'Cadastro de Pessoa';
+          }
+        },
+        crud_url_base() {
+          return '/api/admin/gl_person';
+        },
+        crud_route_base() {
+          return 'gl_person';
+        },
       },
     },
   };

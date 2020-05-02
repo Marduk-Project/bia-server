@@ -107,8 +107,14 @@
           case 'micro':
             return 'Microrregiões';
 
-          case 'dre':
-            return 'Regiões DRE';
+          case 'macro':
+            return 'Macrorregiões';
+
+          case 'healthCoordenation':
+            return 'Coordenações de Saúde';
+
+          case 'healthMicro':
+            return 'Regiões de Saúde';
         }
         return 'Desconhecido';
       },
