@@ -16,6 +16,12 @@
       >
         <i class="fas fa-database"></i> Importar Regiões de Saúde
       </button>
+      <button
+        class="btn btn-outline-secondary ml-1"
+        @click="onProductImportClick"
+      >
+        <i class="fas fa-database"></i> Importar Produtos
+      </button>
     </div>
   </div>
 </template>
@@ -58,6 +64,15 @@
         }
         axios
           .post(`/api/admin/maintenance/cityRegionImport`)
+          .then(this.api_thenDone())
+          .catch(this.api_catch());
+      },
+      onProductImportClick() {
+        if (!this.onConfirmCheck()) {
+          return;
+        }
+        axios
+          .post(`/api/admin/maintenance/productImport`)
           .then(this.api_thenDone())
           .catch(this.api_catch());
       },

@@ -25,4 +25,10 @@ router.post(
   controller.postCityRegionImport
 );
 
+router.post(
+  '/productImport',
+  authMid.userIsAdminMiddleware,
+  controller.postProductImport
+);
+
 module.exports = router;

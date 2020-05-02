@@ -44,20 +44,29 @@ exports.importToDatabase = async keepConnection => {
     if (unitCreated) {
       console.log(chalk.green('Created Unidade(s) [UN] unit.'));
     }
+    const a = await ProductModel.findAll();
+    await Promise.all(
+      a.map(async item => {
+        await item.destroy();
+      })
+    );
     // items
     const jsonList = require('./products-list.json');
     for (let i = 0; i < jsonList.length; i++) {
       const jsonObject = jsonList[i];
       count = utils.incLog(count, 10);
-      let entity = await ProductModel.findOne({
+      let [entity, entityCreated] = await ProductModel.findOrCreate({
         where: {
           name: jsonObject.name,
         },
+        defaults: {
+          unitId:
+            jsonObject.unit == 'Litro(s)' ? literEntity.id : unitEntity.id,
+        },
       });
-      if (!entity) {
-        entity = ProductModel.build({});
+      if (entityCreated) {
+        console.log(chalk.green(`Product ${jsonObject.name} created!`));
       }
-      entity.name = jsonObject.name;
       entity.nameSingular = jsonObject.name;
       entity.namePlural = jsonObject.name;
       entity.unitId =
