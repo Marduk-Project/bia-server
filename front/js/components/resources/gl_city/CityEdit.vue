@@ -229,36 +229,11 @@
           return 'Cadastro de Cidade';
         }
       },
-      watch: {
-        entity_state(newValue, oldValue) {
-          if (!newValue) {
-            this.entity.mesoRegion = null;
-            this.entity.microRegion = null;
-            this.entity.dreRegion = null;
-          }
-        },
+      crud_url_base() {
+        return '/api/admin/gl_city';
       },
-      computed: {
-        entity_state() {
-          return this.entity.state;
-        },
-        crud_title() {
-          var ok = this.entity != null;
-          if (ok) {
-            ok = this.entity.name;
-          }
-          if (ok) {
-            return '' + this.entity.name;
-          } else {
-            return 'Cadastro de Cidade';
-          }
-        },
-        crud_url_base() {
-          return '/api/admin/gl_city';
-        },
-        crud_route_base() {
-          return 'gl_city';
-        },
+      crud_route_base() {
+        return 'gl_city';
       },
     },
   };
