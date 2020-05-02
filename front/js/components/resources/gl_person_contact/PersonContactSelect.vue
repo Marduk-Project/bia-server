@@ -23,23 +23,25 @@
 </template>
 
 <script>
+  // Filter by parent
+
   import vSelect from '@libComponents/form/Select2.vue';
 
   export default {
-    props: [
-      'id',
-      'elid',
-      'readonly',
-      'disabled',
-      'name',
-      'required',
-      'url',
-      'value',
-      'options',
-      'extraparams',
-      'placeholder',
-      'multiple',
-    ],
+    props: {
+      id: { type: String },
+      elid: { type: String },
+      name: { type: String },
+      url: { type: String },
+      value: { type: Object },
+      placeholder: { type: String },
+      options: { type: Array, default: () => [] },
+      extraparams: { type: Array, default: () => [] },
+      readonly: { type: Boolean },
+      disabled: { type: Boolean },
+      required: { type: Boolean },
+      multiple: { type: Boolean },
+    },
     components: {
       'v-select': vSelect,
     },

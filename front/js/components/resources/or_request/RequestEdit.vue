@@ -95,10 +95,10 @@
     data() {
       return {
         model: {
-          requestingPerson: '',
-          requestingPersonContact: '',
-          recipientPerson: '',
-          recipientPersonContact: '',
+          requestingPerson: {},
+          requestingPersonContact: {},
+          recipientPerson: {},
+          recipientPersonContact: {},
           notes: '',
         },
       };
@@ -107,7 +107,13 @@
       nextPage() {
         this.$router.push({
           name: 'or_request.create.ppe',
-          params: this.model,
+          params: {
+            recipientPersonId: this.model.recipientPerson.id,
+            recipientPersonContactId: this.model.recipientPersonContact.id,
+            requestingPersonId: this.model.requestingPerson.id,
+            requestingPersonContactId: this.model.requestingPersonContact.id,
+            notes: this.model.notes,
+          },
         });
       },
     },

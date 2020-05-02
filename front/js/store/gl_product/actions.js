@@ -15,7 +15,7 @@ export default {
   load({ state, commit }) {
     return new Promise((resolve, reject) => {
       if (state.list.length > 0) {
-        return;
+        resolve(state.list);
       } else {
         commit(GL_PRODUCT_LOADING);
         axios
@@ -23,7 +23,7 @@ export default {
           .then(res => {
             if (res.data) {
               commit(GL_PRODUCT_LOADED, res.data);
-              resolve(res.data);
+              resolve(res.data.data);
             }
           })
           .catch(() => {
