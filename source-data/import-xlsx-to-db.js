@@ -38,11 +38,11 @@ function normalizeRowDataForDB(row) {
 
   if (glProductId && glUnitId && glPersonRequestingId) {
     return {
-      or_request: {
+      or_order: {
         // glUserId ?
         glPersonRequestingId,
       },
-      or_request_item: {
+      or_order_item: {
         glProductId,
         glUnitId,
         quantity,

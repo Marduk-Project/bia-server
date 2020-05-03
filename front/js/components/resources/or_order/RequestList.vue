@@ -73,10 +73,10 @@
         return 'Demandas de EPIs';
       },
       list_url_base() {
-        return '/api/admin/or_request';
+        return '/api/admin/or_order';
       },
       list_route_base() {
-        return 'or_request';
+        return 'or_order';
       },
     },
     methods: {

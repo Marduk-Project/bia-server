@@ -37,10 +37,9 @@ import GL_ProductEdit from '@resources/gl_product/ProductEdit.vue';
 // gl_state_region
 import GL_StateRegionList from '@resources/gl_state_region/StateRegionList.vue';
 import GL_StateRegionEdit from '@resources/gl_state_region/StateRegionEdit.vue';
-// or_request
-import OR_RequestList from '@resources/or_request/RequestList.vue';
-import OR_RequestEdit from '@resources/or_request/RequestEdit.vue';
-import OR_RequestPPETable from '@resources/or_request/RequestPPETable.vue';
+// or_order
+import OR_OrderList from '@resources/or_order/RequestList.vue';
+import OR_OrderEdit from '@resources/or_order/RequestEdit.vue';
 
 // generator-inject-new-file-here
 // maintenance
@@ -249,21 +248,16 @@ export default [
     components: { default: GL_StateRegionEdit, header: Header, footer: Footer },
     name: 'gl_state_region.create',
   },
-  // or_requests
+  // or_orders
   {
-    path: '/or_request',
-    components: { default: OR_RequestList, header: Header, footer: Footer },
-    name: 'or_request.index',
+    path: '/or_order',
+    components: { default: OR_OrderList, header: Header, footer: Footer },
+    name: 'or_order.index',
   },
   {
-    path: '/or_request/create',
-    components: { default: OR_RequestEdit, header: Header, footer: Footer },
-    name: 'or_request.create',
-  },
-  {
-    path: '/or_request/create/ppe',
-    components: { default: OR_RequestPPETable, header: Header, footer: Footer },
-    name: 'or_request.create.ppe',
+    path: '/or_order/create',
+    components: { default: OR_OrderEdit, header: Header, footer: Footer },
+    name: 'or_order.create',
   },
   // generator-inject-new-route-here
   // maintenance

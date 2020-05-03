@@ -65,7 +65,7 @@
               class="dropdown-item"
               tag="a"
               active-class="active"
-              :to="{ name: 'or_request.index' }"
+              :to="{ name: 'or_order.index' }"
               v-if="isUserStaff"
             >
               <i class="fas fa-notes-medical"></i> Demandas de EPIs
