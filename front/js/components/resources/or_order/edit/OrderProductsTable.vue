@@ -44,6 +44,7 @@
           :label-for="`input-comment-${row.item.id}`"
         >
           <b-form-textarea
+            :disabled="!itemsById[row.item.id].quantity"
             :id="`input-comment-${row.item.id}`"
             v-model="itemsById[row.item.id].notes"
             placeholder="Adicione seu comentário para este item"
