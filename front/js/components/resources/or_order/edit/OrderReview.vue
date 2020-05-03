@@ -30,10 +30,10 @@
       entities: {
         type: Object,
         default: () => ({
-          originPerson: {},
-          originPersonContact: {},
-          destinationPerson: {},
-          destinationPersonContact: {},
+          glPersonOrigin: {},
+          glPersonContactOrigin: {},
+          glPersonDestination: {},
+          glPersonContactDestination: {},
         }),
       },
       products: {
@@ -49,14 +49,14 @@
       return {
         // Table Settings
         entityTableFields: [
-          { key: 'originPerson', label: 'Entidade' },
+          { key: 'glPersonOrigin', label: 'Entidade' },
           {
-            key: 'originPersonContact',
+            key: 'glPersonContactOrigin',
             label: 'Pessoa de contato na Entidade',
           },
-          { key: 'destinationPerson', label: 'Entidade de destino' },
+          { key: 'glPersonDestination', label: 'Entidade de destino' },
           {
-            key: 'destinationPersonContact',
+            key: 'glPersonContactDestination',
             label: 'Pessoa de contato na entidade destino',
           },
           {
@@ -76,10 +76,10 @@
       entityDetails() {
         return [
           {
-            originPerson: this.entities.originPerson.name,
-            originPersonContact: this.entities.originPersonContact.name,
-            destinationPerson: this.entities.destinationPerson.name,
-            destinationPersonContact: this.entities.destinationPersonContact
+            glPersonOrigin: this.entities.glPersonOrigin.name,
+            glPersonContactOrigin: this.entities.glPersonContactOrigin.name,
+            glPersonDestination: this.entities.glPersonDestination.name,
+            glPersonContactDestination: this.entities.glPersonContactDestination
               .name,
             notes: this.notes,
           },

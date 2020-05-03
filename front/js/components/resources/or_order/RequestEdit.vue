@@ -45,11 +45,11 @@
 
     <hr />
     <div :style="{ textAlign: 'right' }">
-      <b-button v-if="tabIndex < 3" @click="nextTab">
-        Avançar
-      </b-button>
-      <b-button v-else @click="submit">
+      <b-button v-if="tabIndex === TAB_REVIEW" @click="submit">
         Enviar Pedido
+      </b-button>
+      <b-button v-else @click="nextTab">
+        Avançar
       </b-button>
     </div>
   </b-container>
@@ -76,16 +76,16 @@
         // Form Data
         entities: {
           ids: {
-            originPersonId: null,
-            originPersonContactId: null,
-            destinationPersonId: null,
-            destinationPersonContactId: null,
+            glPersonOriginId: null,
+            glPersonContactOriginId: null,
+            glPersonDestinationId: null,
+            glPersonContactDestinationId: null,
           },
           data: {
-            originPerson: null,
-            originPersonContact: null,
-            destinationPerson: null,
-            destinationPersonContact: null,
+            glPersonOrigin: null,
+            glPersonContactOrigin: null,
+            glPersonDestination: null,
+            glPersonContactDestination: null,
           },
         },
         products: [],
@@ -93,6 +93,9 @@
 
         // Tabs
         tabIndex: 0,
+        TAB_ENTITY: 0,
+        TAB_PRODUCTS: 1,
+        TAB_REVIEW: 2,
       };
     },
     computed: {
@@ -113,8 +116,8 @@
           JSON.stringify(
             {
               ...this.entities.ids,
-              ...this.products,
               notes: this.entities.notes,
+              items: this.products,
             },
             null,
             2

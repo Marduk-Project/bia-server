@@ -8,15 +8,15 @@
         <app-person-select
           id="input-origin-person"
           name="input-origin-person"
-          v-model="value.data.originPerson"
-          @onChange="item => fieldChange('originPerson', item)"
+          v-model="value.data.glPersonOrigin"
+          @onChange="item => fieldChange('glPersonOrigin', item)"
           required
         />
         <input
           type="hidden"
           id="input-origin-person-id"
           name="input-origin-person-id"
-          v-model="value.ids.originPersonId"
+          v-model="value.ids.glPersonOriginId"
           v-validate="'required'"
           :class="{ 'is-invalid': errors.has('input-origin-person-id') }"
         />
@@ -29,16 +29,16 @@
         </label>
         <app-person-contact-select
           id="input-origin-person-contact"
-          v-model="value.data.originPersonContact"
-          :disabled="!value.ids.originPersonId"
-          @onChange="item => fieldChange('originPersonContact', item)"
+          v-model="value.data.glPersonContactOrigin"
+          :disabled="!value.ids.glPersonOriginId"
+          @onChange="item => fieldChange('glPersonContactOrigin', item)"
           required
         />
         <input
           type="hidden"
           id="input-origin-person-contact-id"
           name="input-origin-person-contact-id"
-          v-model="value.ids.originPersonContactId"
+          v-model="value.ids.glPersonContactOriginId"
           v-validate="'required'"
           :class="{
             'is-invalid': errors.has('input-origin-person-contact-id'),
@@ -55,15 +55,15 @@
         </label>
         <app-person-select
           id="input-destination-person"
-          v-model="value.data.destinationPerson"
-          @onChange="item => fieldChange('destinationPerson', item)"
+          v-model="value.data.glPersonDestination"
+          @onChange="item => fieldChange('glPersonDestination', item)"
           required
         />
         <input
           type="hidden"
           id="input-destination-person-id"
           name="input-destination-person-id"
-          v-model="value.ids.destinationPersonId"
+          v-model="value.ids.glPersonDestinationId"
           v-validate="'required'"
           :class="{
             'is-invalid': errors.has('input-origin-person-id'),
@@ -78,16 +78,16 @@
         </label>
         <app-person-contact-select
           id="input-destination-person-contact"
-          v-model="value.data.destinationPersonContact"
-          :disabled="!value.ids.destinationPersonId"
-          @onChange="item => fieldChange('destinationPersonContact', item)"
+          v-model="value.data.glPersonContactDestination"
+          :disabled="!value.ids.glPersonDestinationId"
+          @onChange="item => fieldChange('glPersonContactDestination', item)"
           required
         />
         <input
           type="hidden"
           id="input-destination-person-contact-id"
           name="input-destination-person-contact-id"
-          v-model="value.ids.destinationPersonContactId"
+          v-model="value.ids.glPersonContactDestinationId"
           v-validate="'required'"
           :class="{
             'is-invalid': errors.has('input-destination-person-contact-id'),
@@ -113,16 +113,16 @@
         type: Object,
         default: () => ({
           ids: {
-            originPersonId: null,
-            originPersonContactId: null,
-            destinationPersonId: null,
-            destinationPersonContactId: null,
+            glPersonOriginId: null,
+            glPersonContactOriginId: null,
+            glPersonDestinationId: null,
+            glPersonContactDestinationId: null,
           },
           data: {
-            originPerson: null,
-            originPersonContact: null,
-            destinationPerson: null,
-            destinationPersonContact: null,
+            glPersonOrigin: null,
+            glPersonContactOrigin: null,
+            glPersonDestination: null,
+            glPersonContactDestination: null,
           },
           notes: '',
         }),
