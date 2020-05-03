@@ -15,6 +15,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     user: null,
+    personContactList: null,
     loading: 0,
   },
   actions,

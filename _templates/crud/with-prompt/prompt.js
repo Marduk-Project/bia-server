@@ -72,7 +72,7 @@ module.exports = {
           type: "select",
           name: "crud_context",
           message: "Select the context",
-          choices: ["admin", "visitor"],
+          choices: ["admin", "account", "visitor"],
         },
         {
           type: "confirm",
@@ -297,7 +297,7 @@ module.exports = {
             if (
               !answers.crud_fieldNames.find((item) => item == parentFieldName)
             ) {
-              answers.crud_fieldNames.push(parentFieldName);
+              answers.crud_fieldNames.unshift(parentFieldName);
             }
           }
           answers.crud_fieldNames.forEach((field) => {

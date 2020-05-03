@@ -1,5 +1,6 @@
 export const setSession = (state, session) => {
   state.user = session.user;
+  state.personContactList = session.personContactList;
 };
 
 export const setLoading = (state, loading) => {

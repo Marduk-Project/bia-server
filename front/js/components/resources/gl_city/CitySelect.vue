@@ -33,7 +33,7 @@
       name: { type: String },
       required: { type: Boolean, default: false },
       url: { type: String },
-      value: { type: String },
+      value: { type: [Object, String] },
       options: { type: Array },
       extraparams: { type: Object },
       placeholder: { type: String },
