@@ -12,7 +12,12 @@
 
     <b-tabs content-class="mt-3" v-model="tabIndex">
       <b-tab title="Entidade" active>
-        <app-order-entity v-model="entities" @submit="nextTab" />
+        <app-order-entity
+          v-model="entities"
+          :personId="personId"
+          :personContactId="personContactId"
+          @submit="nextTab"
+        />
 
         <div class="form-row">
           <div class="form-group col-lg-12">
@@ -38,7 +43,7 @@
         <app-order-review
           :entities="entities.data"
           :products="products"
-          :notes="entities.notes"
+          :notes="notes"
         />
       </b-tab>
     </b-tabs>
@@ -57,6 +62,8 @@
 
 <script>
   import { crudMixin } from '@mixins/crud-mixin';
+
+  import { mapState, mapActions } from 'vuex';
 
   import OrderEntity from './edit/OrderEntity.vue';
   import OrderProductsTable from './edit/OrderProductsTable.vue';
@@ -99,6 +106,17 @@
       };
     },
     computed: {
+      ...mapState(['personContactList']),
+      personId() {
+        if (this.personContactList && this.personContactList.length === 1) {
+          return this.personContactList[0].person.id;
+        }
+      },
+      personContactId() {
+        if (this.personContactList && this.personContactList.length === 1) {
+          return this.personContactList[0].id;
+        }
+      },
       formFilled() {
         return (
           this.entities.ids &&
@@ -116,8 +134,8 @@
           JSON.stringify(
             {
               ...this.entities.ids,
-              notes: this.entities.notes,
               items: this.products,
+              notes: this.notes,
             },
             null,
             2

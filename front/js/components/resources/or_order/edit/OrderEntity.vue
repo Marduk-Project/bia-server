@@ -109,6 +109,12 @@
       'app-person-contact-select': PersonContactSelect,
     },
     props: {
+      personId: {
+        type: Number,
+      },
+      personContactId: {
+        type: Number,
+      },
       value: {
         type: Object,
         default: () => ({
