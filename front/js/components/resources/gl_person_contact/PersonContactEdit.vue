@@ -221,6 +221,18 @@
         }
         return true;
       },
+      crud_requestParentEntity() {
+        switch (this.origin) {
+          case 'u':
+            return axios.get(`/api/admin/gl_user/${this.parentEntityId}/edit`);
+
+          default:
+          case 'p':
+            return axios.get(
+              `/api/admin/gl_person/${this.parentEntityId}/edit`
+            );
+        }
+      },
     },
     computed: {
       origin() {

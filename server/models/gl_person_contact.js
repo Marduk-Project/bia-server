@@ -118,6 +118,21 @@ const scopes = {
   def: {
     include: ['id', 'name', 'shortname', 'email', 'level', 'levelDesc'],
   },
+  account: {
+    include: [
+      'id',
+      'name',
+      'shortname',
+      'email',
+      'level',
+      'levelDesc',
+      'person',
+    ],
+    maps: {
+      person: async (value, scopeName) =>
+        await personJsonSerializer(value, scopeName),
+    },
+  },
   admin: {
     maps: {
       person: async (value, scopeName) =>

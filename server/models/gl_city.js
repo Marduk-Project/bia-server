@@ -120,6 +120,9 @@ const scopes = {
   def: {
     include: ['id', 'name', 'code'],
   },
+  account: {
+    include: ['id', 'name', 'code'],
+  },
   admin: {
     maps: {
       state: async (value, scopeName) =>

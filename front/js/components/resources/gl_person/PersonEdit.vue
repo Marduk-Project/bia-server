@@ -381,6 +381,7 @@
           this.notify_warning('Selecione uma cidade.');
           return false;
         }
+        return true;
       },
       crud_requestEntityParseResponse(res) {
         if (res.data.fieldList) {

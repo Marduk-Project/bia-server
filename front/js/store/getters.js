@@ -2,6 +2,10 @@ export const getUser = state => {
   return state.user;
 };
 
+export const getPersonContactList = state => {
+  return state.personContactList ? state.personContactList : [];
+};
+
 export const getUserName = state => {
   if (state.user) {
     return state.user.name;

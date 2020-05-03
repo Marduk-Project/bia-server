@@ -14,6 +14,8 @@ const User = UserModule.model;
 const UserRecoverModule = require('../models/gl_user_recover');
 const UserRecover = UserRecoverModule.model;
 const { RecoverPasswordMail } = require('../mails/auth-mail');
+const PersonContactModelModule = require('../models/gl_person_contact');
+const PersonContactModel = PersonContactModelModule.model;
 
 /**
  * realizes login
@@ -160,20 +162,42 @@ exports.postRecoverChangePwd = async (req, res, next) => {
 /**
  * Returns if user is authenticated
  */
-exports.getSessionWeb = (req, res, next) => {
-  let user = null;
-  if (req.user) {
-    user = {
-      id: req.user.id,
-      name: req.user.name,
-      nickname: req.user.nickname,
-      email: req.user.email,
-      level: req.user.level,
-    };
+exports.getSessionWeb = async (req, res, next) => {
+  try {
+    let user = null;
+    let personContactList = [];
+    if (req.user) {
+      user = {
+        id: req.user.id,
+        name: req.user.name,
+        nickname: req.user.nickname,
+        email: req.user.email,
+        level: req.user.level,
+      };
+      personContactList = await PersonContactModel.findAll({
+        where: {
+          userId: req.user.id,
+        },
+        include: [
+          {
+            association: 'person',
+            include: ['city'],
+          },
+        ],
+        order: [['id', 'asc']],
+      });
+      personContactList = await PersonContactModelModule.jsonSerializer(
+        personContactList,
+        'account'
+      );
+    }
+    res.sendJsonOK({
+      user: user,
+      personContactList: personContactList,
+    });
+  } catch (err) {
+    next(err);
   }
-  res.sendJsonOK({
-    user: user,
-  });
 };
 
 // ==== user chabges

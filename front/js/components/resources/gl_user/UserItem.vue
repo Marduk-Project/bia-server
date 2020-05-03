@@ -1,5 +1,7 @@
-<template functional>
-  <span v-if="entity">{{ entity.name }} ({{ entity.email }})</span>
+<template>
+  <span>
+    <span v-if="entity">{{ entity.name }} ({{ entity.email }})</span>
+  </span>
 </template>
 
 <script>
@@ -7,7 +9,7 @@
     props: {
       entity: {
         type: Object,
-        validator: entity => Boolean(entity.name && entity.email),
+        required: false,
       },
     },
   };

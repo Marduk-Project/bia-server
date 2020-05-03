@@ -19,6 +19,6 @@ exports.getHome = (req, res, next) => {
   if (user.levelIsStaff) {
     res.redirect('/admin/');
   } else {
-    res.send('ops não tem implementação ainda!');
+    res.redirect('/account/');
   }
 };

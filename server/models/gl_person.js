@@ -158,6 +158,24 @@ const scopes = {
       'legalIdentifierCode',
     ],
   },
+  account: {
+    include: [
+      'id',
+      'name',
+      'shortname',
+      'email',
+      'legalType',
+      'legalTypeDesc',
+      'legalIdentifierType',
+      'legalIdentifierCode',
+      'cityId',
+      'city',
+    ],
+    maps: {
+      city: async (value, scopeName) =>
+        await cityJsonSerializer(value, scopeName),
+    },
+  },
   admin: {
     maps: {
       city: async (value, scopeName) =>

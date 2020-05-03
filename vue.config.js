@@ -30,6 +30,13 @@ module.exports = {
       title: 'Index Page',
       chunks: ['chunk-vendors', 'chunk-common', 'admin'],
     },
+    account: {
+      entry: 'front/js/context/account/index.js',
+      template: 'front/js/context/account/index.ejs',
+      filename: '../../views/account/index.ejs',
+      title: 'Index Page',
+      chunks: ['chunk-vendors', 'chunk-common', 'account'],
+    },
   },
   css: {
     extract: true,
