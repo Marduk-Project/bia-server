@@ -1,9 +1,9 @@
 module.exports = {
   testEnvironment: 'node',
   transformIgnorePatterns: [
-    'server/*',
-    'config.js',
-    'config.json',
-    'node_modules/*',
+    '<rootDir>/server/*',
+    '<rootDir>/config.js',
+    '<rootDir>/config.json',
+    '<rootDir>/node_modules/*',
   ],
 };

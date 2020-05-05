@@ -42,7 +42,7 @@
       </div>
       <div class="form-group col-lg-6">
         <label for="input-glPersonOrigin">
-          Entidade solicitante ou gestora da demanda
+          Entidade solicitante, doadora ou gestora da demanda
           <app-required-span></app-required-span>
         </label>
         <app-person-select
@@ -64,7 +64,7 @@
       </div>
       <div class="form-group col-lg-6">
         <label for="input-glPersonContactOrigin">
-          Responsável pela solicitação <app-required-span></app-required-span>
+          Responsável pelas informações<app-required-span></app-required-span>
         </label>
         <app-person-contact-select
           id="input-glPersonContactOrigin"

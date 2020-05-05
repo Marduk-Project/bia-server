@@ -25,13 +25,13 @@
             entity.glPersonOrigin.id != entity.glPersonDestination.id
           "
         >
-          <th>Entidade solicitante ou gestora da demanda</th>
+          <th>Entidade solicitante, doadora ou gestora da demanda</th>
           <td
             ><app-person-item :entity="entity.glPersonOrigin"></app-person-item>
           </td>
         </tr>
         <tr v-if="entity.glPersonContactOrigin">
-          <th>Responsável pela solicitação</th>
+          <th>Responsável pelas informações</th>
           <td
             ><app-person-contact-item
               :entity="entity.glPersonContactOrigin"
