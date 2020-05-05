@@ -31,7 +31,7 @@ async function fetchIdFromModel({ modelName, modelField, itemName }) {
       attributes: ['id'],
       where: {
         [modelField]: {
-          [Op.iLike]: `%${itemName}%`,
+          [Op.like]: `%${itemName}%`,
         },
       },
     })

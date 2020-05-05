@@ -46,7 +46,7 @@ exports.getIndex = async (req, res, next) => {
       const q = req.query.q;
       options.where[Op.or] = {
         name: {
-          [Op.iLike]: `${q}%`,
+          [Op.like]: `${q}%`,
         },
         // TODO other text query fields here
       };

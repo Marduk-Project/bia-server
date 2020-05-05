@@ -117,13 +117,11 @@
   import { crudMixin } from '@mixins/crud-mixin';
   import axios from '@mixins/axios-auth';
 
-  import ProductForm from './ProductForm.vue';
   import UnitSelect from '@resources/gl_unit/UnitSelect.vue';
 
   export default {
     mixins: [crudMixin],
     components: {
-      'app-product-form': ProductForm,
       'app-unit-select': UnitSelect,
     },
     data() {
