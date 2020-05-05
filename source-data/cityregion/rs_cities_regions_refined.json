@@ -1,0 +1,2984 @@
+[
+  {
+    "name": "Lagoa Vermelha",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "6ª CRS",
+    "healthRegion": "R18 - Região das Araucárias"
+  },
+  {
+    "name": "Alegria",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "14ª CRS",
+    "healthRegion": "R14 - Fronteira Noroeste"
+  },
+  {
+    "name": "Ametista do Sul",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "19ª CRS",
+    "healthRegion": "R15 - Caminho das Águas"
+  },
+  {
+    "name": "André da Rocha",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "6ª CRS",
+    "healthRegion": "R18 - Região das Araucárias"
+  },
+  {
+    "name": "Antônio Prado",
+    "macroRegion": "Serra",
+    "healthCoordenationRegion": "5ª CRS",
+    "healthRegion": "R26 - Uva e Vale"
+  },
+  {
+    "name": "Arroio do Meio",
+    "macroRegion": "Vales",
+    "healthCoordenationRegion": "16ª CRS",
+    "healthRegion": "R29 - Vales e Montanhas"
+  },
+  {
+    "name": "Arroio do Padre",
+    "macroRegion": "Sul",
+    "healthCoordenationRegion": "3ª CRS",
+    "healthRegion": "R21 - Região Sul"
+  },
+  {
+    "name": "Arroio dos Ratos",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "2ª CRS",
+    "healthRegion": "R9 - Carbonífera/ Costa Doce"
+  },
+  {
+    "name": "Arroio Grande",
+    "macroRegion": "Sul",
+    "healthCoordenationRegion": "3ª CRS",
+    "healthRegion": "R21 - Região Sul"
+  },
+  {
+    "name": "Arvorezinha",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "6ª CRS",
+    "healthRegion": "R19 - Região do Botucaraí"
+  },
+  {
+    "name": "Augusto Pestana",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "17ª CRS",
+    "healthRegion": "R13 - Região da Diversidade"
+  },
+  {
+    "name": "Áurea",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "11ª CRS",
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
+  },
+  {
+    "name": "Bagé",
+    "macroRegion": "Sul",
+    "healthCoordenationRegion": "7ª CRS",
+    "healthRegion": "R22 - Pampa"
+  },
+  {
+    "name": "Barão de Cotegipe",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "11ª CRS",
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
+  },
+  {
+    "name": "Barão do Triunfo",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "2ª CRS",
+    "healthRegion": "R9 - Carbonífera/ Costa Doce"
+  },
+  {
+    "name": "Barra do Guarita",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "19ª CRS",
+    "healthRegion": "R15 - Caminho das Águas"
+  },
+  {
+    "name": "Barra do Quaraí",
+    "macroRegion": "Centro-Oeste",
+    "healthCoordenationRegion": "10ª CRS",
+    "healthRegion": "R3 - Fronteira Oeste"
+  },
+  {
+    "name": "Barra do Ribeiro",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "2ª CRS",
+    "healthRegion": "R9 - Carbonífera/ Costa Doce"
+  },
+  {
+    "name": "Barra do Rio Azul",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "11ª CRS",
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
+  },
+  {
+    "name": "Barracão",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "6ª CRS",
+    "healthRegion": "R18 - Região das Araucárias"
+  },
+  {
+    "name": "Barros Cassal",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "6ª CRS",
+    "healthRegion": "R19 - Região do Botucaraí"
+  },
+  {
+    "name": "Benjamin Constant do Sul",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "11ª CRS",
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
+  },
+  {
+    "name": "Boa Vista das Missões",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "15ª CRS",
+    "healthRegion": "R20 - Rota da Produção"
+  },
+  {
+    "name": "Boa Vista do Buricá",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "14ª CRS",
+    "healthRegion": "R14 - Fronteira Noroeste"
+  },
+  {
+    "name": "Boa Vista do Incra",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "9ª CRS",
+    "healthRegion": "R12 - Portal das Missões"
+  },
+  {
+    "name": "Boa Vista do Sul",
+    "macroRegion": "Serra",
+    "healthCoordenationRegion": "5ª CRS",
+    "healthRegion": "R25 - Vinhedos e Basalto"
+  },
+  {
+    "name": "Bom Princípio",
+    "macroRegion": "Serra",
+    "healthCoordenationRegion": "5ª CRS",
+    "healthRegion": "R26 - Uva e Vale"
+  },
+  {
+    "name": "Bom Progresso",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "19ª CRS",
+    "healthRegion": "R15 - Caminho das Águas"
+  },
+  {
+    "name": "Boqueirão do Leão",
+    "macroRegion": "Vales",
+    "healthCoordenationRegion": "16ª CRS",
+    "healthRegion": "R29 - Vales e Montanhas"
+  },
+  {
+    "name": "Bozano",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "17ª CRS",
+    "healthRegion": "R13 - Região da Diversidade"
+  },
+  {
+    "name": "Braga",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "15ª CRS",
+    "healthRegion": "R20 - Rota da Produção"
+  },
+  {
+    "name": "Brochier",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "1ª CRS",
+    "healthRegion": "R8 - Vale do Caí Metropolitana"
+  },
+  {
+    "name": "Butiá",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "2ª CRS",
+    "healthRegion": "R9 - Carbonífera/ Costa Doce"
+  },
+  {
+    "name": "Caçapava do Sul",
+    "macroRegion": "Vales",
+    "healthCoordenationRegion": "8ª CRS",
+    "healthRegion": "R27 - Jacuí Centro"
+  },
+  {
+    "name": "Cachoeira do Sul",
+    "macroRegion": "Vales",
+    "healthCoordenationRegion": "8ª CRS",
+    "healthRegion": "R27 - Jacuí Centro"
+  },
+  {
+    "name": "Cachoeirinha",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "2ª CRS",
+    "healthRegion": "R10 - Capital/ Vale do Gravataí"
+  },
+  {
+    "name": "Cacique Doble",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "6ª CRS",
+    "healthRegion": "R18 - Região das Araucárias"
+  },
+  {
+    "name": "Caibaté",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "12ª CRS",
+    "healthRegion": "R11 - Sete Povos das Missões"
+  },
+  {
+    "name": "Caiçara",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "19ª CRS",
+    "healthRegion": "R15 - Caminho das Águas"
+  },
+  {
+    "name": "Camaquã",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "2ª CRS",
+    "healthRegion": "R9 - Carbonífera/ Costa Doce"
+  },
+  {
+    "name": "Camargo",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "6ª CRS",
+    "healthRegion": "R17 - Região do Planalto"
+  },
+  {
+    "name": "Campestre da Serra",
+    "macroRegion": "Serra",
+    "healthCoordenationRegion": "5ª CRS",
+    "healthRegion": "R24 - Campos de Cima da Serra"
+  },
+  {
+    "name": "Campina das Missões",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "14ª CRS",
+    "healthRegion": "R14 - Fronteira Noroeste"
+  },
+  {
+    "name": "Campinas do Sul",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "11ª CRS",
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
+  },
+  {
+    "name": "Campo Bom",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "1ª CRS",
+    "healthRegion": "R7 - Vale dos Sinos"
+  },
+  {
+    "name": "Campo Novo",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "17ª CRS",
+    "healthRegion": "R13 - Região da Diversidade"
+  },
+  {
+    "name": "Campos Borges",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "6ª CRS",
+    "healthRegion": "R19 - Região do Botucaraí"
+  },
+  {
+    "name": "Cândido Godói",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "14ª CRS",
+    "healthRegion": "R14 - Fronteira Noroeste"
+  },
+  {
+    "name": "Candiota",
+    "macroRegion": "Sul",
+    "healthCoordenationRegion": "7ª CRS",
+    "healthRegion": "R22 - Pampa"
+  },
+  {
+    "name": "Canguçu",
+    "macroRegion": "Sul",
+    "healthCoordenationRegion": "3ª CRS",
+    "healthRegion": "R21 - Região Sul"
+  },
+  {
+    "name": "Canoas",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "1ª CRS",
+    "healthRegion": "R8 - Vale do Caí Metropolitana"
+  },
+  {
+    "name": "Canudos do Vale",
+    "macroRegion": "Vales",
+    "healthCoordenationRegion": "16ª CRS",
+    "healthRegion": "R29 - Vales e Montanhas"
+  },
+  {
+    "name": "Capão Bonito do Sul",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "6ª CRS",
+    "healthRegion": "R18 - Região das Araucárias"
+  },
+  {
+    "name": "Capão da Canoa",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "18ª CRS",
+    "healthRegion": "R4 - Belas Praias"
+  },
+  {
+    "name": "Capão do Cipó",
+    "macroRegion": "Centro-Oeste",
+    "healthCoordenationRegion": "4º CRS",
+    "healthRegion": "R2 - Entre-Rios"
+  },
+  {
+    "name": "Capão do Leão",
+    "macroRegion": "Sul",
+    "healthCoordenationRegion": "3ª CRS",
+    "healthRegion": "R21 - Região Sul"
+  },
+  {
+    "name": "Capela de Santana",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "1ª CRS",
+    "healthRegion": "R8 - Vale do Caí Metropolitana"
+  },
+  {
+    "name": "Capitão",
+    "macroRegion": "Vales",
+    "healthCoordenationRegion": "16ª CRS",
+    "healthRegion": "R29 - Vales e Montanhas"
+  },
+  {
+    "name": "Capivari do Sul",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "18ª CRS",
+    "healthRegion": "R5 - Bons Ventos"
+  },
+  {
+    "name": "Caraá",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "18ª CRS",
+    "healthRegion": "R5 - Bons Ventos"
+  },
+  {
+    "name": "Carazinho",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "6ª CRS",
+    "healthRegion": "R17 - Região do Planalto"
+  },
+  {
+    "name": "Carlos Barbosa",
+    "macroRegion": "Serra",
+    "healthCoordenationRegion": "5ª CRS",
+    "healthRegion": "R25 - Vinhedos e Basalto"
+  },
+  {
+    "name": "Carlos Gomes",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "11ª CRS",
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
+  },
+  {
+    "name": "Casca",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "6ª CRS",
+    "healthRegion": "R17 - Região do Planalto"
+  },
+  {
+    "name": "Caseiros",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "6ª CRS",
+    "healthRegion": "R18 - Região das Araucárias"
+  },
+  {
+    "name": "Catuípe",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "17ª CRS",
+    "healthRegion": "R13 - Região da Diversidade"
+  },
+  {
+    "name": "Caxias do Sul",
+    "macroRegion": "Serra",
+    "healthCoordenationRegion": "5ª CRS",
+    "healthRegion": "R23 - Caxias e Hortências"
+  },
+  {
+    "name": "Centenário",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "11ª CRS",
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
+  },
+  {
+    "name": "Cerrito",
+    "macroRegion": "Sul",
+    "healthCoordenationRegion": "3ª CRS",
+    "healthRegion": "R21 - Região Sul"
+  },
+  {
+    "name": "Cerro Branco",
+    "macroRegion": "Vales",
+    "healthCoordenationRegion": "8ª CRS",
+    "healthRegion": "R27 - Jacuí Centro"
+  },
+  {
+    "name": "Cerro Grande",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "15ª CRS",
+    "healthRegion": "R20 - Rota da Produção"
+  },
+  {
+    "name": "Cerro Grande do Sul",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "2ª CRS",
+    "healthRegion": "R9 - Carbonífera/ Costa Doce"
+  },
+  {
+    "name": "Cerro Largo",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "12ª CRS",
+    "healthRegion": "R11 - Sete Povos das Missões"
+  },
+  {
+    "name": "Chapada",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "15ª CRS",
+    "healthRegion": "R20 - Rota da Produção"
+  },
+  {
+    "name": "Charqueadas",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "2ª CRS",
+    "healthRegion": "R9 - Carbonífera/ Costa Doce"
+  },
+  {
+    "name": "Charrua",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "11ª CRS",
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
+  },
+  {
+    "name": "Chiapetta",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "17ª CRS",
+    "healthRegion": "R13 - Região da Diversidade"
+  },
+  {
+    "name": "Chuí",
+    "macroRegion": "Sul",
+    "healthCoordenationRegion": "3ª CRS",
+    "healthRegion": "R21 - Região Sul"
+  },
+  {
+    "name": "Chuvisca",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "2ª CRS",
+    "healthRegion": "R9 - Carbonífera/ Costa Doce"
+  },
+  {
+    "name": "Cidreira",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "18ª CRS",
+    "healthRegion": "R5 - Bons Ventos"
+  },
+  {
+    "name": "Ciríaco",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "6ª CRS",
+    "healthRegion": "R17 - Região do Planalto"
+  },
+  {
+    "name": "Colinas",
+    "macroRegion": "Vales",
+    "healthCoordenationRegion": "16ª CRS",
+    "healthRegion": "R30 - Vale da Luz"
+  },
+  {
+    "name": "Colorado",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "9ª CRS",
+    "healthRegion": "R12 - Portal das Missões"
+  },
+  {
+    "name": "Condor",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "17ª CRS",
+    "healthRegion": "R13 - Região da Diversidade"
+  },
+  {
+    "name": "Constantina",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "15ª CRS",
+    "healthRegion": "R20 - Rota da Produção"
+  },
+  {
+    "name": "Coqueiro Baixo",
+    "macroRegion": "Vales",
+    "healthCoordenationRegion": "16ª CRS",
+    "healthRegion": "R29 - Vales e Montanhas"
+  },
+  {
+    "name": "Coqueiros do Sul",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "6ª CRS",
+    "healthRegion": "R17 - Região do Planalto"
+  },
+  {
+    "name": "Coronel Barros",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "17ª CRS",
+    "healthRegion": "R13 - Região da Diversidade"
+  },
+  {
+    "name": "Coronel Bicaco",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "15ª CRS",
+    "healthRegion": "R20 - Rota da Produção"
+  },
+  {
+    "name": "Coronel Pilar",
+    "macroRegion": "Serra",
+    "healthCoordenationRegion": "5ª CRS",
+    "healthRegion": "R25 - Vinhedos e Basalto"
+  },
+  {
+    "name": "Cotiporã",
+    "macroRegion": "Serra",
+    "healthCoordenationRegion": "5ª CRS",
+    "healthRegion": "R25 - Vinhedos e Basalto"
+  },
+  {
+    "name": "Coxilha",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "6ª CRS",
+    "healthRegion": "R17 - Região do Planalto"
+  },
+  {
+    "name": "Crissiumal",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "17ª CRS",
+    "healthRegion": "R13 - Região da Diversidade"
+  },
+  {
+    "name": "Cristal",
+    "macroRegion": "Sul",
+    "healthCoordenationRegion": "3ª CRS",
+    "healthRegion": "R21 - Região Sul"
+  },
+  {
+    "name": "Cristal do Sul",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "19ª CRS",
+    "healthRegion": "R15 - Caminho das Águas"
+  },
+  {
+    "name": "Cruz Alta",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "9ª CRS",
+    "healthRegion": "R12 - Portal das Missões"
+  },
+  {
+    "name": "Cruzaltense",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "11ª CRS",
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
+  },
+  {
+    "name": "Cruzeiro do Sul",
+    "macroRegion": "Vales",
+    "healthCoordenationRegion": "16ª CRS",
+    "healthRegion": "R29 - Vales e Montanhas"
+  },
+  {
+    "name": "David Canabarro",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "6ª CRS",
+    "healthRegion": "R17 - Região do Planalto"
+  },
+  {
+    "name": "Derrubadas",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "19ª CRS",
+    "healthRegion": "R15 - Caminho das Águas"
+  },
+  {
+    "name": "Dezesseis de Novembro",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "12ª CRS",
+    "healthRegion": "R11 - Sete Povos das Missões"
+  },
+  {
+    "name": "Dilermando de Aguiar",
+    "macroRegion": "Centro-Oeste",
+    "healthCoordenationRegion": "4º CRS",
+    "healthRegion": "R1 - Verdes Campos"
+  },
+  {
+    "name": "Dois Irmãos",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "1ª CRS",
+    "healthRegion": "R7 - Vale dos Sinos"
+  },
+  {
+    "name": "Dois Irmãos das Missões",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "15ª CRS",
+    "healthRegion": "R20 - Rota da Produção"
+  },
+  {
+    "name": "Dois Lajeados",
+    "macroRegion": "Vales",
+    "healthCoordenationRegion": "16ª CRS",
+    "healthRegion": "R29 - Vales e Montanhas"
+  },
+  {
+    "name": "Dom Feliciano",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "2ª CRS",
+    "healthRegion": "R9 - Carbonífera/ Costa Doce"
+  },
+  {
+    "name": "Dom Pedrito",
+    "macroRegion": "Sul",
+    "healthCoordenationRegion": "7ª CRS",
+    "healthRegion": "R22 - Pampa"
+  },
+  {
+    "name": "Dom Pedro de Alcântara",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "18ª CRS",
+    "healthRegion": "R4 - Belas Praias"
+  },
+  {
+    "name": "Dona Francisca",
+    "macroRegion": "Centro-Oeste",
+    "healthCoordenationRegion": "4º CRS",
+    "healthRegion": "R1 - Verdes Campos"
+  },
+  {
+    "name": "Doutor Maurício Cardoso",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "14ª CRS",
+    "healthRegion": "R14 - Fronteira Noroeste"
+  },
+  {
+    "name": "Doutor Ricardo",
+    "macroRegion": "Vales",
+    "healthCoordenationRegion": "16ª CRS",
+    "healthRegion": "R29 - Vales e Montanhas"
+  },
+  {
+    "name": "Eldorado do Sul",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "2ª CRS",
+    "healthRegion": "R9 - Carbonífera/ Costa Doce"
+  },
+  {
+    "name": "Encantado",
+    "macroRegion": "Vales",
+    "healthCoordenationRegion": "16ª CRS",
+    "healthRegion": "R29 - Vales e Montanhas"
+  },
+  {
+    "name": "Encruzilhada do Sul",
+    "macroRegion": "Vales",
+    "healthCoordenationRegion": "8ª CRS",
+    "healthRegion": "R27 - Jacuí Centro"
+  },
+  {
+    "name": "Engenho Velho",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "15ª CRS",
+    "healthRegion": "R20 - Rota da Produção"
+  },
+  {
+    "name": "Entre Rios do Sul",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "11ª CRS",
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
+  },
+  {
+    "name": "Entre-Ijuís",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "12ª CRS",
+    "healthRegion": "R11 - Sete Povos das Missões"
+  },
+  {
+    "name": "Erebango",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "11ª CRS",
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
+  },
+  {
+    "name": "Erechim",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "11ª CRS",
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
+  },
+  {
+    "name": "Ernestina",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "6ª CRS",
+    "healthRegion": "R17 - Região do Planalto"
+  },
+  {
+    "name": "Erval Grande",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "11ª CRS",
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
+  },
+  {
+    "name": "Erval Seco",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "19ª CRS",
+    "healthRegion": "R15 - Caminho das Águas"
+  },
+  {
+    "name": "Esmeralda",
+    "macroRegion": "Serra",
+    "healthCoordenationRegion": "5ª CRS",
+    "healthRegion": "R24 - Campos de Cima da Serra"
+  },
+  {
+    "name": "Esperança do Sul",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "19ª CRS",
+    "healthRegion": "R15 - Caminho das Águas"
+  },
+  {
+    "name": "Espumoso",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "6ª CRS",
+    "healthRegion": "R19 - Região do Botucaraí"
+  },
+  {
+    "name": "Estação",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "11ª CRS",
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
+  },
+  {
+    "name": "Estância Velha",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "1ª CRS",
+    "healthRegion": "R7 - Vale dos Sinos"
+  },
+  {
+    "name": "Esteio",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "1ª CRS",
+    "healthRegion": "R8 - Vale do Caí Metropolitana"
+  },
+  {
+    "name": "Estrela",
+    "macroRegion": "Vales",
+    "healthCoordenationRegion": "16ª CRS",
+    "healthRegion": "R30 - Vale da Luz"
+  },
+  {
+    "name": "Estrela Velha",
+    "macroRegion": "Vales",
+    "healthCoordenationRegion": "8ª CRS",
+    "healthRegion": "R27 - Jacuí Centro"
+  },
+  {
+    "name": "Eugênio de Castro",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "12ª CRS",
+    "healthRegion": "R11 - Sete Povos das Missões"
+  },
+  {
+    "name": "Fagundes Varela",
+    "macroRegion": "Serra",
+    "healthCoordenationRegion": "5ª CRS",
+    "healthRegion": "R25 - Vinhedos e Basalto"
+  },
+  {
+    "name": "Farroupilha",
+    "macroRegion": "Serra",
+    "healthCoordenationRegion": "5ª CRS",
+    "healthRegion": "R26 - Uva e Vale"
+  },
+  {
+    "name": "Faxinal do Soturno",
+    "macroRegion": "Centro-Oeste",
+    "healthCoordenationRegion": "4º CRS",
+    "healthRegion": "R1 - Verdes Campos"
+  },
+  {
+    "name": "Faxinalzinho",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "11ª CRS",
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
+  },
+  {
+    "name": "Fazenda Vilanova",
+    "macroRegion": "Vales",
+    "healthCoordenationRegion": "16ª CRS",
+    "healthRegion": "R30 - Vale da Luz"
+  },
+  {
+    "name": "Feliz",
+    "macroRegion": "Serra",
+    "healthCoordenationRegion": "5ª CRS",
+    "healthRegion": "R26 - Uva e Vale"
+  },
+  {
+    "name": "Flores da Cunha",
+    "macroRegion": "Serra",
+    "healthCoordenationRegion": "5ª CRS",
+    "healthRegion": "R26 - Uva e Vale"
+  },
+  {
+    "name": "Floriano Peixoto",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "11ª CRS",
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
+  },
+  {
+    "name": "Fontoura Xavier",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "6ª CRS",
+    "healthRegion": "R19 - Região do Botucaraí"
+  },
+  {
+    "name": "Formigueiro",
+    "macroRegion": "Centro-Oeste",
+    "healthCoordenationRegion": "4º CRS",
+    "healthRegion": "R1 - Verdes Campos"
+  },
+  {
+    "name": "Forquetinha",
+    "macroRegion": "Vales",
+    "healthCoordenationRegion": "16ª CRS",
+    "healthRegion": "R29 - Vales e Montanhas"
+  },
+  {
+    "name": "Fortaleza dos Valos",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "9ª CRS",
+    "healthRegion": "R12 - Portal das Missões"
+  },
+  {
+    "name": "Frederico Westphalen",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "19ª CRS",
+    "healthRegion": "R15 - Caminho das Águas"
+  },
+  {
+    "name": "Garibaldi",
+    "macroRegion": "Serra",
+    "healthCoordenationRegion": "5ª CRS",
+    "healthRegion": "R25 - Vinhedos e Basalto"
+  },
+  {
+    "name": "Garruchos",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "12ª CRS",
+    "healthRegion": "R11 - Sete Povos das Missões"
+  },
+  {
+    "name": "Gaurama",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "11ª CRS",
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
+  },
+  {
+    "name": "General Câmara",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "2ª CRS",
+    "healthRegion": "R9 - Carbonífera/ Costa Doce"
+  },
+  {
+    "name": "Gentil",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "6ª CRS",
+    "healthRegion": "R17 - Região do Planalto"
+  },
+  {
+    "name": "Getúlio Vargas",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "11ª CRS",
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
+  },
+  {
+    "name": "Giruá",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "14ª CRS",
+    "healthRegion": "R14 - Fronteira Noroeste"
+  },
+  {
+    "name": "Glorinha",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "2ª CRS",
+    "healthRegion": "R10 - Capital/ Vale do Gravataí"
+  },
+  {
+    "name": "Gramado",
+    "macroRegion": "Serra",
+    "healthCoordenationRegion": "5ª CRS",
+    "healthRegion": "R23 - Caxias e Hortências"
+  },
+  {
+    "name": "Gramado dos Loureiros",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "15ª CRS",
+    "healthRegion": "R20 - Rota da Produção"
+  },
+  {
+    "name": "Gramado Xavier",
+    "macroRegion": "Vales",
+    "healthCoordenationRegion": "13ª CRS",
+    "healthRegion": "R28 - Vale do Rio Pardo"
+  },
+  {
+    "name": "Gravataí",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "2ª CRS",
+    "healthRegion": "R10 - Capital/ Vale do Gravataí"
+  },
+  {
+    "name": "Guabiju",
+    "macroRegion": "Serra",
+    "healthCoordenationRegion": "5ª CRS",
+    "healthRegion": "R25 - Vinhedos e Basalto"
+  },
+  {
+    "name": "Guaíba",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "2ª CRS",
+    "healthRegion": "R9 - Carbonífera/ Costa Doce"
+  },
+  {
+    "name": "Guaporé",
+    "macroRegion": "Serra",
+    "healthCoordenationRegion": "5ª CRS",
+    "healthRegion": "R25 - Vinhedos e Basalto"
+  },
+  {
+    "name": "Guarani das Missões",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "12ª CRS",
+    "healthRegion": "R11 - Sete Povos das Missões"
+  },
+  {
+    "name": "Harmonia",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "1ª CRS",
+    "healthRegion": "R8 - Vale do Caí Metropolitana"
+  },
+  {
+    "name": "Herval",
+    "macroRegion": "Sul",
+    "healthCoordenationRegion": "3ª CRS",
+    "healthRegion": "R21 - Região Sul"
+  },
+  {
+    "name": "Herveiras",
+    "macroRegion": "Vales",
+    "healthCoordenationRegion": "13ª CRS",
+    "healthRegion": "R28 - Vale do Rio Pardo"
+  },
+  {
+    "name": "Horizontina",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "14ª CRS",
+    "healthRegion": "R14 - Fronteira Noroeste"
+  },
+  {
+    "name": "Humaitá",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "17ª CRS",
+    "healthRegion": "R13 - Região da Diversidade"
+  },
+  {
+    "name": "Ibarama",
+    "macroRegion": "Vales",
+    "healthCoordenationRegion": "8ª CRS",
+    "healthRegion": "R27 - Jacuí Centro"
+  },
+  {
+    "name": "Ibiaçá",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "6ª CRS",
+    "healthRegion": "R18 - Região das Araucárias"
+  },
+  {
+    "name": "Ibiraiaras",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "6ª CRS",
+    "healthRegion": "R18 - Região das Araucárias"
+  },
+  {
+    "name": "Ibirapuitã",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "6ª CRS",
+    "healthRegion": "R19 - Região do Botucaraí"
+  },
+  {
+    "name": "Ibirubá",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "9ª CRS",
+    "healthRegion": "R12 - Portal das Missões"
+  },
+  {
+    "name": "Igrejinha",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "1ª CRS",
+    "healthRegion": "R6 - Vale do Paranhana Costa da Serra"
+  },
+  {
+    "name": "Ijuí",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "17ª CRS",
+    "healthRegion": "R13 - Região da Diversidade"
+  },
+  {
+    "name": "Ilópolis",
+    "macroRegion": "Vales",
+    "healthCoordenationRegion": "16ª CRS",
+    "healthRegion": "R29 - Vales e Montanhas"
+  },
+  {
+    "name": "Imbé",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "18ª CRS",
+    "healthRegion": "R5 - Bons Ventos"
+  },
+  {
+    "name": "Imigrante",
+    "macroRegion": "Vales",
+    "healthCoordenationRegion": "16ª CRS",
+    "healthRegion": "R30 - Vale da Luz"
+  },
+  {
+    "name": "Independência",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "14ª CRS",
+    "healthRegion": "R14 - Fronteira Noroeste"
+  },
+  {
+    "name": "Inhacorá",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "17ª CRS",
+    "healthRegion": "R13 - Região da Diversidade"
+  },
+  {
+    "name": "Ipê",
+    "macroRegion": "Serra",
+    "healthCoordenationRegion": "5ª CRS",
+    "healthRegion": "R26 - Uva e Vale"
+  },
+  {
+    "name": "Ipiranga do Sul",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "11ª CRS",
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
+  },
+  {
+    "name": "Iraí",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "19ª CRS",
+    "healthRegion": "R15 - Caminho das Águas"
+  },
+  {
+    "name": "Itaara",
+    "macroRegion": "Centro-Oeste",
+    "healthCoordenationRegion": "4º CRS",
+    "healthRegion": "R1 - Verdes Campos"
+  },
+  {
+    "name": "Itacurubi",
+    "macroRegion": "Centro-Oeste",
+    "healthCoordenationRegion": "4º CRS",
+    "healthRegion": "R2 - Entre-Rios"
+  },
+  {
+    "name": "Itapuca",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "6ª CRS",
+    "healthRegion": "R19 - Região do Botucaraí"
+  },
+  {
+    "name": "Itaqui",
+    "macroRegion": "Centro-Oeste",
+    "healthCoordenationRegion": "10ª CRS",
+    "healthRegion": "R3 - Fronteira Oeste"
+  },
+  {
+    "name": "Itati",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "18ª CRS",
+    "healthRegion": "R4 - Belas Praias"
+  },
+  {
+    "name": "Itatiba do Sul",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "11ª CRS",
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
+  },
+  {
+    "name": "Ivorá",
+    "macroRegion": "Centro-Oeste",
+    "healthCoordenationRegion": "4º CRS",
+    "healthRegion": "R1 - Verdes Campos"
+  },
+  {
+    "name": "Ivoti",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "1ª CRS",
+    "healthRegion": "R7 - Vale dos Sinos"
+  },
+  {
+    "name": "Jaboticaba",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "15ª CRS",
+    "healthRegion": "R20 - Rota da Produção"
+  },
+  {
+    "name": "Jacuizinho",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "9ª CRS",
+    "healthRegion": "R12 - Portal das Missões"
+  },
+  {
+    "name": "Jacutinga",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "11ª CRS",
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
+  },
+  {
+    "name": "Jaguarão",
+    "macroRegion": "Sul",
+    "healthCoordenationRegion": "3ª CRS",
+    "healthRegion": "R21 - Região Sul"
+  },
+  {
+    "name": "Jaguari",
+    "macroRegion": "Centro-Oeste",
+    "healthCoordenationRegion": "4º CRS",
+    "healthRegion": "R2 - Entre-Rios"
+  },
+  {
+    "name": "Jaquirana",
+    "macroRegion": "Serra",
+    "healthCoordenationRegion": "5ª CRS",
+    "healthRegion": "R24 - Campos de Cima da Serra"
+  },
+  {
+    "name": "Jari",
+    "macroRegion": "Centro-Oeste",
+    "healthCoordenationRegion": "4º CRS",
+    "healthRegion": "R2 - Entre-Rios"
+  },
+  {
+    "name": "Jóia",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "17ª CRS",
+    "healthRegion": "R13 - Região da Diversidade"
+  },
+  {
+    "name": "Júlio de Castilhos",
+    "macroRegion": "Centro-Oeste",
+    "healthCoordenationRegion": "4º CRS",
+    "healthRegion": "R1 - Verdes Campos"
+  },
+  {
+    "name": "Lagoa Bonita do Sul",
+    "macroRegion": "Vales",
+    "healthCoordenationRegion": "8ª CRS",
+    "healthRegion": "R27 - Jacuí Centro"
+  },
+  {
+    "name": "Lagoa dos Três Cantos",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "6ª CRS",
+    "healthRegion": "R17 - Região do Planalto"
+  },
+  {
+    "name": "Lagoão",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "6ª CRS",
+    "healthRegion": "R19 - Região do Botucaraí"
+  },
+  {
+    "name": "Lajeado",
+    "macroRegion": "Vales",
+    "healthCoordenationRegion": "16ª CRS",
+    "healthRegion": "R29 - Vales e Montanhas"
+  },
+  {
+    "name": "Lajeado do Bugre",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "15ª CRS",
+    "healthRegion": "R20 - Rota da Produção"
+  },
+  {
+    "name": "Liberato Salzano",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "19ª CRS",
+    "healthRegion": "R15 - Caminho das Águas"
+  },
+  {
+    "name": "Lindolfo Collor",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "1ª CRS",
+    "healthRegion": "R7 - Vale dos Sinos"
+  },
+  {
+    "name": "Linha Nova",
+    "macroRegion": "Serra",
+    "healthCoordenationRegion": "5ª CRS",
+    "healthRegion": "R23 - Caxias e Hortências"
+  },
+  {
+    "name": "Maçambará",
+    "macroRegion": "Centro-Oeste",
+    "healthCoordenationRegion": "10ª CRS",
+    "healthRegion": "R3 - Fronteira Oeste"
+  },
+  {
+    "name": "Machadinho",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "6ª CRS",
+    "healthRegion": "R18 - Região das Araucárias"
+  },
+  {
+    "name": "Mampituba",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "18ª CRS",
+    "healthRegion": "R4 - Belas Praias"
+  },
+  {
+    "name": "Manoel Viana",
+    "macroRegion": "Centro-Oeste",
+    "healthCoordenationRegion": "10ª CRS",
+    "healthRegion": "R3 - Fronteira Oeste"
+  },
+  {
+    "name": "Maquiné",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "18ª CRS",
+    "healthRegion": "R4 - Belas Praias"
+  },
+  {
+    "name": "Maratá",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "1ª CRS",
+    "healthRegion": "R8 - Vale do Caí Metropolitana"
+  },
+  {
+    "name": "Marau",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "6ª CRS",
+    "healthRegion": "R17 - Região do Planalto"
+  },
+  {
+    "name": "Marcelino Ramos",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "11ª CRS",
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
+  },
+  {
+    "name": "Mariana Pimentel",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "2ª CRS",
+    "healthRegion": "R9 - Carbonífera/ Costa Doce"
+  },
+  {
+    "name": "Mariano Moro",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "11ª CRS",
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
+  },
+  {
+    "name": "Marques de Souza",
+    "macroRegion": "Vales",
+    "healthCoordenationRegion": "16ª CRS",
+    "healthRegion": "R29 - Vales e Montanhas"
+  },
+  {
+    "name": "Mata",
+    "macroRegion": "Centro-Oeste",
+    "healthCoordenationRegion": "4º CRS",
+    "healthRegion": "R2 - Entre-Rios"
+  },
+  {
+    "name": "Mato Castelhano",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "6ª CRS",
+    "healthRegion": "R17 - Região do Planalto"
+  },
+  {
+    "name": "Mato Leitão",
+    "macroRegion": "Vales",
+    "healthCoordenationRegion": "13ª CRS",
+    "healthRegion": "R28 - Vale do Rio Pardo"
+  },
+  {
+    "name": "Mato Queimado",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "12ª CRS",
+    "healthRegion": "R11 - Sete Povos das Missões"
+  },
+  {
+    "name": "Maximiliano de Almeida",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "6ª CRS",
+    "healthRegion": "R18 - Região das Araucárias"
+  },
+  {
+    "name": "Minas do Leão",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "2ª CRS",
+    "healthRegion": "R9 - Carbonífera/ Costa Doce"
+  },
+  {
+    "name": "Miraguaí",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "15ª CRS",
+    "healthRegion": "R20 - Rota da Produção"
+  },
+  {
+    "name": "Montauri",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "6ª CRS",
+    "healthRegion": "R17 - Região do Planalto"
+  },
+  {
+    "name": "Monte Alegre dos Campos",
+    "macroRegion": "Serra",
+    "healthCoordenationRegion": "5ª CRS",
+    "healthRegion": "R24 - Campos de Cima da Serra"
+  },
+  {
+    "name": "Monte Belo do Sul",
+    "macroRegion": "Serra",
+    "healthCoordenationRegion": "5ª CRS",
+    "healthRegion": "R25 - Vinhedos e Basalto"
+  },
+  {
+    "name": "Montenegro",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "1ª CRS",
+    "healthRegion": "R8 - Vale do Caí Metropolitana"
+  },
+  {
+    "name": "Mormaço",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "6ª CRS",
+    "healthRegion": "R19 - Região do Botucaraí"
+  },
+  {
+    "name": "Morrinhos do Sul",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "18ª CRS",
+    "healthRegion": "R4 - Belas Praias"
+  },
+  {
+    "name": "Morro Redondo",
+    "macroRegion": "Sul",
+    "healthCoordenationRegion": "3ª CRS",
+    "healthRegion": "R21 - Região Sul"
+  },
+  {
+    "name": "Morro Reuter",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "1ª CRS",
+    "healthRegion": "R7 - Vale dos Sinos"
+  },
+  {
+    "name": "Mostardas",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "18ª CRS",
+    "healthRegion": "R5 - Bons Ventos"
+  },
+  {
+    "name": "Muçum",
+    "macroRegion": "Vales",
+    "healthCoordenationRegion": "16ª CRS",
+    "healthRegion": "R29 - Vales e Montanhas"
+  },
+  {
+    "name": "Muitos Capões",
+    "macroRegion": "Serra",
+    "healthCoordenationRegion": "5ª CRS",
+    "healthRegion": "R24 - Campos de Cima da Serra"
+  },
+  {
+    "name": "Muliterno",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "6ª CRS",
+    "healthRegion": "R17 - Região do Planalto"
+  },
+  {
+    "name": "Não-Me-Toque",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "6ª CRS",
+    "healthRegion": "R17 - Região do Planalto"
+  },
+  {
+    "name": "Nicolau Vergueiro",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "6ª CRS",
+    "healthRegion": "R17 - Região do Planalto"
+  },
+  {
+    "name": "Nonoai",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "11ª CRS",
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
+  },
+  {
+    "name": "Nova Alvorada",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "6ª CRS",
+    "healthRegion": "R17 - Região do Planalto"
+  },
+  {
+    "name": "Nova Araçá",
+    "macroRegion": "Serra",
+    "healthCoordenationRegion": "5ª CRS",
+    "healthRegion": "R25 - Vinhedos e Basalto"
+  },
+  {
+    "name": "Nova Bassano",
+    "macroRegion": "Serra",
+    "healthCoordenationRegion": "5ª CRS",
+    "healthRegion": "R25 - Vinhedos e Basalto"
+  },
+  {
+    "name": "Nova Boa Vista",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "15ª CRS",
+    "healthRegion": "R20 - Rota da Produção"
+  },
+  {
+    "name": "Nova Bréscia",
+    "macroRegion": "Vales",
+    "healthCoordenationRegion": "16ª CRS",
+    "healthRegion": "R29 - Vales e Montanhas"
+  },
+  {
+    "name": "Nova Candelária",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "14ª CRS",
+    "healthRegion": "R14 - Fronteira Noroeste"
+  },
+  {
+    "name": "Nova Esperança do Sul",
+    "macroRegion": "Centro-Oeste",
+    "healthCoordenationRegion": "4º CRS",
+    "healthRegion": "R2 - Entre-Rios"
+  },
+  {
+    "name": "Nova Hartz",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "1ª CRS",
+    "healthRegion": "R7 - Vale dos Sinos"
+  },
+  {
+    "name": "Nova Pádua",
+    "macroRegion": "Serra",
+    "healthCoordenationRegion": "5ª CRS",
+    "healthRegion": "R26 - Uva e Vale"
+  },
+  {
+    "name": "Nova Palma",
+    "macroRegion": "Centro-Oeste",
+    "healthCoordenationRegion": "4º CRS",
+    "healthRegion": "R1 - Verdes Campos"
+  },
+  {
+    "name": "Nova Prata",
+    "macroRegion": "Serra",
+    "healthCoordenationRegion": "5ª CRS",
+    "healthRegion": "R25 - Vinhedos e Basalto"
+  },
+  {
+    "name": "Nova Ramada",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "17ª CRS",
+    "healthRegion": "R13 - Região da Diversidade"
+  },
+  {
+    "name": "Nova Roma do Sul",
+    "macroRegion": "Serra",
+    "healthCoordenationRegion": "5ª CRS",
+    "healthRegion": "R26 - Uva e Vale"
+  },
+  {
+    "name": "Nova Santa Rita",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "1ª CRS",
+    "healthRegion": "R8 - Vale do Caí Metropolitana"
+  },
+  {
+    "name": "Novo Barreiro",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "15ª CRS",
+    "healthRegion": "R20 - Rota da Produção"
+  },
+  {
+    "name": "Novo Cabrais",
+    "macroRegion": "Vales",
+    "healthCoordenationRegion": "8ª CRS",
+    "healthRegion": "R27 - Jacuí Centro"
+  },
+  {
+    "name": "Novo Hamburgo",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "1ª CRS",
+    "healthRegion": "R7 - Vale dos Sinos"
+  },
+  {
+    "name": "Novo Machado",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "14ª CRS",
+    "healthRegion": "R14 - Fronteira Noroeste"
+  },
+  {
+    "name": "Novo Tiradentes",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "19ª CRS",
+    "healthRegion": "R15 - Caminho das Águas"
+  },
+  {
+    "name": "Novo Xingu",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "15ª CRS",
+    "healthRegion": "R20 - Rota da Produção"
+  },
+  {
+    "name": "Osório",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "18ª CRS",
+    "healthRegion": "R5 - Bons Ventos"
+  },
+  {
+    "name": "Paim Filho",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "6ª CRS",
+    "healthRegion": "R18 - Região das Araucárias"
+  },
+  {
+    "name": "Palmares do Sul",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "18ª CRS",
+    "healthRegion": "R5 - Bons Ventos"
+  },
+  {
+    "name": "Palmeira das Missões",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "15ª CRS",
+    "healthRegion": "R20 - Rota da Produção"
+  },
+  {
+    "name": "Palmitinho",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "19ª CRS",
+    "healthRegion": "R15 - Caminho das Águas"
+  },
+  {
+    "name": "Panambi",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "17ª CRS",
+    "healthRegion": "R13 - Região da Diversidade"
+  },
+  {
+    "name": "Pantano Grande",
+    "macroRegion": "Vales",
+    "healthCoordenationRegion": "13ª CRS",
+    "healthRegion": "R28 - Vale do Rio Pardo"
+  },
+  {
+    "name": "Paraí",
+    "macroRegion": "Serra",
+    "healthCoordenationRegion": "5ª CRS",
+    "healthRegion": "R25 - Vinhedos e Basalto"
+  },
+  {
+    "name": "Paraíso do Sul",
+    "macroRegion": "Centro-Oeste",
+    "healthCoordenationRegion": "4º CRS",
+    "healthRegion": "R1 - Verdes Campos"
+  },
+  {
+    "name": "Pareci Novo",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "1ª CRS",
+    "healthRegion": "R8 - Vale do Caí Metropolitana"
+  },
+  {
+    "name": "Parobé",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "1ª CRS",
+    "healthRegion": "R6 - Vale do Paranhana Costa da Serra"
+  },
+  {
+    "name": "Passa Sete",
+    "macroRegion": "Vales",
+    "healthCoordenationRegion": "8ª CRS",
+    "healthRegion": "R27 - Jacuí Centro"
+  },
+  {
+    "name": "Passo do Sobrado",
+    "macroRegion": "Vales",
+    "healthCoordenationRegion": "13ª CRS",
+    "healthRegion": "R28 - Vale do Rio Pardo"
+  },
+  {
+    "name": "Passo Fundo",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "6ª CRS",
+    "healthRegion": "R17 - Região do Planalto"
+  },
+  {
+    "name": "Paulo Bento",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "11ª CRS",
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
+  },
+  {
+    "name": "Paverama",
+    "macroRegion": "Vales",
+    "healthCoordenationRegion": "16ª CRS",
+    "healthRegion": "R30 - Vale da Luz"
+  },
+  {
+    "name": "Pedras Altas",
+    "macroRegion": "Sul",
+    "healthCoordenationRegion": "3ª CRS",
+    "healthRegion": "R21 - Região Sul"
+  },
+  {
+    "name": "Pedro Osório",
+    "macroRegion": "Sul",
+    "healthCoordenationRegion": "3ª CRS",
+    "healthRegion": "R21 - Região Sul"
+  },
+  {
+    "name": "Pejuçara",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "17ª CRS",
+    "healthRegion": "R13 - Região da Diversidade"
+  },
+  {
+    "name": "Pelotas",
+    "macroRegion": "Sul",
+    "healthCoordenationRegion": "3ª CRS",
+    "healthRegion": "R21 - Região Sul"
+  },
+  {
+    "name": "Pinhal",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "19ª CRS",
+    "healthRegion": "R15 - Caminho das Águas"
+  },
+  {
+    "name": "Pinhal da Serra",
+    "macroRegion": "Serra",
+    "healthCoordenationRegion": "5ª CRS",
+    "healthRegion": "R24 - Campos de Cima da Serra"
+  },
+  {
+    "name": "Pinhal Grande",
+    "macroRegion": "Centro-Oeste",
+    "healthCoordenationRegion": "4º CRS",
+    "healthRegion": "R1 - Verdes Campos"
+  },
+  {
+    "name": "Pinheirinho do Vale",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "19ª CRS",
+    "healthRegion": "R15 - Caminho das Águas"
+  },
+  {
+    "name": "Pinheiro Machado",
+    "macroRegion": "Sul",
+    "healthCoordenationRegion": "3ª CRS",
+    "healthRegion": "R21 - Região Sul"
+  },
+  {
+    "name": "Pirapó",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "12ª CRS",
+    "healthRegion": "R11 - Sete Povos das Missões"
+  },
+  {
+    "name": "Piratini",
+    "macroRegion": "Sul",
+    "healthCoordenationRegion": "3ª CRS",
+    "healthRegion": "R21 - Região Sul"
+  },
+  {
+    "name": "Planalto",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "19ª CRS",
+    "healthRegion": "R15 - Caminho das Águas"
+  },
+  {
+    "name": "Poço das Antas",
+    "macroRegion": "Vales",
+    "healthCoordenationRegion": "16ª CRS",
+    "healthRegion": "R30 - Vale da Luz"
+  },
+  {
+    "name": "Pontão",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "6ª CRS",
+    "healthRegion": "R17 - Região do Planalto"
+  },
+  {
+    "name": "Ponte Preta",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "11ª CRS",
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
+  },
+  {
+    "name": "Portão",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "1ª CRS",
+    "healthRegion": "R7 - Vale dos Sinos"
+  },
+  {
+    "name": "Porto Lucena",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "14ª CRS",
+    "healthRegion": "R14 - Fronteira Noroeste"
+  },
+  {
+    "name": "Porto Mauá",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "14ª CRS",
+    "healthRegion": "R14 - Fronteira Noroeste"
+  },
+  {
+    "name": "Porto Vera Cruz",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "14ª CRS",
+    "healthRegion": "R14 - Fronteira Noroeste"
+  },
+  {
+    "name": "Porto Xavier",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "12ª CRS",
+    "healthRegion": "R11 - Sete Povos das Missões"
+  },
+  {
+    "name": "Pouso Novo",
+    "macroRegion": "Vales",
+    "healthCoordenationRegion": "16ª CRS",
+    "healthRegion": "R29 - Vales e Montanhas"
+  },
+  {
+    "name": "Presidente Lucena",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "1ª CRS",
+    "healthRegion": "R7 - Vale dos Sinos"
+  },
+  {
+    "name": "Progresso",
+    "macroRegion": "Vales",
+    "healthCoordenationRegion": "16ª CRS",
+    "healthRegion": "R29 - Vales e Montanhas"
+  },
+  {
+    "name": "Protásio Alves",
+    "macroRegion": "Serra",
+    "healthCoordenationRegion": "5ª CRS",
+    "healthRegion": "R25 - Vinhedos e Basalto"
+  },
+  {
+    "name": "Putinga",
+    "macroRegion": "Vales",
+    "healthCoordenationRegion": "16ª CRS",
+    "healthRegion": "R29 - Vales e Montanhas"
+  },
+  {
+    "name": "Quaraí",
+    "macroRegion": "Centro-Oeste",
+    "healthCoordenationRegion": "10ª CRS",
+    "healthRegion": "R3 - Fronteira Oeste"
+  },
+  {
+    "name": "Quatro Irmãos",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "11ª CRS",
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
+  },
+  {
+    "name": "Quevedos",
+    "macroRegion": "Centro-Oeste",
+    "healthCoordenationRegion": "4º CRS",
+    "healthRegion": "R1 - Verdes Campos"
+  },
+  {
+    "name": "Quinze de Novembro",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "9ª CRS",
+    "healthRegion": "R12 - Portal das Missões"
+  },
+  {
+    "name": "Redentora",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "15ª CRS",
+    "healthRegion": "R20 - Rota da Produção"
+  },
+  {
+    "name": "Relvado",
+    "macroRegion": "Vales",
+    "healthCoordenationRegion": "16ª CRS",
+    "healthRegion": "R29 - Vales e Montanhas"
+  },
+  {
+    "name": "Restinga Sêca",
+    "macroRegion": "Centro-Oeste",
+    "healthCoordenationRegion": "4º CRS",
+    "healthRegion": "R1 - Verdes Campos"
+  },
+  {
+    "name": "Rio dos Índios",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "11ª CRS",
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
+  },
+  {
+    "name": "Rio Grande",
+    "macroRegion": "Sul",
+    "healthCoordenationRegion": "3ª CRS",
+    "healthRegion": "R21 - Região Sul"
+  },
+  {
+    "name": "Rio Pardo",
+    "macroRegion": "Vales",
+    "healthCoordenationRegion": "13ª CRS",
+    "healthRegion": "R28 - Vale do Rio Pardo"
+  },
+  {
+    "name": "Riozinho",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "1ª CRS",
+    "healthRegion": "R6 - Vale do Paranhana Costa da Serra"
+  },
+  {
+    "name": "Roca Sales",
+    "macroRegion": "Vales",
+    "healthCoordenationRegion": "16ª CRS",
+    "healthRegion": "R29 - Vales e Montanhas"
+  },
+  {
+    "name": "Rodeio Bonito",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "19ª CRS",
+    "healthRegion": "R15 - Caminho das Águas"
+  },
+  {
+    "name": "Rolador",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "12ª CRS",
+    "healthRegion": "R11 - Sete Povos das Missões"
+  },
+  {
+    "name": "Rolante",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "1ª CRS",
+    "healthRegion": "R6 - Vale do Paranhana Costa da Serra"
+  },
+  {
+    "name": "Ronda Alta",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "15ª CRS",
+    "healthRegion": "R20 - Rota da Produção"
+  },
+  {
+    "name": "Rondinha",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "15ª CRS",
+    "healthRegion": "R20 - Rota da Produção"
+  },
+  {
+    "name": "Roque Gonzales",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "12ª CRS",
+    "healthRegion": "R11 - Sete Povos das Missões"
+  },
+  {
+    "name": "Rosário do Sul",
+    "macroRegion": "Centro-Oeste",
+    "healthCoordenationRegion": "10ª CRS",
+    "healthRegion": "R3 - Fronteira Oeste"
+  },
+  {
+    "name": "Sagrada Família",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "15ª CRS",
+    "healthRegion": "R20 - Rota da Produção"
+  },
+  {
+    "name": "Saldanha Marinho",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "9ª CRS",
+    "healthRegion": "R12 - Portal das Missões"
+  },
+  {
+    "name": "Salto do Jacuí",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "9ª CRS",
+    "healthRegion": "R12 - Portal das Missões"
+  },
+  {
+    "name": "Salvador das Missões",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "12ª CRS",
+    "healthRegion": "R11 - Sete Povos das Missões"
+  },
+  {
+    "name": "Salvador do Sul",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "1ª CRS",
+    "healthRegion": "R8 - Vale do Caí Metropolitana"
+  },
+  {
+    "name": "Sananduva",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "6ª CRS",
+    "healthRegion": "R18 - Região das Araucárias"
+  },
+  {
+    "name": "Santa Bárbara do Sul",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "9ª CRS",
+    "healthRegion": "R12 - Portal das Missões"
+  },
+  {
+    "name": "Santa Cecília do Sul",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "6ª CRS",
+    "healthRegion": "R18 - Região das Araucárias"
+  },
+  {
+    "name": "Santa Clara do Sul",
+    "macroRegion": "Vales",
+    "healthCoordenationRegion": "16ª CRS",
+    "healthRegion": "R29 - Vales e Montanhas"
+  },
+  {
+    "name": "Santa Cruz do Sul",
+    "macroRegion": "Vales",
+    "healthCoordenationRegion": "13ª CRS",
+    "healthRegion": "R28 - Vale do Rio Pardo"
+  },
+  {
+    "name": "Santa Margarida do Sul",
+    "macroRegion": "Centro-Oeste",
+    "healthCoordenationRegion": "10ª CRS",
+    "healthRegion": "R3 - Fronteira Oeste"
+  },
+  {
+    "name": "Santa Maria",
+    "macroRegion": "Centro-Oeste",
+    "healthCoordenationRegion": "4º CRS",
+    "healthRegion": "R1 - Verdes Campos"
+  },
+  {
+    "name": "Santa Maria do Herval",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "1ª CRS",
+    "healthRegion": "R7 - Vale dos Sinos"
+  },
+  {
+    "name": "Santa Rosa",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "14ª CRS",
+    "healthRegion": "R14 - Fronteira Noroeste"
+  },
+  {
+    "name": "Santa Tereza",
+    "macroRegion": "Serra",
+    "healthCoordenationRegion": "5ª CRS",
+    "healthRegion": "R25 - Vinhedos e Basalto"
+  },
+  {
+    "name": "Santa Vitória do Palmar",
+    "macroRegion": "Sul",
+    "healthCoordenationRegion": "3ª CRS",
+    "healthRegion": "R21 - Região Sul"
+  },
+  {
+    "name": "Santana da Boa Vista",
+    "macroRegion": "Sul",
+    "healthCoordenationRegion": "3ª CRS",
+    "healthRegion": "R21 - Região Sul"
+  },
+  {
+    "name": "Sant'Ana do Livramento",
+    "macroRegion": "Centro-Oeste",
+    "healthCoordenationRegion": "10ª CRS",
+    "healthRegion": "R3 - Fronteira Oeste"
+  },
+  {
+    "name": "Santiago",
+    "macroRegion": "Centro-Oeste",
+    "healthCoordenationRegion": "4º CRS",
+    "healthRegion": "R2 - Entre-Rios"
+  },
+  {
+    "name": "Santo Ângelo",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "12ª CRS",
+    "healthRegion": "R11 - Sete Povos das Missões"
+  },
+  {
+    "name": "Santo Antônio da Patrulha",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "18ª CRS",
+    "healthRegion": "R5 - Bons Ventos"
+  },
+  {
+    "name": "Santo Antônio das Missões",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "12ª CRS",
+    "healthRegion": "R11 - Sete Povos das Missões"
+  },
+  {
+    "name": "Santo Antônio do Palma",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "6ª CRS",
+    "healthRegion": "R17 - Região do Planalto"
+  },
+  {
+    "name": "Santo Antônio do Planalto",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "6ª CRS",
+    "healthRegion": "R17 - Região do Planalto"
+  },
+  {
+    "name": "Santo Augusto",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "17ª CRS",
+    "healthRegion": "R13 - Região da Diversidade"
+  },
+  {
+    "name": "Santo Cristo",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "14ª CRS",
+    "healthRegion": "R14 - Fronteira Noroeste"
+  },
+  {
+    "name": "Santo Expedito do Sul",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "6ª CRS",
+    "healthRegion": "R18 - Região das Araucárias"
+  },
+  {
+    "name": "São Borja",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "12ª CRS",
+    "healthRegion": "R11 - Sete Povos das Missões"
+  },
+  {
+    "name": "São Domingos do Sul",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "6ª CRS",
+    "healthRegion": "R17 - Região do Planalto"
+  },
+  {
+    "name": "São Francisco de Assis",
+    "macroRegion": "Centro-Oeste",
+    "healthCoordenationRegion": "4º CRS",
+    "healthRegion": "R2 - Entre-Rios"
+  },
+  {
+    "name": "São Francisco de Paula",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "1ª CRS",
+    "healthRegion": "R6 - Vale do Paranhana Costa da Serra"
+  },
+  {
+    "name": "São Jerônimo",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "2ª CRS",
+    "healthRegion": "R9 - Carbonífera/ Costa Doce"
+  },
+  {
+    "name": "São João da Urtiga",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "6ª CRS",
+    "healthRegion": "R18 - Região das Araucárias"
+  },
+  {
+    "name": "São João do Polêsine",
+    "macroRegion": "Centro-Oeste",
+    "healthCoordenationRegion": "4º CRS",
+    "healthRegion": "R1 - Verdes Campos"
+  },
+  {
+    "name": "São Jorge",
+    "macroRegion": "Serra",
+    "healthCoordenationRegion": "5ª CRS",
+    "healthRegion": "R25 - Vinhedos e Basalto"
+  },
+  {
+    "name": "São José das Missões",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "15ª CRS",
+    "healthRegion": "R20 - Rota da Produção"
+  },
+  {
+    "name": "São José do Herval",
+    "macroRegion": "Vales",
+    "healthCoordenationRegion": "16ª CRS",
+    "healthRegion": "R29 - Vales e Montanhas"
+  },
+  {
+    "name": "São José do Hortêncio",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "1ª CRS",
+    "healthRegion": "R7 - Vale dos Sinos"
+  },
+  {
+    "name": "São José do Inhacorá",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "14ª CRS",
+    "healthRegion": "R14 - Fronteira Noroeste"
+  },
+  {
+    "name": "São José do Norte",
+    "macroRegion": "Sul",
+    "healthCoordenationRegion": "3ª CRS",
+    "healthRegion": "R21 - Região Sul"
+  },
+  {
+    "name": "São José do Ouro",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "6ª CRS",
+    "healthRegion": "R18 - Região das Araucárias"
+  },
+  {
+    "name": "São José do Sul",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "1ª CRS",
+    "healthRegion": "R8 - Vale do Caí Metropolitana"
+  },
+  {
+    "name": "São Luiz Gonzaga",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "12ª CRS",
+    "healthRegion": "R11 - Sete Povos das Missões"
+  },
+  {
+    "name": "São Marcos",
+    "macroRegion": "Serra",
+    "healthCoordenationRegion": "5ª CRS",
+    "healthRegion": "R26 - Uva e Vale"
+  },
+  {
+    "name": "São Martinho",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "17ª CRS",
+    "healthRegion": "R13 - Região da Diversidade"
+  },
+  {
+    "name": "São Martinho da Serra",
+    "macroRegion": "Centro-Oeste",
+    "healthCoordenationRegion": "4º CRS",
+    "healthRegion": "R1 - Verdes Campos"
+  },
+  {
+    "name": "São Miguel das Missões",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "12ª CRS",
+    "healthRegion": "R11 - Sete Povos das Missões"
+  },
+  {
+    "name": "São Nicolau",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "12ª CRS",
+    "healthRegion": "R11 - Sete Povos das Missões"
+  },
+  {
+    "name": "São Paulo das Missões",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "14ª CRS",
+    "healthRegion": "R14 - Fronteira Noroeste"
+  },
+  {
+    "name": "São Pedro da Serra",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "1ª CRS",
+    "healthRegion": "R8 - Vale do Caí Metropolitana"
+  },
+  {
+    "name": "São Pedro das Missões",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "15ª CRS",
+    "healthRegion": "R20 - Rota da Produção"
+  },
+  {
+    "name": "São Pedro do Butiá",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "12ª CRS",
+    "healthRegion": "R11 - Sete Povos das Missões"
+  },
+  {
+    "name": "São Pedro do Sul",
+    "macroRegion": "Centro-Oeste",
+    "healthCoordenationRegion": "4º CRS",
+    "healthRegion": "R1 - Verdes Campos"
+  },
+  {
+    "name": "São Sebastião do Caí",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "1ª CRS",
+    "healthRegion": "R8 - Vale do Caí Metropolitana"
+  },
+  {
+    "name": "São Sepé",
+    "macroRegion": "Centro-Oeste",
+    "healthCoordenationRegion": "4º CRS",
+    "healthRegion": "R1 - Verdes Campos"
+  },
+  {
+    "name": "São Valentim",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "11ª CRS",
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
+  },
+  {
+    "name": "São Valentim do Sul",
+    "macroRegion": "Vales",
+    "healthCoordenationRegion": "16ª CRS",
+    "healthRegion": "R29 - Vales e Montanhas"
+  },
+  {
+    "name": "Sapucaia do Sul",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "1ª CRS",
+    "healthRegion": "R8 - Vale do Caí Metropolitana"
+  },
+  {
+    "name": "Sarandi",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "15ª CRS",
+    "healthRegion": "R20 - Rota da Produção"
+  },
+  {
+    "name": "Seberi",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "19ª CRS",
+    "healthRegion": "R15 - Caminho das Águas"
+  },
+  {
+    "name": "Senador Salgado Filho",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "14ª CRS",
+    "healthRegion": "R14 - Fronteira Noroeste"
+  },
+  {
+    "name": "Sentinela do Sul",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "2ª CRS",
+    "healthRegion": "R9 - Carbonífera/ Costa Doce"
+  },
+  {
+    "name": "Serafina Corrêa",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "6ª CRS",
+    "healthRegion": "R17 - Região do Planalto"
+  },
+  {
+    "name": "Sério",
+    "macroRegion": "Vales",
+    "healthCoordenationRegion": "16ª CRS",
+    "healthRegion": "R29 - Vales e Montanhas"
+  },
+  {
+    "name": "Sertão",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "6ª CRS",
+    "healthRegion": "R17 - Região do Planalto"
+  },
+  {
+    "name": "Sete de Setembro",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "12ª CRS",
+    "healthRegion": "R11 - Sete Povos das Missões"
+  },
+  {
+    "name": "Severiano de Almeida",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "11ª CRS",
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
+  },
+  {
+    "name": "Silveira Martins",
+    "macroRegion": "Centro-Oeste",
+    "healthCoordenationRegion": "4º CRS",
+    "healthRegion": "R1 - Verdes Campos"
+  },
+  {
+    "name": "Sinimbu",
+    "macroRegion": "Vales",
+    "healthCoordenationRegion": "13ª CRS",
+    "healthRegion": "R28 - Vale do Rio Pardo"
+  },
+  {
+    "name": "Soledade",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "6ª CRS",
+    "healthRegion": "R19 - Região do Botucaraí"
+  },
+  {
+    "name": "Tabaí",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "1ª CRS",
+    "healthRegion": "R8 - Vale do Caí Metropolitana"
+  },
+  {
+    "name": "Tapejara",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "6ª CRS",
+    "healthRegion": "R18 - Região das Araucárias"
+  },
+  {
+    "name": "Tapera",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "6ª CRS",
+    "healthRegion": "R19 - Região do Botucaraí"
+  },
+  {
+    "name": "Taquari",
+    "macroRegion": "Vales",
+    "healthCoordenationRegion": "16ª CRS",
+    "healthRegion": "R30 - Vale da Luz"
+  },
+  {
+    "name": "Taquaruçu do Sul",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "19ª CRS",
+    "healthRegion": "R15 - Caminho das Águas"
+  },
+  {
+    "name": "Tenente Portela",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "19ª CRS",
+    "healthRegion": "R15 - Caminho das Águas"
+  },
+  {
+    "name": "Terra de Areia",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "18ª CRS",
+    "healthRegion": "R4 - Belas Praias"
+  },
+  {
+    "name": "Teutônia",
+    "macroRegion": "Vales",
+    "healthCoordenationRegion": "16ª CRS",
+    "healthRegion": "R30 - Vale da Luz"
+  },
+  {
+    "name": "Tiradentes do Sul",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "19ª CRS",
+    "healthRegion": "R15 - Caminho das Águas"
+  },
+  {
+    "name": "Torres",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "18ª CRS",
+    "healthRegion": "R4 - Belas Praias"
+  },
+  {
+    "name": "Travesseiro",
+    "macroRegion": "Vales",
+    "healthCoordenationRegion": "16ª CRS",
+    "healthRegion": "R29 - Vales e Montanhas"
+  },
+  {
+    "name": "Três Cachoeiras",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "18ª CRS",
+    "healthRegion": "R4 - Belas Praias"
+  },
+  {
+    "name": "Três de Maio",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "14ª CRS",
+    "healthRegion": "R14 - Fronteira Noroeste"
+  },
+  {
+    "name": "Três Passos",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "19ª CRS",
+    "healthRegion": "R15 - Caminho das Águas"
+  },
+  {
+    "name": "Ubiretama",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "12ª CRS",
+    "healthRegion": "R11 - Sete Povos das Missões"
+  },
+  {
+    "name": "União da Serra",
+    "macroRegion": "Serra",
+    "healthCoordenationRegion": "5ª CRS",
+    "healthRegion": "R25 - Vinhedos e Basalto"
+  },
+  {
+    "name": "Vale do Sol",
+    "macroRegion": "Vales",
+    "healthCoordenationRegion": "13ª CRS",
+    "healthRegion": "R28 - Vale do Rio Pardo"
+  },
+  {
+    "name": "Vale Verde",
+    "macroRegion": "Vales",
+    "healthCoordenationRegion": "13ª CRS",
+    "healthRegion": "R28 - Vale do Rio Pardo"
+  },
+  {
+    "name": "Vanini",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "6ª CRS",
+    "healthRegion": "R17 - Região do Planalto"
+  },
+  {
+    "name": "Veranópolis",
+    "macroRegion": "Serra",
+    "healthCoordenationRegion": "5ª CRS",
+    "healthRegion": "R25 - Vinhedos e Basalto"
+  },
+  {
+    "name": "Vespasiano Corrêa",
+    "macroRegion": "Vales",
+    "healthCoordenationRegion": "16ª CRS",
+    "healthRegion": "R29 - Vales e Montanhas"
+  },
+  {
+    "name": "Vicente Dutra",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "19ª CRS",
+    "healthRegion": "R15 - Caminho das Águas"
+  },
+  {
+    "name": "Victor Graeff",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "6ª CRS",
+    "healthRegion": "R17 - Região do Planalto"
+  },
+  {
+    "name": "Vila Flores",
+    "macroRegion": "Serra",
+    "healthCoordenationRegion": "5ª CRS",
+    "healthRegion": "R25 - Vinhedos e Basalto"
+  },
+  {
+    "name": "Vila Maria",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "6ª CRS",
+    "healthRegion": "R17 - Região do Planalto"
+  },
+  {
+    "name": "Vista Alegre do Prata",
+    "macroRegion": "Serra",
+    "healthCoordenationRegion": "5ª CRS",
+    "healthRegion": "R25 - Vinhedos e Basalto"
+  },
+  {
+    "name": "Vitória das Missões",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "12ª CRS",
+    "healthRegion": "R11 - Sete Povos das Missões"
+  },
+  {
+    "name": "Westfália",
+    "macroRegion": "Vales",
+    "healthCoordenationRegion": "16ª CRS",
+    "healthRegion": "R30 - Vale da Luz"
+  },
+  {
+    "name": "Aceguá",
+    "macroRegion": "Sul",
+    "healthCoordenationRegion": "7ª CRS",
+    "healthRegion": "R22 - Pampa"
+  },
+  {
+    "name": "Água Santa",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "6ª CRS",
+    "healthRegion": "R18 - Região das Araucárias"
+  },
+  {
+    "name": "Agudo",
+    "macroRegion": "Centro-Oeste",
+    "healthCoordenationRegion": "4º CRS",
+    "healthRegion": "R1 - Verdes Campos"
+  },
+  {
+    "name": "Ajuricaba",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "17ª CRS",
+    "healthRegion": "R13 - Região da Diversidade"
+  },
+  {
+    "name": "Alecrim",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "14ª CRS",
+    "healthRegion": "R14 - Fronteira Noroeste"
+  },
+  {
+    "name": "Alegrete",
+    "macroRegion": "Centro-Oeste",
+    "healthCoordenationRegion": "10ª CRS",
+    "healthRegion": "R3 - Fronteira Oeste"
+  },
+  {
+    "name": "Almirante Tamandaré do Sul",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "6ª CRS",
+    "healthRegion": "R17 - Região do Planalto"
+  },
+  {
+    "name": "Alpestre",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "19ª CRS",
+    "healthRegion": "R15 - Caminho das Águas"
+  },
+  {
+    "name": "Alto Alegre",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "6ª CRS",
+    "healthRegion": "R19 - Região do Botucaraí"
+  },
+  {
+    "name": "Alto Feliz",
+    "macroRegion": "Serra",
+    "healthCoordenationRegion": "5ª CRS",
+    "healthRegion": "R26 - Uva e Vale"
+  },
+  {
+    "name": "Alvorada",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "2ª CRS",
+    "healthRegion": "R10 - Capital/ Vale do Gravataí"
+  },
+  {
+    "name": "Amaral Ferrador",
+    "macroRegion": "Sul",
+    "healthCoordenationRegion": "3ª CRS",
+    "healthRegion": "R21 - Região Sul"
+  },
+  {
+    "name": "Anta Gorda",
+    "macroRegion": "Vales",
+    "healthCoordenationRegion": "16ª CRS",
+    "healthRegion": "R29 - Vales e Montanhas"
+  },
+  {
+    "name": "Arambaré",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "2ª CRS",
+    "healthRegion": "R9 - Carbonífera/ Costa Doce"
+  },
+  {
+    "name": "Araricá",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "1ª CRS",
+    "healthRegion": "R7 - Vale dos Sinos"
+  },
+  {
+    "name": "Aratiba",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "11ª CRS",
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
+  },
+  {
+    "name": "Arroio do Sal",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "18ª CRS",
+    "healthRegion": "R4 - Belas Praias"
+  },
+  {
+    "name": "Arroio do Tigre",
+    "macroRegion": "Vales",
+    "healthCoordenationRegion": "8ª CRS",
+    "healthRegion": "R27 - Jacuí Centro"
+  },
+  {
+    "name": "Balneário Pinhal",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "18ª CRS",
+    "healthRegion": "R5 - Bons Ventos"
+  },
+  {
+    "name": "Barão",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "1ª CRS",
+    "healthRegion": "R8 - Vale do Caí Metropolitana"
+  },
+  {
+    "name": "Barra Funda",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "15ª CRS",
+    "healthRegion": "R20 - Rota da Produção"
+  },
+  {
+    "name": "Bento Gonçalves",
+    "macroRegion": "Serra",
+    "healthCoordenationRegion": "5ª CRS",
+    "healthRegion": "R25 - Vinhedos e Basalto"
+  },
+  {
+    "name": "Pinto Bandeira",
+    "macroRegion": "Serra",
+    "healthCoordenationRegion": "5ª CRS",
+    "healthRegion": "R26 - Uva e Vale"
+  },
+  {
+    "name": "Boa Vista do Cadeado",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "9ª CRS",
+    "healthRegion": "R12 - Portal das Missões"
+  },
+  {
+    "name": "Bom Jesus",
+    "macroRegion": "Serra",
+    "healthCoordenationRegion": "5ª CRS",
+    "healthRegion": "R24 - Campos de Cima da Serra"
+  },
+  {
+    "name": "Bom Retiro do Sul",
+    "macroRegion": "Vales",
+    "healthCoordenationRegion": "16ª CRS",
+    "healthRegion": "R30 - Vale da Luz"
+  },
+  {
+    "name": "Bossoroca",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "12ª CRS",
+    "healthRegion": "R11 - Sete Povos das Missões"
+  },
+  {
+    "name": "Cacequi",
+    "macroRegion": "Centro-Oeste",
+    "healthCoordenationRegion": "4º CRS",
+    "healthRegion": "R2 - Entre-Rios"
+  },
+  {
+    "name": "Cambará do Sul",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "1ª CRS",
+    "healthRegion": "R6 - Vale do Paranhana Costa da Serra"
+  },
+  {
+    "name": "Candelária",
+    "macroRegion": "Vales",
+    "healthCoordenationRegion": "13ª CRS",
+    "healthRegion": "R28 - Vale do Rio Pardo"
+  },
+  {
+    "name": "Canela",
+    "macroRegion": "Serra",
+    "healthCoordenationRegion": "5ª CRS",
+    "healthRegion": "R23 - Caxias e Hortências"
+  },
+  {
+    "name": "Hulha Negra",
+    "macroRegion": "Sul",
+    "healthCoordenationRegion": "7ª CRS",
+    "healthRegion": "R22 - Pampa"
+  },
+  {
+    "name": "Lavras do Sul",
+    "macroRegion": "Sul",
+    "healthCoordenationRegion": "7ª CRS",
+    "healthRegion": "R22 - Pampa"
+  },
+  {
+    "name": "Nova Petrópolis",
+    "macroRegion": "Serra",
+    "healthCoordenationRegion": "5ª CRS",
+    "healthRegion": "R23 - Caxias e Hortências"
+  },
+  {
+    "name": "Picada Café",
+    "macroRegion": "Serra",
+    "healthCoordenationRegion": "5ª CRS",
+    "healthRegion": "R23 - Caxias e Hortências"
+  },
+  {
+    "name": "Porto Alegre",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "2ª CRS",
+    "healthRegion": "R10 - Capital/ Vale do Gravataí"
+  },
+  {
+    "name": "Viamão",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "2ª CRS",
+    "healthRegion": "R10 - Capital/ Vale do Gravataí"
+  },
+  {
+    "name": "São Gabriel",
+    "macroRegion": "Centro-Oeste",
+    "healthCoordenationRegion": "10ª CRS",
+    "healthRegion": "R3 - Fronteira Oeste"
+  },
+  {
+    "name": "Uruguaiana",
+    "macroRegion": "Centro-Oeste",
+    "healthCoordenationRegion": "10ª CRS",
+    "healthRegion": "R3 - Fronteira Oeste"
+  },
+  {
+    "name": "São José dos Ausentes",
+    "macroRegion": "Serra",
+    "healthCoordenationRegion": "5ª CRS",
+    "healthRegion": "R24 - Campos de Cima da Serra"
+  },
+  {
+    "name": "Vacaria",
+    "macroRegion": "Serra",
+    "healthCoordenationRegion": "5ª CRS",
+    "healthRegion": "R24 - Campos de Cima da Serra"
+  },
+  {
+    "name": "São Leopoldo",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "1ª CRS",
+    "healthRegion": "R7 - Vale dos Sinos"
+  },
+  {
+    "name": "Sapiranga",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "1ª CRS",
+    "healthRegion": "R7 - Vale dos Sinos"
+  },
+  {
+    "name": "São Lourenço do Sul",
+    "macroRegion": "Sul",
+    "healthCoordenationRegion": "3ª CRS",
+    "healthRegion": "R21 - Região Sul"
+  },
+  {
+    "name": "Turuçu",
+    "macroRegion": "Sul",
+    "healthCoordenationRegion": "3ª CRS",
+    "healthRegion": "R21 - Região Sul"
+  },
+  {
+    "name": "São Valério do Sul",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "17ª CRS",
+    "healthRegion": "R13 - Região da Diversidade"
+  },
+  {
+    "name": "Sede Nova",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "17ª CRS",
+    "healthRegion": "R13 - Região da Diversidade"
+  },
+  {
+    "name": "São Vendelino",
+    "macroRegion": "Serra",
+    "healthCoordenationRegion": "5ª CRS",
+    "healthRegion": "R26 - Uva e Vale"
+  },
+  {
+    "name": "Vale Real",
+    "macroRegion": "Serra",
+    "healthCoordenationRegion": "5ª CRS",
+    "healthRegion": "R26 - Uva e Vale"
+  },
+  {
+    "name": "São Vicente do Sul",
+    "macroRegion": "Centro-Oeste",
+    "healthCoordenationRegion": "4º CRS",
+    "healthRegion": "R2 - Entre-Rios"
+  },
+  {
+    "name": "Unistalda",
+    "macroRegion": "Centro-Oeste",
+    "healthCoordenationRegion": "4º CRS",
+    "healthRegion": "R2 - Entre-Rios"
+  },
+  {
+    "name": "Segredo",
+    "macroRegion": "Vales",
+    "healthCoordenationRegion": "8ª CRS",
+    "healthRegion": "R27 - Jacuí Centro"
+  },
+  {
+    "name": "Sobradinho",
+    "macroRegion": "Vales",
+    "healthCoordenationRegion": "8ª CRS",
+    "healthRegion": "R27 - Jacuí Centro"
+  },
+  {
+    "name": "Selbach",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "9ª CRS",
+    "healthRegion": "R12 - Portal das Missões"
+  },
+  {
+    "name": "Tupanciretã",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "9ª CRS",
+    "healthRegion": "R12 - Portal das Missões"
+  },
+  {
+    "name": "Sertão Santana",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "2ª CRS",
+    "healthRegion": "R9 - Carbonífera/ Costa Doce"
+  },
+  {
+    "name": "Tapes",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "2ª CRS",
+    "healthRegion": "R9 - Carbonífera/ Costa Doce"
+  },
+  {
+    "name": "Taquara",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "1ª CRS",
+    "healthRegion": "R6 - Vale do Paranhana Costa da Serra"
+  },
+  {
+    "name": "Três Coroas",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "1ª CRS",
+    "healthRegion": "R6 - Vale do Paranhana Costa da Serra"
+  },
+  {
+    "name": "Tavares",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "18ª CRS",
+    "healthRegion": "R5 - Bons Ventos"
+  },
+  {
+    "name": "Tramandaí",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "18ª CRS",
+    "healthRegion": "R5 - Bons Ventos"
+  },
+  {
+    "name": "Tio Hugo",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "6ª CRS",
+    "healthRegion": "R19 - Região do Botucaraí"
+  },
+  {
+    "name": "Tunas",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "6ª CRS",
+    "healthRegion": "R19 - Região do Botucaraí"
+  },
+  {
+    "name": "Toropi",
+    "macroRegion": "Centro-Oeste",
+    "healthCoordenationRegion": "4º CRS",
+    "healthRegion": "R1 - Verdes Campos"
+  },
+  {
+    "name": "Vila Nova do Sul",
+    "macroRegion": "Centro-Oeste",
+    "healthCoordenationRegion": "4º CRS",
+    "healthRegion": "R1 - Verdes Campos"
+  },
+  {
+    "name": "Três Arroios",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "11ª CRS",
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
+  },
+  {
+    "name": "Viadutos",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "11ª CRS",
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
+  },
+  {
+    "name": "Três Forquilhas",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "18ª CRS",
+    "healthRegion": "R4 - Belas Praias"
+  },
+  {
+    "name": "Xangri-lá",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "18ª CRS",
+    "healthRegion": "R4 - Belas Praias"
+  },
+  {
+    "name": "Três Palmeiras",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "15ª CRS",
+    "healthRegion": "R20 - Rota da Produção"
+  },
+  {
+    "name": "Trindade do Sul",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "15ª CRS",
+    "healthRegion": "R20 - Rota da Produção"
+  },
+  {
+    "name": "Triunfo",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "1ª CRS",
+    "healthRegion": "R8 - Vale do Caí Metropolitana"
+  },
+  {
+    "name": "Tupandi",
+    "macroRegion": "Metropolitana",
+    "healthCoordenationRegion": "1ª CRS",
+    "healthRegion": "R8 - Vale do Caí Metropolitana"
+  },
+  {
+    "name": "Tucunduva",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "14ª CRS",
+    "healthRegion": "R14 - Fronteira Noroeste"
+  },
+  {
+    "name": "Tuparendi",
+    "macroRegion": "Missioneira",
+    "healthCoordenationRegion": "14ª CRS",
+    "healthRegion": "R14 - Fronteira Noroeste"
+  },
+  {
+    "name": "Tupanci do Sul",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "6ª CRS",
+    "healthRegion": "R18 - Região das Araucárias"
+  },
+  {
+    "name": "Vila Lângaro",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "6ª CRS",
+    "healthRegion": "R18 - Região das Araucárias"
+  },
+  {
+    "name": "Venâncio Aires",
+    "macroRegion": "Vales",
+    "healthCoordenationRegion": "13ª CRS",
+    "healthRegion": "R28 - Vale do Rio Pardo"
+  },
+  {
+    "name": "Vera Cruz",
+    "macroRegion": "Vales",
+    "healthCoordenationRegion": "13ª CRS",
+    "healthRegion": "R28 - Vale do Rio Pardo"
+  },
+  {
+    "name": "Vista Alegre",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "19ª CRS",
+    "healthRegion": "R15 - Caminho das Águas"
+  },
+  {
+    "name": "Vista Gaúcha",
+    "macroRegion": "Norte",
+    "healthCoordenationRegion": "19ª CRS",
+    "healthRegion": "R15 - Caminho das Águas"
+  }
+]

@@ -12,6 +12,14 @@
     <router-link
       class="nav-link"
       active-class="active"
+      :to="{ name: 'maintenance.importData' }"
+      tag="a"
+    >
+      <i class="fas fa-exchange-alt"></i> Importar dados
+    </router-link>
+    <router-link
+      class="nav-link"
+      active-class="active"
       :to="{ name: 'config.edit' }"
       tag="a"
     >

@@ -47,6 +47,7 @@ import Man_Container from '../../components/admin/maintenance/Container.vue';
 import Man_Menu from '../../components/admin/maintenance/Menu.vue';
 import Man_General from '../../components/admin/maintenance/General.vue';
 import Man_ConfigFileEdit from '../../components/admin/maintenance/EditConfigFile.vue';
+import Man_ImportData from '../../components/admin/maintenance/ImportData.vue';
 
 export default [
   { path: '/', redirect: '/dashboard' },
@@ -275,6 +276,11 @@ export default [
         path: 'general',
         components: { menu: Man_Menu, content: Man_General },
         name: 'maintenance.general',
+      },
+      {
+        path: 'importData',
+        components: { menu: Man_Menu, content: Man_ImportData },
+        name: 'maintenance.importData',
       },
       {
         path: 'config/edit',

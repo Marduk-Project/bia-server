@@ -66,17 +66,6 @@
           >
         </div>
         <div class="form-group col-lg-4">
-          <label>Mesorregião</label>
-          <app-state-region-select
-            :disabled="!entity.state"
-            :extraparams="{
-              stateId: entity.state ? entity.state.id : null,
-              type: 'meso',
-            }"
-            v-model="entity.mesoRegion"
-          ></app-state-region-select>
-        </div>
-        <div class="form-group col-lg-4">
           <label>Microrregião</label>
           <app-state-region-select
             :disabled="!entity.state"
@@ -88,14 +77,47 @@
           ></app-state-region-select>
         </div>
         <div class="form-group col-lg-4">
-          <label>Região DRE</label>
+          <label>Mesorregião</label>
           <app-state-region-select
             :disabled="!entity.state"
             :extraparams="{
               stateId: entity.state ? entity.state.id : null,
-              type: 'dre',
+              type: 'meso',
             }"
-            v-model="entity.dreRegion"
+            v-model="entity.mesoRegion"
+          ></app-state-region-select>
+        </div>
+        <div class="form-group col-lg-4">
+          <label>Macrorregião</label>
+          <app-state-region-select
+            :disabled="!entity.state"
+            :extraparams="{
+              stateId: entity.state ? entity.state.id : null,
+              type: 'macro',
+            }"
+            v-model="entity.macroRegion"
+          ></app-state-region-select>
+        </div>
+        <div class="form-group col-lg-4">
+          <label>Coordenação de Saúde</label>
+          <app-state-region-select
+            :disabled="!entity.state"
+            :extraparams="{
+              stateId: entity.state ? entity.state.id : null,
+              type: 'healthCoordenation',
+            }"
+            v-model="entity.healthCoordenationRegion"
+          ></app-state-region-select>
+        </div>
+        <div class="form-group col-lg-4">
+          <label>Região de Saúde</label>
+          <app-state-region-select
+            :disabled="!entity.state"
+            :extraparams="{
+              stateId: entity.state ? entity.state.id : null,
+              type: 'healthMicro',
+            }"
+            v-model="entity.healthMicroRegion"
           ></app-state-region-select>
         </div>
       </div>
@@ -135,7 +157,9 @@
           state: null,
           mesoRegion: null,
           microRegion: null,
-          dreRegion: null,
+          macroRegion: null,
+          healthCoordenationRegion: null,
+          healthMicroRegion: null,
         },
       };
     },
@@ -154,7 +178,15 @@
           microRegionId: this.entity.microRegion
             ? this.entity.microRegion.id
             : null,
-          dreRegionId: this.entity.dreRegion ? this.entity.dreRegion.id : null,
+          macroRegionId: this.entity.macroRegion
+            ? this.entity.macroRegion.id
+            : null,
+          healthCoordenationRegionId: this.entity.healthCoordenationRegion
+            ? this.entity.healthCoordenationRegion.id
+            : null,
+          healthMicroRegionId: this.entity.healthMicroRegion
+            ? this.entity.healthMicroRegion.id
+            : null,
         };
       },
       crud_validate() {
@@ -170,7 +202,15 @@
         if (!newValue) {
           this.entity.mesoRegion = null;
           this.entity.microRegion = null;
-          this.entity.dreRegion = null;
+          this.entity.macroRegion = null;
+          this.entity.healthCoordenationRegion = null;
+          this.entity.healthMicroRegion = null;
+        } else if (oldValue && newValue.id != (oldValue ? oldValue.id : null)) {
+          this.entity.mesoRegion = null;
+          this.entity.microRegion = null;
+          this.entity.macroRegion = null;
+          this.entity.healthCoordenationRegion = null;
+          this.entity.healthMicroRegion = null;
         }
       },
     },

@@ -421,15 +421,11 @@
           this.notify_warning('Preencha um CEP válido.');
           return;
         }
-
         const zipCodeOnlyNumbers = this.entity.addressZipcode.replace('-', '');
-
         this.api_loadingShow();
-
         const externalAxios = _axios.create();
         externalAxios.defaults.headers.common = {};
         externalAxios.defaults.headers.common.accept = 'application/json';
-
         this.searchingZipCode = externalAxios
           .get(`//viacep.com.br/ws/${zipCodeOnlyNumbers}/json/`)
           .then(
@@ -458,10 +454,10 @@
             return 'CPF';
 
           case 2:
-          case 4:
+          case 3:
             return 'CNPJ';
 
-          case 3:
+          case 4:
           case 5:
             return 'OTHER';
         }
@@ -473,10 +469,10 @@
             return 'CPF';
 
           case 2:
-          case 4:
+          case 3:
             return 'CNPJ';
 
-          case 3:
+          case 4:
           case 5:
             return 'Outro identificador';
         }
@@ -488,10 +484,10 @@
             return 'cpf-num|required';
 
           case 2:
-          case 4:
+          case 3:
             return 'cnpj-num|required';
 
-          case 3:
+          case 4:
           case 5:
             return '';
         }

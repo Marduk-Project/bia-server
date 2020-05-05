@@ -15,25 +15,11 @@
           params: {
             parentEntityId: entity.id,
             parentEntity: entity,
-            type: 'meso',
-          },
-        }"
-      >
-        <i class="fa fa-map-signs"></i> Mesorregiões
-      </router-link>
-      <router-link
-        class="btn btn-outline-secondary ml-1"
-        tag="button"
-        :to="{
-          name: 'gl_state_region.index',
-          params: {
-            parentEntityId: entity.id,
-            parentEntity: entity,
             type: 'micro',
           },
         }"
       >
-        <i class="fa fa-map-signs"></i> Microrregiões
+        <i class="fas fa-map-signs"></i> Microrregiões
       </router-link>
       <router-link
         class="btn btn-outline-secondary ml-1"
@@ -43,11 +29,53 @@
           params: {
             parentEntityId: entity.id,
             parentEntity: entity,
-            type: 'dre',
+            type: 'meso',
           },
         }"
       >
-        <i class="fa fa-map-signs"></i> Regiões DRE
+        <i class="fas fa-map-signs"></i> Mesorregiões
+      </router-link>
+      <router-link
+        class="btn btn-outline-secondary ml-1"
+        tag="button"
+        :to="{
+          name: 'gl_state_region.index',
+          params: {
+            parentEntityId: entity.id,
+            parentEntity: entity,
+            type: 'macro',
+          },
+        }"
+      >
+        <i class="fas fa-map-signs"></i> Macrorregiões
+      </router-link>
+      <router-link
+        class="btn btn-outline-secondary ml-1"
+        tag="button"
+        :to="{
+          name: 'gl_state_region.index',
+          params: {
+            parentEntityId: entity.id,
+            parentEntity: entity,
+            type: 'healthCoordenation',
+          },
+        }"
+      >
+        <i class="fas fa-map-signs"></i> Coordenações de Saúde
+      </router-link>
+      <router-link
+        class="btn btn-outline-secondary ml-1"
+        tag="button"
+        :to="{
+          name: 'gl_state_region.index',
+          params: {
+            parentEntityId: entity.id,
+            parentEntity: entity,
+            type: 'healthMicro',
+          },
+        }"
+      >
+        <i class="fas fa-map-signs"></i> Regiões de Saúde
       </router-link>
       <br />
       <br />

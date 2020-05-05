@@ -13,4 +13,22 @@ router.post(
   controller.postConfig
 );
 
+router.post(
+  '/ibgeCityImport',
+  authMid.userIsAdminMiddleware,
+  controller.postIbgeImport
+);
+
+router.post(
+  '/cityRegionImport',
+  authMid.userIsAdminMiddleware,
+  controller.postCityRegionImport
+);
+
+router.post(
+  '/productImport',
+  authMid.userIsAdminMiddleware,
+  controller.postProductImport
+);
+
 module.exports = router;
