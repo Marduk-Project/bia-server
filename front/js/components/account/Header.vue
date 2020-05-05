@@ -26,8 +26,11 @@
             >Ir</a
           >
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="/admin">
+            <a class="dropdown-item" href="/account">
               <i class="fas fa-tachometer-alt"></i> Dashboard
+            </a>
+            <a class="dropdown-item" href="/admin" v-show="isUserStaff">
+              <i class="fas fa-exchange-alt"></i> Painel de Administrativo
             </a>
           </div>
         </li>
@@ -47,10 +50,9 @@
               class="dropdown-item"
               tag="a"
               active-class="active"
-              :to="{ name: 'gl_user.index' }"
-              v-if="isUserStaff"
+              :to="{ name: 'or_order.index' }"
             >
-              <i class="fas fa-user"></i> Usuários
+              <i class="fas fa-notes-medical"></i> Solicitações &amp; Entregas
             </router-link>
           </div>
         </li>
@@ -83,7 +85,7 @@
                 class="dropdown-item"
                 active-class="active"
               >
-                <a> <i class="fas fa-user-circle"></i> Meus dados </a>
+                <i class="fas fa-user-circle"></i> Meus dados
               </router-link>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="/logout">

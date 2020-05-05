@@ -11,6 +11,8 @@ const {
 const {
   model: OR_OrderModel,
   jsonSerializer: or_orderJsonSerializer,
+  statusToString,
+  typeToString,
 } = require('./or_order');
 
 // model
@@ -32,6 +34,12 @@ MyModel.init(
       type: Sequelize.DATE,
     },
     oldStatus: {
+      type: Sequelize.INTEGER,
+      validate: {
+        notEmpty: true,
+      },
+    },
+    oldType: {
       type: Sequelize.INTEGER,
       validate: {
         notEmpty: true,

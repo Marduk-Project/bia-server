@@ -107,24 +107,37 @@ exports.getEdit = async (req, res, next) => {
 const saveValidate = [
   param('id').optional().isInt(),
   body('type').isInt(),
-  body('glUserId')
-    .isInt()
-    .custom(customFindByPkRelationValidation(GL_UserModel)),
   body('glPersonOriginId')
     .isInt()
-    .custom(customFindByPkRelationValidation(GL_PersonModel)),
+    .custom(
+      customFindByPkRelationValidation(GL_PersonModel, 'entity_personOrigin')
+    ),
   body('glPersonContactOriginId')
     .isInt()
-    .custom(customFindByPkRelationValidation(GL_PersonContactModel)),
+    .custom(
+      customFindByPkRelationValidation(
+        GL_PersonContactModel,
+        'entity_personOriginContact'
+      )
+    ),
   body('glPersonDestinationId')
     .isInt()
-    .custom(customFindByPkRelationValidation(GL_PersonModel)),
+    .custom(
+      customFindByPkRelationValidation(
+        GL_PersonModel,
+        'entity_personDestination'
+      )
+    ),
   body('glPersonContactDestinationId')
     .isInt()
-    .custom(customFindByPkRelationValidation(GL_PersonContactModel)),
+    .custom(
+      customFindByPkRelationValidation(
+        GL_PersonContactModel,
+        'entity_personContactDestination'
+      )
+    ),
   body('notes').optional().trim(),
   body('internalNotes').optional().trim(),
-  body('needsReview').optional().isBoolean(),
   body('status').optional().isInt(),
   // validationEndFunction, // dont need here, is attached below
 ];
@@ -147,10 +160,10 @@ const saveEntityFunc = async (req, res, next, id) => {
     entity.glPersonContactDestinationId = body.glPersonContactDestinationId;
     entity.notes = body.notes;
     entity.internalNotes = body.internalNotes;
-    entity.needsReview = body.needsReview;
+    entity.needsReview = !id && body.notes;
     entity.status = body.status;
     // save
-    await entity.save();
+    // await entity.save();
     // send result
     const result = {
       entity: {

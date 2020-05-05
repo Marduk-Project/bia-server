@@ -81,8 +81,7 @@ app.use('/account', require('./routes/account'));
 
 // only dev
 if (nconf.get('NODE_ENV') == 'development') {
-  const testRouter = require('./routes/test');
-  app.use('/test', testRouter);
+  app.use('/dev', require('./routes/zz_dev'));
 }
 
 /* =========================== */

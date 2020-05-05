@@ -1,25 +1,29 @@
 <template>
-  <select
-    :data-uid="_uid"
-    :id="elid"
-    :disabled="readonly || disabled"
-    :name="name"
-    :required="required"
-    :class="className"
-  >
-    <option
-      v-if="valueIsObject && value && !multiple"
-      :value="value.id"
-      selected
-      >{{ value.text }}</option
+  <div style="width: 100%;">
+    <select
+      style="width: 100%;"
+      :data-uid="_uid"
+      :id="elid"
+      :disabled="readonly || disabled"
+      :name="name"
+      :required="required"
     >
-    <option
-      v-if="!valueIsObject && value && !multiple"
-      :value="value"
-      selected
-      >{{ value }}</option
-    >
-  </select>
+      <option
+        v-if="valueIsObject && value && !multiple"
+        :value="value.id"
+        selected
+      >
+        {{ value.text }}
+      </option>
+      <option
+        v-if="!valueIsObject && value && !multiple"
+        :value="value"
+        selected
+      >
+        {{ value }}
+      </option>
+    </select>
+  </div>
 </template>
 
 <script>
@@ -42,7 +46,6 @@
       'templateResult',
       'templateSelection',
       'mapResult',
-      'className',
       'multiple',
     ],
     data() {
@@ -56,7 +59,10 @@
         this.s2_select(value);
       },
       options: function (options) {
-        this.getElement().empty().select2({ data: options });
+        this.getElement()
+          .empty()
+          .select2({ data: this.buildOptions(options) });
+        this.s2_select(this.value);
       },
     },
     computed: {
@@ -100,6 +106,16 @@
       },
       getElement() {
         return $('select[data-uid="' + this._uid + '"]');
+      },
+      buildOptions(options) {
+        if (_.isArray(options)) {
+          if (_.isFunction(this.mapResult)) {
+            return options.map(this.mapResult);
+          } else {
+            return options;
+          }
+        }
+        return options;
       },
       s2_mount() {
         if (this.s2ok) {
@@ -169,7 +185,7 @@
             },
           };
         } else {
-          options.data = this.options;
+          options.data = this.buildOptions(this.options);
         }
         // tpls
         if (_.isFunction(this.templateResult)) {
@@ -243,7 +259,11 @@
                 .trigger('change');
             }
           } else {
-            this.getElement().val(value).trigger('change');
+            if (_.isObject(value)) {
+              this.getElement().val(value.id).trigger('change');
+            } else {
+              this.getElement().val(value).trigger('change');
+            }
           }
         } else {
           if (this.multiple) {

@@ -1,5 +1,6 @@
 const { notifyMixin } = require('./notify-mixin');
 const _ = require('lodash');
+const axios = require('./axios-auth');
 
 /**
  * Parse error if exists and return its string object.
@@ -111,6 +112,17 @@ export const apiMixin = {
     },
 
     /**
+     * Returns a function that pares and check axios data
+     * @param {boolean} ignoreDone does not call notify_done if set
+     */
+    async api_thenDoneExec(ignoreDone = false) {
+      this.api_loadingHide();
+      if (!ignoreDone) {
+        this.notify_done();
+      }
+    },
+
+    /**
      * Returns a function that catches the api errors
      * @param {function} callback
      * @returns {function}
@@ -125,6 +137,14 @@ export const apiMixin = {
     },
 
     /**
+     * Function that catches the api errors
+     * @param {Error} error
+     * */
+    async api_catchExec(error) {
+      this.api_parseError(error, false);
+    },
+
+    /**
      * Parse error message, decrementing loading if applicable
      * @param {object|array|string} error error object or message string
      * @param {boolean} ignoreLoading if should ignore loading
@@ -136,6 +156,7 @@ export const apiMixin = {
       }
       var message = api_parseErrorMessage(error);
       this.notify_danger(message);
+      return message;
     },
 
     /**

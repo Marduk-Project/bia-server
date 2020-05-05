@@ -44,7 +44,9 @@ module.exports = {
           },
           oldStatus: {
             type: Sequelize.INTEGER,
-            allowNull: false,
+          },
+          oldType: {
+            type: Sequelize.INTEGER,
           },
           changes: {
             type: Sequelize.TEXT('small'),

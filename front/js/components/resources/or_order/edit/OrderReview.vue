@@ -1,102 +1,74 @@
 <template>
   <div>
-    <b-table
-      :items="entityDetails"
-      :fields="entityTableFields"
-      stacked
-      striped
-    />
-
-    <b-table
-      :items="selectedProductsList"
-      :fields="productTableFields"
-      hover
-      striped
-    >
-      <template v-slot:cell(quantity)="row">
-        <label :for="`input-product-quantity-${row.item.id}`">
-          {{ row.item.quantity }} - {{ row.item.unit }}
-        </label>
-      </template>
-    </b-table>
+    <table class="table table-hover table-striped">
+      <tbody>
+        <tr>
+          <th>Entidade de destino</th>
+          <td
+            ><app-person-item
+              :entity="entity.glPersonDestination"
+            ></app-person-item>
+          </td>
+        </tr>
+        <tr>
+          <th>Contato de destino</th>
+          <td
+            ><app-person-contact-item
+              :entity="entity.glPersonContactDestination"
+            ></app-person-contact-item>
+          </td>
+        </tr>
+        <tr
+          v-if="
+            entity.glPersonOrigin &&
+            entity.glPersonDestination &&
+            entity.glPersonOrigin.id != entity.glPersonDestination.id
+          "
+        >
+          <th>Entidade solicitante ou gestora da demanda</th>
+          <td
+            ><app-person-item :entity="entity.glPersonOrigin"></app-person-item>
+          </td>
+        </tr>
+        <tr v-if="entity.glPersonContactOrigin">
+          <th>Responsável pela solicitação</th>
+          <td
+            ><app-person-contact-item
+              :entity="entity.glPersonContactOrigin"
+            ></app-person-contact-item>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
 <script>
   import { mapState } from 'vuex';
+  import PersonItem from '../../gl_person/PersonItem.vue';
+  import PersonContactItem from '../../gl_person_contact/PersonContactItem.vue';
 
   export default {
+    components: {
+      'app-person-item': PersonItem,
+      'app-person-contact-item': PersonContactItem,
+    },
     props: {
-      entities: {
+      entity: {
         type: Object,
         default: () => ({
-          glPersonOrigin: {},
-          glPersonContactOrigin: {},
-          glPersonDestination: {},
-          glPersonContactDestination: {},
+          glPersonOrigin: null,
+          glPersonContactOrigin: null,
+          glPersonDestination: null,
+          glPersonContactDestination: null,
+          items: [],
+          notes: '',
         }),
-      },
-      products: {
-        type: Array,
-        default: () => [],
-      },
-      notes: {
-        type: String,
-        default: '',
       },
     },
     data() {
-      return {
-        // Table Settings
-        entityTableFields: [
-          { key: 'glPersonOrigin', label: 'Entidade' },
-          {
-            key: 'glPersonContactOrigin',
-            label: 'Pessoa de contato na Entidade',
-          },
-          { key: 'glPersonDestination', label: 'Entidade de destino' },
-          {
-            key: 'glPersonContactDestination',
-            label: 'Pessoa de contato na entidade destino',
-          },
-          {
-            key: 'notes',
-            label: 'Comentários',
-          },
-        ],
-        productTableFields: [
-          { key: 'name', label: 'Item' },
-          { key: 'quantity', label: 'Quantidade' },
-          { key: 'notes', label: 'Comentários' },
-        ],
-      };
+      return {};
     },
-    computed: {
-      ...mapState('glProduct', { productList: 'list' }),
-      entityDetails() {
-        return [
-          {
-            glPersonOrigin: this.entities.glPersonOrigin.name,
-            glPersonContactOrigin: this.entities.glPersonContactOrigin.name,
-            glPersonDestination: this.entities.glPersonDestination.name,
-            glPersonContactDestination: this.entities.glPersonContactDestination
-              .name,
-            notes: this.notes,
-          },
-        ];
-      },
-      selectedProductsList() {
-        return this.products.map(product => {
-          const productData = this.productList.find(
-            x => x.id === product.glProductId
-          );
-          return {
-            ...product,
-            name: productData.name,
-            unit: productData.unit.name,
-          };
-        });
-      },
-    },
+    computed: {},
   };
 </script>

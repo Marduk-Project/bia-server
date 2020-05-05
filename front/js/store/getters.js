@@ -1,3 +1,5 @@
+import constants from './constants';
+
 export const getUser = state => {
   return state.user;
 };
@@ -52,4 +54,18 @@ export const isUserAccount = state => {
 
 export const isLoading = state => {
   return state.loading > 0;
+};
+
+// === context
+
+export const isContextAdmin = state => {
+  return state.context == constants.CONTEXT_ADMIN;
+};
+
+export const isContextAccount = state => {
+  return state.context == constants.CONTEXT_ACCOUNT;
+};
+
+export const isContextVisitor = state => {
+  return state.context == constants.CONTEXT_VISITOR;
 };

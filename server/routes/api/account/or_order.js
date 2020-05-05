@@ -1,45 +1,40 @@
 const express = require('express');
 const router = express.Router({ mergeParams: true });
 
-const controller = require('../../../controllers/admin/or_order');
+const controller = require('../../../controllers/account/or_order');
 const authMid = require('../../../middlewares/auth-mid');
-
-// TODO put correct roles
-// userIsStaffMiddleware
-// userIsAccountMiddleware
-// userIsLoggedMiddleware
 
 router.get(
   '/',
-  authMid.userIsAdminMiddleware,
+  authMid.userIsLoggedMiddleware,
   controller.getIndexValidate,
   controller.getIndex
 );
 
 router.get(
   '/:id/edit',
-  authMid.userIsAdminMiddleware,
+  authMid.userIsLoggedMiddleware,
   controller.getEditValidate,
   controller.getEdit
 );
 
 router.put(
   '/:id',
-  authMid.userIsAdminMiddleware,
+  authMid.userIsLoggedMiddleware,
   controller.putUpdateValidate,
   controller.putUpdate
 );
 
 router.post(
   '/',
-  authMid.userIsAdminMiddleware,
+  authMid.userIsLoggedMiddleware,
   controller.postCreateValidate,
   controller.postCreate
 );
 
 router.delete(
   '/:id',
-  authMid.userIsAdminMiddleware,
+  authMid.userIsStaffMiddleware,
   controller.deleteValidate,
   controller.delete
 );

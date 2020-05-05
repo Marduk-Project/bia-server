@@ -29,6 +29,9 @@
             <a class="dropdown-item" href="/admin">
               <i class="fas fa-tachometer-alt"></i> Dashboard
             </a>
+            <a class="dropdown-item" href="/account">
+              <i class="fas fa-exchange-alt"></i> Painel de Conta
+            </a>
           </div>
         </li>
         <li class="nav-item dropdown">
@@ -68,7 +71,7 @@
               :to="{ name: 'or_order.index' }"
               v-if="isUserStaff"
             >
-              <i class="fas fa-notes-medical"></i> Demandas de EPIs
+              <i class="fas fa-notes-medical"></i> Solicitações &amp; Entregas
             </router-link>
           </div>
         </li>

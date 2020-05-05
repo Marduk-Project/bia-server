@@ -70,10 +70,10 @@
     },
     computed: {
       list_title() {
-        return 'Demandas de EPIs';
+        return 'Solicitações & Entregas';
       },
       list_url_base() {
-        return '/api/admin/or_order';
+        return '/api/account/or_order';
       },
       list_route_base() {
         return 'or_order';

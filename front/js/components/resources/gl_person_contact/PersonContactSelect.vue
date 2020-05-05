@@ -3,7 +3,7 @@
     :elid="elid"
     :readonly="readonly"
     :disabled="disabled"
-    :name="name ? name : 'user'"
+    :name="name ? name : 'personContact'"
     :value="value"
     :required="required"
     :options="options"
@@ -12,7 +12,7 @@
     :mapResult="mapResult"
     :multiple="multiple"
     :id="id"
-    url="/api/admin/gl_person_contact"
+    :url="options ? null : `/api/${appContext}/gl_person_contact`"
     @onOpen="$emit('onOpen')"
     @onClose="$emit('onClose')"
     @onSelect="$emit('onSelect', $event)"
@@ -23,8 +23,8 @@
 </template>
 
 <script>
-  // Filter by parent
-
+  import { mapState } from 'vuex';
+  import _ from 'lodash';
   import vSelect from '@libComponents/form/Select2.vue';
 
   export default {
@@ -35,8 +35,8 @@
       url: { type: String },
       value: { type: Object },
       placeholder: { type: String },
-      options: { type: Array, default: () => [] },
-      extraparams: { type: Array, default: () => [] },
+      options: { type: Array },
+      extraparams: { type: Object },
       readonly: { type: Boolean },
       disabled: { type: Boolean },
       required: { type: Boolean },
@@ -44,6 +44,23 @@
     },
     components: {
       'v-select': vSelect,
+    },
+    computed: {
+      ...mapState({
+        stateContactList: 'personContactList',
+        appContext: 'context',
+      }),
+      personContactList() {
+        if (!this.stateContactList) {
+          return [];
+        }
+        if (this.extraparams.personId) {
+          return this.stateContactList.filter(
+            item => item.person.id == this.extraparams.personId
+          );
+        }
+        return this.stateContactList;
+      },
     },
     methods: {
       mapResult(value, index) {

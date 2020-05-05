@@ -56,6 +56,12 @@ module.exports = {
           remainingQuantity: {
             type: Sequelize.DECIMAL(16, 3),
           },
+          reservedQuantity: {
+            type: Sequelize.DECIMAL(16, 3),
+          },
+          transportQuantity: {
+            type: Sequelize.DECIMAL(16, 3),
+          },
         },
         {
           transaction: transaction,

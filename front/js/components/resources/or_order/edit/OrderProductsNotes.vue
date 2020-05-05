@@ -3,8 +3,11 @@
     <p>
       O item que você procura não está na lista?
     </p>
-    <b-button @click="() => (isModalVisible = true)">
-      Cadastrar novo item
+    <b-button
+      variant="outline-secondary"
+      @click="() => (isModalVisible = true)"
+    >
+      Adicionar observações
     </b-button>
 
     <b-modal

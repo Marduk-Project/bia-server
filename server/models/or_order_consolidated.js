@@ -38,6 +38,12 @@ MyModel.init(
     remainingQuantity: {
       type: Sequelize.DECIMAL(16, 3),
     },
+    reserveQuantity: {
+      type: Sequelize.DECIMAL(16, 3),
+    },
+    transportQuantity: {
+      type: Sequelize.DECIMAL(16, 3),
+    },
   },
   {
     // options

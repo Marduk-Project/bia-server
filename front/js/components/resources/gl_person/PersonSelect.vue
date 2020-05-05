@@ -3,7 +3,7 @@
     :elid="elid"
     :readonly="readonly"
     :disabled="disabled"
-    :name="name ? name : 'user'"
+    :name="name ? name : 'person'"
     :value="value"
     :required="required"
     :options="options"
@@ -12,7 +12,7 @@
     :mapResult="mapResult"
     :multiple="multiple"
     :id="id"
-    url="/api/admin/gl_person"
+    :url="options ? null : `/api/${appContext}/gl_person`"
     @onOpen="$emit('onOpen')"
     @onClose="$emit('onClose')"
     @onSelect="$emit('onSelect', $event)"
@@ -23,25 +23,31 @@
 </template>
 
 <script>
+  import { mapState } from 'vuex';
   import vSelect from '@libComponents/form/Select2.vue';
 
   export default {
-    props: [
-      'id',
-      'elid',
-      'readonly',
-      'disabled',
-      'name',
-      'required',
-      'url',
-      'value',
-      'options',
-      'extraparams',
-      'placeholder',
-      'multiple',
-    ],
+    props: {
+      id: { type: String },
+      elid: { type: String },
+      name: { type: String },
+      url: { type: String },
+      value: { type: Object },
+      placeholder: { type: String },
+      options: { type: Array },
+      extraparams: { type: Object },
+      readonly: { type: Boolean },
+      disabled: { type: Boolean },
+      required: { type: Boolean },
+      multiple: { type: Boolean },
+    },
     components: {
       'v-select': vSelect,
+    },
+    computed: {
+      ...mapState({
+        appContext: 'context',
+      }),
     },
     methods: {
       mapResult(value, index) {

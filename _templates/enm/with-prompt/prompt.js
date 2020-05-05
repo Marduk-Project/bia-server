@@ -1,4 +1,5 @@
 const moment = require("moment");
+const chalk = require("chalk");
 
 module.exports = {
   prompt: ({ inquirer }) => {
@@ -6,7 +7,7 @@ module.exports = {
       {
         type: "input",
         name: "name",
-        message: "Name of the model to inject? (eg. gl_person)",
+        message: `Name of the model to inject? (eg. gl_person) Insert the "${chalk.green("// inject")}" string on the model file.`,
         validate: (value) => {
           return value.length > 0;
         },

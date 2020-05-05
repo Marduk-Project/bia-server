@@ -38,8 +38,8 @@ import GL_ProductEdit from '@resources/gl_product/ProductEdit.vue';
 import GL_StateRegionList from '@resources/gl_state_region/StateRegionList.vue';
 import GL_StateRegionEdit from '@resources/gl_state_region/StateRegionEdit.vue';
 // or_order
-import OR_OrderList from '@resources/or_order/RequestList.vue';
-import OR_OrderEdit from '@resources/or_order/RequestEdit.vue';
+import OR_OrderList from '@resources/or_order/OrderList.vue';
+import OR_OrderEdit from '@resources/or_order/OrderEdit.vue';
 
 // generator-inject-new-file-here
 // maintenance
@@ -248,11 +248,16 @@ export default [
     components: { default: GL_StateRegionEdit, header: Header, footer: Footer },
     name: 'gl_state_region.create',
   },
-  // or_orders
+  // or_order
   {
     path: '/or_order',
     components: { default: OR_OrderList, header: Header, footer: Footer },
     name: 'or_order.index',
+  },
+  {
+    path: '/or_order/:id/edit',
+    components: { default: OR_OrderEdit, header: Header, footer: Footer },
+    name: 'or_order.edit',
   },
   {
     path: '/or_order/create',
