@@ -25,7 +25,7 @@
             entity.glPersonOrigin.id != entity.glPersonDestination.id
           "
         >
-          <th>Entidade solicitante, doadora ou gestora da demanda</th>
+          <th>Entidade responsável pela {{ entity.typeDesc }}</th>
           <td
             ><app-person-item :entity="entity.glPersonOrigin"></app-person-item>
           </td>

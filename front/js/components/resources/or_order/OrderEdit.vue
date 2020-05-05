@@ -102,6 +102,8 @@
       return {
         entity: {
           id: null,
+          type: null,
+          status: null,
           glPersonOrigin: null,
           glPersonContactOrigin: null,
           glPersonDestination: null,

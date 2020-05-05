@@ -1,9 +1,24 @@
 <template>
   <form @submit.prevent novalidate>
     <div class="form-row">
+      <div class="form-group col-lg-12">
+        <label for="input-type" :show-in="isUserStaff ? [1, 2, 3] : null"
+          >Tipo do formulário</label
+        >
+        <app-order-type-select
+          v-model="value.type"
+          name="input-type"
+          v-validate="'required'"
+          :class="{
+            'is-invalid': errors.has('input-type'),
+          }"
+        ></app-order-type-select>
+        <div class="invalid-feedback">Campo obrigatório.</div>
+      </div>
       <div class="form-group col-lg-6">
         <label for="input-glPersonDestination">
-          Entidade de destino <app-required-span></app-required-span>
+          Entidade de destino da <strong>{{ typeDesc }}</strong>
+          <app-required-span></app-required-span>
         </label>
         <app-person-select
           id="input-glPersonDestination"
@@ -17,7 +32,10 @@
           }"
         />
         <div class="invalid-feedback">Campo obrigatório.</div>
-        <small>Para qual entidade é destinada a solicitação ou entrega.</small>
+        <small
+          >Para qual entidade é destinada a <strong>{{ typeDesc }}</strong
+          >.</small
+        >
       </div>
       <div class="form-group col-lg-6">
         <label for="input-glPersonContactDestination">
@@ -38,11 +56,14 @@
           }"
         />
         <div class="invalid-feedback">Campo obrigatório.</div>
-        <small>Contato responsável por receber ou enviar os itens.</small>
+        <small
+          >Contato responsável por receber a <strong>{{ typeDesc }}</strong
+          >.</small
+        >
       </div>
       <div class="form-group col-lg-6">
         <label for="input-glPersonOrigin">
-          Entidade solicitante, doadora ou gestora da demanda
+          Entidade responsável pela <strong>{{ typeDesc }}</strong>
           <app-required-span></app-required-span>
         </label>
         <app-person-select
@@ -58,13 +79,14 @@
         />
         <div class="invalid-feedback">Campo obrigatório.</div>
         <small
-          >Entidade responsavel por realizar/gerir as solicitações e
-          doações.</small
+          >Entidade gestora da <strong>{{ typeDesc }}</strong> e responsável
+          pela informação do formulário.</small
         >
       </div>
       <div class="form-group col-lg-6">
         <label for="input-glPersonContactOrigin">
-          Responsável pelas informações<app-required-span></app-required-span>
+          Contato responsável pelas informações<app-required-span
+          ></app-required-span>
         </label>
         <app-person-contact-select
           id="input-glPersonContactOrigin"
@@ -91,12 +113,27 @@
         <div class="invalid-feedback">Campo obrigatório.</div>
       </div>
     </div>
+    <div v-if="isUserStaff">
+      <div class="form-row"> </div>
+    </div>
+    <div class="form-row" v-if="entity.id">
+      <div class="form-group col-lg-3">
+        <label for="input-status">
+          Status
+        </label>
+        <app-order-status-select
+          v-model="entity.status"
+        ></app-order-status-select>
+      </div>
+    </div>
   </form>
 </template>
 
 <script>
   import _ from 'lodash';
   import { mapGetters, mapState } from 'vuex';
+  import OrderTypeSelect from '../OrderTypeSelect.vue';
+  import OrderStatusSelect from '../OrderStatusSelect.vue';
   import PersonSelect from '@resources/gl_person/PersonSelect.vue';
   import PersonContactSelect from '@resources/gl_person_contact/PersonContactSelect.vue';
 
@@ -104,6 +141,8 @@
     components: {
       'app-person-select': PersonSelect,
       'app-person-contact-select': PersonContactSelect,
+      'app-order-type-select': OrderTypeSelect,
+      'app-order-status-select': OrderStatusSelect,
     },
     computed: {
       ...mapGetters(['isUserStaff', 'isContextAccount', 'isContextAdmin']),
@@ -134,10 +173,25 @@
           item => item.person.id == this.value.glPersonOrigin.id
         );
       },
+      typeDesc() {
+        switch (parseInt(this.value.type)) {
+          case 1:
+            return 'Solicitação';
+
+          case 2:
+            return 'Entrega';
+
+          case 3:
+            return 'Entrega futura';
+        }
+        return '[selecionar tipo]';
+      },
     },
     data() {
       return {
         value: {
+          type: 0,
+          typeDesc: '',
           glPersonOrigin: null,
           glPersonContactOrigin: null,
           glPersonDestination: null,
@@ -158,6 +212,7 @@
     },
     methods: {
       updateValue(newValue) {
+        this.value.type = newValue.type;
         this.value.glPersonOrigin = newValue.glPersonOrigin;
         this.value.glPersonContactOrigin = newValue.glPersonContactOrigin;
         this.value.glPersonDestination = newValue.glPersonDestination;
@@ -210,6 +265,7 @@
             }
           }
         }
+        this.value.typeDesc = this.typeDesc;
         this.$emit('input', this.value);
       },
       validate() {
