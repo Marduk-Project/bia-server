@@ -97,7 +97,7 @@
           <div class="invalid-feedback">Campo obrigatório.</div>
         </div>
         <div class="form-group col-lg-3">
-          <label>Código no IBGE</label>
+          <label>Código IBGE</label>
           <input
             name="code"
             placeholder="sigla"

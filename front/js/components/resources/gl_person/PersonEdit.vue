@@ -459,6 +459,7 @@
 
           case 4:
           case 5:
+          case 6:
             return 'OTHER';
         }
         return 'Desconhecido';
@@ -474,6 +475,7 @@
 
           case 4:
           case 5:
+          case 6:
             return 'Outro identificador';
         }
         return 'Desconhecido';
@@ -489,20 +491,10 @@
 
           case 4:
           case 5:
+          case 6:
             return '';
         }
         return '';
-      },
-      legalIdentifierIsRequired() {
-        switch (parseInt(this.entity.legalType)) {
-          case 1:
-          case 2:
-            return true;
-
-          case 3:
-            return false;
-        }
-        return false;
       },
       crud_title() {
         var ok = this.entity != null;
