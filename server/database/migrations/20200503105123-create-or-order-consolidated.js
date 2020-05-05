@@ -68,10 +68,14 @@ module.exports = {
         }
       );
       // indexes
-      // await queryInterface.addIndex(tableName, ['name'], {
-      //  name: `${tableName}_name_idx`,
-      //  transaction: transaction,
-      // });
+      await queryInterface.addIndex(
+        tableName,
+        ['glPersonDestinationId', 'glProductId'],
+        {
+          name: `${tableName}_glPersonDestinationId_glProductId_idx`,
+          transaction: transaction,
+        }
+      );
       await transaction.commit();
     } catch (err) {
       await transaction.rollback();

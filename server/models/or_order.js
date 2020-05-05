@@ -130,10 +130,10 @@ MyModel.init(
       },
     },
     notes: {
-      type: Sequelize.STRING,
+      type: Sequelize.TEXT('medium'),
     },
     internalNotes: {
-      type: Sequelize.STRING,
+      type: Sequelize.TEXT('medium'),
     },
     needsReview: {
       type: Sequelize.BOOLEAN,

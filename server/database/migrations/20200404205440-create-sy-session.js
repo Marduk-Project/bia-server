@@ -10,10 +10,10 @@ module.exports = {
         tableName,
         {
           sid: {
-            type: Sequelize.STRING,
+            type: Sequelize.STRING(90),
             primaryKey: true,
           },
-          userId: Sequelize.STRING,
+          userId: Sequelize.STRING(90),
           expires: Sequelize.DATE,
           data: Sequelize.STRING(50000),
           createdAt: {

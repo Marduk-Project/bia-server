@@ -28,7 +28,7 @@ module.exports = {
             allowNull: false,
           },
           description: {
-            type: Sequelize.STRING(5000),
+            type: Sequelize.TEXT('medium'),
           },
           eanCode: {
             type: Sequelize.STRING(60),
@@ -39,15 +39,15 @@ module.exports = {
           requestFormActive: {
             type: Sequelize.BOOLEAN,
           },
-          unityId: {
+          unitId: {
             type: Sequelize.INTEGER,
             allowNull: false,
             references: {
-              model: 'gl_unity',
+              model: 'gl_unit',
               key: 'id',
             },
             onUpdate: 'CASCADE',
-            onDelete: 'SET NULL',
+            onDelete: 'RESTRICT',
           },
         },
         {

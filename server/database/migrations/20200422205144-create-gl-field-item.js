@@ -57,12 +57,6 @@ module.exports = {
         name: `${tableName}_name_idx`,
         transaction: transaction,
       });
-      // constraints
-      // await queryInterface.addConstraint(tableName, ['email'], {
-      //  type: 'unique',
-      //  name: `${tableName}_email_ct`,
-      //  transaction: transaction,
-      // });
       await transaction.commit();
     } catch (err) {
       await transaction.rollback();

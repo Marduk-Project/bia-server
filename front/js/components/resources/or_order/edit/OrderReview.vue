@@ -3,6 +3,10 @@
     <table class="table table-hover table-striped">
       <tbody>
         <tr>
+          <th>Tipo de formulário</th>
+          <td>{{ entity.typeDesc }}</td>
+        </tr>
+        <tr>
           <th>Entidade de destino</th>
           <td
             ><app-person-item

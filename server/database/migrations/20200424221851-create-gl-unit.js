@@ -1,6 +1,6 @@
 'use strict';
 
-const tableName = 'gl_unity';
+const tableName = 'gl_unit';
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -33,7 +33,7 @@ module.exports = {
           namePlural: {
             type: Sequelize.STRING(60),
           },
-          unity: {
+          unit: {
             type: Sequelize.STRING(60),
           },
         },
@@ -42,16 +42,14 @@ module.exports = {
         }
       );
       // indexes
-      // await queryInterface.addIndex(tableName, ['name'], {
-      //  name: `${tableName}_name_idx`,
-      //  transaction: transaction,
-      // });
-      // constraints
-      // await queryInterface.addConstraint(tableName, ['email'], {
-      //  type: 'unique',
-      //  name: `${tableName}_email_ct`,
-      //  transaction: transaction,
-      // });
+      await queryInterface.addIndex(tableName, ['name'], {
+        name: `${tableName}_name_idx`,
+        transaction: transaction,
+      });
+      await queryInterface.addIndex(tableName, ['unit'], {
+        name: `${tableName}_unit_idx`,
+        transaction: transaction,
+      });
       await transaction.commit();
     } catch (err) {
       await transaction.rollback();

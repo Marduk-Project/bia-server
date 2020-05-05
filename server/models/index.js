@@ -12,7 +12,7 @@ const gl_person_contact = require('./gl_person_contact');
 const gl_field = require('./gl_field');
 const gl_field_item = require('./gl_field_item');
 const gl_person_field = require('./gl_person_field');
-const gl_unity = require('./gl_unity');
+const gl_unit = require('./gl_unit');
 const gl_product = require('./gl_product');
 
 const sy_session = require('./sy_session');
@@ -32,7 +32,7 @@ module.exports = {
   gl_user_recover,
   gl_person,
   gl_person_contact,
-  gl_unity,
+  gl_unit,
   gl_product,
   gl_field,
   gl_field_item,
