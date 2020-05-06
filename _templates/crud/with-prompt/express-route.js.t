@@ -4,7 +4,7 @@ to: "<%= make.expressRoutes ? (inTestMode ? '_templates_compiled/tst_expressRout
 const express = require('express');
 const router = express.Router({ mergeParams: true });
 
-const controller = require('../../../controllers/admin/<%= name %>');
+const controller = require('../../../controllers/<%= crud_context %>/<%= name %>');
 const authMid = require('../../../middlewares/auth-mid');
 
 // TODO put correct roles

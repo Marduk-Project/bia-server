@@ -68,8 +68,10 @@ const scopes = {
     include: ['id', 'fieldId', 'field', 'name', 'code', 'order', 'valueString'],
   },
   admin: {
-    field: async (value, scopeName) =>
-      await fieldJsonSerializer(value, scopeName),
+    maps: {
+      field: async (value, scopeName) =>
+        await fieldJsonSerializer(value, scopeName),
+    },
   },
 };
 

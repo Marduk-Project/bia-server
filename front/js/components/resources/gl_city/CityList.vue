@@ -39,12 +39,7 @@
           <th>Nome</th>
           <th>Estado</th>
           <th>
-            IBGE
-            <i
-              class="fa fa-question-circle"
-              v-b-tooltip.hover
-              title="Código no IBGE"
-            ></i>
+            Código IBGE
           </th>
           <th class="text-right">Prioridade</th>
         </tr>

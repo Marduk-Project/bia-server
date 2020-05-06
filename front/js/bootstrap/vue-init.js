@@ -17,7 +17,7 @@ import store from '../store/store';
 
 // uses
 Vue.use(VueRouter);
-Vue.use(VeeValidate);
+Vue.use(VeeValidate, { fieldsBagName: 'veeFields' });
 Vue.use(BootstrapVue);
 Vue.use(VueTheMask);
 Vue.use(VueLazyLoad);
@@ -36,10 +36,12 @@ import DateTimeSpan from '../libs/components/item/DateTimeSpan.vue';
 import DateTimeRealSpan from '../libs/components/item/DateTimeRealSpan.vue';
 import DateSpan from '../libs/components/item/DateSpan.vue';
 import DecimalSpan from '../libs/components/item/DecimalSpan.vue';
+import RequiredSpan from '../libs/components/form/RequiredSpan.vue';
 Vue.component('app-datetime-span', DateTimeSpan);
 Vue.component('app-datetime-real-span', DateTimeRealSpan);
 Vue.component('app-date-span', DateSpan);
 Vue.component('app-decimal-span', DecimalSpan);
+Vue.component('app-required-span', RequiredSpan);
 
 // other
 import Info from '../libs/components/common/Info.vue';

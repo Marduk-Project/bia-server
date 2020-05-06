@@ -1,5 +1,6 @@
 <template>
   <v-select
+    :id="id"
     :elid="elid"
     :readonly="readonly"
     :disabled="disabled"
@@ -25,6 +26,7 @@
 
   export default {
     props: [
+      'id',
       'elid',
       'readonly',
       'disabled',

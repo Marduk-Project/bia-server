@@ -75,17 +75,13 @@ app.use(require('./middlewares/responses-mid').responsesMiddleware);
 const indexRouter = require('./routes');
 
 app.use('/', indexRouter);
-
-const apiRouter = require('./routes/api');
-app.use('/api', apiRouter);
-
-const adminRouter = require('./routes/admin');
-app.use('/admin', adminRouter);
+app.use('/api', require('./routes/api'));
+app.use('/admin', require('./routes/admin'));
+app.use('/account', require('./routes/account'));
 
 // only dev
 if (nconf.get('NODE_ENV') == 'development') {
-  const testRouter = require('./routes/test');
-  app.use('/test', testRouter);
+  app.use('/dev', require('./routes/zz_dev'));
 }
 
 /* =========================== */

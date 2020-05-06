@@ -129,7 +129,7 @@
                 class="form-check-input"
                 type="checkbox"
                 value="1"
-                v-model="entity.canRegisterPPERequest"
+                v-model="entity.canEditOrder"
               />
               Pode criar solicitação de EPI.
             </label>
@@ -173,7 +173,7 @@
           trusted: false,
           obs: null,
           level: 10, // todo fixed now
-          canRegisterPPERequest: false,
+          canEditOrder: false,
           personId: null,
           personReferenceId: null,
           userId: null,
@@ -194,7 +194,7 @@
           phone: this.entity.phone,
           obs: this.entity.obs,
           level: this.entity.level,
-          canRegisterPPERequest: this.entity.canRegisterPPERequest,
+          canEditOrder: this.entity.canEditOrder,
           personReferenceId: this.entity.personReference
             ? this.entity.personReference.id
             : null,
@@ -220,6 +220,18 @@
           }
         }
         return true;
+      },
+      crud_requestParentEntity() {
+        switch (this.origin) {
+          case 'u':
+            return axios.get(`/api/admin/gl_user/${this.parentEntityId}/edit`);
+
+          default:
+          case 'p':
+            return axios.get(
+              `/api/admin/gl_person/${this.parentEntityId}/edit`
+            );
+        }
       },
     },
     computed: {

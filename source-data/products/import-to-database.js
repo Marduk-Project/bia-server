@@ -44,12 +44,6 @@ exports.importToDatabase = async keepConnection => {
     if (unitCreated) {
       console.log(chalk.green('Created Unidade(s) [UN] unit.'));
     }
-    const a = await ProductModel.findAll();
-    await Promise.all(
-      a.map(async item => {
-        await item.destroy();
-      })
-    );
     // items
     const jsonList = require('./products-list.json');
     for (let i = 0; i < jsonList.length; i++) {

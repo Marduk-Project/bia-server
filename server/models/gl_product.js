@@ -80,11 +80,20 @@ MyModel.belongsTo(UnitModel, {
 // scopes
 const scopes = {
   def: {
-    include: ['id', 'name'], // TODO scopes
+    include: ['id', 'name', 'description'],
   },
   admin: {
-    unit: async (value, scopeName) =>
-      await unitJsonSerializer(value, scopeName),
+    maps: {
+      unit: async (value, scopeName) =>
+        await unitJsonSerializer(value, scopeName),
+    },
+  },
+  account: {
+    include: ['id', 'name', 'description', 'unitId', 'unit'],
+    maps: {
+      unit: async (value, scopeName) =>
+        await unitJsonSerializer(value, scopeName),
+    },
   },
 };
 

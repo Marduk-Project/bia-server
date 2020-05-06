@@ -164,6 +164,9 @@ const scopes = {
   def: {
     include: ['id', 'name', 'nickname', 'email', 'level', 'levelDesc'],
   },
+  account: {
+    include: ['id', 'name', 'nickname'],
+  },
   admin: {
     exclude: ['password'],
   },

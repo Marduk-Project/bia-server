@@ -107,11 +107,13 @@ const scopes = {
     include: ['id', 'name'], // TODO scopes
   },
   admin: {
+    maps: {
 <% crud_fieldObjects.forEach(function(field) { -%>
 <% if (field.modelName) { -%>
     <%= field.camelNameNoId %>: async (value, scopeName) => await <%= field.camelNameNoId %>JsonSerializer(value, scopeName),
 <% } -%>
 <% }); -%>
+    }
   }
 }
 

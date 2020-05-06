@@ -1,5 +1,5 @@
 ---
-to: server/models/<%= name %>.js
+to: common/models/<%= name %>.js
 inject: true
 after: "// inject"
 ---

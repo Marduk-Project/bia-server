@@ -6,6 +6,7 @@
     <option value="3">3 - Jurídica de direito PÚBLICO</option>
     <option value="4">4 - Organização Civíl</option>
     <option value="5">5 - Setor ou Subentidade (sem CNPJ)</option>
+    <option value="6">6 - Cadastro rápido sem identificador</option>
   </select>
 </template>
 

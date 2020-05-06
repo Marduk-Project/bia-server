@@ -131,14 +131,10 @@
               this.api_thenDone(res => {
                 // redirect to home
                 const user = res.data;
-                if (user.isStaff) {
-                  this.api_loadingShow();
-                  window.location.href = '/home';
-                } else {
-                  this.notify_warning(
-                    'Usuário com implementação pendente... aguarde!'
-                  );
-                }
+                this.api_loadingShow();
+                window.location.href = '/home';
+                // if (user.isStaff) {
+                // }
               }, true)
             )
             .catch(

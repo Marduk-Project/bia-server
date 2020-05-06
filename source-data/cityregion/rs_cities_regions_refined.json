@@ -3,13 +3,13 @@
     "name": "Lagoa Vermelha",
     "macroRegion": "Norte",
     "healthCoordenationRegion": "6ª CRS",
-    "healthRegion": "R18 - Região das\nAraucárias"
+    "healthRegion": "R18 - Região das Araucárias"
   },
   {
     "name": "Alegria",
     "macroRegion": "Missioneira",
     "healthCoordenationRegion": "14ª CRS",
-    "healthRegion": "R14 − Fronteira\nNoroeste"
+    "healthRegion": "R14 - Fronteira Noroeste"
   },
   {
     "name": "Ametista do Sul",
@@ -21,13 +21,13 @@
     "name": "André da Rocha",
     "macroRegion": "Norte",
     "healthCoordenationRegion": "6ª CRS",
-    "healthRegion": "R18 - Região das\nAraucárias"
+    "healthRegion": "R18 - Região das Araucárias"
   },
   {
     "name": "Antônio Prado",
     "macroRegion": "Serra",
     "healthCoordenationRegion": "5ª CRS",
-    "healthRegion": "R26 − Uva e Vale"
+    "healthRegion": "R26 - Uva e Vale"
   },
   {
     "name": "Arroio do Meio",
@@ -69,7 +69,7 @@
     "name": "Áurea",
     "macroRegion": "Norte",
     "healthCoordenationRegion": "11ª CRS",
-    "healthRegion": "R16 - Alto\nUruguai Gaúcho"
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
   },
   {
     "name": "Bagé",
@@ -81,7 +81,7 @@
     "name": "Barão de Cotegipe",
     "macroRegion": "Norte",
     "healthCoordenationRegion": "11ª CRS",
-    "healthRegion": "R16 - Alto\nUruguai Gaúcho"
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
   },
   {
     "name": "Barão do Triunfo",
@@ -99,7 +99,7 @@
     "name": "Barra do Quaraí",
     "macroRegion": "Centro-Oeste",
     "healthCoordenationRegion": "10ª CRS",
-    "healthRegion": "R3 − Fronteira\nOeste"
+    "healthRegion": "R3 - Fronteira Oeste"
   },
   {
     "name": "Barra do Ribeiro",
@@ -111,13 +111,13 @@
     "name": "Barra do Rio Azul",
     "macroRegion": "Norte",
     "healthCoordenationRegion": "11ª CRS",
-    "healthRegion": "R16 - Alto\nUruguai Gaúcho"
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
   },
   {
     "name": "Barracão",
     "macroRegion": "Norte",
     "healthCoordenationRegion": "6ª CRS",
-    "healthRegion": "R18 - Região das\nAraucárias"
+    "healthRegion": "R18 - Região das Araucárias"
   },
   {
     "name": "Barros Cassal",
@@ -129,7 +129,7 @@
     "name": "Benjamin Constant do Sul",
     "macroRegion": "Norte",
     "healthCoordenationRegion": "11ª CRS",
-    "healthRegion": "R16 - Alto\nUruguai Gaúcho"
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
   },
   {
     "name": "Boa Vista das Missões",
@@ -141,7 +141,7 @@
     "name": "Boa Vista do Buricá",
     "macroRegion": "Missioneira",
     "healthCoordenationRegion": "14ª CRS",
-    "healthRegion": "R14 − Fronteira\nNoroeste"
+    "healthRegion": "R14 - Fronteira Noroeste"
   },
   {
     "name": "Boa Vista do Incra",
@@ -159,7 +159,7 @@
     "name": "Bom Princípio",
     "macroRegion": "Serra",
     "healthCoordenationRegion": "5ª CRS",
-    "healthRegion": "R26 − Uva e Vale"
+    "healthRegion": "R26 - Uva e Vale"
   },
   {
     "name": "Bom Progresso",
@@ -219,7 +219,7 @@
     "name": "Cacique Doble",
     "macroRegion": "Norte",
     "healthCoordenationRegion": "6ª CRS",
-    "healthRegion": "R18 - Região das\nAraucárias"
+    "healthRegion": "R18 - Região das Araucárias"
   },
   {
     "name": "Caibaté",
@@ -255,13 +255,13 @@
     "name": "Campina das Missões",
     "macroRegion": "Missioneira",
     "healthCoordenationRegion": "14ª CRS",
-    "healthRegion": "R14 − Fronteira\nNoroeste"
+    "healthRegion": "R14 - Fronteira Noroeste"
   },
   {
     "name": "Campinas do Sul",
     "macroRegion": "Norte",
     "healthCoordenationRegion": "11ª CRS",
-    "healthRegion": "R16 - Alto\nUruguai Gaúcho"
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
   },
   {
     "name": "Campo Bom",
@@ -285,7 +285,7 @@
     "name": "Cândido Godói",
     "macroRegion": "Missioneira",
     "healthCoordenationRegion": "14ª CRS",
-    "healthRegion": "R14 − Fronteira\nNoroeste"
+    "healthRegion": "R14 - Fronteira Noroeste"
   },
   {
     "name": "Candiota",
@@ -315,7 +315,7 @@
     "name": "Capão Bonito do Sul",
     "macroRegion": "Norte",
     "healthCoordenationRegion": "6ª CRS",
-    "healthRegion": "R18 - Região das\nAraucárias"
+    "healthRegion": "R18 - Região das Araucárias"
   },
   {
     "name": "Capão da Canoa",
@@ -375,7 +375,7 @@
     "name": "Carlos Gomes",
     "macroRegion": "Norte",
     "healthCoordenationRegion": "11ª CRS",
-    "healthRegion": "R16 - Alto\nUruguai Gaúcho"
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
   },
   {
     "name": "Casca",
@@ -387,7 +387,7 @@
     "name": "Caseiros",
     "macroRegion": "Norte",
     "healthCoordenationRegion": "6ª CRS",
-    "healthRegion": "R18 - Região das\nAraucárias"
+    "healthRegion": "R18 - Região das Araucárias"
   },
   {
     "name": "Catuípe",
@@ -405,7 +405,7 @@
     "name": "Centenário",
     "macroRegion": "Norte",
     "healthCoordenationRegion": "11ª CRS",
-    "healthRegion": "R16 - Alto\nUruguai Gaúcho"
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
   },
   {
     "name": "Cerrito",
@@ -453,7 +453,7 @@
     "name": "Charrua",
     "macroRegion": "Norte",
     "healthCoordenationRegion": "11ª CRS",
-    "healthRegion": "R16 - Alto\nUruguai Gaúcho"
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
   },
   {
     "name": "Chiapetta",
@@ -579,7 +579,7 @@
     "name": "Cruzaltense",
     "macroRegion": "Norte",
     "healthCoordenationRegion": "11ª CRS",
-    "healthRegion": "R16 - Alto\nUruguai Gaúcho"
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
   },
   {
     "name": "Cruzeiro do Sul",
@@ -657,7 +657,7 @@
     "name": "Doutor Maurício Cardoso",
     "macroRegion": "Missioneira",
     "healthCoordenationRegion": "14ª CRS",
-    "healthRegion": "R14 − Fronteira\nNoroeste"
+    "healthRegion": "R14 - Fronteira Noroeste"
   },
   {
     "name": "Doutor Ricardo",
@@ -693,7 +693,7 @@
     "name": "Entre Rios do Sul",
     "macroRegion": "Norte",
     "healthCoordenationRegion": "11ª CRS",
-    "healthRegion": "R16 - Alto\nUruguai Gaúcho"
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
   },
   {
     "name": "Entre-Ijuís",
@@ -705,13 +705,13 @@
     "name": "Erebango",
     "macroRegion": "Norte",
     "healthCoordenationRegion": "11ª CRS",
-    "healthRegion": "R16 - Alto\nUruguai Gaúcho"
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
   },
   {
     "name": "Erechim",
     "macroRegion": "Norte",
     "healthCoordenationRegion": "11ª CRS",
-    "healthRegion": "R16 - Alto\nUruguai Gaúcho"
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
   },
   {
     "name": "Ernestina",
@@ -723,7 +723,7 @@
     "name": "Erval Grande",
     "macroRegion": "Norte",
     "healthCoordenationRegion": "11ª CRS",
-    "healthRegion": "R16 - Alto\nUruguai Gaúcho"
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
   },
   {
     "name": "Erval Seco",
@@ -753,7 +753,7 @@
     "name": "Estação",
     "macroRegion": "Norte",
     "healthCoordenationRegion": "11ª CRS",
-    "healthRegion": "R16 - Alto\nUruguai Gaúcho"
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
   },
   {
     "name": "Estância Velha",
@@ -795,7 +795,7 @@
     "name": "Farroupilha",
     "macroRegion": "Serra",
     "healthCoordenationRegion": "5ª CRS",
-    "healthRegion": "R26 − Uva e Vale"
+    "healthRegion": "R26 - Uva e Vale"
   },
   {
     "name": "Faxinal do Soturno",
@@ -807,7 +807,7 @@
     "name": "Faxinalzinho",
     "macroRegion": "Norte",
     "healthCoordenationRegion": "11ª CRS",
-    "healthRegion": "R16 - Alto\nUruguai Gaúcho"
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
   },
   {
     "name": "Fazenda Vilanova",
@@ -819,19 +819,19 @@
     "name": "Feliz",
     "macroRegion": "Serra",
     "healthCoordenationRegion": "5ª CRS",
-    "healthRegion": "R26 − Uva e Vale"
+    "healthRegion": "R26 - Uva e Vale"
   },
   {
     "name": "Flores da Cunha",
     "macroRegion": "Serra",
     "healthCoordenationRegion": "5ª CRS",
-    "healthRegion": "R26 − Uva e Vale"
+    "healthRegion": "R26 - Uva e Vale"
   },
   {
     "name": "Floriano Peixoto",
     "macroRegion": "Norte",
     "healthCoordenationRegion": "11ª CRS",
-    "healthRegion": "R16 - Alto\nUruguai Gaúcho"
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
   },
   {
     "name": "Fontoura Xavier",
@@ -879,7 +879,7 @@
     "name": "Gaurama",
     "macroRegion": "Norte",
     "healthCoordenationRegion": "11ª CRS",
-    "healthRegion": "R16 - Alto\nUruguai Gaúcho"
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
   },
   {
     "name": "General Câmara",
@@ -897,13 +897,13 @@
     "name": "Getúlio Vargas",
     "macroRegion": "Norte",
     "healthCoordenationRegion": "11ª CRS",
-    "healthRegion": "R16 - Alto\nUruguai Gaúcho"
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
   },
   {
     "name": "Giruá",
     "macroRegion": "Missioneira",
     "healthCoordenationRegion": "14ª CRS",
-    "healthRegion": "R14 − Fronteira\nNoroeste"
+    "healthRegion": "R14 - Fronteira Noroeste"
   },
   {
     "name": "Glorinha",
@@ -981,7 +981,7 @@
     "name": "Horizontina",
     "macroRegion": "Missioneira",
     "healthCoordenationRegion": "14ª CRS",
-    "healthRegion": "R14 − Fronteira\nNoroeste"
+    "healthRegion": "R14 - Fronteira Noroeste"
   },
   {
     "name": "Humaitá",
@@ -999,13 +999,13 @@
     "name": "Ibiaçá",
     "macroRegion": "Norte",
     "healthCoordenationRegion": "6ª CRS",
-    "healthRegion": "R18 - Região das\nAraucárias"
+    "healthRegion": "R18 - Região das Araucárias"
   },
   {
     "name": "Ibiraiaras",
     "macroRegion": "Norte",
     "healthCoordenationRegion": "6ª CRS",
-    "healthRegion": "R18 - Região das\nAraucárias"
+    "healthRegion": "R18 - Região das Araucárias"
   },
   {
     "name": "Ibirapuitã",
@@ -1053,7 +1053,7 @@
     "name": "Independência",
     "macroRegion": "Missioneira",
     "healthCoordenationRegion": "14ª CRS",
-    "healthRegion": "R14 − Fronteira\nNoroeste"
+    "healthRegion": "R14 - Fronteira Noroeste"
   },
   {
     "name": "Inhacorá",
@@ -1065,13 +1065,13 @@
     "name": "Ipê",
     "macroRegion": "Serra",
     "healthCoordenationRegion": "5ª CRS",
-    "healthRegion": "R26 − Uva e Vale"
+    "healthRegion": "R26 - Uva e Vale"
   },
   {
     "name": "Ipiranga do Sul",
     "macroRegion": "Norte",
     "healthCoordenationRegion": "11ª CRS",
-    "healthRegion": "R16 - Alto\nUruguai Gaúcho"
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
   },
   {
     "name": "Iraí",
@@ -1101,7 +1101,7 @@
     "name": "Itaqui",
     "macroRegion": "Centro-Oeste",
     "healthCoordenationRegion": "10ª CRS",
-    "healthRegion": "R3 − Fronteira\nOeste"
+    "healthRegion": "R3 - Fronteira Oeste"
   },
   {
     "name": "Itati",
@@ -1113,7 +1113,7 @@
     "name": "Itatiba do Sul",
     "macroRegion": "Norte",
     "healthCoordenationRegion": "11ª CRS",
-    "healthRegion": "R16 - Alto\nUruguai Gaúcho"
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
   },
   {
     "name": "Ivorá",
@@ -1143,7 +1143,7 @@
     "name": "Jacutinga",
     "macroRegion": "Norte",
     "healthCoordenationRegion": "11ª CRS",
-    "healthRegion": "R16 - Alto\nUruguai Gaúcho"
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
   },
   {
     "name": "Jaguarão",
@@ -1233,13 +1233,13 @@
     "name": "Maçambará",
     "macroRegion": "Centro-Oeste",
     "healthCoordenationRegion": "10ª CRS",
-    "healthRegion": "R3 − Fronteira\nOeste"
+    "healthRegion": "R3 - Fronteira Oeste"
   },
   {
     "name": "Machadinho",
     "macroRegion": "Norte",
     "healthCoordenationRegion": "6ª CRS",
-    "healthRegion": "R18 - Região das\nAraucárias"
+    "healthRegion": "R18 - Região das Araucárias"
   },
   {
     "name": "Mampituba",
@@ -1251,7 +1251,7 @@
     "name": "Manoel Viana",
     "macroRegion": "Centro-Oeste",
     "healthCoordenationRegion": "10ª CRS",
-    "healthRegion": "R3 − Fronteira\nOeste"
+    "healthRegion": "R3 - Fronteira Oeste"
   },
   {
     "name": "Maquiné",
@@ -1275,7 +1275,7 @@
     "name": "Marcelino Ramos",
     "macroRegion": "Norte",
     "healthCoordenationRegion": "11ª CRS",
-    "healthRegion": "R16 - Alto\nUruguai Gaúcho"
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
   },
   {
     "name": "Mariana Pimentel",
@@ -1287,7 +1287,7 @@
     "name": "Mariano Moro",
     "macroRegion": "Norte",
     "healthCoordenationRegion": "11ª CRS",
-    "healthRegion": "R16 - Alto\nUruguai Gaúcho"
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
   },
   {
     "name": "Marques de Souza",
@@ -1323,7 +1323,7 @@
     "name": "Maximiliano de Almeida",
     "macroRegion": "Norte",
     "healthCoordenationRegion": "6ª CRS",
-    "healthRegion": "R18 - Região das\nAraucárias"
+    "healthRegion": "R18 - Região das Araucárias"
   },
   {
     "name": "Minas do Leão",
@@ -1425,7 +1425,7 @@
     "name": "Nonoai",
     "macroRegion": "Norte",
     "healthCoordenationRegion": "11ª CRS",
-    "healthRegion": "R16 - Alto\nUruguai Gaúcho"
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
   },
   {
     "name": "Nova Alvorada",
@@ -1461,7 +1461,7 @@
     "name": "Nova Candelária",
     "macroRegion": "Missioneira",
     "healthCoordenationRegion": "14ª CRS",
-    "healthRegion": "R14 − Fronteira\nNoroeste"
+    "healthRegion": "R14 - Fronteira Noroeste"
   },
   {
     "name": "Nova Esperança do Sul",
@@ -1479,7 +1479,7 @@
     "name": "Nova Pádua",
     "macroRegion": "Serra",
     "healthCoordenationRegion": "5ª CRS",
-    "healthRegion": "R26 − Uva e Vale"
+    "healthRegion": "R26 - Uva e Vale"
   },
   {
     "name": "Nova Palma",
@@ -1503,7 +1503,7 @@
     "name": "Nova Roma do Sul",
     "macroRegion": "Serra",
     "healthCoordenationRegion": "5ª CRS",
-    "healthRegion": "R26 − Uva e Vale"
+    "healthRegion": "R26 - Uva e Vale"
   },
   {
     "name": "Nova Santa Rita",
@@ -1533,7 +1533,7 @@
     "name": "Novo Machado",
     "macroRegion": "Missioneira",
     "healthCoordenationRegion": "14ª CRS",
-    "healthRegion": "R14 − Fronteira\nNoroeste"
+    "healthRegion": "R14 - Fronteira Noroeste"
   },
   {
     "name": "Novo Tiradentes",
@@ -1557,7 +1557,7 @@
     "name": "Paim Filho",
     "macroRegion": "Norte",
     "healthCoordenationRegion": "6ª CRS",
-    "healthRegion": "R18 - Região das\nAraucárias"
+    "healthRegion": "R18 - Região das Araucárias"
   },
   {
     "name": "Palmares do Sul",
@@ -1635,7 +1635,7 @@
     "name": "Paulo Bento",
     "macroRegion": "Norte",
     "healthCoordenationRegion": "11ª CRS",
-    "healthRegion": "R16 - Alto\nUruguai Gaúcho"
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
   },
   {
     "name": "Paverama",
@@ -1731,7 +1731,7 @@
     "name": "Ponte Preta",
     "macroRegion": "Norte",
     "healthCoordenationRegion": "11ª CRS",
-    "healthRegion": "R16 - Alto\nUruguai Gaúcho"
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
   },
   {
     "name": "Portão",
@@ -1743,19 +1743,19 @@
     "name": "Porto Lucena",
     "macroRegion": "Missioneira",
     "healthCoordenationRegion": "14ª CRS",
-    "healthRegion": "R14 − Fronteira\nNoroeste"
+    "healthRegion": "R14 - Fronteira Noroeste"
   },
   {
     "name": "Porto Mauá",
     "macroRegion": "Missioneira",
     "healthCoordenationRegion": "14ª CRS",
-    "healthRegion": "R14 − Fronteira\nNoroeste"
+    "healthRegion": "R14 - Fronteira Noroeste"
   },
   {
     "name": "Porto Vera Cruz",
     "macroRegion": "Missioneira",
     "healthCoordenationRegion": "14ª CRS",
-    "healthRegion": "R14 − Fronteira\nNoroeste"
+    "healthRegion": "R14 - Fronteira Noroeste"
   },
   {
     "name": "Porto Xavier",
@@ -1797,13 +1797,13 @@
     "name": "Quaraí",
     "macroRegion": "Centro-Oeste",
     "healthCoordenationRegion": "10ª CRS",
-    "healthRegion": "R3 − Fronteira\nOeste"
+    "healthRegion": "R3 - Fronteira Oeste"
   },
   {
     "name": "Quatro Irmãos",
     "macroRegion": "Norte",
     "healthCoordenationRegion": "11ª CRS",
-    "healthRegion": "R16 - Alto\nUruguai Gaúcho"
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
   },
   {
     "name": "Quevedos",
@@ -1839,7 +1839,7 @@
     "name": "Rio dos Índios",
     "macroRegion": "Norte",
     "healthCoordenationRegion": "11ª CRS",
-    "healthRegion": "R16 - Alto\nUruguai Gaúcho"
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
   },
   {
     "name": "Rio Grande",
@@ -1905,7 +1905,7 @@
     "name": "Rosário do Sul",
     "macroRegion": "Centro-Oeste",
     "healthCoordenationRegion": "10ª CRS",
-    "healthRegion": "R3 − Fronteira\nOeste"
+    "healthRegion": "R3 - Fronteira Oeste"
   },
   {
     "name": "Sagrada Família",
@@ -1941,7 +1941,7 @@
     "name": "Sananduva",
     "macroRegion": "Norte",
     "healthCoordenationRegion": "6ª CRS",
-    "healthRegion": "R18 - Região das\nAraucárias"
+    "healthRegion": "R18 - Região das Araucárias"
   },
   {
     "name": "Santa Bárbara do Sul",
@@ -1953,7 +1953,7 @@
     "name": "Santa Cecília do Sul",
     "macroRegion": "Norte",
     "healthCoordenationRegion": "6ª CRS",
-    "healthRegion": "R18 - Região das\nAraucárias"
+    "healthRegion": "R18 - Região das Araucárias"
   },
   {
     "name": "Santa Clara do Sul",
@@ -1971,7 +1971,7 @@
     "name": "Santa Margarida do Sul",
     "macroRegion": "Centro-Oeste",
     "healthCoordenationRegion": "10ª CRS",
-    "healthRegion": "R3 − Fronteira\nOeste"
+    "healthRegion": "R3 - Fronteira Oeste"
   },
   {
     "name": "Santa Maria",
@@ -1989,7 +1989,7 @@
     "name": "Santa Rosa",
     "macroRegion": "Missioneira",
     "healthCoordenationRegion": "14ª CRS",
-    "healthRegion": "R14 − Fronteira\nNoroeste"
+    "healthRegion": "R14 - Fronteira Noroeste"
   },
   {
     "name": "Santa Tereza",
@@ -2013,7 +2013,7 @@
     "name": "Sant'Ana do Livramento",
     "macroRegion": "Centro-Oeste",
     "healthCoordenationRegion": "10ª CRS",
-    "healthRegion": "R3 − Fronteira\nOeste"
+    "healthRegion": "R3 - Fronteira Oeste"
   },
   {
     "name": "Santiago",
@@ -2061,13 +2061,13 @@
     "name": "Santo Cristo",
     "macroRegion": "Missioneira",
     "healthCoordenationRegion": "14ª CRS",
-    "healthRegion": "R14 − Fronteira\nNoroeste"
+    "healthRegion": "R14 - Fronteira Noroeste"
   },
   {
     "name": "Santo Expedito do Sul",
     "macroRegion": "Norte",
     "healthCoordenationRegion": "6ª CRS",
-    "healthRegion": "R18 - Região das\nAraucárias"
+    "healthRegion": "R18 - Região das Araucárias"
   },
   {
     "name": "São Borja",
@@ -2103,7 +2103,7 @@
     "name": "São João da Urtiga",
     "macroRegion": "Norte",
     "healthCoordenationRegion": "6ª CRS",
-    "healthRegion": "R18 - Região das\nAraucárias"
+    "healthRegion": "R18 - Região das Araucárias"
   },
   {
     "name": "São João do Polêsine",
@@ -2139,7 +2139,7 @@
     "name": "São José do Inhacorá",
     "macroRegion": "Missioneira",
     "healthCoordenationRegion": "14ª CRS",
-    "healthRegion": "R14 − Fronteira\nNoroeste"
+    "healthRegion": "R14 - Fronteira Noroeste"
   },
   {
     "name": "São José do Norte",
@@ -2151,7 +2151,7 @@
     "name": "São José do Ouro",
     "macroRegion": "Norte",
     "healthCoordenationRegion": "6ª CRS",
-    "healthRegion": "R18 - Região das\nAraucárias"
+    "healthRegion": "R18 - Região das Araucárias"
   },
   {
     "name": "São José do Sul",
@@ -2169,7 +2169,7 @@
     "name": "São Marcos",
     "macroRegion": "Serra",
     "healthCoordenationRegion": "5ª CRS",
-    "healthRegion": "R26 − Uva e Vale"
+    "healthRegion": "R26 - Uva e Vale"
   },
   {
     "name": "São Martinho",
@@ -2199,7 +2199,7 @@
     "name": "São Paulo das Missões",
     "macroRegion": "Missioneira",
     "healthCoordenationRegion": "14ª CRS",
-    "healthRegion": "R14 − Fronteira\nNoroeste"
+    "healthRegion": "R14 - Fronteira Noroeste"
   },
   {
     "name": "São Pedro da Serra",
@@ -2241,7 +2241,7 @@
     "name": "São Valentim",
     "macroRegion": "Norte",
     "healthCoordenationRegion": "11ª CRS",
-    "healthRegion": "R16 - Alto\nUruguai Gaúcho"
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
   },
   {
     "name": "São Valentim do Sul",
@@ -2271,7 +2271,7 @@
     "name": "Senador Salgado Filho",
     "macroRegion": "Missioneira",
     "healthCoordenationRegion": "14ª CRS",
-    "healthRegion": "R14 − Fronteira\nNoroeste"
+    "healthRegion": "R14 - Fronteira Noroeste"
   },
   {
     "name": "Sentinela do Sul",
@@ -2307,7 +2307,7 @@
     "name": "Severiano de Almeida",
     "macroRegion": "Norte",
     "healthCoordenationRegion": "11ª CRS",
-    "healthRegion": "R16 - Alto\nUruguai Gaúcho"
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
   },
   {
     "name": "Silveira Martins",
@@ -2337,7 +2337,7 @@
     "name": "Tapejara",
     "macroRegion": "Norte",
     "healthCoordenationRegion": "6ª CRS",
-    "healthRegion": "R18 - Região das\nAraucárias"
+    "healthRegion": "R18 - Região das Araucárias"
   },
   {
     "name": "Tapera",
@@ -2403,7 +2403,7 @@
     "name": "Três de Maio",
     "macroRegion": "Missioneira",
     "healthCoordenationRegion": "14ª CRS",
-    "healthRegion": "R14 − Fronteira\nNoroeste"
+    "healthRegion": "R14 - Fronteira Noroeste"
   },
   {
     "name": "Três Passos",
@@ -2505,7 +2505,7 @@
     "name": "Água Santa",
     "macroRegion": "Norte",
     "healthCoordenationRegion": "6ª CRS",
-    "healthRegion": "R18 - Região das\nAraucárias"
+    "healthRegion": "R18 - Região das Araucárias"
   },
   {
     "name": "Agudo",
@@ -2523,13 +2523,13 @@
     "name": "Alecrim",
     "macroRegion": "Missioneira",
     "healthCoordenationRegion": "14ª CRS",
-    "healthRegion": "R14 − Fronteira\nNoroeste"
+    "healthRegion": "R14 - Fronteira Noroeste"
   },
   {
     "name": "Alegrete",
     "macroRegion": "Centro-Oeste",
     "healthCoordenationRegion": "10ª CRS",
-    "healthRegion": "R3 − Fronteira\nOeste"
+    "healthRegion": "R3 - Fronteira Oeste"
   },
   {
     "name": "Almirante Tamandaré do Sul",
@@ -2553,7 +2553,7 @@
     "name": "Alto Feliz",
     "macroRegion": "Serra",
     "healthCoordenationRegion": "5ª CRS",
-    "healthRegion": "R26 − Uva e Vale"
+    "healthRegion": "R26 - Uva e Vale"
   },
   {
     "name": "Alvorada",
@@ -2589,7 +2589,7 @@
     "name": "Aratiba",
     "macroRegion": "Norte",
     "healthCoordenationRegion": "11ª CRS",
-    "healthRegion": "R16 - Alto\nUruguai Gaúcho"
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
   },
   {
     "name": "Arroio do Sal",
@@ -2631,7 +2631,7 @@
     "name": "Pinto Bandeira",
     "macroRegion": "Serra",
     "healthCoordenationRegion": "5ª CRS",
-    "healthRegion": "R26 − Uva e Vale"
+    "healthRegion": "R26 - Uva e Vale"
   },
   {
     "name": "Boa Vista do Cadeado",
@@ -2721,13 +2721,13 @@
     "name": "São Gabriel",
     "macroRegion": "Centro-Oeste",
     "healthCoordenationRegion": "10ª CRS",
-    "healthRegion": "R3 − Fronteira\nOeste"
+    "healthRegion": "R3 - Fronteira Oeste"
   },
   {
     "name": "Uruguaiana",
     "macroRegion": "Centro-Oeste",
     "healthCoordenationRegion": "10ª CRS",
-    "healthRegion": "R3 − Fronteira\nOeste"
+    "healthRegion": "R3 - Fronteira Oeste"
   },
   {
     "name": "São José dos Ausentes",
@@ -2781,13 +2781,13 @@
     "name": "São Vendelino",
     "macroRegion": "Serra",
     "healthCoordenationRegion": "5ª CRS",
-    "healthRegion": "R26 − Uva e Vale"
+    "healthRegion": "R26 - Uva e Vale"
   },
   {
     "name": "Vale Real",
     "macroRegion": "Serra",
     "healthCoordenationRegion": "5ª CRS",
-    "healthRegion": "R26 − Uva e Vale"
+    "healthRegion": "R26 - Uva e Vale"
   },
   {
     "name": "São Vicente do Sul",
@@ -2889,13 +2889,13 @@
     "name": "Três Arroios",
     "macroRegion": "Norte",
     "healthCoordenationRegion": "11ª CRS",
-    "healthRegion": "R16 - Alto\nUruguai Gaúcho"
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
   },
   {
     "name": "Viadutos",
     "macroRegion": "Norte",
     "healthCoordenationRegion": "11ª CRS",
-    "healthRegion": "R16 - Alto\nUruguai Gaúcho"
+    "healthRegion": "R16 - Alto Uruguai Gaúcho"
   },
   {
     "name": "Três Forquilhas",
@@ -2937,25 +2937,25 @@
     "name": "Tucunduva",
     "macroRegion": "Missioneira",
     "healthCoordenationRegion": "14ª CRS",
-    "healthRegion": "R14 − Fronteira\nNoroeste"
+    "healthRegion": "R14 - Fronteira Noroeste"
   },
   {
     "name": "Tuparendi",
     "macroRegion": "Missioneira",
     "healthCoordenationRegion": "14ª CRS",
-    "healthRegion": "R14 − Fronteira\nNoroeste"
+    "healthRegion": "R14 - Fronteira Noroeste"
   },
   {
     "name": "Tupanci do Sul",
     "macroRegion": "Norte",
     "healthCoordenationRegion": "6ª CRS",
-    "healthRegion": "R18 - Região das\nAraucárias"
+    "healthRegion": "R18 - Região das Araucárias"
   },
   {
     "name": "Vila Lângaro",
     "macroRegion": "Norte",
     "healthCoordenationRegion": "6ª CRS",
-    "healthRegion": "R18 - Região das\nAraucárias"
+    "healthRegion": "R18 - Região das Araucárias"
   },
   {
     "name": "Venâncio Aires",

@@ -58,6 +58,9 @@ const scopes = {
     include: ['id', 'name'],
   },
   admin: {},
+  account: {
+    include: ['id', 'name', 'nameSingular', 'namePlural', 'unit'],
+  },
 };
 
 exports.model = MyModel;

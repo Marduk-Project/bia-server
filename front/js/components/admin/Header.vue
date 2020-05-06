@@ -29,6 +29,9 @@
             <a class="dropdown-item" href="/admin">
               <i class="fas fa-tachometer-alt"></i> Dashboard
             </a>
+            <a class="dropdown-item" href="/account">
+              <i class="fas fa-exchange-alt"></i> Painel de Conta
+            </a>
           </div>
         </li>
         <li class="nav-item dropdown">
@@ -60,6 +63,15 @@
               v-if="isUserStaff"
             >
               <i class="fas fa-building"></i> Pessoas
+            </router-link>
+            <router-link
+              class="dropdown-item"
+              tag="a"
+              active-class="active"
+              :to="{ name: 'or_order.index' }"
+              v-if="isUserStaff"
+            >
+              <i class="fas fa-notes-medical"></i> Solicitações &amp; Entregas
             </router-link>
           </div>
         </li>

@@ -6,9 +6,16 @@
     <br />
     <br />
     <div class="form-row">
-      <div class="form-group col-12">
+      <div class="form-group col-lg-6">
         <label>Cidade</label>
         <app-city-select v-model="filters.city"></app-city-select>
+      </div>
+      <div class="form-group col-lg-6">
+        <label>Tipo</label>
+        <app-person-type-select
+          v-model="filters.legalType"
+          :show-all="true"
+        ></app-person-type-select>
       </div>
       <div class="form-group col-12">
         <div class="input-group mb-3">
@@ -75,16 +82,19 @@
 <script>
   import { listMixin } from '@mixins/list-mixin';
   import CitySelect from '@resources/gl_city/CitySelect.vue';
+  import PersonTypeSelect from './PersonTypeSelect.vue';
 
   export default {
     mixins: [listMixin],
     components: {
       'app-city-select': CitySelect,
+      'app-person-type-select': PersonTypeSelect,
     },
     data() {
       return {
         filters: {
           city: null,
+          legalType: 0,
         },
       };
     },
@@ -109,6 +119,9 @@
           encodeURIComponent(this.searchText ? this.searchText : '');
         if (this.filters.city) {
           url += `&cityId=${this.filters.city.id}`;
+        }
+        if (this.filters.legalType > 0) {
+          url += `&legalType=${this.filters.legalType}`;
         }
         return url;
       },

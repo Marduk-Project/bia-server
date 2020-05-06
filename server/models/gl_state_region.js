@@ -149,8 +149,10 @@ const scopes = {
     include: ['id', 'name', 'code', 'type', 'typeDesc'],
   },
   admin: {
-    state: async (value, scopeName) =>
-      await stateJsonSerializer(value, scopeName),
+    maps: {
+      state: async (value, scopeName) =>
+        await stateJsonSerializer(value, scopeName),
+    },
   },
 };
 

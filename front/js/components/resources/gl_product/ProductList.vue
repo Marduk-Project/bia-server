@@ -28,11 +28,13 @@
       </div>
       -->
       <div class="form-group col-lg-3">
-        <label>Exibir consumíveis</label>
+        <label>Consumíveis</label>
         <select class="form-control" v-model="filters.consumable">
-          <option value="">Todos</option>
-          <option value="0">Apenas não consumíveis</option>
-          <option value="1">Apenas consumíveis</option>
+          <option value="">Exibir todos</option>
+          <option value="1">Exibir apenas consumíveis</option>
+          <option value="0"
+            >Exibir apenas <strong>não</strong> consumíveis</option
+          >
         </select>
       </div>
       <div class="form-group col-9">

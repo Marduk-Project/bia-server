@@ -4,6 +4,7 @@ const _ = require('lodash');
 const util = require('util');
 
 const PAGINATION_PER_PAGE = 100;
+const PAGINATION_MAX_PER_PAGE = 1000;
 const { mainDb } = require('../database/main_connection');
 const ApiError = require('../middlewares/error-mid').ApiError;
 
@@ -15,7 +16,7 @@ const sanitizePage = page => {
       page = 1;
     }
   }
-  return Math.max(page, 1);
+  return page;
 };
 
 /**
@@ -27,6 +28,10 @@ const sanitizePage = page => {
  */
 const setLimitOffsetForPage = (page, queryOptions, itemsPerPage) => {
   page = sanitizePage(page);
+  if (page == -1) {
+    itemsPerPage = PAGINATION_MAX_PER_PAGE;
+    page = 1;
+  }
   if (!itemsPerPage) {
     itemsPerPage = PAGINATION_PER_PAGE;
   }
@@ -54,6 +59,10 @@ const paginateMeta = (queryResult, page, itemsPerPage) => {
     totalCount = queryResult.count ? queryResult.count : 0;
   }
   page = sanitizePage(page);
+  if (page == -1) {
+    itemsPerPage = PAGINATION_MAX_PER_PAGE;
+    page = 1;
+  }
   if (!itemsPerPage) {
     itemsPerPage = PAGINATION_PER_PAGE;
   }

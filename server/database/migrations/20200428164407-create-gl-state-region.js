@@ -50,10 +50,6 @@ module.exports = {
         }
       );
       // indexes
-      await queryInterface.addIndex(tableName, ['stateId'], {
-        name: `${tableName}_stateId_idx`,
-        transaction: transaction,
-      });
       await queryInterface.addIndex(tableName, ['name', 'type'], {
         name: `${tableName}_name_type_idx`,
         transaction: transaction,

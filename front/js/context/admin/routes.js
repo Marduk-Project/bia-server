@@ -4,39 +4,42 @@ import Header from '../../components/admin/Header.vue';
 import NotFound from '../../components/common/NotFound.vue';
 import Footer from '../../components/common/Footer.vue';
 // gl_user
-import GL_Profile from '../../components/resources/gl_user/Profile.vue';
-import GL_UserList from '../../components/resources/gl_user/UserList.vue';
-import GL_UserEdit from '../../components/resources/gl_user/UserEdit.vue';
+import GL_Profile from '@resources/gl_user/Profile.vue';
+import GL_UserList from '@resources/gl_user/UserList.vue';
+import GL_UserEdit from '@resources/gl_user/UserEdit.vue';
 // gl_country
-import GL_CountryList from '../../components/resources/gl_country/CountryList.vue';
-import GL_CountryEdit from '../../components/resources/gl_country/CountryEdit.vue';
+import GL_CountryList from '@resources/gl_country/CountryList.vue';
+import GL_CountryEdit from '@resources/gl_country/CountryEdit.vue';
 // gl_state
-import GL_StateList from '../../components/resources/gl_state/StateList.vue';
-import GL_StateEdit from '../../components/resources/gl_state/StateEdit.vue';
+import GL_StateList from '@resources/gl_state/StateList.vue';
+import GL_StateEdit from '@resources/gl_state/StateEdit.vue';
 // gl_city
-import GL_CityList from '../../components/resources/gl_city/CityList.vue';
-import GL_CityEdit from '../../components/resources/gl_city/CityEdit.vue';
+import GL_CityList from '@resources/gl_city/CityList.vue';
+import GL_CityEdit from '@resources/gl_city/CityEdit.vue';
 // gl_person
-import GL_PersonList from '../../components/resources/gl_person/PersonList.vue';
-import GL_PersonEdit from '../../components/resources/gl_person/PersonEdit.vue';
+import GL_PersonList from '@resources/gl_person/PersonList.vue';
+import GL_PersonEdit from '@resources/gl_person/PersonEdit.vue';
 // gl_person_contact
-import GL_PersonContactList from '../../components/resources/gl_person_contact/PersonContactList.vue';
-import GL_PersonContactEdit from '../../components/resources/gl_person_contact/PersonContactEdit.vue';
+import GL_PersonContactList from '@resources/gl_person_contact/PersonContactList.vue';
+import GL_PersonContactEdit from '@resources/gl_person_contact/PersonContactEdit.vue';
 // gl_field
-import GL_FieldList from '../../components/resources/gl_field/FieldList.vue';
-import GL_FieldEdit from '../../components/resources/gl_field/FieldEdit.vue';
+import GL_FieldList from '@resources/gl_field/FieldList.vue';
+import GL_FieldEdit from '@resources/gl_field/FieldEdit.vue';
 // gl_field_item
-import GL_FieldItemList from '../../components/resources/gl_field_item/FieldItemList.vue';
-import GL_FieldItemEdit from '../../components/resources/gl_field_item/FieldItemEdit.vue';
+import GL_FieldItemList from '@resources/gl_field_item/FieldItemList.vue';
+import GL_FieldItemEdit from '@resources/gl_field_item/FieldItemEdit.vue';
 // gl_unit
-import GL_UnitList from '../../components/resources/gl_unit/UnitList.vue';
-import GL_UnitEdit from '../../components/resources/gl_unit/UnitEdit.vue';
+import GL_UnitList from '@resources/gl_unit/UnitList.vue';
+import GL_UnitEdit from '@resources/gl_unit/UnitEdit.vue';
 // gl_product
-import GL_ProductList from '../../components/resources/gl_product/ProductList.vue';
-import GL_ProductEdit from '../../components/resources/gl_product/ProductEdit.vue';
+import GL_ProductList from '@resources/gl_product/ProductList.vue';
+import GL_ProductEdit from '@resources/gl_product/ProductEdit.vue';
 // gl_state_region
-import GL_StateRegionList from '../../components/resources/gl_state_region/StateRegionList.vue';
-import GL_StateRegionEdit from '../../components/resources/gl_state_region/StateRegionEdit.vue';
+import GL_StateRegionList from '@resources/gl_state_region/StateRegionList.vue';
+import GL_StateRegionEdit from '@resources/gl_state_region/StateRegionEdit.vue';
+// or_order
+import OR_OrderList from '@resources/or_order/OrderList.vue';
+import OR_OrderEdit from '@resources/or_order/OrderEdit.vue';
 
 // generator-inject-new-file-here
 // maintenance
@@ -245,6 +248,22 @@ export default [
     path: '/gl_state/:parentEntityId/region/:type/create',
     components: { default: GL_StateRegionEdit, header: Header, footer: Footer },
     name: 'gl_state_region.create',
+  },
+  // or_order
+  {
+    path: '/or_order',
+    components: { default: OR_OrderList, header: Header, footer: Footer },
+    name: 'or_order.index',
+  },
+  {
+    path: '/or_order/:id/edit',
+    components: { default: OR_OrderEdit, header: Header, footer: Footer },
+    name: 'or_order.edit',
+  },
+  {
+    path: '/or_order/create',
+    components: { default: OR_OrderEdit, header: Header, footer: Footer },
+    name: 'or_order.create',
   },
   // generator-inject-new-route-here
   // maintenance

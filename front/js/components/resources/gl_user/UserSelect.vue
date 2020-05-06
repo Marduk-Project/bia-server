@@ -43,7 +43,11 @@
     },
     methods: {
       mapResult(value, index) {
-        value.text = `${value.name} - (${value.email})`;
+        if (value.email) {
+          value.text = `${value.name} - ${value.email}`;
+        } else {
+          value.text = `${value.nickname} - ${value.name}`;
+        }
         return value;
       },
     },

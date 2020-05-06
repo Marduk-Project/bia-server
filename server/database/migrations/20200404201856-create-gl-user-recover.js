@@ -22,7 +22,7 @@ module.exports = {
           type: Sequelize.DATE,
         },
         token: {
-          type: Sequelize.STRING,
+          type: Sequelize.STRING(90),
         },
         userId: {
           type: Sequelize.INTEGER,
@@ -41,10 +41,6 @@ module.exports = {
       // indexes
       await queryInterface.addIndex(tableName, ['expiresWhen'], {
         name: `${tableName}_expiresWhen_idx`,
-        transaction: transaction,
-      });
-      await queryInterface.addIndex(tableName, ['userId'], {
-        name: `${tableName}_userId_idx`,
         transaction: transaction,
       });
     } catch (err) {

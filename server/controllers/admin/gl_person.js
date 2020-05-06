@@ -31,6 +31,7 @@ const controllerDefaultQueryScope = 'admin';
 exports.getIndexValidate = [
   query('page').optional().isInt(),
   query('q').optional().isString(),
+  query('legalType').optional().isString(),
   query('cityId').optional().isInt(),
   validationEndFunction,
 ];
@@ -48,13 +49,13 @@ exports.getIndex = async (req, res, next) => {
       const q = req.query.q;
       options.where[Op.or] = {
         name: {
-          [Op.iLike]: `${q}%`,
+          [Op.like]: `${q}%`,
         },
         shortname: {
-          [Op.iLike]: `${q}%`,
+          [Op.like]: `${q}%`,
         },
         legalIdentifierCode: {
-          [Op.iLike]: `${q}%`,
+          [Op.like]: `${q}%`,
         },
       };
       if (validator.isNumeric(q, { no_symbols: true })) {
@@ -64,6 +65,10 @@ exports.getIndex = async (req, res, next) => {
     // cityId
     if (req.query.cityId) {
       options.where.cityId = req.query.cityId;
+    }
+    // legalType
+    if (req.query.legalType) {
+      options.where.legalType = req.query.legalType;
     }
     // query options
     const page = req.query.page || 1;

@@ -93,12 +93,14 @@ const scopes = {
     include: ['id'],
   },
   admin: {
-    field: async (value, scopeName) =>
-      await fieldJsonSerializer(value, scopeName),
-    fieldItem: async (value, scopeName) =>
-      await fieldItemJsonSerializer(value, scopeName),
-    person: async (value, scopeName) =>
-      await personJsonSerializer(value, scopeName),
+    maps: {
+      field: async (value, scopeName) =>
+        await fieldJsonSerializer(value, scopeName),
+      fieldItem: async (value, scopeName) =>
+        await fieldItemJsonSerializer(value, scopeName),
+      person: async (value, scopeName) =>
+        await personJsonSerializer(value, scopeName),
+    },
   },
 };
 
