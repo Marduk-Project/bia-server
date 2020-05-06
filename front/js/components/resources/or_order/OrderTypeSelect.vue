@@ -1,19 +1,16 @@
 <template>
   <select class="form-control" :value="value" @change="onValueSelect">
     <option value="0" v-if="showAll">Todos</option>
-    <option value="1" v-if="showIn ? showIn.contains(1) : true"
-      >1 - Solicitação</option
-    >
-    <option value="2" v-if="showIn ? showIn.contains(2) : true"
-      >2 - Entrega</option
-    >
-    <option value="3" v-if="showIn ? showIn.contains(3) : true"
-      >3 - Entrega futura</option
+    <option value="" v-if="showEmpty">Selecione</option>
+    <option v-for="item in options" :key="item" :value="item"
+      >{{ item }} - {{ valueToString(item) }}</option
     >
   </select>
 </template>
 
 <script>
+  import { TYPE_ALL, typeToString } from '@common/models/or_order';
+
   export default {
     props: {
       value: {
@@ -26,13 +23,27 @@
         required: false,
         default: false,
       },
-      showIn: {
+      showEmpty: {
+        type: Boolean,
+        required: false,
+        default: false,
+      },
+      showOnly: {
         type: Array,
       },
     },
     methods: {
       onValueSelect(e) {
         this.$emit('input', e.target.value);
+      },
+      valueToString: typeToString,
+    },
+    computed: {
+      options() {
+        if (this.showOnly) {
+          return TYPE_ALL.filter(item => this.showOnly.includes(item));
+        }
+        return TYPE_ALL;
       },
     },
   };

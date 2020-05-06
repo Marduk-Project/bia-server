@@ -15,11 +15,45 @@ const {
 const {
   model: OrderModel,
   jsonSerializer: orderJsonSerializer,
+  common: OrderCommon,
 } = require('./or_order');
 
 // model
-const modelName = 'or_order_item';
-class MyModel extends BaseModel {}
+const modelName = 'or_order_product';
+class MyModel extends BaseModel {
+  /**
+   * Saves the product
+   * @param {object} where
+   * @param {object} where.order
+   * @param {object} where.product
+   * @param {object} data
+   * @param {double} data.quantity
+   * @param {double} data.notes
+   * @param {object} options
+   */
+  static async saveOrderProduct(
+    { order, product },
+    { quantity, notes },
+    options
+  ) {
+    let entity = await MyModel.findOne({
+      where: {
+        orderId: order.id,
+        glProductId: product.id,
+        glUnitId: product.unitId,
+      },
+    });
+    if (!entity) {
+      entity = MyModel.build();
+      entity.glProductId = product.id;
+      entity.orderId = order.id;
+      entity.glUnitId = product.unitId;
+    }
+    entity.quantity = quantity;
+    entity.notes = notes;
+    await entity.save(options);
+  }
+}
 
 MyModel.init(
   {
@@ -56,7 +90,7 @@ MyModel.init(
 // relations
 GL_ProductModel.hasMany(MyModel, {
   foreignKey: 'glProductId',
-  as: 'orOrderItems',
+  as: 'orOrderProducts',
 });
 MyModel.belongsTo(GL_ProductModel, {
   foreignKey: 'glProductId',
@@ -64,7 +98,7 @@ MyModel.belongsTo(GL_ProductModel, {
 });
 GL_UnitModel.hasMany(MyModel, {
   foreignKey: 'glUnitId',
-  as: 'orOrderItems',
+  as: 'orOrderProducts',
 });
 MyModel.belongsTo(GL_UnitModel, {
   foreignKey: 'glUnitId',
@@ -72,7 +106,7 @@ MyModel.belongsTo(GL_UnitModel, {
 });
 OrderModel.hasMany(MyModel, {
   foreignKey: 'orderId',
-  as: 'items',
+  as: 'glProducts',
 });
 MyModel.belongsTo(OrderModel, {
   foreignKey: 'orderId',
@@ -85,12 +119,34 @@ const scopes = {
     include: ['id'],
   },
   admin: {
-    glProduct: async (value, scopeName) =>
-      await gl_productJsonSerializer(value, scopeName),
-    glUnit: async (value, scopeName) =>
-      await gl_unitJsonSerializer(value, scopeName),
-    order: async (value, scopeName) =>
-      await orderJsonSerializer(value, scopeName),
+    maps: {
+      glProduct: async (value, scopeName) =>
+        await gl_productJsonSerializer(value, scopeName),
+      glUnit: async (value, scopeName) =>
+        await gl_unitJsonSerializer(value, scopeName),
+      order: async (value, scopeName) =>
+        await orderJsonSerializer(value, scopeName),
+    },
+  },
+  account: {
+    include: [
+      'id',
+      'quantity',
+      'notes',
+      'glProductId',
+      'glProduct',
+      'glUnitId',
+      'glUnit',
+      'orderId',
+    ],
+    maps: {
+      glProduct: async (value, scopeName) =>
+        await gl_productJsonSerializer(value, scopeName),
+      glUnit: async (value, scopeName) =>
+        await gl_unitJsonSerializer(value, scopeName),
+      order: async (value, scopeName) =>
+        await orderJsonSerializer(value, scopeName),
+    },
   },
 };
 

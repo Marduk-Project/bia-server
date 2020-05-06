@@ -63,7 +63,7 @@ module.exports = {
           },
           level: Sequelize.INTEGER,
           obs: Sequelize.TEXT('medium'),
-          canRegisterPPERequest: {
+          canEditOrder: {
             type: Sequelize.BOOLEAN,
             defaultValue: false,
           },

@@ -18,7 +18,7 @@ const gl_product = require('./gl_product');
 const sy_session = require('./sy_session');
 
 const or_order = require('./or_order');
-const or_order_item = require('./or_order_item');
+const or_order_product = require('./or_order_product');
 const or_order_history = require('./or_order_history');
 const or_order_consolidated = require('./or_order_consolidated');
 
@@ -39,7 +39,7 @@ module.exports = {
   gl_person_field,
   sy_session,
   or_order,
-  or_order_item,
+  or_order_product,
   or_order_history,
   or_order_consolidated,
 };

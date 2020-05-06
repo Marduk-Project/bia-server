@@ -56,7 +56,7 @@
               v-b-tooltip.hover
               :title="productData.description"
               style="word-wrap: break-word;"
-              >{{ productData.name }}</td
+              >{{ productData.glProduct.name }}</td
             >
             <td class="text-right">
               <input
@@ -69,7 +69,7 @@
               />
             </td>
             <td>
-              {{ productData.unit.name }}
+              {{ productData.glUnit.name }}
             </td>
             <td class="app-table-actions">
               <i
@@ -109,7 +109,7 @@
         default: () => {
           return {
             notes: '',
-            items: [],
+            glProducts: [],
           };
         },
       },
@@ -148,15 +148,24 @@
         });
       },
     },
+    watch: {
+      entity(newEntity) {
+        this.updateProductData(this.productList);
+      },
+    },
     methods: {
       onProductCommentClick(productData) {
         if (productData.quantity <= 0) {
           return;
         }
-        productData.notes = prompt(
+        const notes = prompt(
           'Observações sobre o item',
-          productData.notes
+          productData.notes || ''
         );
+        if (notes !== null && notes !== undefined) {
+          productData.notes = notes;
+          this.onTriggerInput();
+        }
       },
       updateProductData(productList) {
         if (!productList) {
@@ -169,11 +178,10 @@
           productData.glProductId = product.id;
           productData.glProduct = product;
           productData.glUnitId = product.unit.id;
-          productData.name = product.name;
-          productData.unit = product.unit;
+          productData.glUnit = product.unit;
           productData.notes = '';
           productData.quantity = 0;
-          const itemData = this.entity.items.find(item => {
+          const itemData = this.entity.glProducts.find(item => {
             return (
               item.glProductId == product.id &&
               item.glProduct.unitId == item.glUnitId
@@ -200,10 +208,13 @@
           await this.api_catchExec(err);
         }
       },
-      onInputQuantity(productData) {
+      onTriggerInput() {
         this.$emit('input', {
-          items: this.productDataList.filter(item => item.quantity > 0),
+          glProducts: this.productDataList.filter(item => item.quantity > 0),
         });
+      },
+      onInputQuantity(productData) {
+        this.onTriggerInput();
       },
       onChangeQuantity(productData) {
         if (productData.quantity <= 0) {

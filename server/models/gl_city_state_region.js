@@ -83,10 +83,12 @@ const scopes = {
     include: ['id', 'name', 'code'],
   },
   admin: {
-    stateRegion: async (value, scopeName) =>
-      await stateRegionJsonSerializer(value, scopeName),
-    city: async (value, scopeName) =>
-      await cityJsonSerializer(value, scopeName),
+    maps: {
+      stateRegion: async (value, scopeName) =>
+        await stateRegionJsonSerializer(value, scopeName),
+      city: async (value, scopeName) =>
+        await cityJsonSerializer(value, scopeName),
+    },
   },
 };
 

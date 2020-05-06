@@ -1,4 +1,4 @@
-import constants from './constants';
+import constants from '../../../common/constants';
 
 export const getUser = state => {
   return state.user;

@@ -2,13 +2,14 @@
   <form @submit.prevent novalidate>
     <div class="form-row">
       <div class="form-group col-lg-12">
-        <label for="input-type" :show-in="isUserStaff ? [1, 2, 3] : null"
-          >Tipo do formulário</label
-        >
+        <label for="input-type">Tipo do formulário</label>
         <app-order-type-select
+          :show-only="isContextAccount ? [1, 2, 3] : null"
+          :show-empty="true"
           v-model="value.type"
           name="input-type"
-          v-validate="'required'"
+          @input="onFieldChange"
+          v-validate="'required|min:1'"
           :class="{
             'is-invalid': errors.has('input-type'),
           }"
@@ -113,19 +114,6 @@
         <div class="invalid-feedback">Campo obrigatório.</div>
       </div>
     </div>
-    <div v-if="isUserStaff">
-      <div class="form-row"> </div>
-    </div>
-    <div class="form-row" v-if="entity.id">
-      <div class="form-group col-lg-3">
-        <label for="input-status">
-          Status
-        </label>
-        <app-order-status-select
-          v-model="entity.status"
-        ></app-order-status-select>
-      </div>
-    </div>
   </form>
 </template>
 
@@ -133,16 +121,17 @@
   import _ from 'lodash';
   import { mapGetters, mapState } from 'vuex';
   import OrderTypeSelect from '../OrderTypeSelect.vue';
-  import OrderStatusSelect from '../OrderStatusSelect.vue';
   import PersonSelect from '@resources/gl_person/PersonSelect.vue';
   import PersonContactSelect from '@resources/gl_person_contact/PersonContactSelect.vue';
 
+  import { mixin } from '../order_api';
+
   export default {
+    mixins: [mixin],
     components: {
       'app-person-select': PersonSelect,
       'app-person-contact-select': PersonContactSelect,
       'app-order-type-select': OrderTypeSelect,
-      'app-order-status-select': OrderStatusSelect,
     },
     computed: {
       ...mapGetters(['isUserStaff', 'isContextAccount', 'isContextAdmin']),
@@ -174,24 +163,16 @@
         );
       },
       typeDesc() {
-        switch (parseInt(this.value.type)) {
-          case 1:
-            return 'Solicitação';
-
-          case 2:
-            return 'Entrega';
-
-          case 3:
-            return 'Entrega futura';
+        if (!this.value.type) {
+          return '[selecione o tipo]';
         }
-        return '[selecionar tipo]';
+        return this.typeToString(this.value.type);
       },
     },
     data() {
       return {
         value: {
-          type: 0,
-          typeDesc: '',
+          type: null,
           glPersonOrigin: null,
           glPersonContactOrigin: null,
           glPersonDestination: null,
@@ -227,18 +208,11 @@
           if (!this.value.glPersonOrigin) {
             this.value.glPersonOrigin = this.value.glPersonDestination;
           }
-          // has person on state
-          if (
-            this.isContextAccount &&
-            this.state_personContactDestinationList.length == 1
-          ) {
-            this.value.glPersonContactDestination = this.state_personContactDestinationList[0];
-          }
           // changed person
           if (this.value.glPersonContactDestination) {
             if (
               this.value.glPersonDestination.id !=
-              this.value.glPersonContactDestination.person.id
+              this.value.glPersonContactDestination.personId
             ) {
               this.value.glPersonContactDestination = null;
             }
@@ -248,7 +222,7 @@
         if (!this.value.glPersonOrigin) {
           this.value.glPersonContactOrigin = null;
         } else {
-          // has person contact on state
+          // has person contact on state create
           if (
             this.isContextAccount &&
             this.state_personContactOriginList.length == 1
@@ -259,13 +233,12 @@
           if (this.value.glPersonContactOrigin) {
             if (
               this.value.glPersonOrigin.id !=
-              this.value.glPersonContactOrigin.person.id
+              this.value.glPersonContactOrigin.personId
             ) {
               this.value.glPersonContactOrigin = null;
             }
           }
         }
-        this.value.typeDesc = this.typeDesc;
         this.$emit('input', this.value);
       },
       validate() {

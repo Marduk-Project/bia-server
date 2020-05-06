@@ -48,6 +48,7 @@ module.exports = {
         '@mixins': path.resolve(__dirname, 'front/js/libs/mixins'),
         '@libComponents': path.resolve(__dirname, 'front/js/libs/components'),
         '@resources': path.resolve(__dirname, 'front/js/components/resources'),
+        '@common': path.resolve(__dirname, 'common'),
       },
     },
     output: {

@@ -40,7 +40,14 @@ exports.levelToString = levelToString;
 
 // model
 const modelName = 'gl_person_contact';
-class MyModel extends BaseModel {}
+class MyModel extends BaseModel {
+  static async allowdPersonIdListForUser(userId) {
+    return await MyModel.findAll({
+      where: { userId: userId },
+      attributes: ['personId', 'userId'],
+    }).map(contact => contact.personId);
+  }
+}
 
 MyModel.init(
   {
@@ -74,7 +81,7 @@ MyModel.init(
         return levelToString(this.get('level'));
       },
     },
-    canRegisterPPERequest: {
+    canEditOrder: {
       type: Sequelize.BOOLEAN,
       defaultValue: false,
     },
@@ -126,6 +133,7 @@ const scopes = {
       'email',
       'level',
       'levelDesc',
+      'personId',
       'person',
     ],
     maps: {

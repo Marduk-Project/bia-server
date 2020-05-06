@@ -59,9 +59,7 @@
         this.s2_select(value);
       },
       options: function (options) {
-        this.getElement()
-          .empty()
-          .select2({ data: this.buildOptions(options) });
+        this.s2_loadOptions(options);
         this.s2_select(this.value);
       },
     },
@@ -116,6 +114,11 @@
           }
         }
         return options;
+      },
+      s2_loadOptions(options) {
+        this.getElement()
+          .empty()
+          .select2({ data: this.buildOptions(options) });
       },
       s2_mount() {
         if (this.s2ok) {
@@ -184,8 +187,6 @@
               return request;
             },
           };
-        } else {
-          options.data = this.buildOptions(this.options);
         }
         // tpls
         if (_.isFunction(this.templateResult)) {
@@ -204,6 +205,9 @@
         el.on('select2:open', this.onOpen);
         el.on('select2:close', this.onClose);
         this.s2ok = true;
+        if (!this.url) {
+          this.s2_loadOptions(this.options);
+        }
       },
       s2_destroy() {
         this.getElement().select2('destroy');

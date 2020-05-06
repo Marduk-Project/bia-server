@@ -217,7 +217,7 @@ const saveValidate = [
   body('obs').optional().trim().isLength({
     max: 5000,
   }),
-  body('canRegisterPPERequest').isBoolean(),
+  body('canEditOrder').isBoolean(),
   // validationEndFunction, // aqui nao tem validate
 ];
 
@@ -240,7 +240,7 @@ const saveEntityFunc = async (req, res, next, id) => {
     entity.email = body.email;
     entity.obs = body.obs;
     entity.level = body.level;
-    entity.canRegisterPPERequest = body.canRegisterPPERequest;
+    entity.canEditOrder = body.canEditOrder;
     await entity.save();
     // send result
     const result = {

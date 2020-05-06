@@ -1,15 +1,16 @@
 <template>
   <select class="form-control" :value="value" @change="onValueSelect">
     <option value="0" v-if="showAll">Todos</option>
-    <option value="1">1 - Nova</option>
-    <option value="2">2 - Rejeitada na revisão</option>
-    <option value="3">3 - Revisão OK</option>
-    <option value="4">4 - Processada</option>
-    <option value="9">9 - Cancelada</option>
+    <option value="" v-if="showEmpty">Selecione</option>
+    <option v-for="item in options" :key="item" :value="item"
+      >{{ item }} - {{ valueToString(item) }}</option
+    >
   </select>
 </template>
 
 <script>
+  import { STATUS_ALL, statusToString } from '@common/models/or_order';
+
   export default {
     props: {
       value: {
@@ -22,13 +23,27 @@
         required: false,
         default: false,
       },
-      showIn: {
+      showEmpty: {
+        type: Boolean,
+        required: false,
+        default: false,
+      },
+      showOnly: {
         type: Array,
       },
     },
     methods: {
       onValueSelect(e) {
         this.$emit('input', e.target.value);
+      },
+      valueToString: statusToString,
+    },
+    computed: {
+      options() {
+        if (this.showOnly) {
+          return STATUS_ALL.filter(item => this.showOnly.includes(item));
+        }
+        return STATUS_ALL;
       },
     },
   };

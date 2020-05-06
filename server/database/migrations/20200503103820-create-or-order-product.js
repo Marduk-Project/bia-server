@@ -1,6 +1,6 @@
 'use strict';
 
-const tableName = 'or_order_item';
+const tableName = 'or_order_product';
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {

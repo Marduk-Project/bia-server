@@ -13,11 +13,35 @@ const {
   jsonSerializer: or_orderJsonSerializer,
   statusToString,
   typeToString,
+  common: OR_OrderCommon,
 } = require('./or_order');
 
 // model
 const modelName = 'or_order_history';
-class MyModel extends BaseModel {}
+class MyModel extends BaseModel {
+  /**
+   * @param {object} order
+   * @param {int} userId
+   * * @param {boolean} wasCreated
+   * @param {object} options
+   */
+  static async checkAndCreateHistory(order, userId, wasCreated, options) {
+    if (!(wasCreated || order.changed('type') || order.changed('status'))) {
+      return;
+    }
+    return await MyModel.create(
+      {
+        orderId: order.id,
+        glUserId: userId,
+        oldStatus: wasCreated ? order.status : order.previous('status'),
+        oldType: wasCreated ? order.type : order.previous('type'),
+      },
+      {
+        transaction: options.transaction,
+      }
+    );
+  }
+}
 
 MyModel.init(
   {
@@ -57,6 +81,20 @@ MyModel.init(
   }
 );
 
+// comentado por enquanto
+// /**
+//  * @returns {Promise}
+//  */
+// const historyHook = isCreate => {
+//   return async (entity, options) => {
+//     return await MyModel.checkAndCreateHistory(entity, options, isCreate);
+//   };
+// };
+
+// // hooks
+// OR_OrderModel.addHook('beforeUpdate', historyHook(false));
+// OR_OrderModel.addHook('afterCreate', historyHook(true));
+
 // relations
 GL_UserModel.hasMany(MyModel, {
   foreignKey: 'glUserId',
@@ -81,10 +119,12 @@ const scopes = {
     include: ['id'],
   },
   admin: {
-    glUuser: async (value, scopeName) =>
-      await gl_userJsonSerializer(value, scopeName),
-    order: async (value, scopeName) =>
-      await or_orderJsonSerializer(value, scopeName),
+    maps: {
+      glUuser: async (value, scopeName) =>
+        await gl_userJsonSerializer(value, scopeName),
+      order: async (value, scopeName) =>
+        await or_orderJsonSerializer(value, scopeName),
+    },
   },
 };
 

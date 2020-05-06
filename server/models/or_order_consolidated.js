@@ -85,12 +85,14 @@ const scopes = {
     include: ['id'],
   },
   admin: {
-    glProduct: async (value, scopeName) =>
-      await gl_productJsonSerializer(value, scopeName),
-    glUnit: async (value, scopeName) =>
-      await gl_unitJsonSerializer(value, scopeName),
-    glPerson: async (value, scopeName) =>
-      await gl_personJsonSerializer(value, scopeName),
+    maps: {
+      glProduct: async (value, scopeName) =>
+        await gl_productJsonSerializer(value, scopeName),
+      glUnit: async (value, scopeName) =>
+        await gl_unitJsonSerializer(value, scopeName),
+      glPerson: async (value, scopeName) =>
+        await gl_personJsonSerializer(value, scopeName),
+    },
   },
 };
 

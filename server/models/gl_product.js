@@ -89,6 +89,7 @@ const scopes = {
     },
   },
   account: {
+    include: ['id', 'name', 'description', 'unitId', 'unit'],
     maps: {
       unit: async (value, scopeName) =>
         await unitJsonSerializer(value, scopeName),
