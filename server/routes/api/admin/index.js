@@ -19,6 +19,8 @@ router.use('/gl_product', require('./gl_product'));
 
 router.use('/gl_state_region', require('./gl_state_region'));
 
+router.use('/or_orders_consolidated', require('./or_orders_consolidated'));
+
 // generator-inject-new-here
 
 module.exports = router;
