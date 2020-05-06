@@ -1,255 +1,770 @@
 [
   {
-    "name": "ÁLCOOL LÍQ 70% 1L",
-    "isPriority": true,
+    "name": "ACETATO (P/ PROTETOR FACIAL)",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "ÁLCOOL EM ESPUMA 70%",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
     "type": "INSUMOS"
   },
   {
     "name": "ÁLCOOL GEL 1L",
-    "isPriority": true,
+    "unit": "Litro(s)",
+    "isPriority": "Prioritário",
     "type": "INSUMOS"
   },
   {
     "name": "ÁLCOOL GEL SPRAY",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
     "type": "INSUMOS"
   },
   {
-    "name": "AVENTAL DESCART MANGA LONGA C PUNHO",
-    "isPriority": true,
-    "type": "INSUMOS"
-  },
-  {
-    "name": "BOTAS DE BORRACHA BRANCA (36-42)",
-    "type": "INSUMOS"
-  },
-  {
-    "name": "FILTRO E UMIDIFICADOR ADULTO",
-    "type": "EQUIPAMENTOS"
-  },
-  {
-    "name": "FRASCO PARA ASPIRAÇÃO DESCARTÁVEL",
-    "type": "INSUMOS"
-  },
-  {
-    "name": "GORROS/TOUCAS DESCARTÁVEIS",
-    "isPriority": true,
-    "type": "INSUMOS"
-  },
-  {
-    "name": "HIPOCLORITO 1%/1000ML",
-    "type": "INSUMOS"
-  },
-  {
-    "name": "LENÇOL DESCARTÁVEL",
-    "isPriority": true,
-    "type": "INSUMOS"
-  },
-  {
-    "name": "LUVAS DE PROCEDIMENTO M",
-    "isPriority": true,
-    "type": "INSUMOS"
-  },
-  {
-    "name": "LUVAS DE PROCEDIMENTO P",
-    "isPriority": true,
-    "type": "INSUMOS"
-  },
-  {
-    "name": "LUVAS DE PROCEDIMENTO G",
-    "isPriority": true,
-    "type": "INSUMOS"
-  },
-  {
-    "name": "LUVAS DE PROCEDIMENTO XG",
-    "isPriority": true,
-    "type": "INSUMOS"
-  },
-  {
-    "name": "MACACÃO DE PROTEÇÃO COM CAPUZ",
-    "type": "INSUMOS"
-  },
-  {
-    "name": "MÁSCARA CIRÚRGICA",
-    "isPriority": true,
-    "type": "INSUMOS"
-  },
-  {
-    "name": "MÁSCARA FACIAL VNI",
-    "type": "INSUMOS"
-  },
-  {
-    "name": "MÁSCARA N95, PFF2",
-    "isPriority": true,
-    "type": "INSUMOS"
-  },
-  {
-    "name": "ÓCULOS DE PROTEÇÃO",
-    "isPriority": true,
-    "type": "INSUMOS"
-  },
-  {
-    "name": "PANO DE LIMPEZA CORPORAL DESCARTÁVEL",
-    "type": "INSUMOS"
-  },
-  {
-    "name": "PAPEL TOALHA",
-    "type": "INSUMOS"
-  },
-  {
-    "name": "PROPÉS",
-    "isPriority": true,
-    "type": "INSUMOS"
-  },
-  {
-    "name": "PROTETOR/ESCUDO FACIAL",
-    "isPriority": true,
-    "type": "INSUMOS"
-  },
-  {
-    "name": "ROUPA CIRÚRGICA DESCARTÁVEL",
-    "type": "INSUMOS"
-  },
-  {
-    "name": "SABONETE LÍQUIDO REFIL",
-    "isPriority": true,
-    "type": "INSUMOS"
-  },
-  {
-    "name": "SACOS BRANCOS INFECTANTE 100L",
-    "type": "INSUMOS"
-  },
-  {
-    "name": "BOMBA DE INFUSÃO",
-    "type": "EQUIPAMENTOS"
-  },
-  {
-    "name": "TALHERES DESCARTÁVEIS",
-    "type": "INSUMOS"
-  },
-  {
-    "name": "RESPIRADOR",
-    "type": "EQUIPAMENTOS"
-  },
-  {
-    "name": "PRATOS DESCARTÁVEIS",
-    "type": "INSUMOS"
-  },
-  {
-    "name": "LUVAS DE PROCEDIMENTO",
-    "isPriority": true,
-    "type": "INSUMOS"
-  },
-  {
-    "name": "RESPIRADOR PORTÁTIL",
-    "type": "EQUIPAMENTOS"
-  },
-  {
-    "name": "MONITOR MULTIPARAMETRICO",
-    "type": "EQUIPAMENTOS"
-  },
-  {
-    "name": "CAMAS HOSPITALARES C/ 3 MANIVELAS",
-    "type": "EQUIPAMENTOS"
-  },
-  {
-    "name": "TERMÔMETRO INFRAVERMELHO DE CONTATO",
-    "type": "EQUIPAMENTOS"
-  },
-  {
-    "name": "COPOS DESCARTÁVEIS",
-    "type": "INSUMOS"
-  },
-  {
-    "name": "MARMITEX DESCARTÁVEIS",
-    "type": "INSUMOS"
-  },
-  {
-    "name": "PAPEL INTERFOLHADO 1000FLS 19,5x20,5",
-    "type": "INSUMOS"
-  },
-  {
-    "name": "OXIMETRO DE PULSO C/ SENSOR",
-    "type": "EQUIPAMENTOS"
-  },
-  {
-    "name": "DESFIBRILADOR",
-    "type": "EQUIPAMENTOS"
-  },
-  {
-    "name": "LARINGOSCÓPIO C/ 3 LÂMINAS",
-    "type": "EQUIPAMENTOS"
-  },
-  {
-    "name": "CAMAS HOSPITALARES",
-    "type": "EQUIPAMENTOS"
-  },
-  {
-    "name": "VENTILADOR PULMONAR ADULTO",
-    "type": "EQUIPAMENTOS"
-  },
-  {
-    "name": "SONDA ASPIRAÇÃO SISTEMA FECHADO",
-    "type": "EQUIPAMENTOS"
-  },
-  {
-    "name": "LUVAS DE PROCEDIMENTO PP",
-    "isPriority": true,
-    "type": "INSUMOS"
-  },
-  {
-    "name": "TERMÔMETRO DIGITAL DE TESTA",
-    "type": "EQUIPAMENTOS"
-  },
-  {
-    "name": "TERMÔMETRO",
-    "type": "EQUIPAMENTOS"
-  },
-  {
-    "name": "RESPIRADOR ADULTO",
-    "type": "EQUIPAMENTOS"
-  },
-  {
-    "name": "BIOMBO SANFONADO PVC",
-    "type": "EQUIPAMENTOS"
-  },
-  {
-    "name": "PAPEL HIGIÊNICO",
-    "type": "INSUMOS"
-  },
-  {
-    "name": "RESPIRADOR PEDIÁTRICO",
-    "type": "EQUIPAMENTOS"
-  },
-  {
-    "name": "ACETATO (P/ PROTETOR FACIAL)",
-    "type": "INSUMOS"
-  },
-  {
-    "name": "VENTILADOR PORTÁTIL",
-    "type": "EQUIPAMENTOS"
-  },
-  {
-    "name": "LUVAS NITRILICAS M",
+    "name": "ÁLCOOL LÍQ 70% 1L",
+    "unit": "Litro(s)",
+    "isPriority": "Prioritário",
     "type": "INSUMOS"
   },
   {
     "name": "AMBU",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
     "type": "EQUIPAMENTOS"
   },
   {
-    "name": "LUVAS NITRILICAS P",
+    "name": "ANTISSÉPTICO PARA MÃOS LIQUIDO, 1000 ML",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
     "type": "INSUMOS"
   },
   {
-    "name": "RAIO X PORTÁTIL",
+    "name": "AR CONDICIONADO",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "AVENTAL CIRÚRGICO DESCARTÁVEL (AZUL)",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "AVENTAL DESCART MANGA LONGA C PUNHO",
+    "unit": "Unidade(s)",
+    "isPriority": "Prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "BIOMBO SANFONADO PVC",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "BOMBA DE INFUSÃO",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "BOTA DESCARTÁVEL IMPERMEÁVEL",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "BOTAS DE BORRACHA BRANCA (36-42)",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "CAMA HOSPITALAR C/ COLCHÃO",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "CAMAS ELÉTRICAS",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "CAMAS HOSPITALARES",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "CAMAS HOSPITALARES C/ 3 MANIVELAS",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "CARRO DE PARADA CARDÍACA COMPLETO",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "CARRO PARA HIGIENIZAÇÃO",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "CLOREXIDINA SABÃO 2% 1000ML",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "COLHER DE SOBREMESA PLÁSTICA DESCARTÁVEL",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "COLHER DE SOPA PLÁSTICA DESCARTÁVEL",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "COPOS DESCARTÁVEIS",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "DESFIBRILADOR",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
     "type": "EQUIPAMENTOS"
   },
   {
     "name": "ECÓGRAFO INFINITY 50",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
     "type": "EQUIPAMENTOS"
   },
   {
+    "name": "ENXOVAIS (LENÇOL PEDIÁTRICO, ADULTO, CAMISOLAS, AVENTAL, JALECO, UNIFORMES PARA ÁREA FECHADA)",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "EQUIPAMENTO DE GASOMETRIA POINT OF CARE",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "EQUIPAMENTOS PARA GASOMETRIA (POINT OFF CARE)",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "ESPARADRAPO 10CM X 4,5M RL COM CAPA PROTETORA",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "FACA PLÁSTICA DESCARTÁVEL",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "FILTRO E UMIDIFICADOR ADULTO",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "FRASCO PARA ASPIRAÇÃO DESCARTÁVEL",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "FRIGOBAR",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "FRONHA DESCARTÁVEL TNT 30GR 50CM X 70CM",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "GARFO PLÁSTICO DESCARTÁVEL",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "GERMI RIO PLUS 5L",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "GORROS/TOUCAS DESCARTÁVEIS",
+    "unit": "Unidade(s)",
+    "isPriority": "Prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "HIPOCLORITO 1%/1000ML",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "HIPOCLORITO DE SÓDIO 10% A 12%",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "LARINGOSCÓPIO C/ 3 LÂMINAS",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "LENÇOL DESCARTÁVEL",
+    "unit": "Unidade(s)",
+    "isPriority": "Prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "LUVA ANTIMICROBIANA DE NIRTILO G",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "LUVA ANTIMICROBIANA DE NIRTILO M",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "LUVA ANTIMICROBIANA DE NIRTILO P",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "LUVA ANTIMICROBIANA DE NIRTILO PP",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "LUVA DE PROCEDIMENTO EM VINIL SEM PÓ DESCARTÁVEL",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "LUVA DE PROCEDIMENTO EM VINIL SEM PÓ DESCARTÁVEL EG",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "LUVA DE PROCEDIMENTO EM VINIL SEM PÓ DESCARTÁVEL G",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "LUVA DE PROCEDIMENTO EM VINIL SEM PÓ DESCARTÁVEL M",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "LUVA DE PROCEDIMENTO EM VINIL SEM PÓ DESCARTÁVEL P",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "LUVAS DE PROCEDIMENTO G",
+    "unit": "Caixa(s) com 100",
+    "isPriority": "Prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "LUVAS DE PROCEDIMENTO M",
+    "unit": "Caixa(s) com 100",
+    "isPriority": "Prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "LUVAS DE PROCEDIMENTO P",
+    "unit": "Caixa(s) com 100",
+    "isPriority": "Prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "LUVAS DE PROCEDIMENTO PP",
+    "unit": "Caixa(s) com 100",
+    "isPriority": "Prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "LUVAS DE PROCEDIMENTO XG",
+    "unit": "Caixa(s) com 100",
+    "isPriority": "Prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "LUVAS NITRILICAS M",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "LUVAS NITRILICAS P",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "MACACÃO DE PROTEÇÃO",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "MACACÃO DE PROTEÇÃO COM CAPUZ",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "MACACÃO DE PROTEÇÃO COM CAPUZ CA 20662 OU SIMILAR",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "MACACÃO DE PROTEÇÃO IMPERMEÁVEL COM BARREIRA BIOLÓGICA",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "MACACÃO DE SEGURANÇA NÃO TECIDO (TYVEK)",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "MACACÃO IMPERMEÁVEL (TYVEK)",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "MACAS PARA TRANSPORTE",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "MARMITEX DESCARTÁVEIS",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "MÁSCARA CIRÚRGICA",
+    "unit": "Caixa(s) com 50",
+    "isPriority": "Prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "MÁSCARA COM RESERVATÓRIO PEDIÁTRICA E ADULTA",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "MÁSCARA FACIAL VNI",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "MÁSCARA LARÍNGEA TAMANHOS 3",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "MÁSCARA LARÍNGEA TAMANHOS 4",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "MÁSCARA LARÍNGEA TAMANHOS 5",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "MÁSCARA N95, PFF2",
+    "unit": "Unidade(s)",
+    "isPriority": "Prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "MILTIBAC BP 1L",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "MONITOR CARDÍACO MULTIPARAMÉTRICO (FC, FR, TEMPERATURA, CARDIOSCOPIA, OXIMETRIA DE PULSO, PRESSÃO NÃO INVASIVA)",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "MONITOR DE TRANSPORTE",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "MONITOR MAIS SIMPLES, COM OXIMETRIA E VERIFICAÇÃO DE SINAIS VITAIS",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "MONITOR MULTIPARAMETRICO",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "MONITOR MULTIPARAMETRO",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "MONITOR MULTIPARAMETRO (COM PRESSÃO INVASIVA)",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "MONITOR MULTIPARAMETRO COM PRESSÃO INVASIVA",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "MONITORES COM ECG, PNI E OXÍMETRO",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "MONITORES DE TRANSPORTE",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "MONITORES MULTIPARAMÉTRICOS",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "MONITORES MULTIPARAMETRO",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "ÓCULOS DE PROTEÇÃO",
+    "unit": "Unidade(s)",
+    "isPriority": "Prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "ÓCULOS NASAL DE SILICONE",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "OXIMETRO DE PULSO C/ SENSOR",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "OXÍMETRO DE PULSO PORTÁTIL",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "OXÍMETRO DE PULSO PORTÁTIL C/ SENSOR",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "OXIMETROS",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "PANO DE LIMPEZA CORPORAL DESCARTÁVEL",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "PAPEL HIGIÊNICO",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "PAPEL INTERFOLHADO 1000FLS 19,5x20,5",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "PAPEL TOALHA",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "PERFLEX",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "PRATOS DESCARTÁVEIS",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "PROPÉS",
+    "unit": "Unidade(s)",
+    "isPriority": "Prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "PROTETOR/ESCUDO FACIAL",
+    "unit": "Unidade(s)",
+    "isPriority": "Prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "QUATERNÁRIO DE AMÔNIA 5000ML",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "RAIO X PORTÁTIL",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "RESPIRADOR",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "RESPIRADOR ADULTO",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "RESPIRADOR INVASIVO",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "RESPIRADOR PEDIÁTRICO",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "RESPIRADOR PORTÁTIL",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "RESPIRADORES",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "RESPIRADORES DE TRANSPORTE",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "ROUPA CIRÚRGICA DESCARTÁVEL",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "SABONETE ESPUMA REFILL 600ML",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "SABONETE LÍQUIDO REFIL",
+    "unit": "Unidade(s)",
+    "isPriority": "Prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "SACOS BRANCOS INFECTANTE 100L",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "SAPATO PROFISSIONAL IMPERMEÁVEL",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "INSUMOS"
+  },
+  {
     "name": "SMARTPHONES",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "SORO FISIOLÓGICO DE 100ML",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "TALHERES DESCARTÁVEIS",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "INSUMOS"
+  },
+  {
+    "name": "TERMÔMETRO",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "TERMÔMETRO DIGITAL DE TESTA",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "TERMÔMETRO INFRAVERMELHO DE CONTATO",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "VÁLVULA PARA OXIGÊNIO",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "VENTILADOR MECÂNICO PARA TRANSPORTE",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "VENTILADOR PORTÁTIL",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "VENTILADOR PULMONAR ADULTO",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "VENTILADOR PULMONAR COM PARAMETROS AVANÇADOS",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "VENTILADOR PULMONAR DE TRANSPORTE",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "VENTILADOR PULMONAR DE TRANSPORTE UNIVERSAL COM BATERIA)",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "VENTILADOR PULMONAR MECÂNICO MICROPROCESSADO UNIVERSAL (NEONATAL, PEDIÁTRICO)",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
+    "type": "EQUIPAMENTOS"
+  },
+  {
+    "name": "VENTILOMETRO",
+    "unit": "Unidade(s)",
+    "isPriority": "Não prioritário",
     "type": "EQUIPAMENTOS"
   }
 ]

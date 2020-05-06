@@ -27,7 +27,16 @@
         <app-unit-select v-model="filters.unit"></app-unit-select>
       </div>
       -->
-      <div class="form-group col-12">
+      <div class="form-group col-lg-3">
+        <label>Exibir consumíveis</label>
+        <select class="form-control" v-model="filters.consumable">
+          <option value="">Todos</option>
+          <option value="0">Apenas não consumíveis</option>
+          <option value="1">Apenas consumíveis</option>
+        </select>
+      </div>
+      <div class="form-group col-9">
+        <label>&nbsp;</label>
         <div class="input-group mb-3">
           <input
             type="text"
@@ -55,6 +64,7 @@
           <th>#</th>
           <th>Nome</th>
           <th>Unidade</th>
+          <th>Prioridade</th>
           <th>Cód. EAN</th>
           <th>Cód. Anvisa</th>
           <th class="app-table-actions">
@@ -75,16 +85,26 @@
           <td>
             <app-unit-item :entity="entity.unit"></app-unit-item>
           </td>
+          <td>{{ entity.priority }}</td>
           <td>{{ entity.eanCode }}</td>
           <td>{{ entity.healthCode }}</td>
           <td class="app-table-actions">
             <i
               v-b-tooltip.hover
               title="Exibe no formulário de solicitações."
-              class="fas fa-clipboard-list"
+              class="app-table-action fas fa-clipboard-list"
               :class="{
                 'app-table-action-disabled': !entity.requestFormActive,
                 'text-success': entity.requestFormActive,
+              }"
+            ></i>
+            <i
+              v-b-tooltip.hover
+              title="Produto consumível."
+              class="app-table-action fas fa-recycle"
+              :class="{
+                'app-table-action-disabled': !entity.consumable,
+                'text-success': entity.consumable,
               }"
             ></i>
           </td>
@@ -114,6 +134,7 @@
         filters: {
           unit: null,
           requestFormActive: false,
+          consumable: '',
         },
       };
     },
@@ -138,6 +159,9 @@
         }
         if (this.filters.requestFormActive) {
           url += `&requestFormActive=1`;
+        }
+        if (this.filters.consumable != '') {
+          url += `&consumable=${this.filters.consumable}`;
         }
         return url;
       },

@@ -27,6 +27,7 @@ exports.getIndexValidate = [
   query('page').optional().isInt(),
   query('q').optional().isString(),
   query('requestFormActive').optional().isInt(),
+  query('consumable').optional().isInt(),
   validationEndFunction,
 ];
 
@@ -59,10 +60,14 @@ exports.getIndex = async (req, res, next) => {
     if (req.query.requestFormActive) {
       options.where.requestFormActive = true;
     }
+    if (req.query.consumable != undefined) {
+      options.where.consumable = req.query.consumable == '1';
+    }
     // query options
     const page = req.query.page || 1;
     Model.setLimitOffsetForPage(page, options);
     options.order = [
+      ['priority', 'desc'],
       ['name', 'asc'],
       ['id', 'asc'],
     ];
@@ -118,13 +123,15 @@ const saveValidate = [
   param('id').optional().isInt(),
   body('name').trim().not().isEmpty().isLength({
     min: 1,
-    max: 60,
+    max: 150,
   }),
   body('description').optional().trim(),
   body('eanCode').optional().trim(),
   body('healthCode').optional().trim(),
   body('requestFormActive').optional().isBoolean(),
   body('unitId').isInt().custom(customFindByPkRelationValidation(UnitModel)),
+  body('priority').optional().isInt({ min: 0, max: 9 }),
+  body('consumable').isBoolean(),
   // validationEndFunction, // dont need here, is attached below
 ];
 
@@ -144,6 +151,8 @@ const saveEntityFunc = async (req, res, next, id) => {
     entity.healthCode = body.healthCode;
     entity.requestFormActive = body.requestFormActive;
     entity.unitId = body.unitId;
+    entity.priority = body.priority;
+    entity.consumable = body.consumable;
     // save
     await entity.save();
     // send result

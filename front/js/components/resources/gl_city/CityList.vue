@@ -3,9 +3,6 @@
     <br />
     <h1>{{ list_title }}</h1>
     <app-add-button @click="list_onAddClick"></app-add-button>
-    <button class="btn btn-outline-danger ml-1" @click="onIbgeImportClick">
-      <i class="fas fa-database"></i> Importar do IBGE
-    </button>
     <br />
     <br />
     <div class="form-row">
@@ -97,33 +94,6 @@
       },
       list_route_base() {
         return 'gl_city';
-      },
-    },
-    methods: {
-      list_buildURL(page) {
-        let url =
-          this.list_url_base +
-          '?page=' +
-          page +
-          '&q=' +
-          encodeURIComponent(this.searchText ? this.searchText : '');
-        if (this.filters.state) {
-          url += `&stateId=${this.filters.state.id}`;
-        }
-        return url;
-      },
-      onIbgeImportClick() {
-        const response = prompt(
-          'Esta rotina é longa, e pode deixar o servidor bastante lento. Digite "importar" para prosseguir.',
-          'não'
-        );
-        if (response != 'importar') {
-          return;
-        }
-        axios
-          .post(`${this.list_url_base}/ibgeImport`)
-          .then(this.api_thenDone())
-          .catch(this.api_catch());
       },
     },
   };
