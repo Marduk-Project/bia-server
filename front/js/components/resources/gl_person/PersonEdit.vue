@@ -47,6 +47,13 @@
                 ? 'ex. 12345678901234'
                 : '(opcional)'
             "
+            v-mask="[
+              legalIdentifierType == 'CPF'
+                ? '###.###.###-##'
+                : legalIdentifierType == 'CNPJ'
+                ? '##.###.###/####-##'
+                : null,
+            ]"
             v-validate="legalIdentifierValidateRule"
             :class="{ 'is-invalid': errors.has('legalIdentifierCode') }"
           />
@@ -329,7 +336,12 @@
           shortname: this.entity.shortname,
           legalType: this.entity.legalType,
           legalIdentifierType: this.legalIdentifierType, // computed
-          legalIdentifierCode: this.entity.legalIdentifierCode,
+          legalIdentifierCode:
+            this.legalIdentifierType == 'CPF'
+              ? this.entity.legalIdentifierCode.replace(/[^0-9]/g, '')
+              : this.legalIdentifierType == 'CNPJ'
+              ? this.entity.legalIdentifierCode.replace(/[^0-9]/g, '')
+              : this.entity.legalIdentifierCode,
           address: this.entity.address,
           addressZipcode: this.entity.addressZipcode,
           addressNumber: this.entity.addressNumber,
@@ -496,11 +508,11 @@
       legalIdentifierValidateRule() {
         switch (parseInt(this.entity.legalType)) {
           case 1:
-            return 'cpf-num|required';
+            return 'cpf|required';
 
           case 2:
           case 3:
-            return 'cnpj-num|required';
+            return 'cnpj|required';
 
           case 4:
           case 5:
