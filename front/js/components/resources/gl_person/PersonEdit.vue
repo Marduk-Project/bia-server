@@ -452,7 +452,7 @@
               this.entity.addressNeighborhood = res.data.bairro || '';
               this.entity.addressNumber = '';
 
-              axios.get(`/api/admin/gl_city?q=${res.data.localidade}`).then(
+              axios.get(`/api/admin/gl_city?code=${res.data.ibge}`).then(
                 this.api_thenDone(res => {
                   const cityObj = res.data && res.data.data && res.data.data[0];
                   if (cityObj) {
