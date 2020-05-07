@@ -10,6 +10,7 @@ exports.isCNPJ_Num = cnpj => {
   if (cnpj == '') {
     return false;
   }
+  cnpj = cnpj.replace(/[^0-9]/g, '');
   var numeros, digitos, soma, i, resultado, pos, tamanho, digitos_iguais;
   if (cnpj.length != 14) {
     return false;
