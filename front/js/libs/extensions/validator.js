@@ -1,19 +1,17 @@
 import { Validator } from 'vee-validate';
 
 function form_isCNPJ_Num(cnpj) {
-  if (cnpj == null) {
+  if (!cnpj) {
     return false;
   }
-  if (cnpj == undefined) {
-    return false;
-  }
-  if (cnpj == '') {
-    return false;
-  }
-  var numeros, digitos, soma, i, resultado, pos, tamanho, digitos_iguais;
+
+  cnpj = cnpj.replace(/[^0-9]/g, '');
+
   if (cnpj.length != 14) {
     return false;
   }
+
+  var numeros, digitos, soma, i, resultado, pos, tamanho, digitos_iguais;
   digitos_iguais = true;
   for (i = 0; i < cnpj.length - 1; i++) {
     if (cnpj.charAt(i) != cnpj.charAt(i + 1)) {
