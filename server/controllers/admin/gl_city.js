@@ -30,6 +30,7 @@ exports.getIndexValidate = [
   query('page').optional().isInt(),
   query('q').optional().isString(),
   query('stateId').optional().isInt(),
+  query('code').optional(),
   validationEndFunction,
 ];
 
@@ -55,6 +56,10 @@ exports.getIndex = async (req, res, next) => {
       if (validator.isNumeric(q, { no_symbols: true })) {
         options.where[Op.or].id = q;
       }
+    }
+    // code
+    if (req.query.code) {
+      options.where.code = req.query.code;
     }
     // stateId
     if (req.query.stateId) {
