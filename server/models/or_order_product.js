@@ -52,6 +52,7 @@ class MyModel extends BaseModel {
     entity.quantity = quantity;
     entity.notes = notes;
     await entity.save(options);
+    return entity;
   }
 }
 

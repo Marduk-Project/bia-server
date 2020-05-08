@@ -42,7 +42,6 @@
                       Situação
                     </label>
                     <app-order-status-select
-                      :show-only="[1, 2, 3, 9]"
                       v-model="entity.status"
                     ></app-order-status-select>
                   </div>
@@ -134,6 +133,7 @@
         type="button"
         class="btn btn-success col-md-3 col-lg-2"
         :disabled="!isFormFilledOK"
+        v-if="!isContextAccount || [1, 2, 3].includes(entity.status)"
         @click="crud_onSaveAction"
       >
         <i class="fas fa-check"></i> Salvar
