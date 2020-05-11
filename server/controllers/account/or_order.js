@@ -16,6 +16,13 @@ const CONSTANTS = require('../../../common/constants');
 
 const CtrModelModule = require('../../models/or_order');
 const Model = CtrModelModule.model;
+const ModelCommon = CtrModelModule.common;
+const OrderProductModelModule = require('../../models/or_order_product');
+const OrderProductModel = OrderProductModelModule.model;
+const OrderHistoryModelModule = require('../../models/or_order_history');
+const OrderHistoryModel = OrderHistoryModelModule.model;
+const OrderConsolidatedModelModule = require('../../models/or_order_consolidated');
+const OrderConsolidatedModel = OrderConsolidatedModelModule.model;
 const GL_UserModule = require('../../models/gl_user');
 const GL_UserModel = GL_UserModule.model;
 const GL_PersonModule = require('../../models/gl_person');
@@ -24,10 +31,6 @@ const GL_PersonContactModule = require('../../models/gl_person_contact');
 const GL_PersonContactModel = GL_PersonContactModule.model;
 const GL_ProductModelModule = require('../../models/gl_product');
 const GL_ProductModel = GL_ProductModelModule.model;
-const OrderProductModelModule = require('../../models/or_order_product');
-const OrderProductModel = OrderProductModelModule.model;
-const OrderHistoryModelModule = require('../../models/or_order_history');
-const OrderHistoryModel = OrderHistoryModelModule.model;
 
 // const utils = require('../../helpers/utils');
 const helperValidator = require('../../helpers/validator');
@@ -112,8 +115,8 @@ exports.getIndex = async (req, res, next) => {
     const page = req.query.page || 1;
     Model.setLimitOffsetForPage(page, options);
     options.order = [
-      // ['name', 'asc'], // TODO check order
-      ['id', 'asc'],
+      ['createdAt', 'desc'],
+      ['id', 'desc'],
     ];
     options.include = includeDefaultOption;
     // exec
@@ -269,12 +272,7 @@ const saveValidate = [
   body('needsReview').optional().isBoolean(),
   body('status').custom((value, { req }) => {
     if (req.user.levelIsStaff) {
-      return [
-        CtrModelModule.common.STATUS_NEW,
-        CtrModelModule.common.STATUS_REVIEW_OK,
-        CtrModelModule.common.STATUS_REVIEW_REJECTED,
-        CtrModelModule.common.STATUS_CANCELED,
-      ].includes(parseInt(value));
+      return CtrModelModule.common.STATUS_ALL.includes(parseInt(value));
     }
     return [
       CtrModelModule.common.STATUS_NEW,
@@ -304,7 +302,7 @@ const saveValidate = [
 ];
 
 const saveEntityFunc = async (req, res, next, id) => {
-  const transaction = await mainDb.transaction();
+  let transaction = await mainDb.transaction();
   try {
     const body = req.body;
     let entity = null;
@@ -321,6 +319,10 @@ const saveEntityFunc = async (req, res, next, id) => {
     entity.glPersonContactDestinationId = body.glPersonContactDestinationId;
     entity.notes = body.notes;
     entity.status = body.status;
+    // TODO pensar em fazer job ou queue
+    if (body.status == ModelCommon.STATUS_REVIEW_OK) {
+      entity.status = ModelCommon.STATUS_PROCESSED;
+    }
     if (!id) {
       entity.glUserId = req.user.id;
       entity.needsReview = !!body.notes;
@@ -348,9 +350,11 @@ const saveEntityFunc = async (req, res, next, id) => {
         transaction: transaction,
       });
     }
+    // check and save products
+    const changedProductList = [];
     await Promise.all(
       body.glProducts.map(async item => {
-        await OrderProductModel.saveOrderProduct(
+        const itemEntity = await OrderProductModel.saveOrderProduct(
           {
             order: entity,
             product: item.product,
@@ -360,8 +364,34 @@ const saveEntityFunc = async (req, res, next, id) => {
             transaction: transaction,
           }
         );
+        changedProductList.push(itemEntity.id);
       })
     );
+    // === delete products without quantity
+    // get the list for callback hooks to be called
+    const orderProductsToRemove = await OrderProductModel.findAll({
+      where: {
+        orderId: entity.id,
+        id: {
+          [Op.notIn]: changedProductList,
+        },
+      },
+    });
+    // delete items
+    await Promise.all(
+      orderProductsToRemove.map(async item => {
+        await item.destroy({ transaction: transaction });
+      })
+    );
+    // transaction finish
+    await transaction.commit();
+    // consolidate
+    transaction = await mainDb.transaction();
+    await OrderConsolidatedModelModule.consolidateByPersonDestination(
+      entity.glPersonDestinationId,
+      { transaction: transaction }
+    );
+    // transaction finish
     await transaction.commit();
     // send result
     const result = {

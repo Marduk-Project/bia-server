@@ -201,3 +201,5 @@ exports.jsonSerializer = async (value, scopeName) => {
   }
   return await jsonSerializer(value, scopes[scopeName], scopeName);
 };
+
+require('./or_order_consolidated');

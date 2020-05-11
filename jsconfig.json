@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "allowSyntheticDefaultImports": false,
+        "baseUrl": "./",
+        "paths": {
+            "@mixins/*": [ "front/js/libs/mixins/*" ],
+            "@libComponents/*": [ "front/js/libs/components/*" ],
+            "@resources/*": [ "front/js/components/resources/*" ],
+            "@common/*": [ "common/*" ]
+        }
+    },
+    "exclude": [
+        "node_modules",
+        "dist"
+    ]
+}

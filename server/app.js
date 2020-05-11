@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const helmet = require('helmet');
 const moment = require('moment');
+const fs = require('fs');
 moment.locale('pt-BR'); // TODO localizar em config
 // necessario para mover para o env
 const { nconf } = require('../config');
@@ -81,7 +82,9 @@ app.use('/account', require('./routes/account'));
 
 // only dev
 if (nconf.get('NODE_ENV') == 'development') {
-  app.use('/dev', require('./routes/zz_dev'));
+  if (fs.existsSync(path.join(__dirname, 'routes', 'zz_dev'))) {
+    app.use('/dev', require('./routes/zz_dev'));
+  }
 }
 
 /* =========================== */
@@ -111,7 +114,6 @@ app.locals.app_short_name = nconf.get('APP_SHORT_NAME');
 app.locals.app_website = nconf.get('APP_WEBSITE');
 
 // logo
-const fs = require('fs');
 app.locals.app_logo_base64 =
   'data:image/png;base64,' +
   fs

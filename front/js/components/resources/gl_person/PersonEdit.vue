@@ -47,6 +47,13 @@
                 ? 'ex. 12345678901234'
                 : '(opcional)'
             "
+            v-mask="[
+              legalIdentifierType == 'CPF'
+                ? '###.###.###-##'
+                : legalIdentifierType == 'CNPJ'
+                ? '##.###.###/####-##'
+                : null,
+            ]"
             v-validate="legalIdentifierValidateRule"
             :class="{ 'is-invalid': errors.has('legalIdentifierCode') }"
           />
@@ -153,7 +160,6 @@
               </button>
             </div>
           </div>
-          <small>Apenas os números.</small>
         </div>
         <div class="form-group col-xl-6">
           <label>Logradouro (Rua)</label>
@@ -330,7 +336,12 @@
           shortname: this.entity.shortname,
           legalType: this.entity.legalType,
           legalIdentifierType: this.legalIdentifierType, // computed
-          legalIdentifierCode: this.entity.legalIdentifierCode,
+          legalIdentifierCode:
+            this.legalIdentifierType == 'CPF'
+              ? this.entity.legalIdentifierCode.replace(/[^0-9]/g, '')
+              : this.legalIdentifierType == 'CNPJ'
+              ? this.entity.legalIdentifierCode.replace(/[^0-9]/g, '')
+              : this.entity.legalIdentifierCode,
           address: this.entity.address,
           addressZipcode: this.entity.addressZipcode,
           addressNumber: this.entity.addressNumber,
@@ -421,12 +432,17 @@
           this.notify_warning('Preencha um CEP válido.');
           return;
         }
+        this.getDataForZipcode();
+      },
+      getDataForZipcode() {
         const zipCodeOnlyNumbers = this.entity.addressZipcode.replace('-', '');
-        this.api_loadingShow();
+
         const externalAxios = _axios.create();
         externalAxios.defaults.headers.common = {};
         externalAxios.defaults.headers.common.accept = 'application/json';
-        this.searchingZipCode = externalAxios
+
+        this.api_loadingShow();
+        externalAxios
           .get(`//viacep.com.br/ws/${zipCodeOnlyNumbers}/json/`)
           .then(
             this.api_thenDone(res => {
@@ -435,6 +451,15 @@
               this.entity.address = res.data.logradouro || '';
               this.entity.addressNeighborhood = res.data.bairro || '';
               this.entity.addressNumber = '';
+
+              axios.get(`/api/admin/gl_city?code=${res.data.ibge}`).then(
+                this.api_thenDone(res => {
+                  const cityObj = res.data && res.data.data && res.data.data[0];
+                  if (cityObj) {
+                    this.entity.city = cityObj;
+                  }
+                }, true)
+              );
             }, true)
           )
           .catch(this.api_catch());
@@ -483,11 +508,11 @@
       legalIdentifierValidateRule() {
         switch (parseInt(this.entity.legalType)) {
           case 1:
-            return 'cpf-num|required';
+            return 'cpf|required';
 
           case 2:
           case 3:
-            return 'cnpj-num|required';
+            return 'cnpj|required';
 
           case 4:
           case 5:

@@ -53,13 +53,13 @@ module.exports = {
             onUpdate: 'CASCADE',
             onDelete: 'RESTRICT',
           },
-          remainingQuantity: {
+          requestQuantity: {
             type: Sequelize.DECIMAL(16, 3),
           },
-          reservedQuantity: {
+          supplyReserveQuantity: {
             type: Sequelize.DECIMAL(16, 3),
           },
-          transportQuantity: {
+          supplyTransportQuantity: {
             type: Sequelize.DECIMAL(16, 3),
           },
         },
