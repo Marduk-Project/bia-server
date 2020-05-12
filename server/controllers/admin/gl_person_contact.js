@@ -218,6 +218,12 @@ const saveValidate = [
     max: 5000,
   }),
   body('canEditOrder').isBoolean(),
+  body('extensionNumber').optional().trim().isLength({
+    max: 60,
+  }),
+  body('positionHeld').optional().trim().isLength({
+    max: 60,
+  }),
   // validationEndFunction, // aqui nao tem validate
 ];
 
@@ -241,6 +247,8 @@ const saveEntityFunc = async (req, res, next, id) => {
     entity.obs = body.obs;
     entity.level = body.level;
     entity.canEditOrder = body.canEditOrder;
+    entity.extensionNumber = body.extensionNumber;
+    entity.positionHeld = body.positionHeld;
     await entity.save();
     // send result
     const result = {
