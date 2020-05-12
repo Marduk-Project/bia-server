@@ -85,6 +85,12 @@ MyModel.init(
       type: Sequelize.BOOLEAN,
       defaultValue: false,
     },
+    extensionNumber: {
+      type: Sequelize.STRING(60),
+    },
+    positionHeld: {
+      type: Sequelize.STRING(60),
+    },
   },
   {
     // options

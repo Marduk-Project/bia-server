@@ -23,7 +23,7 @@
     -->
     <form action @submit.prevent novalidate>
       <div class="form-row">
-        <div class="form-group col-lg-12">
+        <div class="form-group col-lg-9">
           <label>Nome</label>
           <input
             class="form-control"
@@ -37,6 +37,16 @@
           <div class="invalid-feedback">Campo obrigatório.</div>
         </div>
         <div class="form-group col-lg-3">
+          <label>Cargo</label>
+          <input
+            class="form-control"
+            name="positionHeld"
+            type="text"
+            v-model="entity.positionHeld"
+            placeholder=""
+          />
+        </div>
+        <div class="form-group col-lg-3">
           <label>Telefone fixo</label>
           <input
             name="phone"
@@ -45,6 +55,15 @@
             class="form-control"
             v-model="entity.phone"
             placeholder="ex. (51) 1234-5678"
+          />
+        </div>
+        <div class="form-group col-lg-1">
+          <label>Ramal</label>
+          <input
+            name="extensionNumber"
+            type="text"
+            class="form-control"
+            v-model="entity.extensionNumber"
           />
         </div>
         <div class="form-group col-lg-3">
@@ -58,7 +77,7 @@
             placeholder="ex. (51) 12345-6789"
           />
         </div>
-        <div class="form-group col-lg-6">
+        <div class="form-group col-lg-5">
           <label>E-mail</label>
           <input
             name="email"
@@ -177,6 +196,8 @@
           personId: null,
           personReferenceId: null,
           userId: null,
+          extensionNumber: null,
+          positionHeld: null,
           // objects
           person: null,
           personReference: null,
@@ -210,6 +231,8 @@
               : this.entity.person
               ? this.entity.person.id
               : null,
+          extensionNumber: this.entity.extensionNumber,
+          positionHeld: this.entity.positionHeld,
         };
       },
       crud_validate() {

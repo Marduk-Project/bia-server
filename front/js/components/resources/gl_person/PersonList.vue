@@ -6,18 +6,33 @@
     <br />
     <br />
     <div class="form-row">
-      <div class="form-group col-lg-6">
+      <div class="form-group col-lg-3">
         <label>Cidade</label>
         <app-city-select v-model="filters.city"></app-city-select>
       </div>
-      <div class="form-group col-lg-6">
-        <label>Tipo</label>
-        <app-person-type-select
+      <div class="form-group col-lg-3">
+        <label>Tipo legal</label>
+        <app-legal-type-select
           v-model="filters.legalType"
           :show-all="true"
+        ></app-legal-type-select>
+      </div>
+      <div class="form-group col-lg-3">
+        <label>Tipo entidade</label>
+        <app-person-type-select
+          v-model="filters.personType"
         ></app-person-type-select>
       </div>
-      <div class="form-group col-12">
+      <div class="form-group col-lg-3">
+        <label>Prioridade</label>
+        <input
+          v-model="filters.priority"
+          type="number"
+          step="1"
+          class="form-control"
+        />
+      </div>
+      <div class="form-group col-lg-12">
         <div class="input-group mb-3">
           <input
             type="text"
@@ -45,6 +60,8 @@
           <th>#</th>
           <th>Nome</th>
           <th>Cidade</th>
+          <th>Tipo entidade</th>
+          <th>Prioridade (Grau COVID)</th>
           <th class="text-right">
             S.
             <app-info title="Situação"></app-info>
@@ -61,6 +78,8 @@
           <td>{{ entity.id }}</td>
           <td>{{ entity.name }}</td>
           <td>{{ entity.city ? entity.city.name : null }}</td>
+          <td>{{ entity.personType ? entity.personType.name : null }}</td>
+          <td>{{ entity.priority }}</td>
           <td class="app-table-actions">
             <i
               v-b-tooltip.hover
@@ -82,12 +101,14 @@
 <script>
   import { listMixin } from '@mixins/list-mixin';
   import CitySelect from '@resources/gl_city/CitySelect.vue';
-  import PersonTypeSelect from './PersonTypeSelect.vue';
+  import PersonLegalTypeSelect from './PersonLegalTypeSelect.vue';
+  import PersonTypeSelect from '../gl_person_type/PersonTypeSelect.vue';
 
   export default {
     mixins: [listMixin],
     components: {
       'app-city-select': CitySelect,
+      'app-legal-type-select': PersonLegalTypeSelect,
       'app-person-type-select': PersonTypeSelect,
     },
     data() {
@@ -95,6 +116,8 @@
         filters: {
           city: null,
           legalType: 0,
+          personType: null,
+          priority: '',
         },
       };
     },
@@ -122,6 +145,12 @@
         }
         if (this.filters.legalType > 0) {
           url += `&legalType=${this.filters.legalType}`;
+        }
+        if (this.filters.personType) {
+          url += `&personTypeId=${this.filters.personType.id}`;
+        }
+        if (this.filters.priority !== '') {
+          url += `&priority=${this.filters.priority}`;
         }
         return url;
       },

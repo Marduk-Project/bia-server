@@ -5,10 +5,11 @@
       <i class="fa fa-chevron-left"></i> Voltar
     </button>
     <br />
+    <br />
     <h1>{{ crud_title }}</h1>
     <form action @submit.prevent novalidate>
       <div class="form-row">
-        <div class="form-group col-lg-6">
+        <div class="form-group col-lg-9">
           <label>Nome</label>
           <input
             class="form-control"
@@ -22,25 +23,14 @@
           <div class="invalid-feedback">Campo obrigatório.</div>
         </div>
         <div class="form-group col-lg-3">
-          <label>Ordem</label>
+          <label>Prioridade</label>
           <input
             class="form-control"
-            name="order"
+            name="priority"
             type="number"
             step="1"
-            v-model="entity.order"
+            v-model="entity.priority"
           />
-        </div>
-        <div class="form-group col-lg-3">
-          <label>Valor</label>
-          <input
-            class="form-control"
-            name="valueString"
-            type="text"
-            v-model="entity.valueString"
-            maxlength="60"
-          />
-          <div class="invalid-feedback">Campo obrigatório.</div>
         </div>
       </div>
       <br />
@@ -62,34 +52,25 @@
 
   export default {
     mixins: [crudMixin],
+    components: {},
     data() {
       return {
         entity: {
-          fieldId: null,
           name: null,
-          code: null,
-          order: 0,
-          valueString: null,
+          priority: null,
           // objects
-          field: null,
         },
       };
     },
     methods: {
       crud_data() {
         return {
-          fieldId: this.parentEntityId,
           name: this.entity.name,
-          code: this.entity.code,
-          order: this.entity.order,
-          valueString: this.entity.valueString,
+          priority: this.entity.priority,
         };
       },
       crud_validate() {
         return true;
-      },
-      crud_requestParentEntity() {
-        return axios.get(`/api/admin/gl_field/${this.parentEntityId}/edit`);
       },
     },
     computed: {
@@ -101,14 +82,14 @@
         if (ok) {
           return '' + this.entity.name;
         } else {
-          return 'Cadastro de Item';
+          return 'Cadastro de Tipo de Pessoa';
         }
       },
       crud_url_base() {
-        return '/api/admin/gl_field_item';
+        return '/api/admin/gl_person_type';
       },
       crud_route_base() {
-        return 'gl_field_item';
+        return 'gl_person_type';
       },
     },
   };

@@ -160,6 +160,15 @@
               >
                 <i class="far fa-square"></i> Produtos
               </router-link>
+              <router-link
+                class="dropdown-item"
+                tag="a"
+                active-class="active"
+                :to="{ name: 'gl_person_type.index' }"
+                v-if="isUserStaff"
+              >
+                <i class="fas fa-tag"></i> Tipos de Pessoa
+              </router-link>
             </div>
           </li>
           <li class="nav-item dropdown">

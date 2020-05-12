@@ -8,6 +8,10 @@ const {
   model: CityModel,
   jsonSerializer: cityJsonSerializer,
 } = require('./gl_city');
+const {
+  model: PersonTypeModel,
+  jsonSerializer: personTypeSerializer,
+} = require('./gl_person_type');
 
 // legalType
 const LEGAL_TYPE_PERSON = 1;
@@ -133,6 +137,7 @@ MyModel.init(
       defaultValue: 0,
     },
     obs: Sequelize.TEXT('medium'),
+    priority: Sequelize.INTEGER,
   },
   {
     // options
@@ -149,6 +154,14 @@ CityModel.hasMany(MyModel, {
 MyModel.belongsTo(CityModel, {
   foreignKey: 'cityId',
   as: 'city',
+});
+MyModel.belongsTo(MyModel, {
+  foreignKey: 'personParentId',
+  as: 'personParent',
+});
+MyModel.belongsTo(PersonTypeModel, {
+  foreignKey: 'personTypeId',
+  as: 'personType',
 });
 
 const scopes = {
@@ -186,6 +199,10 @@ const scopes = {
     maps: {
       city: async (value, scopeName) =>
         await cityJsonSerializer(value, scopeName),
+      personParent: async (value, scopeName) =>
+        await exports.jsonSerializer(value, scopeName),
+      personType: async (value, scopeName) =>
+        await personTypeSerializer(value, scopeName),
     },
   },
 };

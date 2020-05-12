@@ -70,7 +70,7 @@
           <input
             class="form-control"
             name="order"
-            type="numeric"
+            type="number"
             step="1"
             v-model="entity.order"
           />

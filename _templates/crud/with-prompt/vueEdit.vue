@@ -49,7 +49,7 @@ to: "<%= make.vueEdit ? (inTestMode ? '_templates_compiled/tst_vueEdit.js' : `fr
           <input
             class="form-control"
             name="<%= field.name %>"
-            type="numeric"
+            type="number"
             step="1"
             v-model="entity.<%= field.name %>"
 <% if (field.required) { -%>
@@ -68,7 +68,7 @@ to: "<%= make.vueEdit ? (inTestMode ? '_templates_compiled/tst_vueEdit.js' : `fr
           <input
             class="form-control"
             name="<%= field.name %>"
-            type="numeric"
+            type="number"
             step="0.01"
             v-model="entity.<%= field.name %>"
 <% if (field.required) { -%>

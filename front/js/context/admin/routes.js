@@ -41,6 +41,10 @@ import GL_StateRegionEdit from '@resources/gl_state_region/StateRegionEdit.vue';
 import OR_OrderList from '@resources/or_order/OrderList.vue';
 import OR_OrderEdit from '@resources/or_order/OrderEdit.vue';
 
+// gl_person_type
+import GL_PersonTypeList from '../../components/resources/gl_person_type/PersonTypeList.vue';
+import GL_PersonTypeEdit from '../../components/resources/gl_person_type/PersonTypeEdit.vue';
+
 // generator-inject-new-file-here
 // maintenance
 import Man_Container from '../../components/admin/maintenance/Container.vue';
@@ -265,9 +269,25 @@ export default [
     components: { default: OR_OrderEdit, header: Header, footer: Footer },
     name: 'or_order.create',
   },
-  // generator-inject-new-route-here
-  // maintenance
+  // gl_person_type
   {
+    path: '/gl_person_type',
+    components: { default: GL_PersonTypeList, header: Header, footer: Footer },
+    name: 'gl_person_type.index',
+  },
+  {
+    path: '/gl_person_type/:id/edit',
+    components: { default: GL_PersonTypeEdit, header: Header, footer: Footer },
+    name: 'gl_person_type.edit',
+  },
+  {
+    path: '/gl_person_type/create',
+    components: { default: GL_PersonTypeEdit, header: Header, footer: Footer },
+    name: 'gl_person_type.create',
+  },
+  // generator-inject-new-route-here
+  {
+    // maintenance
     path: '/maintenance',
     components: { default: Man_Container, header: Header, footer: Footer },
     children: [
