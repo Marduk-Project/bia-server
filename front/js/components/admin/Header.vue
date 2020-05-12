@@ -29,6 +29,13 @@
             <a class="dropdown-item" href="/admin">
               <i class="fas fa-tachometer-alt"></i> Dashboard
             </a>
+            <a
+              class="dropdown-item"
+              href="/api/admin/or_orders_consolidated"
+              target="_blank"
+            >
+              <i class="fas fa-table"></i> Tabela do Consolidado
+            </a>
             <a class="dropdown-item" href="/account">
               <i class="fas fa-exchange-alt"></i> Painel de Conta
             </a>
