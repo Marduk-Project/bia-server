@@ -6,190 +6,28 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="/c/static/img/theme/favicon.png">
-    <!-- <title><%= app_full_name %></title> -->
+    <title>Boletim Consolidado</title>
   </head>
 
   <body>
-    <table>
+    <table border=1>
       <thead>
         <tr>
-          <td>
-            Origem
-          </td>
-          <td>
-            Hospital
-          </td>
-          <td>Item</td>
-          <td>
-            Tipo
-          </td>
-          <td>
-            Descrição
-          </td>
-          <td>
-            Quantidade
-          </td>
-          <td>
-            Tamanho
-          </td>
-          <td>
-            Necessidade
-          </td>
-          <td>
-            necessidade 30 dias
-          </td>
-          <td>
-            URGÊNCIA_CLASSIF
-          </td>
-          <td>
-            Unidade
-          </td>
-          <td>
-            Prioridade do Item
-          </td>
-          <td>
-            Cidade
-          </td>
-          <td>
-            Tipo Solicitante
-          </td>
-          <td>
-            Grau Prioridade COVID
-          </td>
-          <td>
-            Região - DRE
-          </td>
-          <td>
-            Microrregião
-          </td>
-          <td>
-            Mesorregião
-          </td>
-          <td>
-            Prioridade COVID19
-          </td>
-          <td>
-            Solicitação Original
-          </td>
-          <td>
-            Correção de demanda
-          </td>
-          <td>
-            Correção Doações
-          </td>
-          <td>
-            Doações entregues
-          </td>
-          <td>
-            PÁGINA
-          </td>
-          <td>
-            Urgência
-          </td>
-          <td>
-            Chave
-          </td>
-          <td>
-            Quantidade Corrigida
-          </td>
-          <td>
-            Gerência_Distrital_POA
-          </td>
-          <td>
-            Gestão_POA
-          </td>
+          <% fields.forEach(field => { %>
+            <td>
+              <%= field %>
+            </td>
+          <% }) %>
         </tr>
       </thead>
       <tbody>
-        <% rows.forEach(function (row) { %>
+        <% rows.forEach(row => { %>
           <tr>
+            <% values.forEach(value => { %>
             <td>
-              <%= row.origin %>
+              <%= typeof value === 'function' ? value(row) : value %>
             </td>
-            <td>
-              <%= row.personName %>
-            </td>
-            <td>
-              <%= row.itemName %>
-            </td>
-            <td>
-              <%= row.itemType %>
-            </td>
-            <td>
-              <%= row.itemNotes %>
-            </td>
-            <td>
-              <%= row.quantity %>
-            </td>
-            <td>
-              <%= row.size %>
-            </td>
-            <td>
-              <%= row.need %>
-            </td>
-            <td>
-              <%= row.thirtyDaysNeed %>
-            </td>
-            <td>
-              <%= row.isUrgent %>
-            </td>
-            <td>
-              <%= row.unitName %>
-            </td>
-            <td>
-              <%= row.isPriority %>
-            </td>
-            <td>
-              <%= row.cityName %>
-            </td>
-            <td>
-              <%= row.personType %>
-            </td>
-            <td>
-              <%= row.covid19PriorityLevel %>
-            </td>
-            <td>
-              <%= row.DRERegion %>
-            </td>
-            <td>
-              <%= row.microRegion %>
-            </td>
-            <td>
-              <%= row.mesoRegion %>
-            </td>
-            <td>
-              <%= row.isCovid19Priority %>
-            </td>
-            <td>
-              <%= row.initialRequest %>
-            </td>
-            <td>
-              <%= row.demandCorrection %>
-            </td>
-            <td>
-              <%= row.donationsCorrections %>
-            </td>
-            <td>
-              <%= row.donationsDone %>
-            </td>
-            <td>
-              <%= row.pageNumber %>
-            </td>
-            <td>
-              <%= row.urgencyType %>
-            </td>
-            <td>
-              Chave
-            </td>
-            <td>
-              Quantidade Corrigida
-            </td>
-            <td>
-              Gerência_Distrital_POA
-            </td>
-            <td>
-              Gestão_POA
-            </td>
+            <% }) %>
           </tr>
         <% }); %>
       </tbody>
