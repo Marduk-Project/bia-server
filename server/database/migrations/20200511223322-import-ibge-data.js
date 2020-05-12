@@ -7,7 +7,7 @@ const {
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     try {
-      await importToDatabase();
+      await importToDatabase(true);
     } catch (err) {
       throw err;
     }
