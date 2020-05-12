@@ -12,6 +12,8 @@ const {
 } = require('../../middlewares/error-mid');
 const CtrModelModule = require('../../models/gl_person');
 const Model = CtrModelModule.model;
+const PersonTypeModelModule = require('../../models/gl_person_type');
+const PersonTypeModel = PersonTypeModelModule.model;
 const CityModelModule = require('../../models/gl_city');
 const CityModel = CityModelModule.model;
 const PersonFieldModelModule = require('../../models/gl_person_field');
@@ -33,6 +35,8 @@ exports.getIndexValidate = [
   query('q').optional().isString(),
   query('legalType').optional().isString(),
   query('cityId').optional().isInt(),
+  query('personTypeId').optional().isInt(),
+  query('priority').optional().isInt(),
   validationEndFunction,
 ];
 
@@ -70,6 +74,14 @@ exports.getIndex = async (req, res, next) => {
     if (req.query.legalType) {
       options.where.legalType = req.query.legalType;
     }
+    // personTypeId
+    if (req.query.personTypeId) {
+      options.where.personTypeId = req.query.personTypeId;
+    }
+    // priority
+    if (req.query.priority) {
+      options.where.priority = req.query.priority;
+    }
     // query options
     const page = req.query.page || 1;
     Model.setLimitOffsetForPage(page, options);
@@ -77,7 +89,7 @@ exports.getIndex = async (req, res, next) => {
       ['name', 'asc'],
       ['id', 'asc'],
     ];
-    options.include = ['city'];
+    options.include = ['city', 'personType'];
     // exec
     const queryResult = await Model.findAndCountAll(options);
     const meta = Model.paginateMeta(queryResult, page);
@@ -101,7 +113,11 @@ exports.getEditValidate = [
     .isInt()
     .not()
     .isEmpty()
-    .custom(customFindByPkValidation(Model, null, { include: ['city'] })),
+    .custom(
+      customFindByPkValidation(Model, null, {
+        include: ['city', 'personType', 'personParent'],
+      })
+    ),
   validationEndFunction,
 ];
 
@@ -234,6 +250,23 @@ const saveValidate = [
   body('obs').optional().trim().isLength({
     max: 5000,
   }),
+  body('priority').optional().isInt(),
+  body('personTypeId')
+    .optional({ checkFalsy: true })
+    .isInt()
+    .custom(customFindByPkRelationValidation(PersonTypeModel)),
+  body('personParentId')
+    .optional({ checkFalsy: true })
+    .isInt()
+    .custom(customFindByPkRelationValidation(Model))
+    .custom((value, { req }) => {
+      if (req.params.id && value) {
+        if (req.params.id == value) {
+          throw new ApiError('Entidade não pode ser pai de si mesma.');
+        }
+      }
+      return true;
+    }),
   body('fields.*.id').isInt(),
   body('fields.*.fieldItemId').optional({ checkFalsy: true }).isInt(),
   body('fields.*')
@@ -298,6 +331,9 @@ const saveEntityFunc = async (req, res, next, id) => {
     entity.latitude = body.latitude;
     entity.longitude = body.longitude; // TODO implement
     entity.obs = body.obs;
+    entity.priority = body.priority;
+    entity.personTypeId = body.personTypeId;
+    entity.personParentId = body.personParentId;
     await entity.save();
     // fields
     await Promise.all(

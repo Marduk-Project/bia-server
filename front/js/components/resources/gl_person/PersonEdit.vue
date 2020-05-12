@@ -27,13 +27,13 @@
     </div>
     <form action @submit.prevent novalidate>
       <div class="form-row">
-        <div class="form-group col-xl-6">
-          <label>Tipo pessoa</label>
-          <app-person-type-select
+        <div class="form-group col-lg-3">
+          <label>Tipo legal</label>
+          <app-legal-type-select
             v-model="entity.legalType"
-          ></app-person-type-select>
+          ></app-legal-type-select>
         </div>
-        <div class="form-group col-xl-6">
+        <div class="form-group col-lg-3">
           <label>{{ legalIdentifierTypeDesc }}</label>
           <input
             name="legalIdentifierCode"
@@ -68,7 +68,21 @@
             Campo obrigatório. Digite um {{ legalIdentifierTypeDesc }} válido.
           </div>
         </div>
-        <div class="form-group col-xl-6">
+        <div class="form-group col-lg-3">
+          <label>Tipo entidade</label>
+          <app-person-type-select
+            v-model="entity.personType"
+          ></app-person-type-select>
+        </div>
+        <div class="form-group col-lg-3">
+          <label>Entidade pai</label>
+          <app-person-select v-model="entity.personParent"></app-person-select>
+          <small
+            >Registro superior (ex. Prefeitura é pai de Secretaria, gestores ou
+            semelhante).</small
+          >
+        </div>
+        <div class="form-group col-lg-6">
           <label>{{
             entity.legalIdentifierType == 'CNPJ'
               ? 'Razão social'
@@ -85,7 +99,7 @@
           />
           <div class="invalid-feedback">Campo obrigatório.</div>
         </div>
-        <div class="form-group col-xl-6">
+        <div class="form-group col-lg-6">
           <label>{{
             entity.legalIdentifierType == 'CPF'
               ? 'Nome resumido ou apelido'
@@ -99,7 +113,7 @@
             placeholder="ex. Fulano"
           />
         </div>
-        <div class="form-group col-xl-4">
+        <div class="form-group col-lg-3">
           <label>Telefone fixo</label>
           <input
             name="phone"
@@ -110,7 +124,7 @@
             placeholder="ex. (51) 1234-5678"
           />
         </div>
-        <div class="form-group col-xl-4">
+        <div class="form-group col-lg-3">
           <label>Telefone celular</label>
           <input
             type="text"
@@ -121,7 +135,7 @@
             placeholder="ex. (51) 12345-6789"
           />
         </div>
-        <div class="form-group col-xl-4">
+        <div class="form-group col-lg-3">
           <label>E-mail</label>
           <input
             name="email"
@@ -134,11 +148,21 @@
           />
           <div class="invalid-feedback">Campo deve ser um e-mail.</div>
         </div>
+        <div class="form-group col-lg-3">
+          <label>Prioridade (Grau COVID)</label>
+          <input
+            name="priority"
+            type="number"
+            step="1"
+            class="form-control"
+            v-model="entity.priority"
+          />
+        </div>
       </div>
       <br />
       <h4>Endereço</h4>
       <div class="form-row">
-        <div class="form-group col-xl-3">
+        <div class="form-group col-lg-3">
           <label>CEP</label>
           <div class="input-group">
             <input
@@ -161,7 +185,7 @@
             </div>
           </div>
         </div>
-        <div class="form-group col-xl-6">
+        <div class="form-group col-lg-6">
           <label>Logradouro (Rua)</label>
           <input
             class="form-control"
@@ -170,7 +194,7 @@
             placeholder="ex. Rua dos amigos"
           />
         </div>
-        <div class="form-group col-xl-3">
+        <div class="form-group col-lg-3">
           <label>Número</label>
           <input
             class="form-control"
@@ -180,7 +204,7 @@
             ref="fd_numero"
           />
         </div>
-        <div class="form-group col-xl-3">
+        <div class="form-group col-lg-3">
           <label>Complemento</label>
           <input
             class="form-control"
@@ -189,7 +213,7 @@
             placeholder="ex. sala 1001"
           />
         </div>
-        <div class="form-group col-xl-3">
+        <div class="form-group col-lg-3">
           <label>Bairro</label>
           <input
             class="form-control"
@@ -198,14 +222,14 @@
             placeholder="ex. Centro"
           />
         </div>
-        <div class="form-group col-xl-3">
+        <div class="form-group col-lg-3">
           <label>Cidade</label>
           <app-city-select v-model="entity.city"></app-city-select>
           <small class="text-danger" v-if="!entity.city"
             >Campo obrigatório.</small
           >
         </div>
-        <div class="form-group col-xl-3">
+        <div class="form-group col-lg-3">
           <label>Data nascimento</label>
           <app-input-date
             class="form-control"
@@ -288,14 +312,18 @@
   import { crudMixin } from '@mixins/crud-mixin';
   import axios from '@mixins/axios-auth';
   import _axios from 'axios';
-  import PersonTypeSelect from '@resources/gl_person/PersonTypeSelect.vue';
+  import PersonLegalTypeSelect from '@resources/gl_person/PersonLegalTypeSelect.vue';
   import CitySelect from '@resources/gl_city/CitySelect.vue';
   import PersonFieldTableRow from '@resources/gl_person_field/PersonFieldTableRow.vue';
+  import PersonTypeSelect from '../gl_person_type/PersonTypeSelect.vue';
+  import PersonSelect from './PersonSelect.vue';
 
   export default {
     mixins: [crudMixin],
     components: {
+      'app-legal-type-select': PersonLegalTypeSelect,
       'app-person-type-select': PersonTypeSelect,
+      'app-person-select': PersonSelect,
       'app-city-select': CitySelect,
       'app-field-row': PersonFieldTableRow,
     },
@@ -322,8 +350,11 @@
           latitude: 0,
           longitude: 0,
           obs: null,
+          priority: 0,
           // obs
           city: null,
+          personParent: null,
+          personType: null,
         },
         fieldList: [],
       };
@@ -356,6 +387,13 @@
           latitude: this.entity.latitude,
           longitude: this.entity.longitude,
           obs: this.entity.obs,
+          priority: this.entity.priority,
+          personTypeId: this.entity.personType
+            ? this.entity.personType.id
+            : null,
+          personParentId: this.entity.personParent
+            ? this.entity.personParent.id
+            : null,
           fields: this.fieldList.map(field => {
             let value = null;
             switch (parseInt(field.field.type)) {
@@ -436,11 +474,9 @@
       },
       getDataForZipcode() {
         const zipCodeOnlyNumbers = this.entity.addressZipcode.replace('-', '');
-
         const externalAxios = _axios.create();
         externalAxios.defaults.headers.common = {};
         externalAxios.defaults.headers.common.accept = 'application/json';
-
         this.api_loadingShow();
         externalAxios
           .get(`//viacep.com.br/ws/${zipCodeOnlyNumbers}/json/`)
@@ -451,7 +487,6 @@
               this.entity.address = res.data.logradouro || '';
               this.entity.addressNeighborhood = res.data.bairro || '';
               this.entity.addressNumber = '';
-
               axios.get(`/api/admin/gl_city?code=${res.data.ibge}`).then(
                 this.api_thenDone(res => {
                   const cityObj = res.data && res.data.data && res.data.data[0];

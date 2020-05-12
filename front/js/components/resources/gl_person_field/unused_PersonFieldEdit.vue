@@ -37,7 +37,7 @@
           <input
             class="form-control"
             name="valueInt"
-            type="numeric"
+            type="number"
             step="1"
             v-model="entity.valueInt"
           />
@@ -47,7 +47,7 @@
           <input
             class="form-control"
             name="valueDouble"
-            type="numeric"
+            type="number"
             step="0.01"
             v-model="entity.valueDouble"
           />
