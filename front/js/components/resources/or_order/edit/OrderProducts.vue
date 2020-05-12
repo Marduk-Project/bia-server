@@ -132,7 +132,7 @@
         return this.productDataList.filter(productData => {
           if (this.searchText) {
             if (
-              !productData.name
+              !productData.glProduct.name
                 .toLowerCase()
                 .includes(this.searchText.toLowerCase())
             ) {

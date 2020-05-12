@@ -132,6 +132,7 @@ const consolidateOrderProduct = async (
       glProductId: orderProduct.glProductId,
       glUnitId: orderProduct.glUnitId,
     },
+    transaction: options ? options.transaction : undefined,
   });
   if (!orderConsolidated) {
     orderConsolidated = MyModel.build({
@@ -166,6 +167,7 @@ const consolidateOrderProduct = async (
         },
       },
     ],
+    transaction: options ? options.transaction : undefined,
   });
   orderConsolidated.requestQuantity = 0;
   orderConsolidated.supplyReserveQuantity = 0;
@@ -175,7 +177,7 @@ const consolidateOrderProduct = async (
     if (item.id == orderProduct.id) {
       foundCurrentItem = true;
     }
-    const order = await findOrder(item);
+    const order = await findOrder(item, options);
     switch (parseInt(order.type)) {
       case OrderModelCommon.TYPE_SUPPLY:
       case OrderModelCommon.TYPE_MANUAL_ADJUST:
@@ -203,7 +205,7 @@ const consolidateOrderProduct = async (
   }
   if (!foundCurrentItem) {
     // implementation to try to fix database transactions
-    await calcItem(orderProduct);
+    // await calcItem(orderProduct);
   }
   await orderConsolidated.save({
     transaction: options ? options.transaction : undefined,
@@ -226,6 +228,7 @@ const clearConsolidatedNotInIdList = async (where, options) => {
       },
       glPersonDestinationId: where.glPersonDestinationId,
     },
+    transaction: options ? options.transaction : undefined,
   });
   await Promise.all(
     consolidatedList.map(async item => {
@@ -239,10 +242,12 @@ const clearConsolidatedNotInIdList = async (where, options) => {
   );
 };
 
-const findOrder = async entity => {
+const findOrder = async (entity, options) => {
   let order = null;
   if (!entity.order) {
-    order = await OrderModel.findByPk(entity.orderId);
+    order = await OrderModel.findByPk(entity.orderId, {
+      transaction: options ? options.transaction : undefined,
+    });
   } else {
     order = entity.order;
   }
@@ -278,6 +283,7 @@ const consolidateByPersonDestination = async (
         status: OrderModelCommon.STATUS_PROCESSED,
       },
       attributes: ['id', 'glPersonDestinationId', 'status'],
+      transaction: options ? options.transaction : undefined,
     }).map(item => item.id)
   );
   // get all order items reduced
@@ -288,6 +294,7 @@ const consolidateByPersonDestination = async (
       },
     },
     include: ['order'],
+    transaction: options ? options.transaction : undefined,
   });
   // consolidate all items
   const changedIdList = [];
