@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
-    <a class="navbar-brand" href="/admin">{{ app_current_name }}</a>
+    <a class="navbar-brand" href="/account">{{ app_current_name }}</a>
     <button
       class="navbar-toggler"
       type="button"
