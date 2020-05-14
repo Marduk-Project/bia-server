@@ -5,39 +5,20 @@ const {
   mainDb,
 } = require('../../server/database/main_connection.js');
 
-const { model: CountryModel } = require('../../server/models/gl_country');
-const { model: StateModel } = require('../../server/models/gl_state');
-const { model: CityModel } = require('../../server/models/gl_city');
-const StateRegionModelModule = require('../../server/models/gl_state_region');
-const StateRegionModel = StateRegionModelModule.model;
-const CityStateRegionModelModule = require('../../server/models/gl_city_state_region');
-const CityStateRegionModel = CityStateRegionModelModule.model;
-
-const models = {
-  glCity: CityModel,
-  orOrderConsolidated: '',
-  glProduct: '',
-  glUnit: '',
-  glPerson: '',
-  glPersonType: '',
-};
+const {
+  findCity,
+  findOrCreatePersonType,
+  findOrCreatePerson,
+  findOrCreateUnit,
+  findOrCreateProduct,
+} = require('./db-finders-and-creators');
 
 const rawData = require('./consolidated.json');
 const schemaMapToDB = require('./schema-map-to-db');
-const idsByModel = {};
 
 exports.importToDatabase = async keepConnection => {
   try {
     let count = 0;
-    let lastMessageCount = 0;
-
-    const incLogFunc = () => {
-      count++;
-      if (lastMessageCount + 100 < count) {
-        lastMessageCount += 100;
-        console.log(chalk.green(`...processed ${lastMessageCount} rows...`));
-      }
-    };
 
     console.log(chalk.green('Connecting to DB...'));
     await checkIsConnected();
@@ -49,8 +30,44 @@ exports.importToDatabase = async keepConnection => {
       chalk.green('Starting to import... it might take some time...')
     );
 
-    console.log(chalk.green(`Created ...`));
-    incLogFunc();
+    preparedData.forEach(async (data, rowNumber) => {
+      try {
+        // City
+        const cityId = await findOrCreatePersonType(data.cityName);
+        data.cityId = cityId;
+        delete data.cityName;
+
+        // PersonType
+        data.personTypeId = await findOrCreatePersonType(
+          data.personType,
+          data.isCovid19Priority
+        );
+        delete data.personType, delete data.isCovid19Priority;
+
+        // Person
+        data.personDestinationId = await findOrCreatePerson(
+          data.personName,
+          data.cityId,
+          data.covid19Priority
+        );
+        delete data.personName, delete data.covid19Priority;
+
+        // Unit
+        data.unitId = findOrCreateUnit(data.unitName);
+        delete data.unitName;
+
+        // Product
+        data.productId = findOrCreateProduct(data.productName);
+        delete data.productName;
+      } catch (errorMessage) {
+        console.log(chalk.red(`Error on index ${rowNumber}`), errorMessage);
+        console.log('preparedDataRow:', data);
+        // TODO: save on error log
+      }
+
+      console.log(chalk.green(`Created ...`));
+      incLogFunc(++count);
+    });
   } catch (err) {
     console.log(chalk.red('Error on importing data...'), err);
   }
@@ -61,31 +78,16 @@ function prepareDataForRow(row) {
     if (schemaMapToDB[key].parse) {
       row[key] = schemaMapToDB[key].parse(row[key]);
     }
-    if (schemaMapToDB[key].idField) {
-      row[key] = getId(row[key], schemaMapToDB[key]);
-    }
   });
   return row;
 }
 
-async function getId(value, schemaMap) {
-  if (!idsByModel[schemaMap.modelName][value]) {
-    idsByModel[schemaMap.modelName][value] = await getFromModel(
-      schemaMap.modelName,
-      {
-        [schemaMap.modelField]: value,
-      }
-    );
+// Utils
+// ---
+let lastMessageCount = 0;
+function incLogFunc(count) {
+  if (lastMessageCount + 100 < count) {
+    lastMessageCount += 100;
+    console.log(chalk.green(`...processed ${lastMessageCount} rows...`));
   }
-
-  return idsByModel[schemaMap.modelName][value];
-}
-async function getFromModel(modelName, where) {
-  const value = Object.values(where)[0];
-
-  const { id } = await models[modelName].find({
-    where,
-  });
-
-  return id;
 }

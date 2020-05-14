@@ -57,7 +57,7 @@ exports.schema = {
   Cidade: {
     prop: 'cityName',
     type: String,
-    parse: value => value.toLowerString(),
+    parse: value => value.toLowerCase(),
   },
   'Tipo Solicitante': {
     prop: 'personType',
