@@ -11,10 +11,20 @@ const {
   findOrCreatePerson,
   findOrCreateUnit,
   findOrCreateProduct,
+  findOrCreateOrder,
+  createOrAddOrderProduct,
 } = require('./db-finders-and-creators');
 
-const rawData = require('./consolidated.json');
-const schemaMapToDB = require('./schema-map-to-db');
+const {
+  incLog,
+  setLogFile,
+  addToLogFile,
+  LOG_TYPE,
+} = require('../import_utils');
+setLogFile('./consolidated.log');
+
+const dataList = require('./consolidated.json');
+const numRows = dataList.length;
 
 exports.importToDatabase = async keepConnection => {
   try {
@@ -24,13 +34,14 @@ exports.importToDatabase = async keepConnection => {
     await checkIsConnected();
 
     console.log(chalk.green('Preparing data to be imported...'));
-    const preparedData = rawData.map(prepareDataForRow);
 
     console.log(
       chalk.green('Starting to import... it might take some time...')
     );
 
-    preparedData.forEach(async (data, rowNumber) => {
+    for (let rowNumber = 0; rowNumber < numRows; rowNumber++) {
+      const data = dataList[rowNumber];
+
       try {
         // City
         const cityId = await findOrCreatePersonType(data.cityName);
@@ -40,54 +51,74 @@ exports.importToDatabase = async keepConnection => {
         // PersonType
         data.personTypeId = await findOrCreatePersonType(
           data.personType,
-          data.isCovid19Priority
+          data.personTypePriority
         );
-        delete data.personType, delete data.isCovid19Priority;
+        delete data.personType;
+        delete data.personTypePriority;
 
         // Person
         data.personDestinationId = await findOrCreatePerson(
           data.personName,
           data.cityId,
-          data.covid19Priority
+          data.personPriority
         );
-        delete data.personName, delete data.covid19Priority;
+        delete data.personName;
+        delete data.personPriority;
 
         // Unit
-        data.unitId = findOrCreateUnit(data.unitName);
+        data.unitId = await findOrCreateUnit(data.unitName);
         delete data.unitName;
 
         // Product
-        data.productId = findOrCreateProduct(data.productName);
+        data.productId = await findOrCreateProduct(
+          data.productName,
+          data.unitId,
+          data.isConsumable
+        );
         delete data.productName;
+        delete data.unitId;
+        delete data.isConsumable;
+
+        // Order
+        data.orderId = await findOrCreateOrder(data.personDestinationId);
+        delete data.personDestinationId;
+
+        // Order Product
+        data.orderId = await createOrAddOrderProduct({
+          orderId: data.orderId,
+          productId: data.productId,
+          unitId: data.unitId,
+          quantity: data.quantity,
+          notes: data.notes,
+          requestQuantity: data.requestQuantity,
+        });
+        delete data.orderId;
+        delete data.productId;
+        delete data.unitId;
+        delete data.quantity;
+
+        console.log(chalk.green(`Created ...`));
+        incLog(count++);
       } catch (errorMessage) {
         console.log(chalk.red(`Error on index ${rowNumber}`), errorMessage);
-        console.log('preparedDataRow:', data);
-        // TODO: save on error log
+        console.log('data:', data);
+        addToLogFile(
+          LOG_TYPE.ERROR,
+          `
+          ${errorMessage}
+          dataIndex: ${rowNumber}
+          dataObject: ${data}
+          `
+        );
       }
-
-      console.log(chalk.green(`Created ...`));
-      incLogFunc(++count);
-    });
-  } catch (err) {
-    console.log(chalk.red('Error on importing data...'), err);
+    }
+  } catch (errorMessage) {
+    console.log(chalk.red('Error on importing data...'), errorMessage);
+    addToLogFile(
+      LOG_TYPE.ERROR,
+      `
+      ${errorMessage}
+      `
+    );
   }
 };
-
-function prepareDataForRow(row) {
-  Object.keys(row).forEach(key => {
-    if (schemaMapToDB[key].parse) {
-      row[key] = schemaMapToDB[key].parse(row[key]);
-    }
-  });
-  return row;
-}
-
-// Utils
-// ---
-let lastMessageCount = 0;
-function incLogFunc(count) {
-  if (lastMessageCount + 100 < count) {
-    lastMessageCount += 100;
-    console.log(chalk.green(`...processed ${lastMessageCount} rows...`));
-  }
-}

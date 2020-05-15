@@ -1,4 +1,5 @@
 const chalk = require('chalk');
+const { find, create, addToLogFile, LOG_TYPE } = require('../import_utils');
 
 const { model: CityModel } = require('../../server/models/gl_city');
 const {
@@ -7,6 +8,10 @@ const {
 const { model: PersonModel } = require('../../server/models/gl_person');
 const { model: UnitModel } = require('../../server/models/gl_unit');
 const { model: ProductModel } = require('../../server/models/gl_product');
+const { model: OrderModel } = require('../../server/models/or_order');
+const {
+  model: OrderProductModel,
+} = require('../../server/models/or_order_product');
 
 exports.findCity = function findCity(name) {
   return find(CityModel, {
@@ -33,13 +38,24 @@ exports.findOrCreatePerson = async function findOrCreatePerson(
   return find(PersonModel, {
     where: { name, cityId },
     notFound: () => {
-      create(PersonModel, {
+      const personId = create(PersonModel, {
         name,
         cityId,
         priority,
         legalType: 6,
       });
-      // TODO: save to log - incomplete registration
+      addToLogFile(
+        LOG_TYPE.WARNING,
+        `
+        Incomplete Person created:
+        id: ${personId}
+        name: ${name}
+        cityId: ${cityId}
+        priority: ${priority}
+        legalType: 6
+        `
+      );
+      return personId;
     },
   });
 };
@@ -64,68 +80,90 @@ exports.findOrCreateProduct = async function findOrCreateProduct(
   return find(ProductModel, {
     where: { name },
     notFound: () => {
-      create(ProductModel, {
+      const productId = create(ProductModel, {
         name,
         unitId,
         consumable,
       });
-      // TODO: save to log - incomplete registration
+      addToLogFile(
+        LOG_TYPE.WARNING,
+        `
+        Incomplete product created:
+        id: ${productId}
+        name: ${name}
+        unitId: ${unitId}
+        consumable: ${consumable}
+        `
+      );
+      return productId;
     },
   });
 };
 
-// Utils
-// ---
-async function find(Model, { where, notFound }) {
-  throwErrorOnWhereFieldsEmpty(Model.name, where);
-
-  const objectsFound = await Model.findAll({
-    where, // TODO: deconstruct object to apply LIKE on name fields
-  });
-
-  if (objectsFound.length === 1) {
-    return objectsFound[0].id;
-  } else if (objectsFound.length > 1) {
-    throwError(
-      `Error: Multiple results found on Model ${Model.name}
-      Where: ${stringify(where)}
-      Results: ${stringify(objectsFound)}`
-    );
-  } else {
-    console.log(
-      chalk.yellow(
-        `No results found: ${Model.name} - where: ${stringify(where)}`
-      )
-    );
-
-    if (typeof notFound === 'function') {
-      return notFound();
-    }
-  }
-}
-
-async function create(Model, data) {
-  const createdObject = await Model.create(data);
-  console.log(chalk.green(`Created on ${Model.name}: ${stringify(data)}`));
-  return createdObject.id;
-}
-
-function throwErrorOnWhereFieldsEmpty(stepName, where) {
-  Object.values(where).forEach((value, index) => {
-    if (value === undefined) {
-      throwError(
-        `Error on step ${stepName} - parameter ${
-          Object.keys(where)[index]
-        } blank.`
+exports.findOrCreateOrder = async function findOrCreateOrder(
+  destinationPersonId
+) {
+  return find(OrderModel, {
+    where: { destinationPersonId, type: 1 },
+    notFound: () => {
+      const orderId = create(OrderModel, {
+        destinationPersonId,
+        type: 1,
+        status: 4,
+      });
+      addToLogFile(
+        LOG_TYPE.WARNING,
+        `
+        Incomplete order created:
+        id: ${orderId}
+        destinationPersonId: ${destinationPersonId},
+        type: 1,
+        status: 4,
+        `
       );
-    }
+      return orderId;
+    },
   });
-}
-function throwError(message) {
-  console.log(chalk.red(`${message}\nSkipping this entry...`));
-  throw new Error(message);
-}
+};
 
-function stringify(content) {
-  return JSON.stringify(content, null, 2);
-}
+exports.createOrAddOrderProduct = async function createOrAddOrderProduct({
+  orderId,
+  productId,
+  unitId,
+  notes,
+  requestQuantity,
+}) {
+  const orderProductId = await find(OrderProductModel, {
+    where: { orderId, productId, unitId },
+    notFound: () => {
+      const productOrderId = create(OrderProductModel, {
+        orderId,
+        productId,
+        unitId,
+        notes,
+        requestQuantity,
+      });
+      addToLogFile(
+        LOG_TYPE.WARNING,
+        `
+        Incomplete Product Order created:
+        id: ${productOrderId}
+        orderId: ${orderId}
+        productId: ${productId}
+        unitId: ${unitId}
+        notes: ${notes}
+        requestQuantity: ${requestQuantity}
+        `
+      );
+      return productOrderId;
+    },
+  });
+
+  OrderProductModel.increment(
+    {
+      requestQuantity: requestQuantity,
+    },
+    { where: { id: orderId } }
+  );
+  return orderProductId;
+};

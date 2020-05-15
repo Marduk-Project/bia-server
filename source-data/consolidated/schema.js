@@ -1,33 +1,73 @@
+// Ordered by "import to db"
 exports.schema = {
-  Origem: {
-    prop: 'origin',
+  // glCity
+  Cidade: {
+    prop: 'cityName',
     type: String,
+    parse: value => value.toLowerCase(),
   },
+
+  // glPersonType
+  'Tipo Solicitante': {
+    prop: 'personType',
+    type: String,
+    oneOf: [
+      'HOSPITAIS',
+      'SEGURANÇA PÚBLICA',
+      'PREFEITURAS/SECRETARIAS',
+      'OUTROS',
+    ],
+  },
+  'Prioridade COVID19': {
+    prop: 'personTypePriority',
+    type: String,
+    oneOf: ['SIM', 'NÃO'],
+    parse: value => Number(value === 'SIM'),
+  },
+
+  // Person
   Hospital: {
     prop: 'personName',
     type: String,
-    parse: value => value.replace(/(.*)(\s-[\w\s]+)$/, '$1').toLowerString(),
+    parse: value => value.replace(/(.*)(\s-[\w\s]+)$/, '$1').toLowerCase(),
   },
-  Item: {
-    prop: 'productName',
-    type: String,
-  },
-  Quantidade: {
-    prop: 'quantity',
+  'Grau Prioridade COVID': {
+    prop: 'personPriority',
     type: Number,
   },
+
+  // Unit
   Unidade: {
     prop: 'unitName',
     type: String,
   },
-  Descrição: {
-    prop: 'notes',
+
+  // Product
+  Item: {
+    prop: 'productName',
     type: String,
   },
   Tipo: {
-    prop: 'type',
+    prop: 'isConsumable',
     type: String,
     oneOf: ['INSUMOS', 'EQUIPAMENTOS'],
+    parse: value => Boolean(value === 'INSUMOS'),
+  },
+
+  // Order
+  // Order Product
+  Quantidade: {
+    prop: 'requestQuantity',
+    type: Number,
+  },
+
+  Origem: {
+    prop: 'origin',
+    type: String,
+  },
+  Descrição: {
+    prop: 'orderProductNotes',
+    type: String,
   },
   Tamanho: {
     prop: 'size',
@@ -53,31 +93,6 @@ exports.schema = {
     type: String,
     oneOf: ['Não prioritário', 'Prioritário'],
     parse: value => Boolean(value === 'Prioritário'),
-  },
-  Cidade: {
-    prop: 'cityName',
-    type: String,
-    parse: value => value.toLowerCase(),
-  },
-  'Tipo Solicitante': {
-    prop: 'personType',
-    type: String,
-    oneOf: [
-      'HOSPITAIS',
-      'SEGURANÇA PÚBLICA',
-      'PREFEITURAS/SECRETARIAS',
-      'OUTROS',
-    ],
-  },
-  'Grau Prioridade COVID': {
-    prop: 'covid19Priority',
-    type: Number,
-  },
-  'Prioridade COVID19': {
-    prop: 'isCovid19Priority',
-    type: String,
-    oneOf: ['SIM', 'NÃO'],
-    parse: value => Boolean(value === 'SIM'),
   },
   'Solicitação Original': {
     prop: 'originalRequest',
@@ -134,25 +149,3 @@ exports.schema = {
     type: String,
   },
 };
-
-const mockData = [
-  {
-    // glProductId
-    productName: 'PROTETOR/ESCUDO FACIAL',
-    // glUnitId
-    unitName: 'Unidade(s)',
-    // glPersonRequestingId
-    personName: 'HOSPITAL PRONTO SOCORRO HPS',
-    // remainingQuantity
-    quantity: 600,
-    // notes
-    notes: 'Solicitação 16/04',
-  },
-  {
-    productName: 'PROTETOR/ESCUDO FACIAL',
-    unitName: 'Unidade(s)',
-    personName: '9º bpm',
-    quantity: 40,
-    notes: 'Luiz Carlos solicitou',
-  },
-];

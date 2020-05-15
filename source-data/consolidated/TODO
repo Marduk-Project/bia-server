@@ -1,5 +1,15 @@
 TODO:
 
+- testar
+
+- recalcular consolidado para cada personId
+
+---
+
+DONE:
+
+- cadastrar todos tipos de entidade (verificar excel pra isso)
+
 - buscar ultima or_order daquela person pro tipo de solicitação (destinationPersonId, type: 1)
     - se não existe, cria (type: 1, status: 4 - ? verificar)
     - se existe usa
@@ -42,3 +52,12 @@ x buscar product por nome (like)
         -> cria (nome, unit, consumable - do excel)
         -> salva no log que foi criado sem informação completa
     - se existe, usa
+- buscar ultima or_order daquela person pro tipo de solicitação (destinationPersonId, type: 1)
+    - se não existe, cria (type: 1, status: 4 - ? verificar)
+    - se existe usa
+    
+- buscar or_order_product com base na ( orderId, productId, unitId )
+    - se existir
+        -> salva no log
+        -> soma a quantidade
+    - se não existir cria (notes, requestQuantity)
