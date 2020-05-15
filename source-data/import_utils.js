@@ -124,7 +124,7 @@ function saveOnLog(logType, message) {
   fs.appendFileSync(
     logFilePath,
     `\n---
-    - ${new Date().toISOString()} - ${logType.toUpperCase()}
+    ${new Date().toISOString()} - ${logType.toUpperCase()}
     ${message}`
   );
 }

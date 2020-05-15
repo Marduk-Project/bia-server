@@ -88,14 +88,13 @@ exports.importToDatabase = async keepConnection => {
           orderId: data.orderId,
           productId: data.productId,
           unitId: data.unitId,
-          quantity: data.quantity,
           notes: data.notes,
           requestQuantity: data.requestQuantity,
         });
         delete data.orderId;
         delete data.productId;
         delete data.unitId;
-        delete data.quantity;
+        delete data.requestQuantity;
 
         console.log(chalk.green(`Created ...`));
         incLog(count++);

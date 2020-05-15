@@ -26,7 +26,8 @@ exports.findOrCreatePersonType = async function findOrCreatePersonType(
 ) {
   return find(PersonTypeModel, {
     where: { name, cityId },
-    notFound: () => create(PersonTypeModel, { name, cityId, priority }),
+    notFound: async () =>
+      await create(PersonTypeModel, { name, cityId, priority }),
   });
 };
 
@@ -37,8 +38,8 @@ exports.findOrCreatePerson = async function findOrCreatePerson(
 ) {
   return find(PersonModel, {
     where: { name, cityId },
-    notFound: () => {
-      const personId = create(PersonModel, {
+    notFound: async () => {
+      const personId = await create(PersonModel, {
         name,
         cityId,
         priority,
@@ -63,8 +64,8 @@ exports.findOrCreatePerson = async function findOrCreatePerson(
 exports.findOrCreateUnit = async function findOrCreateUnit(name) {
   return find(UnitModel, {
     where: { name },
-    notFound: () =>
-      create(UnitModel, {
+    notFound: async () =>
+      await create(UnitModel, {
         name: name === 'Unidade(s)' ? 'Unidade(s)' : 'Litro(s)',
         nameSingular: name === 'Unidade(s)' ? 'Unidade' : 'Litro',
         namePlural: name === 'Unidade(s)' ? 'Unidades' : 'Litros',
@@ -79,8 +80,8 @@ exports.findOrCreateProduct = async function findOrCreateProduct(
 ) {
   return find(ProductModel, {
     where: { name },
-    notFound: () => {
-      const productId = create(ProductModel, {
+    notFound: async () => {
+      const productId = await create(ProductModel, {
         name,
         unitId,
         consumable,
@@ -105,8 +106,8 @@ exports.findOrCreateOrder = async function findOrCreateOrder(
 ) {
   return find(OrderModel, {
     where: { destinationPersonId, type: 1 },
-    notFound: () => {
-      const orderId = create(OrderModel, {
+    notFound: async () => {
+      const orderId = await create(OrderModel, {
         destinationPersonId,
         type: 1,
         status: 4,
@@ -133,21 +134,22 @@ exports.createOrAddOrderProduct = async function createOrAddOrderProduct({
   notes,
   requestQuantity,
 }) {
-  const orderProductId = await find(OrderProductModel, {
+  let orderProductId;
+  orderProductId = await find(OrderProductModel, {
     where: { orderId, productId, unitId },
-    notFound: () => {
-      const productOrderId = create(OrderProductModel, {
+    notFound: async () => {
+      orderProductId = await create(OrderProductModel, {
         orderId,
         productId,
         unitId,
         notes,
-        requestQuantity,
+        requestQuantity: 0,
       });
       addToLogFile(
         LOG_TYPE.WARNING,
         `
         Incomplete Product Order created:
-        id: ${productOrderId}
+        id: ${orderProductId}
         orderId: ${orderId}
         productId: ${productId}
         unitId: ${unitId}
@@ -155,15 +157,15 @@ exports.createOrAddOrderProduct = async function createOrAddOrderProduct({
         requestQuantity: ${requestQuantity}
         `
       );
-      return productOrderId;
+      return orderProductId;
     },
   });
 
-  OrderProductModel.increment(
+  await OrderProductModel.increment(
     {
       requestQuantity: requestQuantity,
     },
-    { where: { id: orderId } }
+    { where: { id: orderProductId } }
   );
   return orderProductId;
 };

@@ -8,25 +8,6 @@ TODO:
 
 DONE:
 
-- cadastrar todos tipos de entidade (verificar excel pra isso)
-
-- buscar ultima or_order daquela person pro tipo de solicitação (destinationPersonId, type: 1)
-    - se não existe, cria (type: 1, status: 4 - ? verificar)
-    - se existe usa
-- buscar or_order_product com base na ( orderId, productId, unitId )
-    - se existir
-        -> salva no log
-        -> soma a quantidade
-    - se não existir cria (notes, requestQuantity)
-
-- testar
-
-- recalcular consolidado para cada personId
-
----
-
-DONE:
-
 x cadastrar todos tipos de entidade (verificar excel pra isso)
 
 x buscar cidade por nome com base no RS

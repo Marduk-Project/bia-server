@@ -55,18 +55,20 @@ exports.schema = {
   },
 
   // Order
+
   // Order Product
   Quantidade: {
     prop: 'requestQuantity',
     type: Number,
   },
-
-  Origem: {
-    prop: 'origin',
-    type: String,
-  },
   Descrição: {
     prop: 'orderProductNotes',
+    type: String,
+  },
+
+  // Not used in the tables
+  Origem: {
+    prop: 'origin',
     type: String,
   },
   Tamanho: {
