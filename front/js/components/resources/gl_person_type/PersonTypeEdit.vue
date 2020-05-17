@@ -30,7 +30,10 @@
             type="number"
             step="1"
             v-model="entity.priority"
+            v-validate="'required'"
+            :class="{ 'is-invalid': errors.has('priority') }"
           />
+          <div class="invalid-feedback">Campo obrigatório.</div>
         </div>
       </div>
       <br />
@@ -57,7 +60,7 @@
       return {
         entity: {
           name: null,
-          priority: null,
+          priority: 0,
           // objects
         },
       };

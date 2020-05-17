@@ -2,7 +2,18 @@
   <div class="container-fluid">
     <br />
     <h1>{{ list_title }}</h1>
-    <app-add-button @click="list_onAddClick"></app-add-button>
+    <div>
+      <app-add-button @click="list_onAddClick"></app-add-button>
+      <span>&nbsp;</span>
+      <router-link
+        type="button"
+        tag="button"
+        class="btn btn-outline-secondary"
+        :to="{ name: 'or_order_consolidated.index' }"
+      >
+        <i class="fas fa-table"></i> Ver consolidado
+      </router-link>
+    </div>
     <br />
     <br />
     <div class="form-row">

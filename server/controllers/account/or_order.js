@@ -125,7 +125,7 @@ exports.getIndex = async (req, res, next) => {
     res.sendJsonOK({
       data: await CtrModelModule.jsonSerializer(
         queryResult.rows,
-        controllerDefaultQueryScope
+        req.user.levelIsStaff ? 'admin' : controllerDefaultQueryScope
       ),
       meta: meta,
     });
@@ -173,7 +173,7 @@ exports.getEdit = async (req, res, next) => {
     res.sendJsonOK({
       data: await CtrModelModule.jsonSerializer(
         entity,
-        controllerDefaultQueryScope
+        req.user.levelIsStaff ? 'admin' : controllerDefaultQueryScope
       ),
     });
   } catch (err) {

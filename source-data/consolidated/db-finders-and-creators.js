@@ -1,51 +1,56 @@
 const chalk = require('chalk');
-const { find, create, addToLogFile, LOG_TYPE } = require('../import_utils');
+const { find, create, saveOnLog, LOG_TYPE } = require('../import_utils');
 
 const { model: CityModel } = require('../../server/models/gl_city');
 const {
   model: PersonTypeModel,
 } = require('../../server/models/gl_person_type');
-const { model: PersonModel } = require('../../server/models/gl_person');
+const PersonModelModule = require('../../server/models/gl_person');
+const PersonModel = PersonModelModule.model;
+const PersonContactModelModule = require('../../server/models/gl_person_contact');
+const PersonContactModel = PersonContactModelModule.model;
 const { model: UnitModel } = require('../../server/models/gl_unit');
 const { model: ProductModel } = require('../../server/models/gl_product');
-const { model: OrderModel } = require('../../server/models/or_order');
+const OrderModelModule = require('../../server/models/or_order');
+const OrderModel = OrderModelModule.model;
 const {
   model: OrderProductModel,
 } = require('../../server/models/or_order_product');
 
-exports.findCity = function findCity(name) {
-  return find(CityModel, {
-    where: { name },
+/**
+ * Find or create first person contact id
+ * @param {int} personId
+ * @returns {int} personContactId
+ */
+const findOrCreateFirstPersonContact = async personId => {
+  const contact = await PersonContactModel.findOne({
+    where: {
+      personId: personId,
+    },
+    order: [['id', 'asc']],
+  });
+  if (contact) {
+    return contact.id;
+  }
+  return await create(PersonContactModel, {
+    personId: personId,
+    name: 'CRIADO NA IMPORTAÇÃO',
+    level: PersonContactModelModule.LEVEL_NORMAL,
   });
 };
 
-exports.findOrCreatePersonType = async function findOrCreatePersonType(
-  name,
-  cityId,
-  priority
-) {
-  return find(PersonTypeModel, {
-    where: { name, cityId },
-    notFound: async () =>
-      await create(PersonTypeModel, { name, cityId, priority }),
-  });
-};
-
-exports.findOrCreatePerson = async function findOrCreatePerson(
-  name,
-  cityId,
-  priority
-) {
-  return find(PersonModel, {
+exports.findOrCreatePerson = async (name, cityId, priority) => {
+  return await find(PersonModel, {
     where: { name, cityId },
     notFound: async () => {
       const personId = await create(PersonModel, {
         name,
         cityId,
         priority,
-        legalType: 6,
+        legalType: PersonModelModule.LEGAL_TYPE_FAST_CRUD,
       });
-      addToLogFile(
+      await findOrCreateFirstPersonContact(personId);
+      saveOnLog(
         LOG_TYPE.WARNING,
         `
         Incomplete Person created:
@@ -53,7 +58,7 @@ exports.findOrCreatePerson = async function findOrCreatePerson(
         name: ${name}
         cityId: ${cityId}
         priority: ${priority}
-        legalType: 6
+        legalType: ${PersonModelModule.LEGAL_TYPE_FAST_CRUD}
         `
       );
       return personId;
@@ -61,23 +66,7 @@ exports.findOrCreatePerson = async function findOrCreatePerson(
   });
 };
 
-exports.findOrCreateUnit = async function findOrCreateUnit(name) {
-  return find(UnitModel, {
-    where: { name },
-    notFound: async () =>
-      await create(UnitModel, {
-        name: name === 'Unidade(s)' ? 'Unidade(s)' : 'Litro(s)',
-        nameSingular: name === 'Unidade(s)' ? 'Unidade' : 'Litro',
-        namePlural: name === 'Unidade(s)' ? 'Unidades' : 'Litros',
-      }),
-  });
-};
-
-exports.findOrCreateProduct = async function findOrCreateProduct(
-  name,
-  unitId,
-  consumable
-) {
+exports.findOrCreateProduct = async (name, unitId, consumable) => {
   return find(ProductModel, {
     where: { name },
     notFound: async () => {
@@ -86,7 +75,7 @@ exports.findOrCreateProduct = async function findOrCreateProduct(
         unitId,
         consumable,
       });
-      addToLogFile(
+      saveOnLog(
         LOG_TYPE.WARNING,
         `
         Incomplete product created:
@@ -101,71 +90,24 @@ exports.findOrCreateProduct = async function findOrCreateProduct(
   });
 };
 
-exports.findOrCreateOrder = async function findOrCreateOrder(
-  destinationPersonId
-) {
+exports.findOrCreateOrder = async personDestinationId => {
   return find(OrderModel, {
-    where: { destinationPersonId, type: 1 },
+    where: { glPersonDestinationId: personDestinationId, type: 1 },
     notFound: async () => {
-      const orderId = await create(OrderModel, {
-        destinationPersonId,
-        type: 1,
-        status: 4,
-      });
-      addToLogFile(
-        LOG_TYPE.WARNING,
-        `
-        Incomplete order created:
-        id: ${orderId}
-        destinationPersonId: ${destinationPersonId},
-        type: 1,
-        status: 4,
-        `
+      const contactId = await findOrCreateFirstPersonContact(
+        personDestinationId
       );
+      const orderId = await create(OrderModel, {
+        glPersonDestinationId: personDestinationId,
+        glPersonContactDestinationId: contactId,
+        glPersonOriginId: personDestinationId,
+        glPersonContactOriginId: contactId,
+        type: OrderModelModule.common.TYPE_REQUEST,
+        status: OrderModelModule.common.STATUS_NEW,
+        needsReview: true,
+        internalNotes: 'ORDEM CRIADA NA IMPORTAÇÃO DO EXCEL',
+      });
       return orderId;
     },
   });
-};
-
-exports.createOrAddOrderProduct = async function createOrAddOrderProduct({
-  orderId,
-  productId,
-  unitId,
-  notes,
-  requestQuantity,
-}) {
-  let orderProductId;
-  orderProductId = await find(OrderProductModel, {
-    where: { orderId, productId, unitId },
-    notFound: async () => {
-      orderProductId = await create(OrderProductModel, {
-        orderId,
-        productId,
-        unitId,
-        notes,
-        requestQuantity: 0,
-      });
-      addToLogFile(
-        LOG_TYPE.WARNING,
-        `
-        Incomplete Product Order created:
-        id: ${orderProductId}
-        orderId: ${orderId}
-        productId: ${productId}
-        unitId: ${unitId}
-        notes: ${notes}
-        requestQuantity: ${requestQuantity}
-        `
-      );
-      return orderProductId;
-    },
-  });
-
-  await OrderProductModel.increment(
-    {
-      requestQuantity: requestQuantity,
-    },
-    { where: { id: orderProductId } }
-  );
-  return orderProductId;
 };

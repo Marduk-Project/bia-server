@@ -49,7 +49,10 @@ MyModel.init(
 // scopes
 const scopes = {
   def: {
-    include: ['id', 'name'], // TODO scopes
+    include: ['id', 'name'],
+  },
+  account: {
+    include: ['id', 'name', 'priority'],
   },
   admin: {
     maps: {},

@@ -1,4 +1,8 @@
 const fs = require('fs');
+const util = require('util');
+const config = require('../config.js');
+const nconf = require('nconf');
+
 const chalk = require('chalk');
 const { Op } = require('sequelize');
 
@@ -26,23 +30,27 @@ exports.incLog = (count, divisor) => {
 };
 
 // Database utils
-exports.find = find;
-async function find(Model, { where, notFound }) {
+exports.find = async (Model, { where, notFound }) => {
   throwErrorOnWhereFieldsEmpty(Model.getTableName(), where, Model);
-
   try {
     const preparedWhere = Object.keys(where).reduce((preparedWhere, key) => {
       if (key === 'name') {
-        preparedWhere.name = {
-          [Op.iLike]: where[key],
-        };
+        if (nconf.get('MAINDB_DIALECT') == 'postgres') {
+          preparedWhere.name = {
+            [Op.iLike]: where[key],
+          };
+        } else {
+          preparedWhere.name = {
+            [Op.like]: where[key],
+          };
+        }
       } else {
         preparedWhere[key] = where[key];
       }
       return preparedWhere;
     }, {});
 
-    const objectsFound = await Model.findAll({ preparedWhere });
+    const objectsFound = await Model.findAll({ where: preparedWhere });
 
     if (objectsFound.length === 1) {
       return objectsFound[0].id;
@@ -61,17 +69,22 @@ async function find(Model, { where, notFound }) {
           )}`
         )
       );
-
-      if (typeof notFound === 'function') {
+      if (
+        util.types.isAsyncFunction(notFound) ||
+        util.types.isPromise(notFound)
+      ) {
+        return await notFound();
+      } else if (typeof notFound == 'function') {
         return notFound();
+      } else {
+        return notFound;
       }
     }
   } catch (errorMessage) {
     throwError(errorMessage, Model);
   }
-}
+};
 
-exports.create = create;
 async function create(Model, data) {
   try {
     const createdObject = await Model.create(data);
@@ -83,6 +96,7 @@ async function create(Model, data) {
     throwError(errorMessage, Model);
   }
 }
+exports.create = create;
 
 // Throwing errors utils
 exports.throwErrorOnWhereFieldsEmpty = throwErrorOnWhereFieldsEmpty;
@@ -114,12 +128,11 @@ function throwError(message, Model) {
 let logFilePath = './errors-and-warnings.log';
 exports.LOG_TYPE = { ERROR: 'ERROR', WARNING: 'WARNING' };
 
-exports.setLogFile = setLogFile;
 function setLogFile(filepath) {
   logFilePath = filepath;
 }
+exports.setLogFile = setLogFile;
 
-exports.saveOnLog = this.saveOnLog;
 function saveOnLog(logType, message) {
   fs.appendFileSync(
     logFilePath,
@@ -128,3 +141,4 @@ function saveOnLog(logType, message) {
     ${message}`
   );
 }
+exports.saveOnLog = saveOnLog;

@@ -1,0 +1,10 @@
+(Carlos) Ao criar automaticamente uma entidade destino, criar tambem o contato? Criei...
+
+Produto "PEOPÉS", não seria PRÓ-Pés ou semelhante?
+Cidade "ufn"? Não seria Santa Maria?
+Micro e Meso região temos os códigos exatos, caso seja util.
+
+(Carlos) Não vai recalcular consolidado para cada personId ao importar.
+    - Cada ordem precisa ser validada para entrar no consolidado.
+
+(Carlos) Revisar lowercase no nome das entidades. Pegar exatamente como está no excel.

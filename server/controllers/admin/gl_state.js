@@ -43,6 +43,9 @@ exports.getIndex = async (req, res, next) => {
         name: {
           [Op.like]: `${q}%`,
         },
+        initials: {
+          [Op.like]: `${q}%`,
+        },
         code: {
           [Op.like]: `${q}%`,
         },

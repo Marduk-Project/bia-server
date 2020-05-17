@@ -1,12 +1,9 @@
 TODO:
 
-- testar
-
-- recalcular consolidado para cada personId
-
----
 
 DONE:
+
+- testar
 
 x cadastrar todos tipos de entidade (verificar excel pra isso)
 

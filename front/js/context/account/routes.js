@@ -8,6 +8,8 @@ import GL_Profile from '@resources/gl_user/Profile.vue';
 // or_order
 import OR_OrderList from '@resources/or_order/OrderList.vue';
 import OR_OrderEdit from '@resources/or_order/OrderEdit.vue';
+// or_order_consolidated
+import OR_OrderConsolidatedList from '@resources/or_order_consolidated/OrderConsolidatedList.vue';
 
 // generator-inject-new-file-here
 
@@ -38,6 +40,16 @@ export default [
     path: '/or_order/create',
     components: { default: OR_OrderEdit, header: Header, footer: Footer },
     name: 'or_order.create',
+  },
+  // or_order_consolidated
+  {
+    path: '/or_order_consolidated',
+    components: {
+      default: OR_OrderConsolidatedList,
+      header: Header,
+      footer: Footer,
+    },
+    name: 'or_order_consolidated.index',
   },
   // generator-inject-new-route-here
   // any
