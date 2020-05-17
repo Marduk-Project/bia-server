@@ -29,7 +29,7 @@ exports.schema = {
   Hospital: {
     prop: 'personName',
     type: String,
-    parse: value => value.replace(/(.*)(\s-[\w\s]+)$/, '$1').toLowerCase(),
+    parse: value => value.replace(/(.*)(\s-[\w\s]+)$/, '$1'),
   },
   'Grau Prioridade COVID': {
     prop: 'personPriority',
