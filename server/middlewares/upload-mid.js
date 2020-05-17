@@ -7,8 +7,10 @@ const multer = require('multer');
 const { readFileToBase64 } = require('../helpers/file_utils');
 const { ApiError } = require('./error-mid');
 
-const uploadPath = path.join(__dirname, '../../tmp/uploads/');
-console.log('Upload Path:', uploadPath); // TODO remover
+const uploadPath =
+  nconf.get('NODE_ENV') == 'production'
+    ? '/tmp/uploads'
+    : path.join(__dirname, '../../tmp/uploads');
 const multerConfigObj = {
   dest: uploadPath,
   limits: { fileSize: nconf.get('HTTP_FILE_UPLOAD_MAXSIZE') },

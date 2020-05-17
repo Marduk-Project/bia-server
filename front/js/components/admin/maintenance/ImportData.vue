@@ -111,10 +111,10 @@
         }
       },
       onOrderConsolidatedSendClick() {
-        // if (!this.orderConsolidatedFile) {
-        //   this.notify_warning('Selecione um arquivo.');
-        //   return;
-        // }
+        if (!this.orderConsolidatedFile) {
+          this.notify_warning('Selecione um arquivo.');
+          return;
+        }
         let formData = new FormData();
         formData.append('file', this.orderConsolidatedFile);
         this.api_loadingShow();

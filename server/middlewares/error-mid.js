@@ -1,5 +1,6 @@
 const winston = require('../helpers/winston');
 const nconf = require('nconf');
+const chalk = require('chalk');
 const logger = winston.logger;
 
 /**
@@ -93,7 +94,7 @@ exports.handler = (err, req, res, next) => {
     return;
   }
   let toJson = false;
-  let saveLog = true;
+  let saveLog = !!nconf.get('APP_SAVE_LOG');
   if (
     err instanceof ForbiddenError ||
     err instanceof UnauthenticatedError ||
@@ -103,14 +104,16 @@ exports.handler = (err, req, res, next) => {
     err instanceof ApiError
   ) {
     toJson = true;
+    // saveLog = false; // TODO review save log
   }
-  // save the log
   if (saveLog) {
     logger.error(err.stack || err.toString());
+  } else {
+    console.log('Error', err);
   }
   // set locals, only providing error in development
   res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+  res.locals.error = nconf.get('NODE_ENV') == 'development' ? err : {};
   // render the error page
   res.status(err.status || 500);
   if (toJson) {
