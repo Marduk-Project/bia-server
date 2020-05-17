@@ -19,12 +19,18 @@ const { incLog, setLogFile, saveOnLog, LOG_TYPE } = require('../import_utils');
 const logFilePath = path.join(__dirname, 'consolidated.log');
 setLogFile(logFilePath);
 
-const dataList = require('./consolidated.json');
-const numRows = dataList.length;
+const TEST_MODE = false;
 
-const TEST_MODE = true;
-
-exports.importToDatabase = async keepConnection => {
+/**
+ * @param {Boolean} keepConnection
+ * @param {Array} dataList
+ * @param {Boolean} ignoreLogFile
+ */
+exports.importToDatabase = async (keepConnection, dataList, ignoreLogFile) => {
+  if (!dataList) {
+    dataList = require('./consolidated.json');
+  }
+  const numRows = dataList.length;
   if (TEST_MODE) {
     console.log(chalk.red('!!! RUNNING ON TEST MODE !!! ATENTION !!!'));
   }
@@ -122,13 +128,15 @@ exports.importToDatabase = async keepConnection => {
       const data = dataList[rowNumber];
       try {
         if (!data.cityName) {
-          saveOnLog(
-            LOG_TYPE.ERROR,
-            `
+          if (!ignoreLogFile) {
+            saveOnLog(
+              LOG_TYPE.ERROR,
+              `
             "cityName" not found in dataIndex: ${rowNumber}
             dataObject: ${JSON.stringify(data, null, 2)}
             `
-          );
+            );
+          }
           continue;
         }
         // City
@@ -154,15 +162,6 @@ exports.importToDatabase = async keepConnection => {
           });
         }
         if (!personTypeEntity) {
-          saveOnLog(
-            LOG_TYPE.WARNING,
-            `
-            personType "${
-              data.personType ? data.personType : '(undefined)'
-            }" not found in dataIndex: ${rowNumber}
-            dataObject: ${JSON.stringify(data, null, 2)}
-            `
-          );
           personTypeEntity = await PersonTypeModel.findOrCreate({
             where: {
               name: 'DESCONHECIDO',
@@ -211,14 +210,16 @@ exports.importToDatabase = async keepConnection => {
       } catch (errorMessage) {
         console.log(chalk.red(`Error on index ${rowNumber}`), errorMessage);
         console.log('data:', data);
-        saveOnLog(
-          LOG_TYPE.ERROR,
-          `
+        if (!ignoreLogFile) {
+          saveOnLog(
+            LOG_TYPE.ERROR,
+            `
           ${errorMessage}
           dataIndex: ${rowNumber}
           dataObject: ${data}
           `
-        );
+          );
+        }
       }
     }
     if (!keepConnection) {
@@ -227,11 +228,13 @@ exports.importToDatabase = async keepConnection => {
     console.log(chalk.green('Done!'));
   } catch (errorMessage) {
     console.log(chalk.red('Error on importing data...'), errorMessage);
-    saveOnLog(
-      LOG_TYPE.ERROR,
-      `
+    if (!ignoreLogFile) {
+      saveOnLog(
+        LOG_TYPE.ERROR,
+        `
       ${errorMessage}
       `
-    );
+      );
+    }
   }
 };

@@ -1,18 +1,21 @@
 const fs = require('fs');
 const { promisify } = require('util');
-const { readFileToBase64 } = require('../helpers/file_utils');
 const nconf = require('nconf');
 const path = require('path');
 const multer = require('multer');
-const uploadPath = path.join(__dirname, '../../uploads/');
+
+const { readFileToBase64 } = require('../helpers/file_utils');
+const { ApiError } = require('./error-mid');
+
+const uploadPath = path.join(__dirname, '../../tmp/uploads/');
+console.log('Upload Path:', uploadPath); // TODO remover
 const multerConfigObj = {
   dest: uploadPath,
   limits: { fileSize: nconf.get('HTTP_FILE_UPLOAD_MAXSIZE') },
 };
-// default
-const uploadMid = multer(multerConfigObj);
+
 // img
-const uploadImageMid = multer({
+exports.uploadImageMid = multer({
   ...multerConfigObj,
   fileFilter: function (req, file, cb) {
     if (
@@ -27,11 +30,29 @@ const uploadImageMid = multer({
     }
   },
 });
+// json
+exports.uploadJsonMid = multer({
+  ...multerConfigObj,
+  fileFilter: function (req, file, cb) {
+    if (file.mimetype !== 'application/json') {
+      return cb(null, false);
+    } else {
+      cb(null, true);
+    }
+  },
+});
+// file required
+exports.uploadFileCheckRequiredMid = async (req, res, next) => {
+  if (!req.file) {
+    next(new ApiError('File field is required.'));
+  }
+  next();
+};
 
 /**
  * Appends the uploadRemoveFunction utility
  */
-exports.utilsMiddleware = (req, res, next) => {
+exports.uploadUtilsMid = (req, res, next) => {
   // funcs
   const removeAsync = promisify(fs.unlink);
 
@@ -104,23 +125,3 @@ exports.utilsMiddleware = (req, res, next) => {
   // follow
   next();
 };
-
-/**
- * multer preconfigured middleware
- */
-exports.uploadMiddleware = uploadMid;
-
-/**
- * multer image middleware
- */
-exports.uploadImageMiddleware = uploadImageMid;
-
-/**
- * default upload file path
- */
-exports.uploadPath = uploadPath;
-
-/**
- * multer default configure object
- */
-exports.multerConfigObj = multerConfigObj;

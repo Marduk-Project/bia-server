@@ -78,10 +78,6 @@ const paginateMeta = (queryResult, page, itemsPerPage) => {
 };
 exports.paginateMeta = paginateMeta;
 
-// TODO pagination / pagination meta
-// id exists
-// id exists func
-
 exports.PAGINATION_PER_PAGE = PAGINATION_PER_PAGE;
 
 class BaseModel extends Model {
