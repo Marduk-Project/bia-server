@@ -11,12 +11,6 @@ exports.schema = {
   'Tipo Solicitante': {
     prop: 'personType',
     type: String,
-    oneOf: [
-      'HOSPITAIS',
-      'SEGURANÇA PÚBLICA',
-      'PREFEITURAS/SECRETARIAS',
-      'OUTROS',
-    ],
   },
   'Prioridade COVID19': {
     prop: 'personTypePriority',
