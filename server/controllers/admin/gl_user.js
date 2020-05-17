@@ -178,7 +178,7 @@ const saveEntityFunc = async (req, res, next, id) => {
     if (!id) {
       // generate random only if is create
       entity.password = utils.randomString(16);
-      // TODO send invite e-mail
+      // TODO send invite e-mail?
     }
     // save the user
     await entity.save();

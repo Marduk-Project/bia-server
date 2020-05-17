@@ -31,4 +31,11 @@ router.post(
   controller.postProductImport
 );
 
+router.post(
+  '/importOrderConsolidated',
+  authMid.userIsAdminMiddleware,
+  controller.postImportOrderConsolidatedValidate,
+  controller.postImportOrderConsolidated
+);
+
 module.exports = router;

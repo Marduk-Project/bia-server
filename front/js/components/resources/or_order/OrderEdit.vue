@@ -322,7 +322,7 @@
       },
       updatePersonFromState() {
         if (
-          this.personContactList.length == 1 &&
+          this.personContactList.length >= 1 &&
           !this.id &&
           this.isContextAccount
         ) {

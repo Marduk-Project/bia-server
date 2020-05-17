@@ -3,7 +3,6 @@ const express = require('express');
 const expressValidator = require('express-validator');
 const path = require('path');
 const cookieParser = require('cookie-parser');
-const logger = require('morgan');
 const helmet = require('helmet');
 const moment = require('moment');
 const fs = require('fs');

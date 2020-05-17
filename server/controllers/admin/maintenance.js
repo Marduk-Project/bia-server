@@ -2,6 +2,7 @@ const fs = require('fs');
 const chalk = require('chalk');
 const { nconf, filepath } = require('../../../config.js');
 const { ApiError } = require('../../middlewares/error-mid');
+const uploadMid = require('../../middlewares/upload-mid');
 
 /**
  * Get config data
@@ -83,5 +84,28 @@ exports.postProductImport = async (req, res, next) => {
     res.sendJsonOK();
   } catch (err) {
     next(err);
+  }
+};
+
+exports.postImportOrderConsolidatedValidate = [
+  uploadMid.uploadJsonMid.single('file'),
+  uploadMid.uploadFileCheckRequiredMid,
+  uploadMid.uploadUtilsMid,
+];
+
+exports.postImportOrderConsolidated = async (req, res, next) => {
+  try {
+    const {
+      importToDatabase,
+    } = require('../../../source-data/consolidated/import-to-database');
+    const jsonFile = JSON.parse(
+      fs.readFileSync(req.file.path).toString('utf8')
+    );
+    await importToDatabase(true, jsonFile, true);
+    res.sendJsonOK();
+  } catch (err) {
+    next(err);
+  } finally {
+    await req.uploadsRemove();
   }
 };

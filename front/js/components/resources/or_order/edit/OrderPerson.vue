@@ -98,7 +98,6 @@
             (isContextAccount && state_personContactOriginList.length == 1)
           "
           @onChange="onFieldChange"
-          :options="isContextAccount ? state_personContactOriginList : null"
           v-validate="'required'"
           :class="{
             'is-invalid': errors.has('input-glPersonContactOrigin'),
@@ -245,7 +244,6 @@
         return this.$validator.validate();
       },
     },
-    mounted() {},
   };
 </script>
 

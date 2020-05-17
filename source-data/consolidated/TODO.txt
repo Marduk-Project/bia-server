@@ -1,0 +1,41 @@
+TODO:
+
+
+DONE:
+
+- testar
+
+x cadastrar todos tipos de entidade (verificar excel pra isso)
+
+x buscar cidade por nome com base no RS
+    **copiar do city_region**
+    - se não existe
+        -> erro no log
+x buscar personType por nome (like)
+    - se não tem existir
+        -> erro no log
+x buscar personName por nome (like) e cityId (exato)
+    - se existir mais de um registro
+        -> erro no log
+    - se não existe
+        -> cria (legalType: 6, priority: covid19Priority - do excel)
+        -> salva no log que foi criado sem informação completa
+    - se existe, usa
+x associar unidade com id
+    **copiar do product**
+x buscar product por nome (like)
+    - se existir mais de um registro
+        -> erro no log
+    - se não existe
+        -> cria (nome, unit, consumable - do excel)
+        -> salva no log que foi criado sem informação completa
+    - se existe, usa
+- buscar ultima or_order daquela person pro tipo de solicitação (destinationPersonId, type: 1)
+    - se não existe, cria (type: 1, status: 4 - ? verificar)
+    - se existe usa
+    
+- buscar or_order_product com base na ( orderId, productId, unitId )
+    - se existir
+        -> salva no log
+        -> soma a quantidade
+    - se não existir cria (notes, requestQuantity)

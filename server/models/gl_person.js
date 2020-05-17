@@ -189,10 +189,15 @@ const scopes = {
       'legalIdentifierCode',
       'cityId',
       'city',
+      'personTypeId',
+      'personType',
+      'priority',
     ],
     maps: {
       city: async (value, scopeName) =>
         await cityJsonSerializer(value, scopeName),
+      personType: async (value, scopeName) =>
+        await personTypeSerializer(value, scopeName),
     },
   },
   admin: {

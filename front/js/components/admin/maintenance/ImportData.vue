@@ -23,6 +23,33 @@
         <i class="fas fa-database"></i> Importar Produtos
       </button>
     </div>
+    <br />
+    <div class="card">
+      <div class="card-header">
+        Importar <strong>JSON consolidado</strong> do boletim
+      </div>
+      <div class="card-body">
+        <div class="form-row">
+          <div class="form-group col-12">
+            <label>Selecionar arquivo</label>
+            <input
+              ref="inputOrderConsolidated"
+              type="file"
+              class="form-control-file"
+              accept=".pdf"
+              @change="onOrderConsolidatedFileChange"
+            />
+          </div>
+          <button
+            type="button"
+            class="btn btn-success"
+            @click="onOrderConsolidatedSendClick"
+          >
+            <i class="fas fa-upload"></i> Enviar
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -34,8 +61,7 @@
     mixins: [apiMixin],
     data() {
       return {
-        file_content: '',
-        wsLoadOK: false,
+        orderConsolidatedFile: null,
       };
     },
     methods: {
@@ -76,9 +102,38 @@
           .then(this.api_thenDone())
           .catch(this.api_catch());
       },
+      onOrderConsolidatedFileChange(event) {
+        const files = event.target.files;
+        if (files.length > 0) {
+          this.orderConsolidatedFile = event.target.files[0];
+        } else {
+          this.orderConsolidatedFile = null;
+        }
+      },
+      onOrderConsolidatedSendClick() {
+        if (!this.orderConsolidatedFile) {
+          this.notify_warning('Selecione um arquivo.');
+          return;
+        }
+        let formData = new FormData();
+        formData.append('file', this.orderConsolidatedFile);
+        this.api_loadingShow();
+        axios
+          .post(`/api/admin/maintenance/importOrderConsolidated`, formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          })
+          .then(
+            this.api_thenDone(res => {
+              this.$refs.inputOrderConsolidated.value = null;
+            })
+          )
+          .catch(this.api_catch());
+      },
     },
     mounted() {
-      this.$store.dispatch('setTitle', 'Importar dados');
+      this.$store.dispatch('setTitle', 'Importação de dados');
     },
   };
 </script>

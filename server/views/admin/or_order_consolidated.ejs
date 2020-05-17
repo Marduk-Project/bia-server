@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="icon" href="/c/static/img/theme/favicon.png">
+    <title>Boletim Consolidado</title>
+  </head>
+
+  <body>
+    <table border=1>
+      <thead>
+        <tr>
+          <% fields.forEach(field => { %>
+            <td>
+              <%= field %>
+            </td>
+          <% }) %>
+        </tr>
+      </thead>
+      <tbody>
+        <% rows.forEach(row => { %>
+          <tr>
+            <% values.forEach(value => { %>
+            <td>
+              <%= typeof value === 'function' ? value(row) : value %>
+            </td>
+            <% }) %>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </body>
+</html>

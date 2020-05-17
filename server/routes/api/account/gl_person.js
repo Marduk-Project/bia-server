@@ -1,13 +1,13 @@
 const express = require('express');
 const router = express.Router({ mergeParams: true });
 
-const controller = require('../../../controllers/admin/or_orders_consolidated');
+const controller = require('../../../controllers/account/gl_person');
 const authMid = require('../../../middlewares/auth-mid');
 
 router.get(
   '/',
-  authMid.userIsStaffMiddleware,
-  // controller.getIndexValidate,
+  authMid.userIsLoggedMiddleware,
+  controller.getIndexValidate,
   controller.getIndex
 );
 

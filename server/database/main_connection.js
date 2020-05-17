@@ -1,4 +1,3 @@
-const logger = require('../helpers/winston').logger;
 const chalk = require('chalk');
 const nconf = require('nconf');
 const { Sequelize, Op } = require('sequelize');
@@ -41,7 +40,7 @@ console.log(
 database
   .authenticate()
   .then(() => {
-    if (process.env.NODE_ENV != 'test') {
+    if (nconf.get('NODE_ENV') != 'test') {
       console.log(chalk.green('First database connection was successful!'));
     }
     exports.mainDbConnected = true;
@@ -50,7 +49,7 @@ database
   .catch(err => {
     // first time
     connectionWasTryed = true;
-    if (process.env.NODE_ENV != 'test') {
+    if (nconf.get('NODE_ENV') != 'test') {
       console.error(
         chalk.red(`
       Database error: ${err}

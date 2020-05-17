@@ -1,6 +1,7 @@
 const { body, query, param } = require('express-validator/check');
 const validator = require('validator');
 const { Op } = require('sequelize');
+const _ = require('lodash');
 
 const {
   customFindByPkValidation,
@@ -18,51 +19,125 @@ const GL_UnitModule = require('../../models/gl_unit');
 const GL_UnitModel = GL_UnitModule.model;
 const GL_PersonModule = require('../../models/gl_person');
 const GL_PersonModel = GL_PersonModule.model;
-
-// const utils = require('../../helpers/utils');
-const helperValidator = require('../../helpers/validator');
+const GL_PersonTypeModule = require('../../models/gl_person_type');
+const GL_PersonTypeModel = GL_PersonTypeModule.model;
+const GL_PersonContactModelModule = require('../../models/gl_person_contact');
+const GL_PersonContactModel = GL_PersonContactModelModule.model;
+const GL_CityModule = require('../../models/gl_city');
+const GL_CityModel = GL_CityModule.model;
+const GL_StateModule = require('../../models/gl_state');
+const GL_StateModel = GL_StateModule.model;
+// const GL_CityStateRegionModule = require('../../models/gl_city_state_region');
+// const GL_CityStateRegionModel = GL_CityStateRegionModule.model;
 
 const controllerDefaultQueryScope = 'account';
 
 /**
  * List Validation
  */
-exports.getIndexValidate = [
+exports.getValuesValidate = [
   query('page').optional().isInt(),
   query('q').optional().isString(),
+  query('glPersonDestinationId').optional().isInt(),
   validationEndFunction,
 ];
 
 /**
  * List Index
  */
+const getQueryOptions = async (query, userId, userIsStaff) => {
+  const options = {
+    where: {},
+  };
+  // user staff can filter
+  if (userIsStaff) {
+    // glPersonDestinationId
+    if (query.glPersonDestinationId) {
+      options.where.glPersonDestinationId = query.glPersonDestinationId;
+    }
+  } else {
+    // normal user
+    // query only allowed person contact ids
+    const allowedPersonIdList = await GL_PersonContactModel.allowdPersonIdListForUser(
+      userId
+    );
+    options.where.glPersonDestinationId = {
+      [Op.in]: allowedPersonIdList,
+    };
+    if (query.glPersonDestinationId) {
+      options.where.glPersonDestinationId[Op.eq] = query.glPersonDestinationId;
+    }
+  }
+  // query options
+  options.order = [['id', 'desc']];
+  options.include = [
+    {
+      model: GL_ProductModel,
+      as: 'glProduct',
+      where: query.q
+        ? {
+            name: {
+              [Op.like]: `${query.q}%`,
+            },
+          }
+        : undefined,
+    },
+    {
+      model: GL_UnitModel,
+      as: 'glUnit',
+    },
+    {
+      model: GL_PersonModel,
+      as: 'glPersonDestination',
+      include: [
+        {
+          model: GL_CityModel,
+          as: 'city',
+          include: [
+            {
+              model: GL_StateModel,
+              as: 'state',
+            },
+          ],
+        },
+        {
+          model: GL_PersonTypeModel,
+          as: 'personType',
+        },
+      ],
+    },
+  ];
+  return options;
+};
+
 exports.getIndex = async (req, res, next) => {
   try {
-    const options = {
-      where: {},
-    };
-    // q
-    if (req.query.q) {
-      const q = req.query.q;
-      options.where[Op.or] = {
-        name: {
-          [Op.like]: `${q}%`,
-        },
-        // TODO other text query fields here
-      };
-      if (validator.isNumeric(q, { no_symbols: true })) {
-        options.where[Op.or].id = q;
-      }
-    }
     // query options
+    const options = await getQueryOptions(
+      req.query,
+      req.user.id,
+      req.user.levelIsStaff
+    );
     const page = req.query.page || 1;
     Model.setLimitOffsetForPage(page, options);
     options.order = [
-      // ['name', 'asc'], // TODO check order
-      ['id', 'asc'],
+      ['createdAt', 'desc'],
+      ['id', 'desc'],
     ];
     // exec
     const queryResult = await Model.findAndCountAll(options);
+    queryResult.rows = queryResult.rows.filter(row => {
+      if (row.requestQuantity != 0) {
+        return true;
+      }
+      if (row.supplyReserveQuantity != 0) {
+        return true;
+      }
+      if (row.supplyTransportQuantity != 0) {
+        return true;
+      }
+      return false;
+    });
     const meta = Model.paginateMeta(queryResult, page);
     res.sendJsonOK({
       data: await CtrModelModule.jsonSerializer(
@@ -76,137 +151,70 @@ exports.getIndex = async (req, res, next) => {
   }
 };
 
-/**
- * Get for Edit Validate
- */
-exports.getEditValidate = [
-  param('id').isInt().not().isEmpty().custom(customFindByPkValidation(Model)),
-  validationEndFunction,
-];
-
-/**
- * Get for Edit
- */
-exports.getEdit = async (req, res, next) => {
+exports.getExport = async (req, res, next) => {
   try {
-    const entity = req.entity;
-    res.sendJsonOK({
-      data: await CtrModelModule.jsonSerializer(
-        entity,
-        controllerDefaultQueryScope
-      ),
-    });
-  } catch (err) {
-    next(err);
-  }
-};
+    const options = await getQueryOptions(
+      req.query,
+      req.user.id,
+      req.user.levelIsStaff
+    );
+    const queryResult = await Model.findAndCountAll(options);
+    let rows = await CtrModelModule.jsonSerializer(
+      queryResult.rows,
+      controllerDefaultQueryScope
+    );
+    // exec
+    rows = rows.filter(row => row.requestQuantity != 0);
 
-/**
- * Save validation
- */
-const saveValidate = [
-  param('id').optional().isInt(),
-  body('glProductId')
-    .isInt()
-    .custom(customFindByPkRelationValidation(GL_ProductModel)),
-  body('glUnitId')
-    .isInt()
-    .custom(customFindByPkRelationValidation(GL_UnitModel)),
-  body('glPersonDestinationId')
-    .isInt()
-    .custom(customFindByPkRelationValidation(GL_PersonModel)),
-  body('remainingQuantity').optional().isNumeric(),
-  // validationEndFunction, // dont need here, is attached below
-];
-
-const saveEntityFunc = async (req, res, next, id) => {
-  try {
-    const body = req.body;
-    let entity = null;
-    if (id) {
-      entity = req.entity;
-    } else {
-      entity = Model.build({});
-    }
-    // fields
-    entity.glProductId = body.glProductId;
-    entity.glUnitId = body.glUnitId;
-    entity.glPersonDestinationId = body.glPersonDestinationId;
-    entity.remainingQuantity = body.remainingQuantity;
-    // save
-    await entity.save();
-    // send result
-    const result = {
-      entity: {
-        id: entity.id,
-      },
+    const fields = {
+      Origem: 'Sistema',
+      Hospital: row =>
+        `${_.get(row, 'glPersonDestination.name')} - ${_.get(
+          row,
+          'glPersonDestination.city.name'
+        )}`,
+      Item: row => _.get(row, 'glProduct.name'),
+      Tipo: row =>
+        _.get(row, 'glProduct.consumable') ? 'INSUMOS' : 'EQUIPAMENTO',
+      Descrição: row => '',
+      Quantidade: row => _.get(row, 'requestQuantity'),
+      Tamanho: row => '',
+      Necessidade: row => '',
+      'necessidade 30 dias': row => '',
+      URGÊNCIA_CLASSIF: row => '',
+      Unidade: row => _.get(row, 'glUnit.name'),
+      'Prioridade do Item': row => '',
+      Cidade: row => _.get(row, 'glPersonDestination.city.name'),
+      'Tipo Solicitante': row =>
+        _.get(row, 'glPersonDestination.personType.name'),
+      'Grau Prioridade COVID': row =>
+        _.get(row, 'glPersonDestination.priority'),
+      'Região - DRE': row =>
+        _.get(row, 'glPersonDestination.city.macroRegion.name'),
+      Microrregião: row =>
+        _.get(row, 'glPersonDestination.city.microRegion.name'),
+      Mesorregião: row =>
+        _.get(row, 'glPersonDestination.city.mesoRegion.name'),
+      'Prioridade COVID19': row =>
+        _.get(row, 'glPersonDestination.personType.priority') > 0
+          ? 'SIM'
+          : 'NÃO',
+      'Solicitação Original': row => '',
+      'Correção de demanda': row => '',
+      'Correção Doações': row => '',
+      'Doações entregues': row => '',
+      PÁGINA: row => '',
+      Urgência: row => '',
+      Chave: row => '',
+      'Quantidade Corrigida': row => '',
+      Gerência_Distrital_POA: row => '',
+      Gestão_POA: row => '',
     };
-    // correct http
-    if (id) {
-      res.sendJsonOK(result);
-    } else {
-      res.sendJsonCreatedOK(result);
-    }
-  } catch (err) {
-    next(err);
-  }
-};
 
-/** Update validation */
-exports.putUpdateValidate = [
-  ...saveValidate,
-  param('id').isInt().custom(customFindByPkValidation(Model)),
-  validationEndFunction,
-];
-
-/**
- * Update
- */
-exports.putUpdate = async (req, res, next) => {
-  try {
-    await saveEntityFunc(req, res, next, req.params.id);
-  } catch (err) {
-    next(err);
-  }
-};
-
-/**
- * Create validation
- */
-exports.postCreateValidate = [...saveValidate, validationEndFunction];
-
-/**
- * Create
- */
-exports.postCreate = async (req, res, next) => {
-  try {
-    await saveEntityFunc(req, res, next);
-  } catch (err) {
-    next(err);
-  }
-};
-
-/**
- * Delete Validate
- */
-exports.deleteValidate = [
-  param('id').isInt().custom(customFindByPkValidation(Model)),
-  validationEndFunction,
-];
-
-/**
- * Delete
- */
-exports.delete = async (req, res, next) => {
-  try {
-    // const id = req.params.id;
-    const entity = req.entity;
-    await entity.destroy();
-    res.sendJsonOK({
-      data: await CtrModelModule.jsonSerializer(
-        entity,
-        controllerDefaultQueryScope
-      ),
+    res.render('admin/or_order_consolidated.ejs', {
+      fields: Object.keys(fields),
+      values: Object.values(fields),
+      rows: rows,
     });
   } catch (err) {
     next(err);

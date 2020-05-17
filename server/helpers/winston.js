@@ -13,7 +13,10 @@ const logFormatter = format.combine(
   })
 );
 
-const logPath = path.join(__dirname, '../../logs');
+const logPath =
+  nconf.get('NODE_ENV') == 'production'
+    ? '/tmp/logs'
+    : path.join(__dirname, '../../tmp/logs');
 
 const logger = winston.createLogger({
   level: 'info',

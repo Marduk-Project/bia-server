@@ -146,6 +146,10 @@ const scopes = {
         await gl_personJsonSerializer(value, scopeName),
       glPersonContactDestination: async (value, scopeName) =>
         await gl_personContactJsonSerializer(value, scopeName),
+      glProducts: async (value, scopeName) => {
+        const { jsonSerializer } = require('./or_order_product');
+        return await jsonSerializer(value, scopeName);
+      },
     },
   },
   account: {

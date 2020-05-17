@@ -59,7 +59,7 @@ exports.getIndex = async (req, res, next) => {
     const page = req.query.page || 1;
     Model.setLimitOffsetForPage(page, options);
     options.order = [
-      ['name', 'asc'], // TODO check order
+      ['name', 'asc'],
       ['id', 'asc'],
     ];
     // exec
