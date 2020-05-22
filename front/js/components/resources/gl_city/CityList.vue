@@ -80,6 +80,20 @@
         },
       };
     },
+    methods: {
+      list_buildURL(page) {
+        let url =
+          this.list_url_base +
+          '?page=' +
+          page +
+          '&q=' +
+          encodeURIComponent(this.searchText ? this.searchText : '');
+        if (this.filters.state) {
+          url += `&stateId=${this.filters.state.id}`;
+        }
+        return url;
+      },
+    },
     computed: {
       list_title() {
         return 'Cidades';
