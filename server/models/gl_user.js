@@ -43,7 +43,7 @@ const applyCustomSaltToPassword = pwd => {
   if (!template) {
     template = 'salt{pwd}salt';
   }
-  return template.replace(/\\{pwd\\}/g, pwd);
+  return template.replace(/\{pwd\}/g, pwd);
 };
 
 // model

@@ -1,6 +1,7 @@
 {
   "APP_URL": "http://localhost:3000/",
   "APP_SESSION_SECRET": "vDf9GUZXZwG7TOvcpNoCF57lV8uncbY5",
+  "APP_SAVE_LOG": true,
   "JWT_SECRET": "",
   "PORT": 3000,
   "PWD_SALT_TEMPLATE": "salt{pwd}salt",

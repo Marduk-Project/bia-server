@@ -104,6 +104,8 @@ if (vdriver == 'git') {
     .execSync('git rev-parse --short HEAD')
     .toString()
     .trim();
+} else if (vdriver == 'lambda') {
+  app.locals.app_git_v = nconf.get('AWS_LAMBDA_FUNCTION_VERSION');
 } else {
   app.locals.app_git_v = '-v-';
 }

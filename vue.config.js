@@ -10,7 +10,7 @@ process.env.VUE_APP_EJS_OPEN_TAG = '<%';
 process.env.VUE_APP_EJS_CLOSE_TAG = '%>';
 
 module.exports = {
-  publicPath: '/c/',
+  publicPath: process.env.ASSETS_DOMAIN || '/c/',
   outputDir: 'server/public/c/', // "c" = compiled
   indexPath: 'index.html',
   assetsDir: 'static',

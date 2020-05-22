@@ -13,16 +13,12 @@ const logFormatter = format.combine(
   })
 );
 
-const logPath =
-  nconf.get('NODE_ENV') == 'production'
-    ? '/tmp/logs'
-    : path.join(__dirname, '../../tmp/logs');
+const logPath = path.join(__dirname, '../../tmp/logs');
 
-const logger = winston.createLogger({
-  level: 'info',
-  format: logFormatter,
-  handleExceptions: true,
-  transports: [
+let transports = [];
+
+if (nconf.get('APP_SAVE_LOG') == 'true') {
+  transports = [
     new winston.transports.DailyRotateFile({
       filename: `${logPath}/%DATE%_error.log`,
       datePattern: 'YYYY-MM-DD',
@@ -36,11 +32,18 @@ const logger = winston.createLogger({
       maxSize: '20m',
       colorize: false,
     }),
-  ],
+  ]
+}    
+
+const logger = winston.createLogger({
+  level: 'info',
+  format: logFormatter,
+  handleExceptions: true,
+  transports,
   exitOnError: false,
 });
 
-if (nconf.get('NODE_ENV') !== 'production') {
+if (nconf.get('NODE_ENV') !== 'production') { 
   logger.add(
     new winston.transports.Console({
       level: 'debug',
