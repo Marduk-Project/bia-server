@@ -32,10 +32,24 @@ router.post(
 );
 
 router.post(
-  '/importOrderConsolidated',
+  '/personImport',
   authMid.userIsAdminMiddleware,
-  controller.postImportOrderConsolidatedValidate,
-  controller.postImportOrderConsolidated
+  controller.postFileJsonImportValidate,
+  controller.postPersonImport
+);
+
+router.post(
+  '/orderRequestImport',
+  authMid.userIsAdminMiddleware,
+  controller.postFileJsonImportValidate,
+  controller.postOrderRequestImport
+);
+
+router.post(
+  '/orderSupplyImport',
+  authMid.userIsAdminMiddleware,
+  controller.postFileJsonImportValidate,
+  controller.postOrderSupplyImport
 );
 
 module.exports = router;

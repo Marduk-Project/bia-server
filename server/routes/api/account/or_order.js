@@ -39,4 +39,11 @@ router.delete(
   controller.delete
 );
 
+router.get(
+  '/export',
+  authMid.userIsLoggedMiddleware,
+  controller.getExportValidate,
+  controller.getExport
+);
+
 module.exports = router;

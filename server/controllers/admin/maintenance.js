@@ -87,7 +87,7 @@ exports.postProductImport = async (req, res, next) => {
   }
 };
 
-exports.postImportOrderConsolidatedValidate = [
+exports.postFileJsonImportValidate = [
   uploadMid.uploadJsonMid.single('file'),
   uploadMid.uploadFileCheckRequiredMid,
   uploadMid.uploadUtilsMid,
@@ -98,6 +98,57 @@ exports.postImportOrderConsolidated = async (req, res, next) => {
     const {
       importToDatabase,
     } = require('../../../source-data/consolidated/import-to-database');
+    const jsonFile = JSON.parse(
+      fs.readFileSync(req.file.path).toString('utf8')
+    );
+    await importToDatabase(true, jsonFile, true);
+    res.sendJsonOK();
+  } catch (err) {
+    next(err);
+  } finally {
+    await req.uploadsRemove();
+  }
+};
+
+exports.postPersonImport = async (req, res, next) => {
+  try {
+    const {
+      importToDatabase,
+    } = require('../../../source-data/persons/import-to-database');
+    const jsonFile = JSON.parse(
+      fs.readFileSync(req.file.path).toString('utf8')
+    );
+    await importToDatabase(true, jsonFile, true);
+    res.sendJsonOK();
+  } catch (err) {
+    next(err);
+  } finally {
+    await req.uploadsRemove();
+  }
+};
+
+exports.postOrderRequestImport = async (req, res, next) => {
+  try {
+    const {
+      importToDatabase,
+    } = require('../../../source-data/order_request/import-to-database');
+    const jsonFile = JSON.parse(
+      fs.readFileSync(req.file.path).toString('utf8')
+    );
+    await importToDatabase(true, jsonFile, true);
+    res.sendJsonOK();
+  } catch (err) {
+    next(err);
+  } finally {
+    await req.uploadsRemove();
+  }
+};
+
+exports.postOrderSupplyImport = async (req, res, next) => {
+  try {
+    const {
+      importToDatabase,
+    } = require('../../../source-data/order_supply/import-to-database');
     const jsonFile = JSON.parse(
       fs.readFileSync(req.file.path).toString('utf8')
     );

@@ -25,25 +25,73 @@
     </div>
     <br />
     <div class="card">
-      <div class="card-header">
-        Importar <strong>JSON consolidado</strong> do boletim
-      </div>
+      <div class="card-header"> Importar <strong>Entidades</strong> </div>
       <div class="card-body">
         <div class="form-row">
           <div class="form-group col-12">
             <label>Selecionar arquivo</label>
             <input
-              ref="inputOrderConsolidated"
+              ref="inputPersonFile"
               type="file"
               class="form-control-file"
-              accept=".pdf"
-              @change="onOrderConsolidatedFileChange"
+              accept=".json"
+              @change="onPersonFileChange"
             />
           </div>
           <button
             type="button"
             class="btn btn-success"
-            @click="onOrderConsolidatedSendClick"
+            @click="onPersonSendClick"
+          >
+            <i class="fas fa-upload"></i> Enviar
+          </button>
+        </div>
+      </div>
+    </div>
+    <br />
+    <div class="card">
+      <div class="card-header"> Importar <strong>Solicitações</strong> </div>
+      <div class="card-body">
+        <div class="form-row">
+          <div class="form-group col-12">
+            <label>Selecionar arquivo</label>
+            <input
+              ref="inputOrderRequest"
+              type="file"
+              class="form-control-file"
+              accept=".json"
+              @change="onOrderRequestFileChange"
+            />
+          </div>
+          <button
+            type="button"
+            class="btn btn-success"
+            @click="onOrderRequestSendClick"
+          >
+            <i class="fas fa-upload"></i> Enviar
+          </button>
+        </div>
+      </div>
+    </div>
+    <br />
+    <div class="card">
+      <div class="card-header"> Importar <strong>Entregas</strong> </div>
+      <div class="card-body">
+        <div class="form-row">
+          <div class="form-group col-12">
+            <label>Selecionar arquivo</label>
+            <input
+              ref="inputOrderSupply"
+              type="file"
+              class="form-control-file"
+              accept=".json"
+              @change="onOrderSupplyFileChange"
+            />
+          </div>
+          <button
+            type="button"
+            class="btn btn-success"
+            @click="onOrderSupplySendClick"
           >
             <i class="fas fa-upload"></i> Enviar
           </button>
@@ -61,7 +109,9 @@
     mixins: [apiMixin],
     data() {
       return {
-        orderConsolidatedFile: null,
+        orderRequestFile: null,
+        orderSupplyFile: null,
+        personFile: null,
       };
     },
     methods: {
@@ -102,31 +152,89 @@
           .then(this.api_thenDone())
           .catch(this.api_catch());
       },
-      onOrderConsolidatedFileChange(event) {
+      onPersonFileChange(event) {
         const files = event.target.files;
         if (files.length > 0) {
-          this.orderConsolidatedFile = event.target.files[0];
+          this.personFile = event.target.files[0];
         } else {
-          this.orderConsolidatedFile = null;
+          this.personFile = null;
         }
       },
-      onOrderConsolidatedSendClick() {
-        if (!this.orderConsolidatedFile) {
+      onPersonSendClick() {
+        if (!this.personFile) {
           this.notify_warning('Selecione um arquivo.');
           return;
         }
         let formData = new FormData();
-        formData.append('file', this.orderConsolidatedFile);
+        formData.append('file', this.personFile);
         this.api_loadingShow();
         axios
-          .post(`/api/admin/maintenance/importOrderConsolidated`, formData, {
+          .post(`/api/admin/maintenance/personImport`, formData, {
             headers: {
               'Content-Type': 'multipart/form-data',
             },
           })
           .then(
             this.api_thenDone(res => {
-              this.$refs.inputOrderConsolidated.value = null;
+              this.$refs.inputPersonFile.value = null;
+            })
+          )
+          .catch(this.api_catch());
+      },
+      onOrderRequestFileChange(event) {
+        const files = event.target.files;
+        if (files.length > 0) {
+          this.orderRequestFile = event.target.files[0];
+        } else {
+          this.orderRequestFile = null;
+        }
+      },
+      onOrderRequestSendClick() {
+        if (!this.orderRequestFile) {
+          this.notify_warning('Selecione um arquivo.');
+          return;
+        }
+        let formData = new FormData();
+        formData.append('file', this.orderRequestFile);
+        this.api_loadingShow();
+        axios
+          .post(`/api/admin/maintenance/orderRequestImport`, formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          })
+          .then(
+            this.api_thenDone(res => {
+              this.$refs.inputOrderRequest.value = null;
+            })
+          )
+          .catch(this.api_catch());
+      },
+      onOrderSupplyFileChange(event) {
+        const files = event.target.files;
+        if (files.length > 0) {
+          this.orderSupplyFile = event.target.files[0];
+        } else {
+          this.orderSupplyFile = null;
+        }
+      },
+      onOrderSupplySendClick() {
+        if (!this.orderSupplyFile) {
+          this.notify_warning('Selecione um arquivo.');
+          return;
+        }
+        let formData = new FormData();
+        formData.append('file', this.orderSupplyFile);
+        this.api_loadingShow();
+        axios
+          .post(`/api/admin/maintenance/orderSupplyImport`, formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          })
+          .then(
+            this.api_thenDone(res => {
+              this.$refs.inputOrderSupply.value = null;
             })
           )
           .catch(this.api_catch());

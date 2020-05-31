@@ -176,6 +176,7 @@ const scopes = {
       'glPersonContactDestinationId',
       'glPersonContactDestination',
       'glProducts',
+      'effectiveDate',
     ],
     maps: {
       glUser: async (value, scopeName) =>

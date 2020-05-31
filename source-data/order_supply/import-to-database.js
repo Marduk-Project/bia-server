@@ -50,10 +50,10 @@ exports.importToDatabase = async (keepConnection, dataList, ignoreLogFile) => {
       fs.unlinkSync(logFilePath);
     }
     // clear all request orders
-    console.log(chalk.red('... deleting all request orders!'));
+    console.log(chalk.red('... deleting all supply orders!'));
     const list = await OrderModel.findAll({
       where: {
-        type: OrderModelModule.common.TYPE_REQUEST,
+        type: OrderModelModule.common.TYPE_SUPPLY,
       },
     });
     await Promise.all(
@@ -72,6 +72,16 @@ exports.importToDatabase = async (keepConnection, dataList, ignoreLogFile) => {
             `City "${data.city}" NOT FOUND in state ${data.state}, entity: ${data.name}`
           );
         }
+        // City Origin
+        const cityOriginEntity = await findCityForBRA(
+          data.originCity,
+          data.originState
+        );
+        if (!cityOriginEntity) {
+          throw new Error(
+            `City Origin "${data.originCity}" NOT FOUND in state ${data.originState}, entity: ${data.name}`
+          );
+        }
         // person
         const personEntity = await PersonModel.findOne({
           where: {
@@ -84,6 +94,20 @@ exports.importToDatabase = async (keepConnection, dataList, ignoreLogFile) => {
         if (!personEntity) {
           throw new Error(
             `Person "${data.name}" NOT FOUND in city ${cityEntity.name}`
+          );
+        }
+        // person origin
+        const personOriginEntity = await PersonModel.findOne({
+          where: {
+            name: {
+              [Op.like]: data.originName,
+            },
+            cityId: cityOriginEntity.id,
+          },
+        });
+        if (!personOriginEntity) {
+          throw new Error(
+            `PersonOrigin "${data.originName}" NOT FOUND in city ${cityEntity.originCity}`
           );
         }
         // product
@@ -99,8 +123,16 @@ exports.importToDatabase = async (keepConnection, dataList, ignoreLogFile) => {
         if (!personDestinationUpdatedList.includes(personEntity.id)) {
           personDestinationUpdatedList.push(personEntity.id);
         }
+        const effectiveDate = data.effectiveDate
+          ? new Date(data.effectiveDate)
+          : new Date();
         // Order
-        data.orderId = await findOrCreateOrder(personEntity.id, true);
+        data.orderId = await findOrCreateOrder(
+          personEntity.id,
+          false,
+          effectiveDate,
+          personOriginEntity.id
+        );
         data.orderEntity = await OrderModel.findByPk(data.orderId);
         // Order Product
         const existingOrderProduct = await OrderProductModel.findByProduct(

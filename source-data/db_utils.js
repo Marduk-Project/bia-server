@@ -176,15 +176,26 @@ exports.findCityForBRA = async (cityName, stateInitials) => {
 exports.findOrCreateOrder = async (
   personDestinationId,
   isRequest,
-  effectiveDate
+  effectiveDate,
+  personOriginId
 ) => {
   const OrderModelModule = require('../server/models/or_order');
   const OrderModel = OrderModelModule.model;
+  const now = new Date();
   const type = isRequest
     ? OrderModelModule.common.TYPE_REQUEST
     : OrderModelModule.common.TYPE_SUPPLY;
   return find(OrderModel, {
-    where: { glPersonDestinationId: personDestinationId, type: type },
+    where: personOriginId
+      ? {
+          glPersonDestinationId: personDestinationId,
+          type: type,
+          glPersonContactOriginId: personOriginId,
+        }
+      : {
+          glPersonDestinationId: personDestinationId,
+          type: type,
+        },
     notFound: async () => {
       const contactId = await findOrCreateFirstPersonContact(
         personDestinationId
@@ -198,7 +209,7 @@ exports.findOrCreateOrder = async (
         status: OrderModelModule.common.STATUS_PROCESSED,
         needsReview: false,
         internalNotes: 'ORDEM CRIADA NA IMPORTAÇÃO DO EXCEL',
-        effectiveDate: effectiveDate,
+        effectiveDate: effectiveDate ? effectiveDate : now,
       });
       return orderId;
     },

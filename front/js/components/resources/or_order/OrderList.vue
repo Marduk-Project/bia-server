@@ -13,6 +13,17 @@
       >
         <i class="fas fa-table"></i> Ver consolidado
       </router-link>
+
+      <button
+        type="button"
+        class="btn btn-outline-secondary ml-1"
+        @click="onExportClick"
+      >
+        <i class="fas fa-file-excel"></i> Exportar
+        <app-info
+          title="Exportar para colunas e linhas, permitindo colar no Microsoft Excel."
+        ></app-info>
+      </button>
     </div>
     <br />
     <br />
@@ -70,6 +81,7 @@
             <app-info title="ID"></app-info>
           </th>
           <th>Tipo</th>
+          <th>Data</th>
           <th>Entidade de destino</th>
           <th
             >Contato <app-info title="Contato na Entidade de Destino"></app-info
@@ -97,6 +109,11 @@
           <td>{{ entity.id }}</td>
           <td>{{ entity.typeDesc }}</td>
           <td>
+            <app-date-real-span
+              :value="entity.effectiveDate"
+            ></app-date-real-span>
+          </td>
+          <td style="max-width: 25%;">
             <app-person-item
               :entity="entity.glPersonDestination"
             ></app-person-item> </td
@@ -105,7 +122,7 @@
               :entity="entity.glPersonContactDestination"
             ></app-person-contact-item>
           </td>
-          <td>
+          <td style="max-width: 25%;">
             <app-person-item :entity="entity.glPersonOrigin"></app-person-item>
           </td>
           <td>{{ entity.statusDesc }}</td>
@@ -179,13 +196,9 @@
       },
     },
     methods: {
-      list_buildURL(page) {
+      buildURL() {
         let url =
-          this.list_url_base +
-          '?page=' +
-          page +
-          '&q=' +
-          encodeURIComponent(this.searchText ? this.searchText : '');
+          '?q=' + encodeURIComponent(this.searchText ? this.searchText : '');
         if (this.filters.status > 0) {
           url += `&status=${this.filters.status}`;
         }
@@ -199,6 +212,13 @@
           url += `&glPersonDestinationId=${this.filters.glPersonDestination.id}`;
         }
         return url;
+      },
+      list_buildURL(page) {
+        return `${this.list_url_base}/${this.buildURL()}&page=${page}`;
+      },
+      onExportClick() {
+        let url = `${this.list_url_base}/export${this.buildURL()}`;
+        window.open(url, '_order');
       },
     },
   };

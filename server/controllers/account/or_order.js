@@ -1,6 +1,8 @@
 const { body, query, param } = require('express-validator/check');
 const validator = require('validator');
 const { Op } = require('sequelize');
+const _ = require('lodash');
+
 const { mainDb } = require('../../database/main_connection');
 
 const {
@@ -38,17 +40,54 @@ const helperValidator = require('../../helpers/validator');
 const controllerDefaultQueryScope = 'account';
 const includeDefaultOption = [
   'glUser',
-  'glPersonOrigin',
+  {
+    association: 'glPersonOrigin',
+    include: ['city'],
+  },
   'glPersonContactOrigin',
-  'glPersonDestination',
+  {
+    association: 'glPersonDestination',
+    include: ['city'],
+  },
   'glPersonContactDestination',
 ];
 
+const includeFullOption = [
+  'glUser',
+  {
+    association: 'glPersonOrigin',
+    include: {
+      association: 'city',
+      include: ['state'],
+    },
+  },
+  'glPersonContactOrigin',
+  {
+    association: 'glPersonDestination',
+    include: {
+      association: 'city',
+      include: ['state'],
+    },
+  },
+  'glPersonContactDestination',
+  {
+    association: 'glProducts',
+    include: [
+      {
+        association: 'glProduct',
+        include: ['unit'],
+      },
+      {
+        association: 'glUnit',
+      },
+    ],
+  },
+];
+
 /**
- * List Validation
+ * getIndexQueryOptionsValidate
  */
-exports.getIndexValidate = [
-  query('page').optional().isInt(),
+exports.getIndexQueryValidate = [
   query('q').optional().isString(),
   query('glPersonDestinationId').optional().isInt(),
   query('glPersonOriginId').optional().isInt(),
@@ -58,67 +97,80 @@ exports.getIndexValidate = [
 ];
 
 /**
+ */
+const getIndexQueryOptions = async (req, res, next) => {
+  const options = {
+    where: {},
+  };
+  // q
+  if (req.query.q) {
+    const q = req.query.q;
+    if (validator.isNumeric(q, { no_symbols: true })) {
+      options.where[Op.or] = {
+        id: q,
+      };
+      if (req.user.levelIsStaff) {
+        options.where[Op.or].glPersonDestinationId = q;
+        options.where[Op.or].glPersonContactDestinationId = q;
+        options.where[Op.or].glPersonOriginId = q;
+        options.where[Op.or].glPersonContactOriginId = q;
+      }
+    }
+  }
+  // user staff can filter
+  if (req.user.levelIsStaff) {
+    // glPersonDestinationId
+    if (req.query.glPersonDestinationId) {
+      options.where.glPersonDestinationId = req.query.glPersonDestinationId;
+    }
+    // glPersonOriginId
+    if (req.query.glPersonOriginId) {
+      options.where.glPersonOriginId = req.query.glPersonOriginId;
+    }
+  } else {
+    // normal user
+    // query only allowed person contact ids
+    const allowedPersonIdList = await GL_PersonContactModel.allowdPersonIdListForUser(
+      req.user.id
+    );
+    options.where.glPersonDestinationId = {
+      [Op.in]: allowedPersonIdList,
+    };
+    options.where.glPersonOriginId = {
+      [Op.in]: allowedPersonIdList,
+    };
+  }
+  // status
+  if (req.query.status) {
+    options.where.status = req.query.status;
+  }
+  // type
+  if (req.query.type) {
+    options.where.type = req.query.type;
+  }
+  // query options
+  options.order = [
+    ['createdAt', 'desc'],
+    ['id', 'desc'],
+  ];
+  options.include = includeDefaultOption;
+  return options;
+};
+
+exports.getIndexValidate = [
+  ...exports.getIndexQueryValidate,
+  query('page').optional().isInt(),
+];
+
+/**
  * List Index
  */
 exports.getIndex = async (req, res, next) => {
   try {
-    const options = {
-      where: {},
-    };
-    // q
-    if (req.query.q) {
-      const q = req.query.q;
-      if (validator.isNumeric(q, { no_symbols: true })) {
-        options.where[Op.or] = {
-          id: q,
-        };
-        if (req.user.levelIsStaff) {
-          options.where[Op.or].glPersonDestinationId = q;
-          options.where[Op.or].glPersonContactDestinationId = q;
-          options.where[Op.or].glPersonOriginId = q;
-          options.where[Op.or].glPersonContactOriginId = q;
-        }
-      }
-    }
-    // user staff can filter
-    if (req.user.levelIsStaff) {
-      // glPersonDestinationId
-      if (req.query.glPersonDestinationId) {
-        options.where.glPersonDestinationId = req.query.glPersonDestinationId;
-      }
-      // glPersonOriginId
-      if (req.query.glPersonOriginId) {
-        options.where.glPersonOriginId = req.query.glPersonOriginId;
-      }
-    } else {
-      // normal user
-      // query only allowed person contact ids
-      const allowedPersonIdList = await GL_PersonContactModel.allowdPersonIdListForUser(
-        req.user.id
-      );
-      options.where.glPersonDestinationId = {
-        [Op.in]: allowedPersonIdList,
-      };
-      options.where.glPersonOriginId = {
-        [Op.in]: allowedPersonIdList,
-      };
-    }
-    // status
-    if (req.query.status) {
-      options.where.status = req.query.status;
-    }
-    // type
-    if (req.query.type) {
-      options.where.type = req.query.type;
-    }
+    const options = await getIndexQueryOptions(req, res, next);
     // query options
     const page = req.query.page || 1;
     Model.setLimitOffsetForPage(page, options);
-    options.order = [
-      ['createdAt', 'desc'],
-      ['id', 'desc'],
-    ];
-    options.include = includeDefaultOption;
     // exec
     const queryResult = await Model.findAndCountAll(options);
     const meta = Model.paginateMeta(queryResult, page);
@@ -466,6 +518,41 @@ exports.delete = async (req, res, next) => {
         entity,
         controllerDefaultQueryScope
       ),
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.getExportValidate = [...exports.getIndexQueryValidate];
+
+/**
+ */
+exports.getExport = async (req, res, next) => {
+  try {
+    const moment = require('moment');
+    const options = await getIndexQueryOptions(req, res, next);
+    options.include = includeFullOption;
+    const rows = await Model.findAll(options);
+    // const listMap = rows.reduce((ac, item) => {
+    //   const obj = {
+    //     effectiveDate: moment(item.effectiveDate).format('DD/MM/YYYY'),
+    //     glPersonDestination: item.glPersonDestination,
+    //     glPersonOrigin: item.glPersonDestination,
+    //   },
+    // }, []);
+    // exec
+    const fields = {
+      Data: row => moment(row.effectiveDate).format('DD/MM/YYYY'),
+      Entidade_Destino: row => row.glPersonDestination.name,
+      Cidade_Destino: row => row.glPersonDestination.city.name,
+      Estado_Destino: row => row.glPersonDestination.city.state.initials,
+    };
+    res.render('export/row_col.ejs', {
+      title: 'Ordens',
+      fields: Object.keys(fields),
+      values: Object.values(fields),
+      rows: rows,
     });
   } catch (err) {
     next(err);

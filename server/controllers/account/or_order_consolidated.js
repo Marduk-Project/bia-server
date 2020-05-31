@@ -72,8 +72,7 @@ const getQueryOptions = async (query, userId, userIsStaff) => {
   options.order = [['id', 'desc']];
   options.include = [
     {
-      model: GL_ProductModel,
-      as: 'glProduct',
+      association: 'glProduct',
       where: query.q
         ? {
             name: {
@@ -83,12 +82,10 @@ const getQueryOptions = async (query, userId, userIsStaff) => {
         : undefined,
     },
     {
-      model: GL_UnitModel,
-      as: 'glUnit',
+      association: 'glUnit',
     },
     {
-      model: GL_PersonModel,
-      as: 'glPersonDestination',
+      association: 'glPersonDestination',
       include: [
         {
           model: GL_CityModel,
