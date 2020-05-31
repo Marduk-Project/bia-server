@@ -74,6 +74,9 @@ MyModel.init(
     expiresIn: {
       type: Sequelize.DATE,
     },
+    effectiveDate: {
+      type: Sequelize.DATEONLY,
+    },
   },
   {
     // options

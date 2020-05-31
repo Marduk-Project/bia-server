@@ -172,3 +172,46 @@ exports.findCityForBRA = async (cityName, stateInitials) => {
   }
   return cityEntity;
 };
+
+exports.findOrCreateOrder = async (
+  personDestinationId,
+  isRequest,
+  effectiveDate
+) => {
+  const OrderModelModule = require('../server/models/or_order');
+  const OrderModel = OrderModelModule.model;
+  const type = isRequest
+    ? OrderModelModule.common.TYPE_REQUEST
+    : OrderModelModule.common.TYPE_SUPPLY;
+  return find(OrderModel, {
+    where: { glPersonDestinationId: personDestinationId, type: type },
+    notFound: async () => {
+      const contactId = await findOrCreateFirstPersonContact(
+        personDestinationId
+      );
+      const orderId = await create(OrderModel, {
+        glPersonDestinationId: personDestinationId,
+        glPersonContactDestinationId: contactId,
+        glPersonOriginId: personDestinationId,
+        glPersonContactOriginId: contactId,
+        type: type,
+        status: OrderModelModule.common.STATUS_PROCESSED,
+        needsReview: false,
+        internalNotes: 'ORDEM CRIADA NA IMPORTAÇÃO DO EXCEL',
+        effectiveDate: effectiveDate,
+      });
+      return orderId;
+    },
+  });
+};
+
+/**
+ * @param {Array} personIdList
+ */
+exports.orderConsolidateByPersonIdList = async personIdList => {
+  const OrderConsolidatedModelModule = require('../server/models/or_order_consolidated');
+  for (let rowNumber = 0; rowNumber < personIdList.length; rowNumber++) {
+    const personId = personIdList[rowNumber];
+    await OrderConsolidatedModelModule.consolidateByPersonDestination(personId);
+  }
+};

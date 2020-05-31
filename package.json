@@ -12,6 +12,7 @@
     "lint:ejs": "ejslint",
     "build": "npm run front-build && npm run db:migrate",
     "db:migrate": "sequelize db:migrate",
+    "db:migrate:undo": "sequelize db:migrate:undo",
     "init": "sequelize db:create && sequelize db:migrate"
   },
   "engines": {

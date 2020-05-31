@@ -4,7 +4,7 @@ const path = require('path');
 const { uniqBy } = require('lodash');
 const xlsxFile = require('read-excel-file/node');
 
-const outputFile = path.join(__dirname, 'entity-list.json');
+const outputFile = path.join(__dirname, 'data-list.json');
 const inputFile = path.join(__dirname, '..', '20200530_Dados_Plataforma.xlsx');
 
 const emptyParser = value => {
@@ -25,7 +25,7 @@ const emptyParserFunc = otherParser => {
 };
 
 const schema = {
-  NOME_AJUST: {
+  ENTIDADE_AJUST: {
     prop: 'name',
     type: String,
     parse: emptyParserFunc(value => {
@@ -63,14 +63,25 @@ const excelData = xlsxFile(inputFile, {
     if (errors.length > 0) {
       console.log(chalk.red(errors));
     }
+    writeToJSONFile(rows);
+    writeToJSONFile(
+      {
+        total: rows.length,
+      },
+      'meta.json'
+    );
     return rows;
   })
-  .then(writeToJSONFile)
   .catch(err => {
     console.log(chalk.red(err));
   });
 
-function writeToJSONFile(data) {
-  console.log(`Saving extracted date to: ${outputFile}`);
-  return fs.writeFileSync(outputFile, JSON.stringify(data, null, 2));
+function writeToJSONFile(data, output) {
+  if (!output) {
+    output = outputFile;
+  } else {
+    output = path.join(__dirname, output);
+  }
+  console.log(`Saving extracted date to: ${output}`);
+  return fs.writeFileSync(output, JSON.stringify(data, null, 2));
 }
