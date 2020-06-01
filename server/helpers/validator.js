@@ -167,6 +167,9 @@ exports.isDate8601Func = (exNeeded, required) => {
   return value => {
     if (!value) {
       if (required) {
+        if (exNeeded) {
+          throw new Error('Campo data obrigatório.');
+        }
         return false;
       }
       return true;

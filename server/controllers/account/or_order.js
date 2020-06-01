@@ -331,6 +331,7 @@ const saveValidate = [
       CtrModelModule.common.STATUS_CANCELED,
     ].includes(parseInt(value));
   }),
+  body('effectiveDate').custom(helperValidator.isDate8601Func(true, true)),
   body('glProducts').isArray(),
   body('glProducts.*').custom(async (value, { req }) => {
     value.quantity = parseFloat(value.quantity);
@@ -371,6 +372,7 @@ const saveEntityFunc = async (req, res, next, id) => {
     entity.glPersonContactDestinationId = body.glPersonContactDestinationId;
     entity.notes = body.notes;
     entity.status = body.status;
+    entity.effectiveDate = body.effectiveDate;
     // TODO pensar em fazer job ou queue
     if (body.status == ModelCommon.STATUS_REVIEW_OK) {
       entity.status = ModelCommon.STATUS_PROCESSED;

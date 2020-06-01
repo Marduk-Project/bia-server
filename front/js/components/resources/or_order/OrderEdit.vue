@@ -87,6 +87,19 @@
                       </label>
                     </div>
                   </div>
+                  <div class="form-group col-3">
+                    <label>Data efetiva</label>
+                    <app-input-date
+                      name="effectiveDate"
+                      v-validate="'required'"
+                      v-model="entity.effectiveDate"
+                      :classes="{
+                        'is-invalid': errors.has('effectiveDate'),
+                      }"
+                    ></app-input-date>
+                    <small>Data efetiva da entrega ou da solicitação.</small>
+                    <div class="invalid-feedback">Campo obrigatório.</div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -143,6 +156,7 @@
 </template>
 
 <script>
+  import moment from 'moment';
   import { crudMixin } from '@mixins/crud-mixin';
   import { mapState, mapActions, mapGetters } from 'vuex';
 
@@ -185,6 +199,7 @@
           notes: '',
           internalNotes: '',
           needsReview: false,
+          effectiveDate: moment().format('YYYY-MM-DD'),
           glProducts: [],
         },
         // Tabs
@@ -256,6 +271,9 @@
           glPersonContactDestinationId: this.entity.glPersonContactDestination
             .id,
           appContext: this.appContext,
+          effectiveDate: this.entity.effectiveDate
+            ? this.entity.effectiveDate
+            : moment().format('YYYY-MM-DD'),
           glProducts: this.entity.glProducts.map(item => {
             return {
               glProductId: item.glProductId,
