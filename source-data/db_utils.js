@@ -27,6 +27,7 @@ const findOrCreateFirstPersonContact = async personId => {
     level: PersonContactModelModule.LEVEL_NORMAL,
   });
 };
+exports.findOrCreateFirstPersonContact = findOrCreateFirstPersonContact;
 
 exports.findOrCreatePerson = async ({
   name,
@@ -190,7 +191,7 @@ exports.findOrCreateOrder = async (
       ? {
           glPersonDestinationId: personDestinationId,
           type: type,
-          glPersonContactOriginId: personOriginId,
+          glPersonOriginId: personOriginId,
         }
       : {
           glPersonDestinationId: personDestinationId,
@@ -200,11 +201,14 @@ exports.findOrCreateOrder = async (
       const contactId = await findOrCreateFirstPersonContact(
         personDestinationId
       );
+      const contactOriginId = personOriginId
+        ? await findOrCreateFirstPersonContact(personOriginId)
+        : contactId;
       const orderId = await create(OrderModel, {
         glPersonDestinationId: personDestinationId,
         glPersonContactDestinationId: contactId,
-        glPersonOriginId: personDestinationId,
-        glPersonContactOriginId: contactId,
+        glPersonOriginId: personOriginId ? personOriginId : personDestinationId,
+        glPersonContactOriginId: contactOriginId,
         type: type,
         status: OrderModelModule.common.STATUS_PROCESSED,
         needsReview: false,

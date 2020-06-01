@@ -46,4 +46,11 @@ router.get(
   controller.getExport
 );
 
+router.get(
+  '/exportSupply',
+  authMid.userIsLoggedMiddleware,
+  controller.getExportSupplyValidate,
+  controller.getExportSupply
+);
+
 module.exports = router;

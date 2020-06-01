@@ -56,18 +56,28 @@ const includeFullOption = [
   'glUser',
   {
     association: 'glPersonOrigin',
-    include: {
-      association: 'city',
-      include: ['state'],
-    },
+    include: [
+      {
+        association: 'city',
+        include: ['state'],
+      },
+      {
+        association: 'personParent',
+      },
+    ],
   },
   'glPersonContactOrigin',
   {
     association: 'glPersonDestination',
-    include: {
-      association: 'city',
-      include: ['state'],
-    },
+    include: [
+      {
+        association: 'city',
+        include: ['state'],
+      },
+      {
+        association: 'personParent',
+      },
+    ],
   },
   'glPersonContactDestination',
   {
@@ -564,6 +574,58 @@ exports.getExport = async (req, res, next) => {
       Estado_Origem: row => row.glPersonOrigin.city.state.initials,
       Item: row => row.glProduct.name,
       Unidade: row => row.glUnit.name,
+      Quantidade: row => parseInt(row.quantity),
+    };
+    res.render('export/row_col.ejs', {
+      title: 'Ordens',
+      fields: Object.keys(fields),
+      values: Object.values(fields),
+      rows: rows,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.getExportSupplyValidate = [...exports.getIndexQueryValidate];
+
+/**
+ */
+exports.getExportSupply = async (req, res, next) => {
+  try {
+    const moment = require('moment');
+    req.query.type = ModelCommon.TYPE_SUPPLY;
+    const options = await getIndexQueryOptions(req, res, next);
+    options.include = includeFullOption;
+    let rows = await Model.findAll(options);
+    rows = rows.reduce((ac, item) => {
+      const obj = {
+        effectiveDate: moment(item.effectiveDate).format('DD/MM/YYYY'),
+        glPersonDestination: item.glPersonDestination,
+        glPersonOrigin: item.glPersonOrigin,
+        typeDesc: item.typeDesc,
+      };
+      item.glProducts.forEach(orderProduct => {
+        const newProduct = Object.assign({}, obj);
+        newProduct.glProduct = orderProduct.glProduct;
+        newProduct.glUnit = orderProduct.glUnit;
+        newProduct.quantity = orderProduct.quantity;
+        ac.push(newProduct);
+      });
+      return ac;
+    }, []);
+    // exec
+    const fields = {
+      Data: row => row.effectiveDate,
+      Entidade_Destino: row => row.glPersonDestination.name,
+      Cidade_Destino: row =>
+        `${row.glPersonDestination.city.name} - ${row.glPersonDestination.city.state.initials}`,
+      Item: row => row.glProduct.name,
+      Entidade_Pai: row =>
+        row.glPersonOrigin.personParent
+          ? row.glPersonOrigin.personParent.name
+          : '',
+      Entidade_Origem: row => row.glPersonOrigin.name,
       Quantidade: row => parseInt(row.quantity),
     };
     res.render('export/row_col.ejs', {

@@ -24,6 +24,14 @@
           title="Exportar para colunas e linhas, permitindo colar no Microsoft Excel."
         ></app-info>
       </button>
+      <button
+        type="button"
+        class="btn btn-outline-secondary ml-1"
+        @click="onExportSupplyClick"
+      >
+        <i class="fas fa-file-excel"></i> Exportar entregas
+        <app-info title="Exportar um segundo formato de integração."></app-info>
+      </button>
     </div>
     <br />
     <br />
@@ -219,6 +227,10 @@
       onExportClick() {
         let url = `${this.list_url_base}/export${this.buildURL()}`;
         window.open(url, '_order');
+      },
+      onExportSupplyClick() {
+        let url = `${this.list_url_base}/exportSupply${this.buildURL()}`;
+        window.open(url, '_orderSupply');
       },
     },
   };
