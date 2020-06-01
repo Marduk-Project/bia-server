@@ -3,6 +3,7 @@ const chalk = require('chalk');
 const { nconf, filepath } = require('../../../config.js');
 const { ApiError } = require('../../middlewares/error-mid');
 const uploadMid = require('../../middlewares/upload-mid');
+const { mainDb } = require('../../database/main_connection');
 
 /**
  * Get config data

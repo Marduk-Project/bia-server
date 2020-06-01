@@ -176,7 +176,7 @@
         entity: {
           id: null,
           type: null,
-          status: 1,
+          status: this.isContextAccount ? 1 : 3, // novo ou revisao ok
           glUser: null,
           glPersonOrigin: null,
           glPersonContactOrigin: null,

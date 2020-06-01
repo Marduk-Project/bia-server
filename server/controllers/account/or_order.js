@@ -533,20 +533,36 @@ exports.getExport = async (req, res, next) => {
     const moment = require('moment');
     const options = await getIndexQueryOptions(req, res, next);
     options.include = includeFullOption;
-    const rows = await Model.findAll(options);
-    // const listMap = rows.reduce((ac, item) => {
-    //   const obj = {
-    //     effectiveDate: moment(item.effectiveDate).format('DD/MM/YYYY'),
-    //     glPersonDestination: item.glPersonDestination,
-    //     glPersonOrigin: item.glPersonDestination,
-    //   },
-    // }, []);
+    let rows = await Model.findAll(options);
+    rows = rows.reduce((ac, item) => {
+      const obj = {
+        effectiveDate: moment(item.effectiveDate).format('DD/MM/YYYY'),
+        glPersonDestination: item.glPersonDestination,
+        glPersonOrigin: item.glPersonOrigin,
+        typeDesc: item.typeDesc,
+      };
+      item.glProducts.forEach(orderProduct => {
+        const newProduct = Object.assign({}, obj);
+        newProduct.glProduct = orderProduct.glProduct;
+        newProduct.glUnit = orderProduct.glUnit;
+        newProduct.quantity = orderProduct.quantity;
+        ac.push(newProduct);
+      });
+      return ac;
+    }, []);
     // exec
     const fields = {
-      Data: row => moment(row.effectiveDate).format('DD/MM/YYYY'),
+      Tipo: row => row.typeDesc,
+      Data: row => row.effectiveDate,
       Entidade_Destino: row => row.glPersonDestination.name,
       Cidade_Destino: row => row.glPersonDestination.city.name,
       Estado_Destino: row => row.glPersonDestination.city.state.initials,
+      Entidade_Origem: row => row.glPersonOrigin.name,
+      Cidade_Origem: row => row.glPersonOrigin.city.name,
+      Estado_Origem: row => row.glPersonOrigin.city.state.initials,
+      Item: row => row.glProduct.name,
+      Unidade: row => row.glUnit.name,
+      Quantidade: row => parseInt(row.quantity),
     };
     res.render('export/row_col.ejs', {
       title: 'Ordens',

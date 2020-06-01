@@ -73,6 +73,7 @@ const excelData = xlsxFile(inputFile, {
     if (errors.length > 0) {
       console.log(chalk.red(errors));
     }
+    console.log('Tamanho:', rows.length);
     return rows;
   })
   .then(writeToJSONFile)

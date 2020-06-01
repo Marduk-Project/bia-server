@@ -506,6 +506,9 @@
           }
         });
       },
+      crud_shouldNavBackAfterSave() {
+        return false;
+      },
     },
     computed: {
       legalIdentifierType() {
