@@ -133,7 +133,7 @@ exports.getIndex = async (req, res, next) => {
       if (row.supplyTransportQuantity != 0) {
         return true;
       }
-      return false;
+      return true; // TODO revisar depois
     });
     const meta = Model.paginateMeta(queryResult, page);
     res.sendJsonOK({
