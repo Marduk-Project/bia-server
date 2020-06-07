@@ -33,6 +33,8 @@ const GL_PersonContactModule = require('../../models/gl_person_contact');
 const GL_PersonContactModel = GL_PersonContactModule.model;
 const GL_ProductModelModule = require('../../models/gl_product');
 const GL_ProductModel = GL_ProductModelModule.model;
+const OR_OrderCategoryModule = require('../../models/or_order_category');
+const OR_OrderCategoryModel = OR_OrderCategoryModule.model;
 
 // const utils = require('../../helpers/utils');
 const helperValidator = require('../../helpers/validator');
@@ -50,6 +52,7 @@ const includeDefaultOption = [
     include: ['city'],
   },
   'glPersonContactDestination',
+  'orderCategory',
 ];
 
 const includeFullOption = [
@@ -80,6 +83,7 @@ const includeFullOption = [
     ],
   },
   'glPersonContactDestination',
+  'orderCategory',
   {
     association: 'glProducts',
     include: [
@@ -101,6 +105,7 @@ exports.getIndexQueryValidate = [
   query('q').optional().isString(),
   query('glPersonDestinationId').optional().isInt(),
   query('glPersonOriginId').optional().isInt(),
+  query('orderCategoryId').optional().isInt(),
   query('status').optional().isIn(CtrModelModule.common.STATUS_ALL),
   query('type').optional().isIn(CtrModelModule.common.TYPE_ALL),
   validationEndFunction,
@@ -136,6 +141,10 @@ const getIndexQueryOptions = async (req, res, next) => {
     // glPersonOriginId
     if (req.query.glPersonOriginId) {
       options.where.glPersonOriginId = req.query.glPersonOriginId;
+    }
+    // orderCategory
+    if (req.query.orderCategoryId) {
+      options.where.orderCategoryId = req.query.orderCategoryId;
     }
   } else {
     // normal user
@@ -342,6 +351,15 @@ const saveValidate = [
     ].includes(parseInt(value));
   }),
   body('effectiveDate').custom(helperValidator.isDate8601Func(true, true)),
+  body('orderCategoryId')
+    .optional({ checkFalsy: true })
+    .isInt()
+    .custom(
+      customFindByPkRelationValidation(
+        OR_OrderCategoryModel,
+        'entity_orderCategory'
+      )
+    ),
   body('glProducts').isArray(),
   body('glProducts.*').custom(async (value, { req }) => {
     value.quantity = parseFloat(value.quantity);
@@ -383,6 +401,7 @@ const saveEntityFunc = async (req, res, next, id) => {
     entity.notes = body.notes;
     entity.status = body.status;
     entity.effectiveDate = body.effectiveDate;
+    entity.orderCategoryId = body.orderCategoryId;
     // TODO pensar em fazer job ou queue
     if (body.status == ModelCommon.STATUS_REVIEW_OK) {
       entity.status = ModelCommon.STATUS_PROCESSED;
@@ -552,6 +571,7 @@ exports.getExport = async (req, res, next) => {
         glPersonDestination: item.glPersonDestination,
         glPersonOrigin: item.glPersonOrigin,
         typeDesc: item.typeDesc,
+        orderCategory: item.orderCategory,
       };
       item.glProducts.forEach(orderProduct => {
         const newProduct = Object.assign({}, obj);
@@ -565,6 +585,7 @@ exports.getExport = async (req, res, next) => {
     // exec
     const fields = {
       Tipo: row => row.typeDesc,
+      Categoria: row => (row.orderCategory ? row.orderCategory.name : ''),
       Data: row => row.effectiveDate,
       Entidade_Destino: row => row.glPersonDestination.name,
       Cidade_Destino: row => row.glPersonDestination.city.name,
@@ -604,6 +625,7 @@ exports.getExportSupply = async (req, res, next) => {
         glPersonDestination: item.glPersonDestination,
         glPersonOrigin: item.glPersonOrigin,
         typeDesc: item.typeDesc,
+        orderCategory: item.orderCategory,
       };
       item.glProducts.forEach(orderProduct => {
         const newProduct = Object.assign({}, obj);
@@ -627,9 +649,10 @@ exports.getExportSupply = async (req, res, next) => {
           : '',
       Entidade_Origem: row => row.glPersonOrigin.name,
       Quantidade: row => parseInt(row.quantity),
+      Categoria: row => (row.orderCategory ? row.orderCategory.name : ''),
     };
     res.render('export/row_col.ejs', {
-      title: 'Ordens',
+      title: 'Entregas',
       fields: Object.keys(fields),
       values: Object.values(fields),
       rows: rows,

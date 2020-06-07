@@ -169,6 +169,16 @@
               >
                 <i class="fas fa-tag"></i> Tipos de Pessoa
               </router-link>
+              <router-link
+                class="dropdown-item"
+                tag="a"
+                active-class="active"
+                :to="{ name: 'or_order_category.index' }"
+                v-if="isUserStaff"
+              >
+                <i class="fas fa-tag"></i> Categorias de Solicitação &amp;
+                Entrega
+              </router-link>
             </div>
           </li>
           <li class="nav-item dropdown">

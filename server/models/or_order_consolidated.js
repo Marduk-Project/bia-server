@@ -183,7 +183,8 @@ const consolidateOrderProduct = async (
               OrderModelCommon.TYPE_REQUEST,
               OrderModelCommon.TYPE_SUPPLY_RESERVE,
               OrderModelCommon.TYPE_SUPPLY_TRANSPORT,
-              OrderModelCommon.TYPE_MANUAL_ADJUST,
+              OrderModelCommon.TYPE_ADJUST_REQUEST,
+              OrderModelCommon.TYPE_ADJUST_SUPPLY,
             ],
           },
         },
@@ -202,11 +203,12 @@ const consolidateOrderProduct = async (
     const order = await findOrder(item, options);
     switch (parseInt(order.type)) {
       case OrderModelCommon.TYPE_SUPPLY:
-      case OrderModelCommon.TYPE_MANUAL_ADJUST:
+      case OrderModelCommon.TYPE_ADJUST_SUPPLY:
         orderConsolidated.requestQuantity -= parseFloat(item.quantity);
         break;
 
       case OrderModelCommon.TYPE_REQUEST:
+      case OrderModelCommon.TYPE_ADJUST_REQUEST:
         orderConsolidated.requestQuantity += parseFloat(item.quantity);
         break;
 

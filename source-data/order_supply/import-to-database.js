@@ -146,8 +146,10 @@ exports.importToDatabase = async (keepConnection, dataList, ignoreLogFile) => {
           },
           {
             quantity:
-              data.qty +
-              (existingOrderProduct ? existingOrderProduct.quantity : 0),
+              parseFloat(data.qty) +
+              (existingOrderProduct
+                ? parseFloat(existingOrderProduct.quantity)
+                : 0),
             notes: null,
           }
         );

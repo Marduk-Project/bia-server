@@ -153,6 +153,10 @@ const scopes = {
         const { jsonSerializer } = require('./or_order_product');
         return await jsonSerializer(value, scopeName);
       },
+      orderCategory: async (value, scopeName) => {
+        const { jsonSerializer } = require('./or_order_category');
+        return await jsonSerializer(value, scopeName);
+      },
     },
   },
   account: {
@@ -177,6 +181,7 @@ const scopes = {
       'glPersonContactDestination',
       'glProducts',
       'effectiveDate',
+      'orderCategory',
     ],
     maps: {
       glUser: async (value, scopeName) =>
@@ -192,6 +197,10 @@ const scopes = {
       },
       glProducts: async (value, scopeName) => {
         const { jsonSerializer } = require('./or_order_product');
+        return await jsonSerializer(value, scopeName);
+      },
+      orderCategory: async (value, scopeName) => {
+        const { jsonSerializer } = require('./or_order_category');
         return await jsonSerializer(value, scopeName);
       },
     },

@@ -3,19 +3,22 @@ const TYPE_REQUEST = 1;
 const TYPE_SUPPLY = 2;
 const TYPE_SUPPLY_RESERVE = 3;
 const TYPE_SUPPLY_TRANSPORT = 4;
-const TYPE_MANUAL_ADJUST = 9;
+const TYPE_ADJUST_REQUEST = 8;
+const TYPE_ADJUST_SUPPLY = 9;
 
 exports.TYPE_REQUEST = TYPE_REQUEST;
 exports.TYPE_SUPPLY = TYPE_SUPPLY;
 exports.TYPE_SUPPLY_RESERVE = TYPE_SUPPLY_RESERVE;
 exports.TYPE_SUPPLY_TRANSPORT = TYPE_SUPPLY_TRANSPORT;
-exports.TYPE_MANUAL_ADJUST = TYPE_MANUAL_ADJUST;
+exports.TYPE_ADJUST_REQUEST = TYPE_ADJUST_REQUEST;
+exports.TYPE_ADJUST_SUPPLY = TYPE_ADJUST_SUPPLY;
 exports.TYPE_ALL = [
   TYPE_REQUEST,
   TYPE_SUPPLY,
   TYPE_SUPPLY_RESERVE,
   TYPE_SUPPLY_TRANSPORT,
-  TYPE_MANUAL_ADJUST,
+  TYPE_ADJUST_REQUEST,
+  TYPE_ADJUST_SUPPLY,
 ];
 
 const typeToString = value => {
@@ -32,8 +35,11 @@ const typeToString = value => {
     case TYPE_SUPPLY_TRANSPORT:
       return 'Em transporte';
 
-    case TYPE_MANUAL_ADJUST:
-      return 'Ajuste manual';
+    case TYPE_ADJUST_REQUEST:
+      return 'Ajuste - Solicitação';
+
+    case TYPE_ADJUST_SUPPLY:
+      return 'Ajuste - Entrega';
   }
   return 'Desconhecido';
 };

@@ -37,7 +37,7 @@
               <div class="card card-body">
                 <h4>Informações administrativas</h4>
                 <div class="form-row">
-                  <div class="form-group col-6">
+                  <div class="form-group col-4">
                     <label for="input-status">
                       Situação
                     </label>
@@ -45,14 +45,22 @@
                       v-model="entity.status"
                     ></app-order-status-select>
                   </div>
-                  <div class="form-group col-6">
-                    <label for="input-status">
+                  <div class="form-group col-4">
+                    <label>
                       Criado por
                     </label>
                     <app-user-select
                       :disabled="true"
                       :value="id ? entity.glUser : user"
                     ></app-user-select>
+                  </div>
+                  <div class="form-group col-4">
+                    <label>
+                      Categoria
+                    </label>
+                    <app-order-category-select
+                      v-model="entity.orderCategory"
+                    ></app-order-category-select>
                   </div>
                   <div class="form-group col-12">
                     <label>Anotações internas</label>
@@ -169,7 +177,7 @@
   import PersonSelect from '@resources/gl_person/PersonSelect.vue';
   import UserSelect from '@resources/gl_user/UserSelect.vue';
   import PersonContactSelect from '@resources/gl_person_contact/PersonContactSelect.vue';
-
+  import OrderCategorySelect from '../or_order_category/OrderCategorySelect.vue';
   import { API as EntityAPI, mixin } from './order_api';
 
   export default {
@@ -184,6 +192,7 @@
       'app-person-contact-select': PersonContactSelect,
       'app-order-status-select': OrderStatusSelect,
       'app-user-select': UserSelect,
+      'app-order-category-select': OrderCategorySelect,
     },
     data() {
       return {
@@ -196,6 +205,7 @@
           glPersonContactOrigin: null,
           glPersonDestination: null,
           glPersonContactDestination: null,
+          orderCategory: null,
           notes: '',
           internalNotes: '',
           needsReview: false,
@@ -270,6 +280,9 @@
           glPersonDestinationId: this.entity.glPersonDestination.id,
           glPersonContactDestinationId: this.entity.glPersonContactDestination
             .id,
+          orderCategoryId: this.entity.orderCategory
+            ? this.entity.orderCategory.id
+            : null,
           appContext: this.appContext,
           effectiveDate: this.entity.effectiveDate
             ? this.entity.effectiveDate
