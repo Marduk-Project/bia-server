@@ -1,7 +1,13 @@
 const fs = require('fs');
 const chalk = require('chalk');
+const { body, query, param } = require('express-validator/check');
+const { QueryTypes } = require('sequelize');
+
 const { nconf, filepath } = require('../../../config.js');
-const { ApiError } = require('../../middlewares/error-mid');
+const {
+  ApiError,
+  validationEndFunction,
+} = require('../../middlewares/error-mid');
 const uploadMid = require('../../middlewares/upload-mid');
 const { mainDb } = require('../../database/main_connection');
 
@@ -92,6 +98,7 @@ exports.postFileJsonImportValidate = [
   uploadMid.uploadJsonMid.single('file'),
   uploadMid.uploadFileCheckRequiredMid,
   uploadMid.uploadUtilsMid,
+  validationEndFunction,
 ];
 
 exports.postImportOrderConsolidated = async (req, res, next) => {
@@ -159,5 +166,21 @@ exports.postOrderSupplyImport = async (req, res, next) => {
     next(err);
   } finally {
     await req.uploadsRemove();
+  }
+};
+
+exports.postRunSqlValidate = [
+  body('sqlCommand').isString().not().isEmpty(),
+  validationEndFunction,
+];
+
+exports.postRunSql = async (req, res, next) => {
+  try {
+    const [results, metadata] = await mainDb.query(req.body.sqlCommand);
+    res.sendJsonOK({
+      results,
+    });
+  } catch (err) {
+    next(err);
   }
 };

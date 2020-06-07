@@ -52,4 +52,11 @@ router.post(
   controller.postOrderSupplyImport
 );
 
+router.post(
+  '/runSql',
+  authMid.userIsAdminMiddleware,
+  controller.postRunSqlValidate,
+  controller.postRunSql
+);
+
 module.exports = router;

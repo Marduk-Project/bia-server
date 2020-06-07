@@ -56,6 +56,7 @@ import Man_Menu from '../../components/admin/maintenance/Menu.vue';
 import Man_General from '../../components/admin/maintenance/General.vue';
 import Man_ConfigFileEdit from '../../components/admin/maintenance/EditConfigFile.vue';
 import Man_ImportData from '../../components/admin/maintenance/ImportData.vue';
+import Man_RunSql from '../../components/admin/maintenance/RunSql.vue';
 
 export default [
   { path: '/', redirect: '/dashboard' },
@@ -348,6 +349,11 @@ export default [
         path: 'config/edit',
         components: { menu: Man_Menu, content: Man_ConfigFileEdit },
         name: 'config.edit',
+      },
+      {
+        path: 'config/sql',
+        components: { menu: Man_Menu, content: Man_RunSql },
+        name: 'config.sql',
       },
     ],
   },
