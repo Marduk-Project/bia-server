@@ -269,6 +269,7 @@ const saveValidate = [
       }
       return true;
     }),
+  body('exportIgnore').isBoolean(),
   body('fields.*.id').isInt(),
   body('fields.*.fieldItemId').optional({ checkFalsy: true }).isInt(),
   body('fields.*')
@@ -336,6 +337,7 @@ const saveEntityFunc = async (req, res, next, id) => {
     entity.priority = body.priority;
     entity.personTypeId = body.personTypeId;
     entity.personParentId = body.personParentId;
+    entity.exportIgnore = body.exportIgnore;
     await entity.save();
     // fields
     await Promise.all(

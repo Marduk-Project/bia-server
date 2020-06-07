@@ -55,10 +55,13 @@ const includeDefaultOption = [
   'orderCategory',
 ];
 
-const includeFullOption = [
+const includeExportOption = [
   'glUser',
   {
     association: 'glPersonOrigin',
+    where: {
+      exportIgnore: 0,
+    },
     include: [
       {
         association: 'city',
@@ -72,6 +75,9 @@ const includeFullOption = [
   'glPersonContactOrigin',
   {
     association: 'glPersonDestination',
+    where: {
+      exportIgnore: 0,
+    },
     include: [
       {
         association: 'city',
@@ -563,7 +569,7 @@ exports.getExport = async (req, res, next) => {
   try {
     const moment = require('moment');
     const options = await getIndexQueryOptions(req, res, next);
-    options.include = includeFullOption;
+    options.include = includeExportOption;
     let rows = await Model.findAll(options);
     rows = rows.reduce((ac, item) => {
       const obj = {
@@ -617,7 +623,7 @@ exports.getExportSupply = async (req, res, next) => {
     const moment = require('moment');
     req.query.type = ModelCommon.TYPE_SUPPLY;
     const options = await getIndexQueryOptions(req, res, next);
-    options.include = includeFullOption;
+    options.include = includeExportOption;
     let rows = await Model.findAll(options);
     rows = rows.reduce((ac, item) => {
       const obj = {

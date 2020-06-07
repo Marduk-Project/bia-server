@@ -269,6 +269,21 @@
               Possui identidade verificada.
             </label>
           </div>
+          <div class="form-check">
+            <label
+              class="form-check-label"
+              v-b-tooltip.hover
+              title="Entidade será ignorada na exportação de dados."
+            >
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value="1"
+                v-model="entity.exportIgnore"
+              />
+              Ignorar na exportação de dados.
+            </label>
+          </div>
         </div>
       </div>
       <div v-if="entity.id">
@@ -347,6 +362,7 @@
           phone: null,
           birthdate: null,
           trusted: false,
+          exportIgnore: false,
           latitude: 0,
           longitude: 0,
           obs: null,
@@ -394,6 +410,7 @@
           personParentId: this.entity.personParent
             ? this.entity.personParent.id
             : null,
+          exportIgnore: !!this.entity.exportIgnore,
           fields: this.fieldList.map(field => {
             let value = null;
             switch (parseInt(field.field.type)) {

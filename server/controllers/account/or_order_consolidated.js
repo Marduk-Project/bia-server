@@ -88,6 +88,9 @@ const getQueryOptions = async (query, userId, userIsStaff) => {
     },
     {
       association: 'glPersonDestination',
+      where: {
+        exportIgnore: 0,
+      },
       include: [
         {
           model: GL_CityModel,

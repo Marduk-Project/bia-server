@@ -128,6 +128,10 @@ MyModel.init(
       type: Sequelize.BOOLEAN,
       defaultValue: false,
     },
+    exportIgnore: {
+      type: Sequelize.BOOLEAN,
+      defaultValue: false,
+    },
     latitude: {
       type: Sequelize.DECIMAL(10, 7),
       defaultValue: 0,
