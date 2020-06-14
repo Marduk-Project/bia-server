@@ -578,6 +578,7 @@ exports.getExport = async (req, res, next) => {
         glPersonOrigin: item.glPersonOrigin,
         typeDesc: item.typeDesc,
         orderCategory: item.orderCategory,
+        orderId: item.id,
       };
       item.glProducts.forEach(orderProduct => {
         const newProduct = Object.assign({}, obj);
@@ -590,6 +591,7 @@ exports.getExport = async (req, res, next) => {
     }, []);
     // exec
     const fields = {
+      ID_ORDEM: row => row.orderId,
       Tipo: row => row.typeDesc,
       Categoria: row => (row.orderCategory ? row.orderCategory.name : ''),
       Data: row => row.effectiveDate,
@@ -632,6 +634,7 @@ exports.getExportSupply = async (req, res, next) => {
         glPersonOrigin: item.glPersonOrigin,
         typeDesc: item.typeDesc,
         orderCategory: item.orderCategory,
+        orderId: item.id,
       };
       item.glProducts.forEach(orderProduct => {
         const newProduct = Object.assign({}, obj);
@@ -644,6 +647,7 @@ exports.getExportSupply = async (req, res, next) => {
     }, []);
     // exec
     const fields = {
+      ID_ORDEM: row => row.orderId,
       Data: row => row.effectiveDate,
       Entidade_Destino: row => row.glPersonDestination.name,
       Cidade_Destino: row =>
