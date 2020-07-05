@@ -21,7 +21,7 @@
         <a
           href="https://github.com/Marduk-Project/bia-server/graphs/contributors"
           target="_github_contributors"
-          >Ajude a melhorar o projeto no Github</a
+          >Conheça os programadores</a
         >
       </p>
     </div>
