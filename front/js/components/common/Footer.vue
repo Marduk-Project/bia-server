@@ -13,6 +13,16 @@
         }}</a>
         <br />
         <span>v.{{ git_v }}</span>
+        <br />
+        <a href="https://github.com/Marduk-Project/bia-server" target="_github"
+          >Ajude a melhorar o projeto no Github</a
+        >
+        <br />
+        <a
+          href="https://github.com/Marduk-Project/bia-server/graphs/contributors"
+          target="_github_contributors"
+          >Ajude a melhorar o projeto no Github</a
+        >
       </p>
     </div>
     <br />

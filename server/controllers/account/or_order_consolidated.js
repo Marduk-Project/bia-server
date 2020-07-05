@@ -39,6 +39,7 @@ exports.getValuesValidate = [
   query('page').optional().isInt(),
   query('q').optional().isString(),
   query('glPersonDestinationId').optional().isInt(),
+  query('showOnlyWithQuantity').optional().isInt(),
   validationEndFunction,
 ];
 
@@ -73,11 +74,37 @@ const getQueryOptions = async (query, userId, userIsStaff) => {
   const whereProduct = {
     requestFormActive: true,
   };
+  // q
   if (query.q) {
     whereProduct.name = {
       [Op.like]: `${query.q}%`,
     };
   }
+  // showOnlyWithQuantity
+  if (query.showOnlyWithQuantity) {
+    options.where[Op.and] = [
+      {
+        [Op.or]: [
+          {
+            requestQuantity: {
+              [Op.ne]: 0,
+            },
+          },
+          {
+            supplyReserveQuantity: {
+              [Op.ne]: 0,
+            },
+          },
+          {
+            supplyTransportQuantity: {
+              [Op.ne]: 0,
+            },
+          },
+        ],
+      },
+    ];
+  }
+  // includes
   options.include = [
     {
       association: 'glProduct',
@@ -89,7 +116,7 @@ const getQueryOptions = async (query, userId, userIsStaff) => {
     {
       association: 'glPersonDestination',
       where: {
-        exportIgnore: 0,
+        exportIgnore: 0, // revisar esta condicao
       },
       include: [
         {

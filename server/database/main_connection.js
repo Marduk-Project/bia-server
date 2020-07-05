@@ -20,7 +20,12 @@ const database = new Sequelize({
     timestamps: true,
   },
   timezone: '+00:00', // store in gmt 0
-  logging: false, // debug SQL log here
+  logging:
+    process.env.NODE_ENV == 'development'
+      ? sql => {
+          console.log(chalk.yellow(`\n${sql}\n`));
+        }
+      : false,
   omitNull: true,
   ssl: useSSL,
   dialectOptions: {

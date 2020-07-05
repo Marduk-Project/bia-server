@@ -34,4 +34,8 @@ exports.env = process.env.NODE_ENV;
 exports.nconf = nconf;
 exports.filepath = filepath;
 
-// console.log(chalk.green(`Running on environment: ${env}`)); // manter apenas para debug
+if (process.env.NODE_ENV != 'production') {
+  console.log(
+    chalk.green(`Running on environment: ${chalk.red(process.env.NODE_ENV)}`)
+  );
+}

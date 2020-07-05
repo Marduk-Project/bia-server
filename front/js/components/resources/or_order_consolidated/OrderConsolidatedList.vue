@@ -20,6 +20,21 @@
     </div>
     <br />
     <div class="form-row">
+      <div class="form-group col-lg-12">
+        <div class="form-check">
+          <label class="form-check-label">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value="1"
+              v-model="filters.showOnlyWithQuantity"
+            />
+            Exibir itens apenas com quantidades diferente de zero.
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
       <div class="form-group col-lg-6">
         <label>Entidade destino</label>
         <app-person-select
@@ -111,6 +126,7 @@
       return {
         filters: {
           glPersonDestination: null,
+          showOnlyWithQuantity: false,
         },
       };
     },
@@ -139,6 +155,9 @@
           encodeURIComponent(this.searchText ? this.searchText : '');
         if (this.filters.glPersonDestination) {
           url += `&glPersonDestinationId=${this.filters.glPersonDestination.id}`;
+        }
+        if (this.filters.showOnlyWithQuantity) {
+          url += `&showOnlyWithQuantity=1`;
         }
         return url;
       },

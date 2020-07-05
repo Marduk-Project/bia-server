@@ -7,6 +7,7 @@ import Login from '../../components/visitor/auth/Login.vue';
 import Logout from '../../components/visitor/auth/Logout.vue';
 import RecoverRequest from '../../components/visitor/auth/RecoverRequest.vue';
 import RecoverChangePwd from '../../components/visitor/auth/RecoverChangePwd.vue';
+import OrOrderStateDashboard from '../../components/resources/or_order/dashboards/StateDashboard.vue';
 // generator-inject-new-file-here
 // account
 // import MeusDados from '../components/customer/MeusDados.vue';
@@ -32,6 +33,15 @@ export default [
     path: '/auth/recover/:token',
     name: 'auth.recover.change',
     components: { default: RecoverChangePwd, header: Header, footer: Footer },
+  },
+  {
+    path: '/or_order/state/:id/dashboard',
+    name: 'or_order.state.dashboard',
+    components: {
+      default: OrOrderStateDashboard,
+      header: Header,
+      footer: Footer,
+    },
   },
   // generator-inject-new-route-here
   // { path: '/dashboard', components: { default: Dashboard, header: Header, footer: Footer }, name: 'conta.dashboard'},
