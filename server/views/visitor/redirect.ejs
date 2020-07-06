@@ -13,7 +13,7 @@
   <meta property="og:url" content="<%= social.url %>" />
   <meta property="og:title" content="<%= social.title %>" />
   <meta property="og:description" content="<%= social.description %>" />
-  <meta property="og:image" content="<%= social.image ? social.image : `${app_url}c/static/img/theme/logo-horizontal.png` %>" />
+  <meta property="og:image" content="<%= social.image ? social.image : `${app_frontend_url}static/img/theme/logo-horizontal.png` %>" />
   <% } %>
   <style>
     body {
@@ -49,7 +49,7 @@
       <i class="fas fa-spin fa-circle-notch fa-5x"></i>
       <br>
       <br>
-      <img src="/c/static/img/theme/logo-horizontal.png" height="200" width="200" alt="logo">
+      <img src="<%= app_frontend_url %>static/img/theme/logo-horizontal.png" height="200" width="200" alt="logo">
     </div>
   </div>
   <script type="text/javascript">

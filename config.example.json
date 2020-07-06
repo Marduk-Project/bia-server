@@ -25,5 +25,6 @@
   "MAINDB_DATABASE": "brothers",
   "MAINDB_USERNAME": "postgres",
   "MAINDB_PASSWORD": "root",
-  "MAINDB_SSL": false
+  "MAINDB_SSL": false,
+  "FRONT_END_BASE_URL": "http://localhost:3000/c/"
 }
