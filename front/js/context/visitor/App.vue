@@ -7,7 +7,7 @@
     <transition name="ldfade" appear>
       <div v-if="isLoading" class="app-loading">
         <div class="d-flex justify-content-center align-items-center">
-          <i class="fa fa-spin fa-circle-o-notch fa-5x"></i>
+          <i class="fas fa-spin fa-circle-notch fa-5x"></i>
         </div>
       </div>
     </transition>

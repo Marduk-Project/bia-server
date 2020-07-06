@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ptBR">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link rel="icon" href="/c/static/img/theme/favicon.png">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+  <title>Redirecionando... <%= app_full_name %></title>
+  <% if ( social ) { %>
+  <meta property="og:url" content="<%= social.url %>" />
+  <meta property="og:title" content="<%= social.title %>" />
+  <meta property="og:description" content="<%= social.description %>" />
+  <meta property="og:image" content="<%= social.image ? social.image : `${app_url}c/static/img/theme/logo-horizontal.png` %>" />
+  <% } %>
+  <style>
+    body {
+      background-color: #dddddd;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .fas {
+      opacity: 0.3;
+    }
+  </style>
+<body>
+  <noscript>
+    <strong>We're sorry but tst doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+  </noscript>
+  <script>
+    window.app_loggedIn = <%= app_loggedIn ? 'true' : 'false' %>;
+    window.app_gitv = '<%= app_git_v ? app_git_v : "-v-" %>';
+    window.app_full_name = '<%= app_full_name %>';
+    window.app_short_name = '<%= app_short_name %>';
+    window.app_website = '<%= app_website %>';
+    window.app_context = 'visitor';
+  </script>
+  <div style="display: flex; height: 300px; justify-content: center;">
+    <div style="text-align: center; color: #555555;">
+      <br>
+      <br>
+      <p>Aguarde, você está sendo redirecionado para...
+        <br>
+        <br>
+        <%= title %>
+      </p>
+      <i class="fas fa-spin fa-circle-notch fa-5x"></i>
+      <br>
+      <br>
+      <img src="/c/static/img/theme/logo-horizontal.png" height="200" width="200" alt="logo">
+    </div>
+  </div>
+  <script type="text/javascript">
+    setTimeout(() => {
+      window.location.href = '<%= redirect %>';
+    }, 1500);
+  </script>
+</html>

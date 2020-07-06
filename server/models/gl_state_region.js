@@ -53,12 +53,18 @@ exports.typeToString = typeToString;
 // model
 const modelName = 'gl_state_region';
 class MyModel extends BaseModel {
-  static async findByIdAndTypeAndStateId(id, type, stateId) {
-    return await this.findOne({
+  /**
+   * @param {String} type
+   * @param {Number} stateId
+   * @returns {Promise}
+   */
+  static findAllByTypeAndStateIdOrderByName(type, stateId) {
+    return this.findAll({
       where: {
-        id: id,
         type: type,
+        stateId: stateId,
       },
+      order: [['name', 'asc']],
     });
   }
 

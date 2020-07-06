@@ -81,6 +81,14 @@
               >Dúvidas? Entre em contato conosco.</a
             >
           </div>
+          <div class="form-group col-12 text-center">
+            <router-link
+              tag="a"
+              :to="{ name: 'or_order.state.select' }"
+              class="btn btn-link"
+              >Visualizar Dashboard dos Estados</router-link
+            >
+          </div>
         </div>
       </div>
       <div clas="d-flex align-center justify-center"></div>

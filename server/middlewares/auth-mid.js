@@ -103,8 +103,15 @@ exports.userIsAccountMiddleware = exports.rolesMiddleware({
 exports.fetchUserMiddleware = async (req, res, next) => {
   if (req.session.user_id) {
     req.user = await User.findByPk(req.session.user_id);
+    req.userContext = 'visitor';
+    if (req.user.levelIsAdmin || req.user.levelIsStaff) {
+      req.userContext = 'admin';
+    } else if (req.user.levelIsAccount) {
+      req.userContext = 'account';
+    }
   } else {
     req.user = null;
+    req.userContext = 'visitor';
   }
   next();
 };

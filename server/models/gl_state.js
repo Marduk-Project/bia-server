@@ -73,7 +73,10 @@ MyModel.belongsTo(CountryModel, {
 
 const scopes = {
   def: {
-    include: ['id', 'name', 'code'],
+    include: ['id', 'name', 'code', 'initials'],
+  },
+  visitor: {
+    include: ['id', 'name', 'code', 'initials'],
   },
   admin: {
     maps: {

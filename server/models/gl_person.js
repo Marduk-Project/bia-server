@@ -170,16 +170,30 @@ MyModel.belongsTo(PersonTypeModel, {
 
 const scopes = {
   def: {
+    include: ['id', 'name', 'shortname'],
+    maps: {
+      city: async (value, scopeName) =>
+        await cityJsonSerializer(value, scopeName),
+      personType: async (value, scopeName) =>
+        await personTypeSerializer(value, scopeName),
+    },
+  },
+  visitor: {
     include: [
       'id',
       'name',
       'shortname',
-      'email',
-      'legalType',
-      'legalTypeDesc',
-      'legalIdentifierType',
-      'legalIdentifierCode',
+      'city',
+      'cityId',
+      'personType',
+      'personTypeId',
     ],
+    maps: {
+      city: async (value, scopeName) =>
+        await cityJsonSerializer(value, scopeName),
+      personType: async (value, scopeName) =>
+        await personTypeSerializer(value, scopeName),
+    },
   },
   account: {
     include: [

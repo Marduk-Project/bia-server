@@ -5,7 +5,7 @@ const controller = require('../../../controllers/visitor/or_order_report');
 const authMid = require('../../../middlewares/auth-mid');
 
 router.get(
-  '/state/:glStateId/dashboard',
+  '/dashboard',
   controller.getStateDashboardReportValidate,
   controller.getStateDashboardReport
 );

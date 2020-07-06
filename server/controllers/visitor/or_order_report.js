@@ -19,6 +19,8 @@ const GL_PersonModule = require('../../models/gl_person');
 const GL_PersonModel = GL_PersonModule.model;
 const GL_StateModule = require('../../models/gl_state');
 const GL_StateModel = GL_StateModule.model;
+const GL_CityModule = require('../../models/gl_city');
+const GL_CityModel = GL_CityModule.model;
 const GL_StateRegionModule = require('../../models/gl_state_region');
 const GL_StateRegionModel = GL_StateRegionModule.model;
 const GL_CityStateRegionModule = require('../../models/gl_city_state_region');
@@ -29,10 +31,32 @@ const OR_OrderConsolidatedModel = OR_OrderConsolidatedModule.model;
 // const utils = require('../../helpers/utils');
 const helperValidator = require('../../helpers/validator');
 
-const controllerDefaultQueryScope = 'account';
+const controllerDefaultQueryScope = 'visitor';
 
 exports.getStateDashboardReportValidate = [
-  param('glStateId').isInt().custom(customFindByPkValidation(GL_StateModel)),
+  query('glStateId')
+    .optional()
+    .isInt()
+    .custom(customFindByPkValidation(GL_StateModel)),
+  query('glStateRegionId')
+    .optional()
+    .isInt()
+    .custom(customFindByPkValidation(GL_StateRegionModel)),
+  query('glCityId')
+    .optional()
+    .isInt()
+    .custom(customFindByPkValidation(GL_CityModel)),
+  (req, res, next) => {
+    if (
+      !req.query.glStateId &&
+      !req.query.glCityId &&
+      !req.query.glStateRegionId
+    ) {
+      next(new Error('Filtros inválidos'));
+      return;
+    }
+    next();
+  },
   validationEndFunction,
 ];
 
@@ -41,28 +65,63 @@ exports.getStateDashboardReportValidate = [
  */
 exports.getStateDashboardReport = async (req, res, next) => {
   try {
-    const stateId = req.params.glStateId;
+    const stateId = req.query.glStateId;
+    const cityId = req.query.glCityId;
+    const stateRegionId = req.query.glStateRegionId;
 
     // === person by types
+    let whereObj = (() => {
+      if (cityId) {
+        return {
+          cityId: cityId,
+          '$city->regions.type$': GL_StateRegionModule.TYPE_MACRO,
+          '$city->regions.stateRegion.type$': GL_StateRegionModule.TYPE_MACRO,
+        };
+      } else if (stateRegionId) {
+        return {
+          '$city->regions.type$': GL_StateRegionModule.TYPE_MACRO,
+          '$city->regions.stateRegion.type$': GL_StateRegionModule.TYPE_MACRO,
+          '$city->regions.stateRegionId$': stateRegionId,
+        };
+      } else if (stateId) {
+        return {
+          '$city.stateId$': stateId,
+          '$city->regions.type$': GL_StateRegionModule.TYPE_MACRO,
+          '$city->regions.stateRegion.type$': GL_StateRegionModule.TYPE_MACRO,
+          '$city->regions.stateRegion.stateId$': stateId,
+        };
+      }
+    })();
+    let includeObj = [
+      {
+        association: 'city',
+        attributes: ['id', 'name', 'code'],
+        include: [
+          {
+            association: 'regions',
+            attributes: [],
+            include: [
+              {
+                association: 'stateRegion',
+                attributes: [],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        association: 'personType',
+        attributes: ['id', 'name'],
+      },
+    ];
     const personsByTypeCount = await GL_PersonModel.findAll({
       attributes: [
         'personTypeId',
         [sequelize.fn('COUNT', 'personTypeId'), 'count'],
         [sequelize.col('personType.name'), 'personTypeName'],
       ],
-      where: {
-        '$city.stateId$': stateId,
-      },
-      include: [
-        {
-          association: 'personType',
-          attributes: [],
-        },
-        {
-          association: 'city',
-          attributes: [],
-        },
-      ],
+      where: whereObj,
+      include: includeObj,
       group: ['personTypeId'],
       order: [[sequelize.col('count'), 'desc']],
     });
@@ -80,36 +139,15 @@ exports.getStateDashboardReport = async (req, res, next) => {
       count: countTotal,
     };
 
-    // === person by state regions
+    // === person by region
     const personsByStateRegionsCount = await GL_PersonModel.findAll({
       attributes: [
         [sequelize.fn('COUNT', 'cityId'), 'count'],
         [sequelize.col('stateRegionId'), 'stateRegionId'],
         [sequelize.col('city->regions.stateRegion.name'), 'stateRegionName'],
       ],
-      where: {
-        '$city->regions.stateRegion.stateId$': stateId,
-        '$city->regions.stateRegion.type$': GL_StateRegionModule.TYPE_MACRO,
-        '$city->regions.type$': GL_StateRegionModule.TYPE_MACRO,
-      },
-      include: [
-        {
-          association: 'city',
-          attributes: [],
-          include: [
-            {
-              association: 'regions',
-              attributes: [],
-              include: [
-                {
-                  association: 'stateRegion',
-                  attributes: [],
-                },
-              ],
-            },
-          ],
-        },
-      ],
+      where: whereObj,
+      include: includeObj,
       group: [[sequelize.col('city->regions.stateRegionId'), 'stateRegionId']],
       order: [[sequelize.col('count'), 'desc']],
     });
@@ -128,25 +166,19 @@ exports.getStateDashboardReport = async (req, res, next) => {
       count: countTotal,
     };
 
-    // === priority items
-    const priorityOrderProductList = await OR_OrderConsolidatedModel.findAll({
-      attributes: [
-        ['glProductId', 'productId'],
-        [sequelize.col('glProduct.name'), 'productName'],
-        [
-          sequelize.fn('sum', sequelize.col('requestQuantity')),
-          'requestQuantitySum',
-        ],
-        [
-          sequelize.fn('sum', sequelize.col('supplyReserveQuantity')),
-          'supplyReserveQuantitySum',
-        ],
-        [
-          sequelize.fn('sum', sequelize.col('supplyTransportQuantity')),
-          'supplyTransportQuantitySum',
-        ],
+    const personList = await GL_PersonModel.findAll({
+      attributes: ['id', 'shortname', 'name', 'cityId', 'personTypeId'],
+      where: whereObj,
+      include: includeObj,
+      order: [
+        ['name', 'asc'],
+        ['id', 'asc'],
       ],
-      where: {
+    });
+
+    // === priority items
+    whereObj = (() => {
+      const where = {
         [Op.and]: [
           {
             [Op.or]: [
@@ -171,13 +203,60 @@ exports.getStateDashboardReport = async (req, res, next) => {
             ],
           },
           {
-            '$glPersonDestination.city.stateId$': stateId,
             '$glProduct.requestFormActive$': 1,
           },
         ],
-      },
+      };
+      if (cityId) {
+        where[Op.and].push({
+          '$glPersonDestination.cityId$': cityId,
+          '$glPersonDestination.city->regions.type$':
+            GL_StateRegionModule.TYPE_MACRO,
+          '$glPersonDestination.city->regions.stateRegion.type$':
+            GL_StateRegionModule.TYPE_MACRO,
+        });
+      } else if (stateRegionId) {
+        where[Op.and].push({
+          '$glPersonDestination.city->regions.type$':
+            GL_StateRegionModule.TYPE_MACRO,
+          '$glPersonDestination.city->regions.stateRegion.type$':
+            GL_StateRegionModule.TYPE_MACRO,
+          '$glPersonDestination.city->regions.stateRegionId$': stateRegionId,
+        });
+      } else if (stateId) {
+        where[Op.and].push({
+          '$glPersonDestination.city->regions.type$':
+            GL_StateRegionModule.TYPE_MACRO,
+          '$glPersonDestination.city->regions.stateRegion.type$':
+            GL_StateRegionModule.TYPE_MACRO,
+          '$glPersonDestination.city.stateId$': stateId,
+        });
+      }
+      return where;
+    })();
+    const priorityOrderProductList = await OR_OrderConsolidatedModel.findAll({
+      attributes: [
+        ['glProductId', 'productId'],
+        [sequelize.col('glProduct.name'), 'productName'],
+        [sequelize.col('glUnit.name'), 'unitName'],
+        [sequelize.col('glUnit.unit'), 'unit'],
+        [
+          sequelize.fn('sum', sequelize.col('requestQuantity')),
+          'requestQuantitySum',
+        ],
+        [
+          sequelize.fn('sum', sequelize.col('supplyReserveQuantity')),
+          'supplyReserveQuantitySum',
+        ],
+        [
+          sequelize.fn('sum', sequelize.col('supplyTransportQuantity')),
+          'supplyTransportQuantitySum',
+        ],
+      ],
+      where: whereObj,
       include: [
         { association: 'glProduct', attributes: [] },
+        { association: 'glUnit', attributes: [] },
         {
           association: 'glPersonDestination',
           attributes: [],
@@ -185,23 +264,70 @@ exports.getStateDashboardReport = async (req, res, next) => {
             {
               association: 'city',
               attributes: [],
+              include: [
+                {
+                  association: 'regions',
+                  attributes: [],
+                  include: [
+                    {
+                      association: 'stateRegion',
+                      attributes: [],
+                    },
+                  ],
+                },
+              ],
             },
           ],
         },
       ],
-      group: ['glProductId'],
+      group: ['glProductId', 'glUnitId'],
       order: [[sequelize.col('requestQuantitySum'), 'desc']],
     });
 
+    // === state regions
+    const findStateRegions = async () => {
+      return await GL_CityStateRegionModule.jsonSerializer(
+        await GL_StateRegionModel.findAllByTypeAndStateIdOrderByName(
+          GL_StateRegionModule.TYPE_MACRO,
+          stateId
+        ),
+        controllerDefaultQueryScope
+      );
+    };
+
+    // === entity info
+    const findEntityInfo = async () => {
+      if (cityId) {
+        return await GL_CityModule.jsonSerializer(
+          await GL_CityModel.findByPk(cityId, {
+            include: ['state'],
+          }),
+          controllerDefaultQueryScope
+        );
+      } else if (stateRegionId) {
+        return await GL_StateRegionModule.jsonSerializer(
+          await GL_StateRegionModel.findByPk(stateRegionId),
+          controllerDefaultQueryScope
+        );
+      } else if (stateId) {
+        return await GL_StateModule.jsonSerializer(
+          await GL_StateModel.findByPk(stateId),
+          controllerDefaultQueryScope
+        );
+      }
+    };
+
     res.sendJsonOK({
       data: {
-        state: await GL_StateModule.jsonSerializer(
-          await GL_StateModel.findByPk(stateId),
+        entity: await findEntityInfo(),
+        personList: await GL_PersonModule.jsonSerializer(
+          personList,
           controllerDefaultQueryScope
         ),
         personsByType: personsByTypeCountJson,
         personsByStateRegion: personsByStateRegionsCountJson,
         priorityOrderProducts: priorityOrderProductList,
+        stateRegionList: stateId ? await findStateRegions() : undefined,
       },
     });
   } catch (err) {

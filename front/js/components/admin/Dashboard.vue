@@ -12,6 +12,9 @@
           <cite class="text-muted">Carlos Borges</cite>
         </div>
       </blockquote>
+      <a class="btn btn-secondary" href="/#/or_order/state">
+        Selecionar Estado para visualizar Dashboard
+      </a>
     </div>
   </div>
 </template>

@@ -113,6 +113,7 @@ if (vdriver == 'git') {
 app.locals.app_full_name = nconf.get('APP_FULL_NAME');
 app.locals.app_short_name = nconf.get('APP_SHORT_NAME');
 app.locals.app_website = nconf.get('APP_WEBSITE');
+app.locals.app_url = nconf.get('APP_URL');
 
 // logo
 app.locals.app_logo_base64 =

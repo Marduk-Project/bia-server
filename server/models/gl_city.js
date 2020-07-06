@@ -120,6 +120,13 @@ const scopes = {
   def: {
     include: ['id', 'name', 'code'],
   },
+  visitor: {
+    include: ['id', 'name', 'code', 'state', 'stateId'],
+    maps: {
+      state: async (value, scopeName) =>
+        await stateJsonSerializer(value, scopeName),
+    },
+  },
   account: {
     include: ['id', 'name', 'code'],
     maps: {

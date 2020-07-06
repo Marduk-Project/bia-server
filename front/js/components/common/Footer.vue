@@ -1,7 +1,6 @@
 <template>
   <footer>
     <br />
-    <br />
     <hr />
     <div class="container">
       <p class="text-muted offset-sm-2">

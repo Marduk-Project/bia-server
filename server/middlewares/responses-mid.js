@@ -108,6 +108,10 @@ const appUrl = function (path) {
  * Applyes helpers functions
  */
 exports.responsesMiddleware = (req, res, next) => {
+  // === req
+  req.appRequestFullUrl =
+    req.protocol + '://' + req.get('host') + req.originalUrl;
+  // === res
   // errors
   res.sendJsonForbiddenError = sendJsonForbiddenError;
   res.sendJsonUnauthorizedError = sendJsonUnauthorizedError;

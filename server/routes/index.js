@@ -12,6 +12,7 @@ const UserModule = require('../models/gl_user');
 
 // index
 router.get('/', indexController.getIndex);
+router.get('/r/*', indexController.getRedirect);
 router.get('/home', indexController.getHome);
 
 // auth
