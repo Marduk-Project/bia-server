@@ -23,7 +23,7 @@ const redirectParsers = [
         social: {
           url: req.appRequestFullUrl,
           title: title,
-          description: `Esta página exibe da situação atual das solicitações da Cidade de ${entity.name}`,
+          description: `Esta página exibe da situação atual das solicitações do Estado ${entity.name}`,
         },
         title: title,
         redirect: `/#/or_order/state/${id}/dashboard/`,
@@ -45,7 +45,7 @@ const redirectParsers = [
         social: {
           url: req.appRequestFullUrl,
           title: title,
-          description: `Esta página exibe da situação atual das solicitações do ${entity.name}`,
+          description: `Esta página exibe da situação atual das solicitações da Cidade de ${entity.name}`,
         },
         title: title,
         redirect: `/#/or_order/state/${entity.stateId}/dashboard/?cityId=${id}`,
