@@ -117,7 +117,7 @@
           <div class="card">
             <div class="card-header">
               <strong
-                >Entidades cadastradas por TIPO - Total
+                >Entidades com demandas abertas por TIPO - Total
                 {{ persontTotalComputed }}</strong
               >
             </div>
@@ -177,7 +177,7 @@
                 <thead>
                   <tr>
                     <th>Produto/Item</th>
-                    <th class="text-right">Quantidade solicitada *</th>
+                    <th class="text-right">Quantidade em aberto *</th>
                     <th>Unidade</th>
                   </tr>
                 </thead>
@@ -206,7 +206,7 @@
         <div class="col-lg-12">
           <div class="card">
             <div class="card-header">
-              <strong>Entidades solicitantes e doadoras cadastradas</strong
+              <strong>Entidades solicitantes com demanda aberta</strong
               >&nbsp;&nbsp;<small class="text-muted"
                 >(exibindo entidades que se cadastraram conosco, conforme os
                 filtros selecionados)</small
@@ -222,12 +222,18 @@
                     placeholder="digite o nome da entidade que procura."
                     v-model="citySearch"
                   />
+                  <div class="text-center text-muted">
+                    <small
+                      >Exibindo
+                      {{ personListComputed.length }} registros.</small
+                    >
+                  </div>
                 </div>
               </div>
               <table class="table table-hover table-striped mb-0">
                 <thead>
                   <tr>
-                    <th>Entidade</th>
+                    <th>Nome</th>
                     <th>Tipo</th>
                     <th>Cidade</th>
                   </tr>

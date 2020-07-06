@@ -69,6 +69,22 @@ exports.getStateDashboardReport = async (req, res, next) => {
     const cityId = req.query.glCityId;
     const stateRegionId = req.query.glStateRegionId;
 
+    const orderConsolidatedSubquery = mainDb.dialect.QueryGenerator.selectQuery(
+      OR_OrderConsolidatedModel.getTableName(),
+      {
+        attributes: ['glPersonDestinationId'],
+        where: {
+          [Op.and]: [
+            { requestQuantity: { [Op.gt]: 0 } },
+            {
+              glPersonDestinationId: { [Op.eq]: sequelize.col('gl_person.id') },
+            },
+          ],
+        },
+        group: ['glPersonDestinationId'],
+      }
+    ).slice(0, -1); // to remove the ';' from the end of the SQL;
+
     // === person by types
     let whereObj = (() => {
       if (cityId) {
@@ -92,6 +108,15 @@ exports.getStateDashboardReport = async (req, res, next) => {
         };
       }
     })();
+    if (!whereObj[Op.and]) {
+      whereObj[Op.and] = [];
+    }
+    whereObj[Op.and].push({
+      id: {
+        [Op.in]: sequelize.literal('(' + orderConsolidatedSubquery + ')'),
+      },
+    });
+
     let includeObj = [
       {
         association: 'city',
@@ -100,10 +125,16 @@ exports.getStateDashboardReport = async (req, res, next) => {
           {
             association: 'regions',
             attributes: [],
+            where: {
+              type: GL_StateRegionModule.TYPE_MACRO,
+            },
             include: [
               {
                 association: 'stateRegion',
                 attributes: [],
+                where: {
+                  type: GL_StateRegionModule.TYPE_MACRO,
+                },
               },
             ],
           },
@@ -166,6 +197,7 @@ exports.getStateDashboardReport = async (req, res, next) => {
       count: countTotal,
     };
 
+    // === person list
     const personList = await GL_PersonModel.findAll({
       attributes: ['id', 'shortname', 'name', 'cityId', 'personTypeId'],
       where: whereObj,
