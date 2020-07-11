@@ -28,7 +28,7 @@
       </button>
       <div class="col-1"></div>
       <router-link to="/dashboard" class="btn btn-outline-secondary">
-        <i class="fas fa-close"></i> Voltar
+        <i class="fas fa-times"></i> Voltar
       </router-link>
     </div>
   </div>

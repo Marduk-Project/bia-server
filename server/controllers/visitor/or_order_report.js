@@ -15,6 +15,8 @@ const {
   NotFoundError,
 } = require('../../middlewares/error-mid');
 
+const GL_ProductModule = require('../../models/gl_product');
+const GL_ProductModel = GL_ProductModule.model;
 const GL_PersonModule = require('../../models/gl_person');
 const GL_PersonModel = GL_PersonModule.model;
 const GL_StateModule = require('../../models/gl_state');
@@ -69,6 +71,17 @@ exports.getStateDashboardReport = async (req, res, next) => {
     const cityId = req.query.glCityId;
     const stateRegionId = req.query.glStateRegionId;
 
+    const productEnabledSubquery = mainDb.dialect.QueryGenerator.selectQuery(
+      GL_ProductModel.getTableName(),
+      {
+        attributes: ['id'],
+        where: {
+          requestFormActive: true,
+        },
+        group: ['id'],
+      }
+    ).slice(0, -1); // to remove the ';' from the end of the SQL;
+
     const orderConsolidatedSubquery = mainDb.dialect.QueryGenerator.selectQuery(
       OR_OrderConsolidatedModel.getTableName(),
       {
@@ -78,6 +91,11 @@ exports.getStateDashboardReport = async (req, res, next) => {
             { requestQuantity: { [Op.gt]: 0 } },
             {
               glPersonDestinationId: { [Op.eq]: sequelize.col('gl_person.id') },
+            },
+            {
+              glProductId: {
+                [Op.in]: sequelize.literal('(' + productEnabledSubquery + ')'),
+              },
             },
           ],
         },
