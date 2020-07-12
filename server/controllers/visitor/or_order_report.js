@@ -29,6 +29,8 @@ const GL_CityStateRegionModule = require('../../models/gl_city_state_region');
 const GL_CityStateRegionModel = GL_CityStateRegionModule.model;
 const OR_OrderConsolidatedModule = require('../../models/or_order_consolidated');
 const OR_OrderConsolidatedModel = OR_OrderConsolidatedModule.model;
+const OR_OrderModule = require('../../models/or_order');
+const OR_OrderModel = OR_OrderModule.model;
 
 // const utils = require('../../helpers/utils');
 const helperValidator = require('../../helpers/validator');
@@ -71,31 +73,50 @@ exports.getStateDashboardReport = async (req, res, next) => {
     const cityId = req.query.glCityId;
     const stateRegionId = req.query.glStateRegionId;
 
-    const productEnabledSubquery = mainDb.dialect.QueryGenerator.selectQuery(
-      GL_ProductModel.getTableName(),
-      {
-        attributes: ['id'],
-        where: {
-          requestFormActive: true,
-        },
-        group: ['id'],
-      }
-    ).slice(0, -1); // to remove the ';' from the end of the SQL;
+    // (Carlos) retirado por enquanto, Bruno pediu para exibir todas entidades que já solicitaram doações.
+    // products
+    // const productEnabledSubquery = mainDb.dialect.QueryGenerator.selectQuery(
+    //   GL_ProductModel.getTableName(),
+    //   {
+    //     attributes: ['id'],
+    //     where: {
+    //       requestFormActive: true,
+    //     },
+    //     group: ['id'],
+    //   }
+    // ).slice(0, -1); // to remove the ';' from the end of the SQL;
+    // order
+    // const orderConsolidatedSubquery = mainDb.dialect.QueryGenerator.selectQuery(
+    //   OR_OrderConsolidatedModel.getTableName(),
+    //   {
+    //     attributes: ['glPersonDestinationId'],
+    //     where: {
+    //       [Op.and]: [
+    //         { requestQuantity: { [Op.gt]: 0 } },
+    //         {
+    //           glPersonDestinationId: { [Op.eq]: sequelize.col('gl_person.id') },
+    //         },
+    //         {
+    //           glProductId: {
+    //             [Op.in]: sequelize.literal('(' + productEnabledSubquery + ')'),
+    //           },
+    //         },
+    //       ],
+    //     },
+    //     group: ['glPersonDestinationId'],
+    //   }
+    // ).slice(0, -1); // to remove the ';' from the end of the SQL;
 
-    const orderConsolidatedSubquery = mainDb.dialect.QueryGenerator.selectQuery(
-      OR_OrderConsolidatedModel.getTableName(),
+    const personEverRequestedSubquery = mainDb.dialect.QueryGenerator.selectQuery(
+      OR_OrderModel.getTableName(),
       {
         attributes: ['glPersonDestinationId'],
         where: {
           [Op.and]: [
-            { requestQuantity: { [Op.gt]: 0 } },
+            { status: OR_OrderModule.common.STATUS_PROCESSED },
+            { type: OR_OrderModule.common.TYPE_REQUEST },
             {
               glPersonDestinationId: { [Op.eq]: sequelize.col('gl_person.id') },
-            },
-            {
-              glProductId: {
-                [Op.in]: sequelize.literal('(' + productEnabledSubquery + ')'),
-              },
             },
           ],
         },
@@ -131,7 +152,7 @@ exports.getStateDashboardReport = async (req, res, next) => {
     }
     whereObj[Op.and].push({
       id: {
-        [Op.in]: sequelize.literal('(' + orderConsolidatedSubquery + ')'),
+        [Op.in]: sequelize.literal('(' + personEverRequestedSubquery + ')'),
       },
     });
 

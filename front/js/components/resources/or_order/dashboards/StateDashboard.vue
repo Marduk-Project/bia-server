@@ -117,7 +117,7 @@
           <div class="card">
             <div class="card-header">
               <strong
-                >Entidades com demandas abertas por TIPO - Total
+                >Entidades cadastradas por TIPO - Total
                 {{ persontTotalComputed }}</strong
               >
             </div>
@@ -206,7 +206,7 @@
         <div class="col-lg-12">
           <div class="card">
             <div class="card-header">
-              <strong>Entidades solicitantes com demanda aberta</strong
+              <strong>Entidades cadastradas que já solicitaram doações</strong
               >&nbsp;&nbsp;<small class="text-muted"
                 >(exibindo entidades que se cadastraram conosco, conforme os
                 filtros selecionados)</small
