@@ -62,6 +62,28 @@
         </div>
         <br />
       </div>
+      <!-- info data -->
+      <div>
+        <div>
+          <div class="text-center">
+            <button
+              type="button"
+              class="btn btn-link"
+              @click="onShowInfoDataClick"
+            >
+              <small>
+                <i class="fas fa-info-circle"></i> Saiba mais sobre o projeto
+              </small>
+            </button>
+          </div>
+        </div>
+        <transition name="fade">
+          <app-project-about
+            class="mt-3 mb-3"
+            v-if="showInfoData"
+          ></app-project-about>
+        </transition>
+      </div>
       <div class="row">
         <div class="col-lg-12">
           <div class="card">
@@ -271,6 +293,7 @@
   import BarChart from '../../../common/charts/BarChart.js';
   import CitySelect from '@resources/gl_city/CitySelect.vue';
   import { API as CityApi } from '@resources/gl_city/city_api';
+  import ProjectAbout from '../../../visitor/ProjectAbout.vue';
 
   const BASE_CHART_COLOR = '#ff6060';
 
@@ -281,6 +304,7 @@
       'app-pie-chart': PieChart,
       'app-bar-chart': BarChart,
       'app-city-select': CitySelect,
+      'app-project-about': ProjectAbout,
     },
     data() {
       return {
@@ -290,6 +314,7 @@
         city: null,
         citySearch: null,
         cityData: null,
+        showInfoData: false,
       };
     },
     computed: {
@@ -576,6 +601,9 @@
             }
           })
           .catch(this.api_catch());
+      },
+      onShowInfoDataClick() {
+        this.showInfoData = !this.showInfoData;
       },
     },
     mounted() {

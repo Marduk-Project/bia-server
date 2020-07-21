@@ -23,6 +23,26 @@
           >Conheça os programadores</a
         >
       </p>
+      <div class="offset-sm-2">
+        <h5 class="text-muted">Redes sociais</h5>
+        <a
+          href="https://www.facebook.com/brothersinarmsrs"
+          target="_facebook"
+          v-b-tooltip.hover
+          title="Facebook"
+        >
+          <i class="fab fa-2x fa-facebook-square"></i>
+        </a>
+        <a
+          class="ml-3"
+          href="https://www.instagram.com/brothersinarms_rs/"
+          target="_instagram"
+          v-b-tooltip.hover
+          title="Instagram"
+        >
+          <i class="fab fa-2x fa-instagram"></i>
+        </a>
+      </div>
     </div>
     <br />
     <br />
