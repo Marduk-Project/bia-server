@@ -45,6 +45,9 @@ import OR_OrderConsolidatedList from '@resources/or_order_consolidated/OrderCons
 // gl_person_type
 import GL_PersonTypeList from '../../components/resources/gl_person_type/PersonTypeList.vue';
 import GL_PersonTypeEdit from '../../components/resources/gl_person_type/PersonTypeEdit.vue';
+// or_order_category
+import OR_OrderCategoryList from '../../components/resources/or_order_category/OrderCategoryList.vue';
+import OR_OrderCategoryEdit from '../../components/resources/or_order_category/OrderCategoryEdit.vue';
 
 // generator-inject-new-file-here
 // maintenance
@@ -53,6 +56,7 @@ import Man_Menu from '../../components/admin/maintenance/Menu.vue';
 import Man_General from '../../components/admin/maintenance/General.vue';
 import Man_ConfigFileEdit from '../../components/admin/maintenance/EditConfigFile.vue';
 import Man_ImportData from '../../components/admin/maintenance/ImportData.vue';
+import Man_RunSql from '../../components/admin/maintenance/RunSql.vue';
 
 export default [
   { path: '/', redirect: '/dashboard' },
@@ -296,6 +300,34 @@ export default [
     components: { default: GL_PersonTypeEdit, header: Header, footer: Footer },
     name: 'gl_person_type.create',
   },
+  // or_order_category
+  {
+    path: '/or_order_category',
+    components: {
+      default: OR_OrderCategoryList,
+      header: Header,
+      footer: Footer,
+    },
+    name: 'or_order_category.index',
+  },
+  {
+    path: '/or_order_category/:id/edit',
+    components: {
+      default: OR_OrderCategoryEdit,
+      header: Header,
+      footer: Footer,
+    },
+    name: 'or_order_category.edit',
+  },
+  {
+    path: '/or_order_category/create',
+    components: {
+      default: OR_OrderCategoryEdit,
+      header: Header,
+      footer: Footer,
+    },
+    name: 'or_order_category.create',
+  },
   // generator-inject-new-route-here
   {
     // maintenance
@@ -317,6 +349,11 @@ export default [
         path: 'config/edit',
         components: { menu: Man_Menu, content: Man_ConfigFileEdit },
         name: 'config.edit',
+      },
+      {
+        path: 'config/sql',
+        components: { menu: Man_Menu, content: Man_RunSql },
+        name: 'config.sql',
       },
     ],
   },

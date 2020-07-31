@@ -51,8 +51,8 @@
     },
     methods: {
       mapResult(value, index) {
-        if (value.shortname) {
-          value.text = `${value.shortname} - (${value.name})`;
+        if (value.city) {
+          value.text = `${value.name} - (${value.city.name})`;
         } else {
           value.text = `${value.name}`;
         }

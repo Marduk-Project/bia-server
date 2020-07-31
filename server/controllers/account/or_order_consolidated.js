@@ -39,6 +39,7 @@ exports.getValuesValidate = [
   query('page').optional().isInt(),
   query('q').optional().isString(),
   query('glPersonDestinationId').optional().isInt(),
+  query('showOnlyWithQuantity').optional().isInt(),
   validationEndFunction,
 ];
 
@@ -70,25 +71,53 @@ const getQueryOptions = async (query, userId, userIsStaff) => {
   }
   // query options
   options.order = [['id', 'desc']];
+  const whereProduct = {
+    requestFormActive: true,
+  };
+  // q
+  if (query.q) {
+    whereProduct.name = {
+      [Op.like]: `${query.q}%`,
+    };
+  }
+  // showOnlyWithQuantity
+  if (query.showOnlyWithQuantity) {
+    options.where[Op.and] = [
+      {
+        [Op.or]: [
+          {
+            requestQuantity: {
+              [Op.ne]: 0,
+            },
+          },
+          {
+            supplyReserveQuantity: {
+              [Op.ne]: 0,
+            },
+          },
+          {
+            supplyTransportQuantity: {
+              [Op.ne]: 0,
+            },
+          },
+        ],
+      },
+    ];
+  }
+  // includes
   options.include = [
     {
-      model: GL_ProductModel,
-      as: 'glProduct',
-      where: query.q
-        ? {
-            name: {
-              [Op.like]: `${query.q}%`,
-            },
-          }
-        : undefined,
+      association: 'glProduct',
+      where: whereProduct,
     },
     {
-      model: GL_UnitModel,
-      as: 'glUnit',
+      association: 'glUnit',
     },
     {
-      model: GL_PersonModel,
-      as: 'glPersonDestination',
+      association: 'glPersonDestination',
+      where: {
+        exportIgnore: 0, // revisar esta condicao
+      },
       include: [
         {
           model: GL_CityModel,
@@ -126,18 +155,6 @@ exports.getIndex = async (req, res, next) => {
     ];
     // exec
     const queryResult = await Model.findAndCountAll(options);
-    queryResult.rows = queryResult.rows.filter(row => {
-      if (row.requestQuantity != 0) {
-        return true;
-      }
-      if (row.supplyReserveQuantity != 0) {
-        return true;
-      }
-      if (row.supplyTransportQuantity != 0) {
-        return true;
-      }
-      return false;
-    });
     const meta = Model.paginateMeta(queryResult, page);
     res.sendJsonOK({
       data: await CtrModelModule.jsonSerializer(
@@ -164,8 +181,6 @@ exports.getExport = async (req, res, next) => {
       controllerDefaultQueryScope
     );
     // exec
-    rows = rows.filter(row => row.requestQuantity != 0);
-
     const fields = {
       Origem: 'Sistema',
       Hospital: row =>
@@ -177,7 +192,7 @@ exports.getExport = async (req, res, next) => {
       Tipo: row =>
         _.get(row, 'glProduct.consumable') ? 'INSUMOS' : 'EQUIPAMENTO',
       Descrição: row => '',
-      Quantidade: row => _.get(row, 'requestQuantity'),
+      Quantidade: row => parseInt(_.get(row, 'requestQuantity')),
       Tamanho: row => '',
       Necessidade: row => '',
       'necessidade 30 dias': row => '',
@@ -211,7 +226,8 @@ exports.getExport = async (req, res, next) => {
       Gestão_POA: row => '',
     };
 
-    res.render('admin/or_order_consolidated.ejs', {
+    res.render('export/row_col.ejs', {
+      title: 'Boletim Consolidado',
       fields: Object.keys(fields),
       values: Object.values(fields),
       rows: rows,

@@ -21,6 +21,8 @@ router.use('/gl_state_region', require('./gl_state_region'));
 
 router.use('/gl_person_type', require('./gl_person_type'));
 
+router.use('/or_order_category', require('./or_order_category'));
+
 // generator-inject-new-here
 
 module.exports = router;

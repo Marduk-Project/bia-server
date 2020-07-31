@@ -1,8 +1,15 @@
 const fs = require('fs');
 const chalk = require('chalk');
+const { body, query, param } = require('express-validator/check');
+const { QueryTypes } = require('sequelize');
+
 const { nconf, filepath } = require('../../../config.js');
-const { ApiError } = require('../../middlewares/error-mid');
+const {
+  ApiError,
+  validationEndFunction,
+} = require('../../middlewares/error-mid');
 const uploadMid = require('../../middlewares/upload-mid');
+const { mainDb } = require('../../database/main_connection');
 
 /**
  * Get config data
@@ -87,10 +94,11 @@ exports.postProductImport = async (req, res, next) => {
   }
 };
 
-exports.postImportOrderConsolidatedValidate = [
+exports.postFileJsonImportValidate = [
   uploadMid.uploadJsonMid.single('file'),
   uploadMid.uploadFileCheckRequiredMid,
   uploadMid.uploadUtilsMid,
+  validationEndFunction,
 ];
 
 exports.postImportOrderConsolidated = async (req, res, next) => {
@@ -107,5 +115,72 @@ exports.postImportOrderConsolidated = async (req, res, next) => {
     next(err);
   } finally {
     await req.uploadsRemove();
+  }
+};
+
+exports.postPersonImport = async (req, res, next) => {
+  try {
+    const {
+      importToDatabase,
+    } = require('../../../source-data/persons/import-to-database');
+    const jsonFile = JSON.parse(
+      fs.readFileSync(req.file.path).toString('utf8')
+    );
+    await importToDatabase(true, jsonFile, true);
+    res.sendJsonOK();
+  } catch (err) {
+    next(err);
+  } finally {
+    await req.uploadsRemove();
+  }
+};
+
+exports.postOrderRequestImport = async (req, res, next) => {
+  try {
+    const {
+      importToDatabase,
+    } = require('../../../source-data/order_request/import-to-database');
+    const jsonFile = JSON.parse(
+      fs.readFileSync(req.file.path).toString('utf8')
+    );
+    await importToDatabase(true, jsonFile, true);
+    res.sendJsonOK();
+  } catch (err) {
+    next(err);
+  } finally {
+    await req.uploadsRemove();
+  }
+};
+
+exports.postOrderSupplyImport = async (req, res, next) => {
+  try {
+    const {
+      importToDatabase,
+    } = require('../../../source-data/order_supply/import-to-database');
+    const jsonFile = JSON.parse(
+      fs.readFileSync(req.file.path).toString('utf8')
+    );
+    await importToDatabase(true, jsonFile, true);
+    res.sendJsonOK();
+  } catch (err) {
+    next(err);
+  } finally {
+    await req.uploadsRemove();
+  }
+};
+
+exports.postRunSqlValidate = [
+  body('sqlCommand').isString().not().isEmpty(),
+  validationEndFunction,
+];
+
+exports.postRunSql = async (req, res, next) => {
+  try {
+    const [results, metadata] = await mainDb.query(req.body.sqlCommand);
+    res.sendJsonOK({
+      results,
+    });
+  } catch (err) {
+    next(err);
   }
 };

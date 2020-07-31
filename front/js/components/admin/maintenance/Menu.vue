@@ -26,6 +26,15 @@
       <i class="fas fa-cogs"></i> Editar
       <strong>configuração</strong>
     </router-link>
+    <router-link
+      class="nav-link"
+      active-class="active"
+      :to="{ name: 'config.sql' }"
+      tag="a"
+    >
+      <i class="fas fa-terminal"></i> Executar
+      <strong>SQL</strong>
+    </router-link>
   </nav>
 </template>
 

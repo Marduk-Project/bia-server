@@ -54,6 +54,20 @@ class MyModel extends BaseModel {
     await entity.save(options);
     return entity;
   }
+
+  /**
+   * @param {Number} orderId
+   * @param {object} product
+   */
+  static async findByProduct(orderId, product) {
+    return await MyModel.findOne({
+      where: {
+        orderId: orderId,
+        glProductId: product.id,
+        glUnitId: product.unitId,
+      },
+    });
+  }
 }
 
 MyModel.init(

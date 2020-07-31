@@ -7,11 +7,12 @@ const tableName = '<%= name %>';
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    const transaction = await queryInterface.sequelize.transaction();
+    // const transaction = await queryInterface.sequelize.transaction();
     try {
       // alters
       // await queryInterface.addColumn(tableName, 'name', Sequelize.STRING, {
       //    after: 'columnB',
+      //    transaction: transaction,
       // });
       // await queryInterface.renameColumn(tableName, 'nameBefore', 'nameAfter');
       // indexes
@@ -25,14 +26,14 @@ module.exports = {
       //  name: `${tableName}_email_ct`,
       //  transaction: transaction,
       // });
-      await transaction.commit();
+      // await transaction.commit();
     } catch (err) {
-      await transaction.rollback();
+      // await transaction.rollback();
       throw err;
     }
   },
   down: async (queryInterface, Sequelize) => {
-    const transaction = await queryInterface.sequelize.transaction();
+    // const transaction = await queryInterface.sequelize.transaction();
     try {
       // alters
       // await queryInterface.removeColumn(tableName, 'name');
@@ -41,9 +42,9 @@ module.exports = {
       // await queryInterface.removeIndex(tableName, `${tableName}_name_idx`);
       // constraints
       // await queryInterface.removeConstraint(tableName, `${tableName}_email_ct`);
-      await transaction.commit();
+      // await transaction.commit();
     } catch (err) {
-      await transaction.rollback();
+      // await transaction.rollback();
       throw err;
     }
   }

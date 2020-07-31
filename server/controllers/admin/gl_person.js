@@ -14,6 +14,8 @@ const CtrModelModule = require('../../models/gl_person');
 const Model = CtrModelModule.model;
 const PersonTypeModelModule = require('../../models/gl_person_type');
 const PersonTypeModel = PersonTypeModelModule.model;
+const PersonContactModelModule = require('../../models/gl_person_contact');
+const PersonContactModel = PersonContactModelModule.model;
 const CityModelModule = require('../../models/gl_city');
 const CityModel = CityModelModule.model;
 const PersonFieldModelModule = require('../../models/gl_person_field');
@@ -267,6 +269,7 @@ const saveValidate = [
       }
       return true;
     }),
+  body('exportIgnore').isBoolean(),
   body('fields.*.id').isInt(),
   body('fields.*.fieldItemId').optional({ checkFalsy: true }).isInt(),
   body('fields.*')
@@ -334,6 +337,7 @@ const saveEntityFunc = async (req, res, next, id) => {
     entity.priority = body.priority;
     entity.personTypeId = body.personTypeId;
     entity.personParentId = body.personParentId;
+    entity.exportIgnore = body.exportIgnore;
     await entity.save();
     // fields
     await Promise.all(
@@ -385,6 +389,13 @@ const saveEntityFunc = async (req, res, next, id) => {
         await personField.save();
       })
     );
+    if (!id) {
+      await PersonContactModel.create({
+        name: 'CONTATO CRIADO AUTOMATICAMENTE',
+        level: PersonContactModelModule.LEVEL_NORMAL,
+        personId: entity.id,
+      });
+    }
     // send result
     const result = {
       entity: {

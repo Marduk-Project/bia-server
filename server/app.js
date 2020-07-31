@@ -104,6 +104,8 @@ if (vdriver == 'git') {
     .execSync('git rev-parse --short HEAD')
     .toString()
     .trim();
+} else if (vdriver == 'lambda') {
+  app.locals.app_git_v = nconf.get('AWS_LAMBDA_FUNCTION_VERSION');
 } else {
   app.locals.app_git_v = '-v-';
 }
@@ -111,6 +113,8 @@ if (vdriver == 'git') {
 app.locals.app_full_name = nconf.get('APP_FULL_NAME');
 app.locals.app_short_name = nconf.get('APP_SHORT_NAME');
 app.locals.app_website = nconf.get('APP_WEBSITE');
+app.locals.app_url = nconf.get('APP_URL');
+app.locals.app_frontend_url = nconf.get('FRONT_END_BASE_URL');
 
 // logo
 app.locals.app_logo_base64 =

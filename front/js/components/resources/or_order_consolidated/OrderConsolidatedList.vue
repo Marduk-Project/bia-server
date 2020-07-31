@@ -1,20 +1,39 @@
 <template>
   <div class="container-fluid">
     <br />
+    <button type="button" class="btn btn-link" @click="onNavBackClick">
+      <i class="fa fa-chevron-left" /> Voltar
+    </button>
+    <br />
     <h1>{{ list_title }}</h1>
     <div>
       <a
         class="btn btn-outline-secondary"
         href="/api/account/or_order_consolidated/export"
-        target="_blank"
+        target="_orderConsolidated"
       >
-        <i class="fas fa-file-excel"></i> Exportar
+        <i class="fas fa-file-excel"></i> Exportar consolidado
         <app-info
           title="Exportar para colunas e linhas, permitindo colar no Microsoft Excel."
         ></app-info>
       </a>
     </div>
     <br />
+    <div class="form-row">
+      <div class="form-group col-lg-12">
+        <div class="form-check">
+          <label class="form-check-label">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value="1"
+              v-model="filters.showOnlyWithQuantity"
+            />
+            Exibir itens apenas com quantidades diferente de zero.
+          </label>
+        </div>
+      </div>
+    </div>
     <div class="form-row">
       <div class="form-group col-lg-6">
         <label>Entidade destino</label>
@@ -23,7 +42,7 @@
         ></app-person-select>
       </div>
       <div class="form-group col-lg-6">
-        <label>Pesquisar</label>
+        <label>Pesquisar produto</label>
         <div class="input-group mb-3">
           <input
             type="text"
@@ -52,6 +71,7 @@
           </th>
           <th>Entidade de destino</th>
           <th>Produto</th>
+          <th>Unidade</th>
           <th class="text-center">Consumível</th>
           <th class="text-right">Solicitado</th>
           <th class="text-right">Entrega futura</th>
@@ -67,6 +87,7 @@
             ></app-person-item>
           </td>
           <td>{{ entity.glProduct.name }}</td>
+          <td>{{ entity.glUnit.name }}</td>
           <td class="text-center"
             ><i
               class="fas fa-recycle"
@@ -105,6 +126,7 @@
       return {
         filters: {
           glPersonDestination: null,
+          showOnlyWithQuantity: false,
         },
       };
     },
@@ -134,7 +156,15 @@
         if (this.filters.glPersonDestination) {
           url += `&glPersonDestinationId=${this.filters.glPersonDestination.id}`;
         }
+        if (this.filters.showOnlyWithQuantity) {
+          url += `&showOnlyWithQuantity=1`;
+        }
         return url;
+      },
+      onNavBackClick() {
+        this.$router.push({
+          name: 'or_order.index',
+        });
       },
     },
   };

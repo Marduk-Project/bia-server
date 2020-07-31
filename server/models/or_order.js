@@ -74,6 +74,9 @@ MyModel.init(
     expiresIn: {
       type: Sequelize.DATE,
     },
+    effectiveDate: {
+      type: Sequelize.DATEONLY,
+    },
   },
   {
     // options
@@ -150,6 +153,10 @@ const scopes = {
         const { jsonSerializer } = require('./or_order_product');
         return await jsonSerializer(value, scopeName);
       },
+      orderCategory: async (value, scopeName) => {
+        const { jsonSerializer } = require('./or_order_category');
+        return await jsonSerializer(value, scopeName);
+      },
     },
   },
   account: {
@@ -173,6 +180,8 @@ const scopes = {
       'glPersonContactDestinationId',
       'glPersonContactDestination',
       'glProducts',
+      'effectiveDate',
+      'orderCategory',
     ],
     maps: {
       glUser: async (value, scopeName) =>
@@ -188,6 +197,10 @@ const scopes = {
       },
       glProducts: async (value, scopeName) => {
         const { jsonSerializer } = require('./or_order_product');
+        return await jsonSerializer(value, scopeName);
+      },
+      orderCategory: async (value, scopeName) => {
+        const { jsonSerializer } = require('./or_order_category');
         return await jsonSerializer(value, scopeName);
       },
     },

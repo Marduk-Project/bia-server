@@ -11,7 +11,7 @@
     :extraparams="extraparams"
     :placeholder="placeholder"
     :mapResult="mapResult"
-    url="/api/admin/gl_city"
+    url="/api/common/gl_city"
     @onOpen="$emit('onOpen')"
     @onClose="$emit('onClose')"
     @onSelect="$emit('onSelect', $event)"

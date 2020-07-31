@@ -30,7 +30,7 @@ exports.incLog = (count, divisor) => {
 };
 
 // Database utils
-exports.find = async (Model, { where, notFound }) => {
+exports.find = async (Model, { where, notFound, found }) => {
   throwErrorOnWhereFieldsEmpty(Model.getTableName(), where, Model);
   try {
     const preparedWhere = Object.keys(where).reduce((preparedWhere, key) => {
@@ -49,10 +49,13 @@ exports.find = async (Model, { where, notFound }) => {
       }
       return preparedWhere;
     }, {});
-
     const objectsFound = await Model.findAll({ where: preparedWhere });
-
     if (objectsFound.length === 1) {
+      if (util.types.isAsyncFunction(found) || util.types.isPromise(found)) {
+        await found(objectsFound[0]);
+      } else if (typeof found == 'function') {
+        found(objectsFound[0]);
+      }
       return objectsFound[0].id;
     } else if (objectsFound.length > 1) {
       throwError(

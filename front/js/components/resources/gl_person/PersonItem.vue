@@ -1,6 +1,6 @@
 <template>
   <span v-if="entity">{{
-    entity.shortname ? `${entity.shortname} - ${entity.name}` : entity.name
+    entity.city ? `${entity.name} - (${entity.city.name})` : entity.name
   }}</span>
 </template>
 

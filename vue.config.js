@@ -10,7 +10,7 @@ process.env.VUE_APP_EJS_OPEN_TAG = '<%';
 process.env.VUE_APP_EJS_CLOSE_TAG = '%>';
 
 module.exports = {
-  publicPath: '/c/',
+  publicPath: process.env.ASSETS_DOMAIN || '/c/',
   outputDir: 'server/public/c/', // "c" = compiled
   indexPath: 'index.html',
   assetsDir: 'static',
@@ -45,6 +45,7 @@ module.exports = {
   configureWebpack: {
     resolve: {
       alias: {
+        '@front': path.resolve(__dirname, 'front'),
         '@mixins': path.resolve(__dirname, 'front/js/libs/mixins'),
         '@libComponents': path.resolve(__dirname, 'front/js/libs/components'),
         '@resources': path.resolve(__dirname, 'front/js/components/resources'),
