@@ -18,21 +18,21 @@ module.exports = {
   pages: {
     index: {
       entry: 'front/js/context/visitor/index.js',
-      template: 'front/js/context/visitor/index.ejs',
+      template: 'front/js/context/index.ejs',
       filename: '../../views/visitor/index.ejs',
       title: 'Index Page',
       chunks: ['chunk-vendors', 'chunk-common', 'index'],
     },
     admin: {
       entry: 'front/js/context/admin/index.js',
-      template: 'front/js/context/admin/index.ejs',
+      template: 'front/js/context/index.ejs',
       filename: '../../views/admin/index.ejs',
       title: 'Index Page',
       chunks: ['chunk-vendors', 'chunk-common', 'admin'],
     },
     account: {
       entry: 'front/js/context/account/index.js',
-      template: 'front/js/context/account/index.ejs',
+      template: 'front/js/context/index.ejs',
       filename: '../../views/account/index.ejs',
       title: 'Index Page',
       chunks: ['chunk-vendors', 'chunk-common', 'account'],

@@ -59,11 +59,15 @@
               >Campo obrigatório.</small
             >
           </div>
-          <div class="form-group col-xl-12">
+          <div class="form-group col-12 mb-3" v-show="recaptcha_enabled">
+            <div id="my-recaptcha"></div>
+          </div>
+          <div class="form-group col-12">
             <button
               class="w-100 btn btn-success"
               type="button"
               @click="onEnterClick"
+              :disabled="!login_enabled"
             >
               <i class="fa fa-sign-in"></i> Login
             </button>
@@ -100,10 +104,20 @@
   import axios from '@mixins/axios-auth';
   import { apiMixin } from '@mixins/api-mixin';
   import loginInfoMixin from '@mixins/login-info-mixin';
+  import { recaptchaMixin } from '@mixins/recaptcha-mixin';
 
   export default {
-    mixins: [apiMixin, loginInfoMixin],
+    mixins: [apiMixin, loginInfoMixin, recaptchaMixin],
     computed: {
+      login_enabled() {
+        if (this.login.username && this.login.password) {
+          if (this.recaptcha_enabled) {
+            return this.recaptcha_isReady;
+          }
+          return true;
+        }
+        return false;
+      },
       login_redirectIfNotLogged() {
         return false;
       },
@@ -123,6 +137,9 @@
     },
     methods: {
       onEnterClick() {
+        if (!this.login_enabled) {
+          return;
+        }
         this.$validator.validateAll().then(result => {
           this.wasValidated = true;
           if (!result) {
@@ -132,6 +149,9 @@
             username: this.login.username,
             password: this.login.password,
           };
+          if (this.recaptcha_enabled) {
+            data.recaptchaToken = this.recaptcha.token;
+          }
           this.api_loadingShow();
           axios
             .post('/api/auth/login', data)
@@ -147,6 +167,7 @@
             )
             .catch(
               this.api_catch(error => {
+                this.recaptcha_reset();
                 this.$refs.pwd.focus();
               })
             );
@@ -163,6 +184,7 @@
     mounted() {
       this.$store.dispatch('setTitle', 'Portal');
       this.login_refreshInfo();
+      this.recaptcha_initIfNeeded();
     },
   };
 </script>

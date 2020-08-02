@@ -1,4 +1,6 @@
 const moment = require('moment');
+const nconf = require('nconf');
+const querystring = require('querystring');
 
 exports.isCNPJ_Num = cnpj => {
   if (cnpj == null) {
@@ -182,4 +184,31 @@ exports.isDate8601Func = (exNeeded, required) => {
     }
     return false;
   };
+};
+
+exports.recaptchaCheck = async token => {
+  const axios = require('axios');
+  try {
+    const res = await axios.post(
+      'https://www.google.com/recaptcha/api/siteverify',
+      querystring.stringify({
+        secret: nconf.get('GOOGLE_RECAPTCHA_SECRET_KEY'),
+        response: token,
+      }),
+      {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      }
+    );
+    console.log({
+      secret: nconf.get('GOOGLE_RECAPTCHA_SECRET_KEY'),
+      response: token,
+    });
+    console.log(res.data);
+    return res.data.success;
+  } catch (err) {
+    console.error('Recaptcha connection error', err);
+  }
+  return false;
 };

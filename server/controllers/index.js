@@ -61,6 +61,7 @@ const redirectParsers = [
 exports.getIndex = (req, res, next) => {
   res.render('visitor/index', {
     app_loggedIn: false,
+    app_context: 'visitor',
     app_flashes: req.flash('messages'),
   });
 };
