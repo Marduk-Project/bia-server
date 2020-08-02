@@ -23,6 +23,8 @@ router.use('/gl_person_type', require('./gl_person_type'));
 
 router.use('/or_order_category', require('./or_order_category'));
 
+router.use('/sy_config', require('./sy_config'));
+
 // generator-inject-new-here
 
 module.exports = router;

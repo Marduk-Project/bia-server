@@ -17,7 +17,7 @@
     >
       <i class="fas fa-exchange-alt"></i> Importar dados
     </router-link>
-    <router-link
+    <!-- <router-link
       class="nav-link"
       active-class="active"
       :to="{ name: 'config.edit' }"
@@ -25,6 +25,15 @@
     >
       <i class="fas fa-cogs"></i> Editar
       <strong>configuração</strong>
+    </router-link> -->
+    <router-link
+      class="nav-link"
+      active-class="active"
+      :to="{ name: 'sy_config.index' }"
+      tag="a"
+    >
+      <i class="fas fa-cogs"></i> Variáveis de
+      <strong>Configuração</strong>
     </router-link>
     <router-link
       class="nav-link"

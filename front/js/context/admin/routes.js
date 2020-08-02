@@ -49,6 +49,10 @@ import GL_PersonTypeEdit from '../../components/resources/gl_person_type/PersonT
 import OR_OrderCategoryList from '../../components/resources/or_order_category/OrderCategoryList.vue';
 import OR_OrderCategoryEdit from '../../components/resources/or_order_category/OrderCategoryEdit.vue';
 
+// sy_config
+import SY_ConfigList from '../../components/resources/sy_config/ConfigList.vue';
+import SY_ConfigEdit from '../../components/resources/sy_config/ConfigEdit.vue';
+
 // generator-inject-new-file-here
 // maintenance
 import Man_Container from '../../components/admin/maintenance/Container.vue';
@@ -354,6 +358,28 @@ export default [
         path: 'config/sql',
         components: { menu: Man_Menu, content: Man_RunSql },
         name: 'config.sql',
+      },
+    ],
+  },
+  // sy_config
+  {
+    path: '/sy_config',
+    components: { default: Man_Container, header: Header, footer: Footer },
+    children: [
+      {
+        name: 'sy_config.index',
+        path: '',
+        components: { menu: Man_Menu, content: SY_ConfigList },
+      },
+      {
+        name: 'sy_config.edit',
+        path: '/sy_config/:id/edit',
+        components: { menu: Man_Menu, content: SY_ConfigEdit },
+      },
+      {
+        name: 'sy_config.create',
+        path: '/sy_config/create',
+        components: { menu: Man_Menu, content: SY_ConfigEdit },
       },
     ],
   },
