@@ -201,11 +201,6 @@ exports.recaptchaCheck = async token => {
         },
       }
     );
-    console.log({
-      secret: nconf.get('GOOGLE_RECAPTCHA_SECRET_KEY'),
-      response: token,
-    });
-    console.log(res.data);
     return res.data.success;
   } catch (err) {
     console.error('Recaptcha connection error', err);

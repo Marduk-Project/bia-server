@@ -7,7 +7,18 @@ const common = require('../../common/models/sy_config');
 
 // model
 const modelName = 'sy_config';
-class MyModel extends BaseModel {}
+class MyModel extends BaseModel {
+  /**
+   * @param {string} code
+   */
+  static async findByCode(code) {
+    return await this.findOne({
+      where: {
+        code: code,
+      },
+    });
+  }
+}
 
 MyModel.init(
   {

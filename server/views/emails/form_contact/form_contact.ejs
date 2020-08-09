@@ -1,0 +1,36 @@
+<% if (isResponse) { -%>
+# Resposta ao seu contato
+<p style="color: gray; margin-bottom: 0px;">
+  Segue abaixo uma resposta ao seu contato feito conosco:
+</p>
+<p style="margin-top: 5px; padding: 5px; border: 1px solid lightgray; border-radius: 5px;">
+  <%- formContact.response.replace(/(?:\r\n|\r|\n)/g, '<br>') %>
+</p>
+<br>
+<% } else { -%>
+# Recebemos seu contato!
+<p style="color: gray; margin: 0px;">
+  Este e-mail é apenas para confirmar que recebemos o seu contato através de nosso site.
+</p>
+<% } -%>
+
+<strong>Dados do contato original:</strong>
+<ul>
+  <li><strong>Nome:</strong> <%= formContact.personName %></li>
+  <li><strong>E-mail:</strong> <%= formContact.personEmail %></li>
+  <li><strong>Telefone:</strong> <%= formContact.personPhone %></li>
+</ul>
+<strong>Assunto:</strong> <%= formContact.subject %>
+<br>
+<strong>Mensagem que você enviou:</strong>
+<p style="margin-top: 5px; padding: 5px; border: 1px solid lightgray; border-radius: 5px;">
+  <%- formContact.message.replace(/(?:\r\n|\r|\n)/g, '<br>') %>
+</p>
+<br>
+<p style="color: gray; margin: 0px;">
+<% if (!isResponse) { -%>
+Este e-mal foi enviado em <%= new Date().toLocaleString() %> pelo endereço: <%= app_ip %>.
+<% } -%>
+Por favor não responda este e-mail, pois esta caixa funciona por disparo automático e não é monitorada.
+</p>
+<br>

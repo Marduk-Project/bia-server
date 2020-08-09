@@ -80,17 +80,29 @@
               >Esqueceu sua senha?</router-link
             >
           </div>
-          <div class="form-group col-12 text-center">
-            <a :href="app_website" target="_contact" class="btn btn-link"
-              >Dúvidas? Entre em contato conosco.</a
+          <div class="form-group col-12">
+            <router-link
+              tag="a"
+              :to="{
+                name: 'gl_form_contact.create',
+                params: {
+                  navBackRoute: {
+                    name: 'auth.login',
+                  },
+                },
+              }"
+              class="w-100 btn btn-link"
+            >
+              Dúvidas? Entre em contato conosco.</router-link
             >
           </div>
-          <div class="form-group col-12 text-center">
+          <div class="form-group col-12">
             <router-link
               tag="a"
               :to="{ name: 'or_order.state.select' }"
-              class="btn btn-link"
-              >Visualizar Dashboard dos Estados</router-link
+              class="w-100 btn btn-link"
+            >
+              Ir para Dashboard dos Estados</router-link
             >
           </div>
         </div>

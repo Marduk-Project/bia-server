@@ -73,6 +73,15 @@
             >
               <i class="fas fa-notes-medical"></i> Solicitações &amp; Entregas
             </router-link>
+            <router-link
+              class="dropdown-item"
+              tag="a"
+              active-class="active"
+              :to="{ name: 'gl_form_contact.index' }"
+              v-if="isUserStaff"
+            >
+              <i class="fas fa-comment-alt"></i> Contatos via formulários
+            </router-link>
           </div>
         </li>
       </ul>

@@ -36,6 +36,7 @@
           <i class="fas fa-sign-in-alt"></i> Ir para Login
         </button>
         <br />
+        <br />
       </div>
     </div>
   </div>

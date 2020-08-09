@@ -21,6 +21,7 @@ const transporter = nodemailer.createTransport({
  * @param {string|array|undefined} mail.to
  * @param {string|array|undefined} mail.cc
  * @param {string|array|undefined} mail.bcc
+ * @param {string} mail.replyTo
  * @param {string} mail.subject
  * @param {string} mail.html
  * @returns {Promise}
@@ -41,6 +42,9 @@ exports.sendMail = mail => {
   }
   if (mail.bcc) {
     mailOptions.bcc = mail.bcc;
+  }
+  if (mail.replyTo) {
+    mailOptions.replyTo = mail.replyTo;
   }
   return transporter.sendMail(mailOptions);
 };
@@ -88,6 +92,7 @@ exports.markdownHtml = (res, template, data, options) => {
  * @property {string|array} [to=null]
  * @property {string|array} [cc=null]
  * @property {string|array} [bcc=null]
+ * @property {string} [replyTo=null]
  * @property {string} [subject=null]
  * @property {string} [html=null]
  */
@@ -97,6 +102,7 @@ class BaseMail {
     this.cc = null;
     this.bcc = null;
     this.subject = null;
+    this.replyTo = null;
     this.html = null;
   }
 
@@ -117,6 +123,7 @@ class BaseMail {
       cc: this.cc,
       bcc: this.bcc,
       subject: this.subject,
+      replyTo: this.replyTo,
       html: this.html,
     };
   }

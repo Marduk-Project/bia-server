@@ -16,7 +16,7 @@ const UserModule = require('../models/gl_user');
 const User = UserModule.model;
 const UserRecoverModule = require('../models/gl_user_recover');
 const UserRecover = UserRecoverModule.model;
-const { RecoverPasswordMail } = require('../mails/auth-mail');
+const { RecoverPasswordMail } = require('../mails/auth_mail');
 const PersonContactModelModule = require('../models/gl_person_contact');
 const PersonContactModel = PersonContactModelModule.model;
 

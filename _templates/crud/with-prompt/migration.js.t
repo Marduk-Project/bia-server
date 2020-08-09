@@ -7,7 +7,7 @@ const tableName = '<%= name %>';
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    const transaction = await queryInterface.sequelize.transaction();
+    // const transaction = await queryInterface.sequelize.transaction();
     try {
       await queryInterface.createTable(tableName, {
         id: {
@@ -68,25 +68,38 @@ module.exports = {
 <% } -%>
         },
 <% }); -%>
-      },
-        {
-          transaction: transaction
-        }
-      );
+      });
+
       // indexes
       // await queryInterface.addIndex(tableName, ['name'], {
       //  name: `${tableName}_name_idx`,
-      //  transaction: transaction,
       // });
+
+      // == foreigns
+    
+      // <%= field.name %> 
+<% crud_fieldObjects.forEach(function(field) { -%>
+<% if (field.type == 'int' && field.modelName) { -%>
+      await queryInterface.addConstraint(tableName, {
+        fields: ['<%= field.name %>'],
+        type: 'foreign key',
+        name: `${tableName}_<%= field.name %>_foreign_idx`,
+        references: {
+          table: '<%= field.modelName %>',
+          field: 'id',
+        },
+        onDelete: 'RESTRICT',  // TODO implement
+        onUpdate: 'CASCADE',  // TODO implement
+      });
+<% } -%>
+<% }); -%>
+
       // constraints
       // await queryInterface.addConstraint(tableName, ['email'], {
       //  type: 'unique',
       //  name: `${tableName}_email_ct`,
-      //  transaction: transaction,
       // });
-      await transaction.commit();
     } catch (err) {
-      await transaction.rollback();
       throw err;
     }
   },

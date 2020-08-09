@@ -25,6 +25,8 @@ router.use('/or_order_category', require('./or_order_category'));
 
 router.use('/sy_config', require('./sy_config'));
 
+router.use('/gl_form_contact', require('./gl_form_contact'));
+
 // generator-inject-new-here
 
 module.exports = router;
