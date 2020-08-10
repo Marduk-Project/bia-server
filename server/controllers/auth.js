@@ -125,7 +125,7 @@ exports.postRecoverRequest = async (req, res, next) => {
       res.sendJsonBadRequestError();
       return;
     }
-    const user = await User.findOne({ email: email });
+    const user = await User.findOne({ where: { email: email } });
     if (!user) {
       // no error message to avoid hacking
       res.sendJsonOK();
