@@ -404,6 +404,7 @@ exports.postSendResponseValidate = [
     })
     .not()
     .isEmpty(),
+  body('internalNotes').optional().trim(),
   validationEndFunction,
 ];
 
@@ -414,6 +415,7 @@ exports.postSendResponse = async (req, res, next) => {
     const entity = req.entity;
     // fields
     entity.response = body.response;
+    entity.internalNotes = body.internalNotes;
     entity.userResponseId = req.user.id;
     entity.responseDateTime = new Date();
     entity.needsReview = false;

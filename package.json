@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./server/bin/www",
-    "server-watch": "nodemon --watch server --watch \"source-data\" --ignore \"server/public/*\" ./server/bin/www",
+    "server-watch": "nodemon --watch server --watch \"source-data\" --watch common --ignore \"server/public/*\" ./server/bin/www",
     "test": "jest",
     "front-build": "vue-cli-service --mode production build",
     "front-watch": "vue-cli-service --mode dev --watch build",

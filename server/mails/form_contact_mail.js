@@ -25,8 +25,8 @@ class FormContactMail extends BaseMail {
       const setup = async () => {
         // subject
         this.subject = this.isResponse
-          ? `RES: ${this.formContact.subject} - ${req.app.locals.app_short_name}`
-          : `Recebemos seu contato: ${this.formContact.subject} - ${req.app.locals.app_short_name}`;
+          ? `RES: ${this.formContact.subject} - ${req.app.locals.app_full_name}`
+          : `Recebemos seu contato: ${this.formContact.subject} - ${req.app.locals.app_full_name}`;
 
         // bcc
         const mailsToCheck = await ConfigModel.model.findByCode(

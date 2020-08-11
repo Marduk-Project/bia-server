@@ -96,16 +96,6 @@
           />
           <div class="invalid-feedback">Campo obrigatório.</div>
         </div>
-        <div class="form-group col-12">
-          <label>Anotações internas</label>
-          <textarea
-            class="form-control"
-            name="internalNotes"
-            v-model="entity.internalNotes"
-            rows="3"
-          />
-          <small>Estas anotações não ficarão visíveis para o usuário.</small>
-        </div>
         <div class="form-group col-lg-4">
           <label>Contato recebido pelo IP</label>
           <input
@@ -122,6 +112,19 @@
         <div class="card-header">Informações da resposta</div>
         <div class="card-body">
           <div class="form-row">
+            <div class="form-group col-12">
+              <label>Anotações internas</label>
+              <textarea
+                class="form-control"
+                name="internalNotes"
+                v-model="entity.internalNotes"
+                placeholder="Estas anotações não serão exibidas para o usuário."
+                rows="2"
+              />
+              <small
+                >Estas anotações não ficarão visíveis para o usuário.</small
+              >
+            </div>
             <div class="form-group col-lg-6">
               <label>Respondido pelo usuário</label>
               <app-user-select v-model="entity.userResponse"></app-user-select>
@@ -143,11 +146,12 @@
               <textarea
                 class="form-control"
                 name="response"
+                placeholder="Escreva aqui a mensagem que fará parte do e-mail de resposta."
                 v-model="entity.response"
                 rows="5"
               />
             </div>
-            <div class="form-group col-lg-3">
+            <div class="form-group col-12">
               <button
                 type="button"
                 class="btn btn-success"
@@ -156,6 +160,14 @@
               >
                 <i class="fas fa-paper-plane"></i> Enviar e-mail de resposta
               </button>
+              <br />
+              <small
+                >Ao enviar, a <strong>resposta</strong> será vinculada ao
+                <strong>seu usuário</strong>, salva as
+                <strong>anotações internas</strong> e
+                <strong>desmarca a opção "Contato precisa de resposta"</strong
+                >.</small
+              >
             </div>
           </div>
         </div>
@@ -265,10 +277,11 @@
         axios
           .post(`${this.crud_url_base}/${this.id}/sendResponse`, {
             response: this.entity.response,
+            internalNotes: this.entity.internalNotes,
           })
           .then(
             this.api_thenDone(res => {
-              this.chanced = true;
+              this.changed = true;
               this.crud_refreshEntity();
             })
           )
