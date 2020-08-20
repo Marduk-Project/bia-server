@@ -9,7 +9,20 @@
         type="button"
         tag="button"
         class="btn btn-outline-secondary"
-        :to="{ name: 'or_order_consolidated.index' }"
+        :to="{
+          name: 'or_order_consolidated.index',
+          params: {
+            changed: false,
+            page: {
+              filters: {
+                glPersonDestination: filters.glPersonDestination,
+              },
+              page: {
+                data: [],
+              },
+            },
+          },
+        }"
       >
         <i class="fas fa-table"></i> Ver consolidado
       </router-link>
@@ -65,6 +78,19 @@
         <app-order-category-select
           v-model="filters.orderCategory"
         ></app-order-category-select>
+      </div>
+      <div class="form-group col-lg-12" v-if="isContextAdmin">
+        <div class="form-check">
+          <label class="form-check-label">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value="1"
+              v-model="filters.needsReview"
+            />
+            Exibir ordens que precisam de revisão.
+          </label>
+        </div>
       </div>
       <div class="form-group col-lg-12">
         <label>Pesquisar</label>
@@ -196,6 +222,7 @@
           glPersonOrigin: null,
           glPersonDestination: null,
           orderCategory: null,
+          needsReview: false,
         },
       };
     },
@@ -232,6 +259,9 @@
         }
         if (this.filters.orderCategory) {
           url += `&orderCategoryId=${this.filters.orderCategory.id}`;
+        }
+        if (this.filters.needsReview) {
+          url += `&needsReview=1`;
         }
         return url;
       },

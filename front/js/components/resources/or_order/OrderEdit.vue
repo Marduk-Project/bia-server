@@ -72,9 +72,9 @@
                       rows="2"
                     />
                     <small
-                      >Esta anotações
+                      >Estas anotações
                       <strong
-                        >não aparecerão para o usuário não
+                        >não aparecerão para usuários não
                         administrativos.</strong
                       ></small
                     >
@@ -152,7 +152,15 @@
       <br />
       <button
         type="button"
-        class="btn btn-success col-md-3 col-lg-2"
+        class="btn btn-danger col-md-3 col-lg-2"
+        v-if="isContextAdmin && entity.id && isUserAdmin"
+        @click="onDeleteClick"
+      >
+        <i class="fas fa-trash"></i> Excluir
+      </button>
+      <button
+        type="button"
+        class="btn btn-success offset-1 col-md-3 col-lg-2"
         :disabled="!isFormFilledOK"
         v-if="!isContextAccount || [1, 2, 3].includes(entity.status)"
         @click="crud_onSaveAction"
@@ -195,6 +203,12 @@
       'app-order-category-select': OrderCategorySelect,
     },
     data() {
+      setTimeout(() => {
+        // fix no computed on the create data
+        if (!this.id) {
+          this.entity.status = this.isContextAccount ? 1 : 3;
+        }
+      }, 100);
       return {
         entity: {
           id: null,
@@ -227,7 +241,9 @@
       }),
       ...mapGetters({
         isUserStaff: 'isUserStaff',
+        isUserAdmin: 'isUserAdmin',
         isContextAccount: 'isContextAccount',
+        isContextAdmin: 'isContextAdmin',
       }),
       isFormFilledOK() {
         if (!this.entity.glPersonOrigin) {
@@ -364,6 +380,16 @@
           // notify child to update
           this.$refs.personComponent.updateValue(this.entity);
         }
+      },
+      onDeleteClick() {
+        if (
+          !confirm(
+            'Confirma excluir esta Solicitação/Entrega? Esta operação não poderá ser desfeita'
+          )
+        ) {
+          return;
+        }
+        this.crud_onDeleteAction();
       },
     },
   };

@@ -9,23 +9,33 @@ import Logout from '../../components/visitor/auth/Logout.vue';
 import RecoverRequest from '../../components/visitor/auth/RecoverRequest.vue';
 import RecoverChangePwd from '../../components/visitor/auth/RecoverChangePwd.vue';
 import OrOrderStateDashboard from '../../components/resources/or_order/dashboards/StateDashboard.vue';
+
 import StateDashboardSelect from '../../components/visitor/StateDashboardSelect.vue';
+
+import FormContactPublicCreate from '../../components/resources/gl_form_contact/FormContactPublicCreate.vue';
+import FormContactPublicDone from '../../components/resources/gl_form_contact/FormContactPublicDone.vue';
+
+import AboutDevelopers from '../../components/visitor/about/AboutDevelopers.vue';
+
 // generator-inject-new-file-here
 // account
 // import MeusDados from '../components/customer/MeusDados.vue';
 
 export default [
   { path: '/', redirect: '/auth/login' },
+  // login
   {
     path: '/auth/login',
     name: 'auth.login',
     components: { default: Login, header: Header, footer: Footer },
   },
+  // logout
   {
     path: '/auth/logout',
     name: 'auth.logout',
     components: { default: Logout, header: Header, footer: Footer },
   },
+  // recover password
   {
     path: '/auth/recoverRequest',
     name: 'auth.recover.request',
@@ -36,6 +46,33 @@ export default [
     name: 'auth.recover.change',
     components: { default: RecoverChangePwd, header: Header, footer: Footer },
   },
+  // about devs
+  {
+    path: '/about/devs',
+    name: 'about.devs',
+    components: { default: AboutDevelopers, header: Header, footer: Footer },
+  },
+  // form contact
+  {
+    path: '/gl_form_contact/create',
+    name: 'gl_form_contact.create',
+    components: {
+      default: FormContactPublicCreate,
+      header: Header,
+      footer: Footer,
+    },
+  },
+  // form contact
+  {
+    path: '/gl_form_contact/done',
+    name: 'gl_form_contact.done',
+    components: {
+      default: FormContactPublicDone,
+      header: Header,
+      footer: Footer,
+    },
+  },
+  // or order state select
   {
     path: '/or_order/state',
     name: 'or_order.state.select',
@@ -45,6 +82,7 @@ export default [
       footer: Footer,
     },
   },
+  // or order dashboard
   {
     path: '/or_order/state/:id/dashboard',
     name: 'or_order.state.dashboard',

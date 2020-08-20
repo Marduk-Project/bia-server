@@ -1,19 +1,22 @@
 const { body, query, param } = require('express-validator/check');
+const validator = require('validator');
+const moment = require('moment');
+const nconf = require('nconf');
+const { Op } = require('sequelize');
+
 const {
   validationHandler,
   BadRequestError,
   ApiError,
   ForbiddenError,
 } = require('../middlewares/error-mid');
-const validator = require('validator');
-const moment = require('moment');
-const { Op } = require('sequelize');
+const { recaptchaCheck } = require('../helpers/validator');
 
 const UserModule = require('../models/gl_user');
 const User = UserModule.model;
 const UserRecoverModule = require('../models/gl_user_recover');
 const UserRecover = UserRecoverModule.model;
-const { RecoverPasswordMail } = require('../mails/auth-mail');
+const { RecoverPasswordMail } = require('../mails/auth_mail');
 const PersonContactModelModule = require('../models/gl_person_contact');
 const PersonContactModel = PersonContactModelModule.model;
 
@@ -24,10 +27,23 @@ exports.postLogin = async (req, res, next) => {
   try {
     const email = req.body.username;
     const password = req.body.password;
+    // security
     if (!validator.isEmail(email) || typeof password !== 'string') {
       res.sendJsonError();
       return;
     }
+
+    // recaptcha
+    if (nconf.get('GOOGLE_RECAPTCHA_ENABLED', false)) {
+      if (!(await recaptchaCheck(req.body.recaptchaToken))) {
+        res.sendJsonServerError(
+          'Erro ao validar recaptcha. Por favor tente novamente!'
+        );
+        return;
+      }
+    }
+
+    // user
     const user = await User.findOne({ where: { email: email } });
     if (user) {
       if (user.blocked) {
@@ -109,7 +125,7 @@ exports.postRecoverRequest = async (req, res, next) => {
       res.sendJsonBadRequestError();
       return;
     }
-    const user = await User.findOne({ email: email });
+    const user = await User.findOne({ where: { email: email } });
     if (!user) {
       // no error message to avoid hacking
       res.sendJsonOK();

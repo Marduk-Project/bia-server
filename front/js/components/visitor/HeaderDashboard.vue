@@ -16,6 +16,16 @@
       <div class="d-inline-flex">
         <ul class="navbar-nav mr-auto">
           <li>
+            <router-link
+              class="nav-link"
+              tag="a"
+              type="button"
+              :to="{ name: 'auth.login' }"
+            >
+              Login
+            </router-link>
+          </li>
+          <li>
             <a
               href="https://brothersinarms.cc/"
               class="nav-link"
@@ -25,22 +35,44 @@
             </a>
           </li>
           <li>
-            <a
-              href="https://brothersinarms.cc/noticias/quero-ajudar/"
+            <router-link
+              tag="a"
+              :to="{
+                name: 'gl_form_contact.create',
+                params: {
+                  type: 'supply',
+                  navBackRoute: {
+                    name: 'or_order.state.dashboard',
+                    params: {
+                      id: $route.params.id,
+                    },
+                  },
+                },
+              }"
               class="nav-link"
-              target="_site"
             >
               Quero ajudar
-            </a>
+            </router-link>
           </li>
           <li>
-            <a
-              href="https://brothersinarms.cc/noticias/cadastro-de-demandas-hospitalares/"
+            <router-link
+              tag="a"
+              :to="{
+                name: 'gl_form_contact.create',
+                params: {
+                  type: 'entity',
+                  navBackRoute: {
+                    name: 'or_order.state.dashboard',
+                    params: {
+                      id: $route.params.id,
+                    },
+                  },
+                },
+              }"
               class="nav-link"
-              target="_site"
             >
               Quero me cadastrar
-            </a>
+            </router-link>
           </li>
         </ul>
       </div>

@@ -1,0 +1,21 @@
+<noscript>
+  <strong
+    >We're sorry but tst doesn't work properly without JavaScript enabled.
+    Please enable it to continue.</strong
+  >
+</noscript>
+<script>
+  window.app_loggedIn = <%= app_loggedIn ? 'true' : 'false' %>;
+  window.app_gitv = '<%= app_git_v ? app_git_v : "-v-" %>';
+  window.app_full_name = '<%= app_full_name %>';
+  window.app_short_name = '<%= app_short_name %>';
+  window.app_website = '<%= app_website %>';
+  window.app_context = '<%= app_context %>';
+  window.app_url = '<%= app_url %>';
+  window.app_frontend_url = '<%= app_frontend_url %>';
+  window.app_google_recaptcha_public_key = '<%= app_google_recaptcha_public_key %>';
+  window.app_google_recaptcha_enabled = <%= app_google_recaptcha_enabled ? 'true' : 'false' %>;
+</script>
+<div id="app"></div>
+<%- include('../flash.ejs', { app_flashes: app_flashes }); %>
+<script src="https://www.google.com/recaptcha/api.js?render=explicit" async defer></script>

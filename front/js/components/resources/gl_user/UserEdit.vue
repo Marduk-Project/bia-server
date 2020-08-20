@@ -159,6 +159,7 @@
             <div class="form-group col-lg-3">
               <label>&nbsp;</label>
               <button
+                type="button"
                 class="btn btn-outline-secondary w-100"
                 @click="onPwdRecoverClick"
               >
@@ -168,6 +169,7 @@
             <div class="form-group col-lg-3">
               <label>&nbsp;</label>
               <button
+                type="button"
                 class="btn btn-outline-secondary w-100"
                 @click="onPwdInviteClick"
               >

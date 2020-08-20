@@ -115,6 +115,10 @@ app.locals.app_short_name = nconf.get('APP_SHORT_NAME');
 app.locals.app_website = nconf.get('APP_WEBSITE');
 app.locals.app_url = nconf.get('APP_URL');
 app.locals.app_frontend_url = nconf.get('FRONT_END_BASE_URL');
+app.locals.app_google_recaptcha_public_key = nconf.get(
+  'GOOGLE_RECAPTCHA_PUBLIC_KEY'
+);
+app.locals.app_google_recaptcha_enabled = nconf.get('GOOGLE_RECAPTCHA_ENABLED');
 
 // logo
 app.locals.app_logo_base64 =

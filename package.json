@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./server/bin/www",
-    "server-watch": "nodemon --watch server --watch \"source-data\" --ignore \"server/public/*\" ./server/bin/www",
+    "server-watch": "nodemon --watch server --watch \"source-data\" --watch common --ignore \"server/public/*\" ./server/bin/www",
     "test": "jest",
     "front-build": "vue-cli-service --mode production build",
     "front-watch": "vue-cli-service --mode dev --watch build",
@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "aws-serverless-express": "^3.3.8",
+    "axios": "^0.18.0",
     "bcryptjs": "^2.4.3",
     "camelcase": "^6.0.0",
     "chalk": "^2.4.2",
@@ -62,7 +63,6 @@
     "@vue/cli-service": "^3.5.3",
     "acorn": "^6.4.1",
     "animate.css": "^3.7.0",
-    "axios": "^0.18.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-stage-2": "^6.24.1",
     "bootstrap": "^4.3.1",
@@ -76,7 +76,7 @@
     "font-awesome": "^4.7.0",
     "husky": "^4.2.5",
     "jest": "^24.7.1",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.1",
     "lint-staged": "^10.1.7",
     "lodash": "^4.17.11",
     "node-sass": "^4.11.0",

@@ -90,11 +90,11 @@
           />
           <div class="invalid-feedback">Campo deve ser um e-mail.</div>
         </div>
-        <div class="form-group col-lg-6" v-if="origin != 'u'">
+        <div class="form-group col-lg-12" v-if="origin != 'u'">
           <label>Usuário</label>
           <app-user-select v-model="entity.user"></app-user-select>
         </div>
-        <div class="form-group col-lg-6" v-if="origin != 'p'">
+        <div class="form-group col-lg-12" v-if="origin != 'p'">
           <label>Pessoa</label>
           <app-person-select v-model="entity.person"></app-person-select>
           <small>
@@ -105,7 +105,7 @@
             >Campo obrigatório.</small
           >
         </div>
-        <div class="form-group col-lg-6">
+        <div class="form-group col-lg-6" v-if="false">
           <label>Pessoa referência</label>
           <app-person-select
             v-model="entity.personReference"

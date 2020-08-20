@@ -11,6 +11,7 @@ const {
 exports.getIndex = (req, res, next) => {
   res.render('account/index', {
     app_loggedIn: true,
+    app_context: 'account',
     app_flashes: req.flash('messages'),
   });
 };

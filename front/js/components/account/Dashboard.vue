@@ -1,25 +1,31 @@
 <template>
   <div class="container">
     <br />
-    <div class="text-center">Seja bem-vindo(a) ao portal de solicitações</div>
-    <br />
-    <br />
-    <div class="row">
+    <h4 class="">Seja bem-vindo(a) ao portal de solicitações</h4>
+    <div class="">
       <router-link
-        class="btn btn-outline-secondary col-lg-4 offset-lg-4"
+        class="btn btn-outline-secondary col-lg-4"
         tag="a"
         :to="{ name: 'or_order.index' }"
       >
         <i class="fas fa-clipboard-list"></i> Ver solicitações &amp; entregas
       </router-link>
     </div>
+    <br />
+    <br />
     <div>
-      <br />
       <h4>Entidades vinculadas como o seu usuário</h4>
-      <table class="table table-hover table-striped">
+      <p class="text-muted" v-if="personContactList.length == 0"
+        >Seu usuário não possui entidades vinculadas. Entre em contato conosco
+        para mais informações.</p
+      >
+      <table
+        class="table table-hover table-striped"
+        v-if="personContactList.length > 0"
+      >
         <thead>
           <tr>
-            <th>Entidade</th>
+            <th>Nome da entidade</th>
             <th class="text-right">Ações</th>
           </tr>
         </thead>
@@ -31,6 +37,8 @@
             <td>{{ personContact.person.name }}</td>
             <td class="text-right">
               <router-link
+                v-b-tooltip.hover
+                title="Ver consolidado de demandas abertas para esta entidade."
                 tag="button"
                 class="btn btn-sm btn-outline-secondary"
                 :to="{

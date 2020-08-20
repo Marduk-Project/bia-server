@@ -7,7 +7,7 @@ const { Sequelize, DataTypes } = require('sequelize');
 const { randomString } = require('../helpers/utils');
 const { mainDb } = require('../database/main_connection');
 const { BaseModel, jsonSerializer } = require('./base_model');
-const { RecoverPasswordMail } = require('../mails/auth-mail');
+const { RecoverPasswordMail } = require('../mails/auth_mail');
 
 // level
 const LEVEL_ADMIN = 1;

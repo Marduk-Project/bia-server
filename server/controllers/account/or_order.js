@@ -152,6 +152,10 @@ const getIndexQueryOptions = async (req, res, next) => {
     if (req.query.orderCategoryId) {
       options.where.orderCategoryId = req.query.orderCategoryId;
     }
+    // needsReview
+    if (req.query.needsReview) {
+      options.where.needsReview = true;
+    }
   } else {
     // normal user
     // query only allowed person contact ids
@@ -161,9 +165,9 @@ const getIndexQueryOptions = async (req, res, next) => {
     options.where.glPersonDestinationId = {
       [Op.in]: allowedPersonIdList,
     };
-    options.where.glPersonOriginId = {
-      [Op.in]: allowedPersonIdList,
-    };
+    // options.where.glPersonOriginId = {
+    //   [Op.in]: allowedPersonIdList,
+    // };
   }
   // status
   if (req.query.status) {
@@ -549,7 +553,11 @@ exports.delete = async (req, res, next) => {
   try {
     // const id = req.params.id;
     const entity = req.entity;
+    const glPersonDestinationId = entity.glPersonDestinationId;
     await entity.destroy();
+    await OrderConsolidatedModelModule.consolidateByPersonDestination(
+      glPersonDestinationId
+    );
     res.sendJsonOK({
       data: await CtrModelModule.jsonSerializer(
         entity,
