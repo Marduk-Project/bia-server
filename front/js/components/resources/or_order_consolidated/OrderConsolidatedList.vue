@@ -57,7 +57,7 @@
               type="button"
               @click="list_refreshCurrentPage"
             >
-              <i class="fa fa-search"></i> Filtrar
+              <i class="fa fa-search"></i> Buscar
             </button>
           </div>
         </div>
@@ -146,6 +146,9 @@
       },
     },
     methods: {
+      list_refrehOnMount() {
+        return false;
+      },
       list_buildURL(page) {
         let url =
           this.list_url_base +
@@ -164,6 +167,13 @@
       onNavBackClick() {
         this.$router.push({
           name: 'or_order.index',
+          params: {
+            page: {
+              filters: {
+                glPersonDestination: this.filters.glPersonDestination,
+              },
+            },
+          },
         });
       },
     },

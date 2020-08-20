@@ -241,3 +241,41 @@ exports.delete = async (req, res, next) => {
     next(err);
   }
 };
+
+exports.getPublicConfigDataValidate = [
+  param('code')
+    .isIn(CtrModelModule.common.CODE_ALL)
+    .custom(code => {
+      const supportedList = [
+        CtrModelModule.common.CODE_PROJECT_DEVELOPERS_JSON,
+      ];
+      if (!supportedList.includes(code)) {
+        throw new ApiError('Config not yet supported');
+      }
+      return true;
+    })
+    .custom(async (code, { req }) => {
+      req.entity = await Model.findByCode(code);
+      if (!req.entity) {
+        throw new ApiError('Configuração não encontrada.');
+      }
+      return true;
+    }),
+  validationEndFunction,
+];
+
+exports.getPublicConfigData = async (req, res, next) => {
+  try {
+    const entity = req.entity;
+    const code = req.params.code;
+    switch (code) {
+      case CtrModelModule.common.CODE_PROJECT_DEVELOPERS_JSON:
+        res.sendJsonOK({
+          data: JSON.parse(entity.valueText1),
+        });
+        break;
+    }
+  } catch (err) {
+    next(err);
+  }
+};

@@ -39,4 +39,10 @@ router.delete(
   controller.delete
 );
 
+router.get(
+  '/s/:code',
+  controller.getPublicConfigDataValidate,
+  controller.getPublicConfigData
+);
+
 module.exports = router;

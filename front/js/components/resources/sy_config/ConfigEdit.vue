@@ -31,7 +31,7 @@
             v-model="entity.name"
             maxlength="90"
             v-validate="'required'"
-            :class="{ 'is-invalid': errors.has('code') }"
+            :class="{ 'is-invalid': errors.has('name') }"
           />
           <div class="invalid-feedback">Campo obrigatório.</div>
         </div>

@@ -16,6 +16,16 @@
       <div class="d-inline-flex">
         <ul class="navbar-nav mr-auto">
           <li>
+            <router-link
+              class="nav-link"
+              tag="a"
+              type="button"
+              :to="{ name: 'auth.login' }"
+            >
+              Login
+            </router-link>
+          </li>
+          <li>
             <a
               href="https://brothersinarms.cc/"
               class="nav-link"

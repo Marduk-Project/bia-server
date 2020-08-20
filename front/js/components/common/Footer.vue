@@ -13,14 +13,10 @@
         <br />
         <span>v.{{ git_v }}</span>
         <br />
-        <a href="https://github.com/Marduk-Project/bia-server" target="_github"
-          >Ajude a melhorar o projeto no Github</a
-        >
+        <span>Ajude a melhorar o projeto no Github.</span>
         <br />
-        <a
-          href="https://github.com/Marduk-Project/bia-server/graphs/contributors"
-          target="_github_contributors"
-          >Conheça os programadores</a
+        <a href="/#/about/devs" target="_about_devs"
+          >Conheça o time de Desenvolvimento.</a
         >
       </p>
       <div class="offset-sm-2">
@@ -41,6 +37,15 @@
           title="Instagram"
         >
           <i class="fab fa-2x fa-instagram"></i>
+        </a>
+        <a
+          class="ml-3"
+          href="https://github.com/Marduk-Project/bia-server"
+          target="_github"
+          v-b-tooltip.hover
+          title="Código-fonte no Github"
+        >
+          <i class="fab fa-2x fa-github"></i>
         </a>
       </div>
     </div>

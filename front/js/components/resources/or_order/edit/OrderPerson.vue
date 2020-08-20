@@ -4,7 +4,7 @@
       <div class="form-group col-lg-12">
         <label for="input-type">Tipo do formulário</label>
         <app-order-type-select
-          :show-only="isContextAccount ? [1, 2, 3] : null"
+          :show-only="isContextAccount && !entity.id ? [1, 2, 3] : null"
           :show-empty="true"
           v-model="value.type"
           name="input-type"
@@ -143,6 +143,13 @@
         }
         let list = this.state_personContactList.map(item => item.person);
         list = _.uniqBy(list, 'id');
+
+        // control of origin does not show on list
+        if (this.value.glPersonOrigin) {
+          if (!list.find(person => person.id == this.value.glPersonOrigin.id)) {
+            list.push(this.value.glPersonOrigin);
+          }
+        }
         return list;
       },
       state_personContactDestinationList() {

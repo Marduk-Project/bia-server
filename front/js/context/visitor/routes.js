@@ -9,9 +9,14 @@ import Logout from '../../components/visitor/auth/Logout.vue';
 import RecoverRequest from '../../components/visitor/auth/RecoverRequest.vue';
 import RecoverChangePwd from '../../components/visitor/auth/RecoverChangePwd.vue';
 import OrOrderStateDashboard from '../../components/resources/or_order/dashboards/StateDashboard.vue';
+
 import StateDashboardSelect from '../../components/visitor/StateDashboardSelect.vue';
+
 import FormContactPublicCreate from '../../components/resources/gl_form_contact/FormContactPublicCreate.vue';
 import FormContactPublicDone from '../../components/resources/gl_form_contact/FormContactPublicDone.vue';
+
+import AboutDevelopers from '../../components/visitor/about/AboutDevelopers.vue';
+
 // generator-inject-new-file-here
 // account
 // import MeusDados from '../components/customer/MeusDados.vue';
@@ -40,6 +45,12 @@ export default [
     path: '/auth/recover/:token',
     name: 'auth.recover.change',
     components: { default: RecoverChangePwd, header: Header, footer: Footer },
+  },
+  // about devs
+  {
+    path: '/about/devs',
+    name: 'about.devs',
+    components: { default: AboutDevelopers, header: Header, footer: Footer },
   },
   // form contact
   {

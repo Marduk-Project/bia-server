@@ -38,8 +38,7 @@
         <strong>com a nossa intermediação</strong> para o devido controle e
         registro. Isso é importante para assegurar que esse relatório siga
         <strong>fidedigno</strong> com as necessidades de cada hospital.
-        Portanto, <strong>favor entrar em contato conosco</strong> através das
-        redes sociais do Brothers in Arms.
+        Portanto, <strong>favor entrar em contato conosco</strong>.
       </p>
       <a
         href="https://www.facebook.com/brothersinarmsrs"

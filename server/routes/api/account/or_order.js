@@ -34,7 +34,7 @@ router.post(
 
 router.delete(
   '/:id',
-  authMid.userIsStaffMiddleware,
+  authMid.userIsAdminMiddleware,
   controller.deleteValidate,
   controller.delete
 );
