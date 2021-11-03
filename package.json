@@ -49,7 +49,7 @@
     "read-excel-file": "^4.0.6",
     "sequelize": "^5.21.6",
     "sequelize-cli": "^5.5.1",
-    "validator": "^10.11.0",
+    "validator": "^13.7.0",
     "vue": "^2.6.10",
     "winston": "^3.2.1",
     "winston-daily-rotate-file": "^3.8.0"
