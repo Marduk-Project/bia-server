@@ -79,7 +79,7 @@
     "jquery": "^3.4.1",
     "lint-staged": "^10.1.7",
     "lodash": "^4.17.11",
-    "node-sass": "^4.11.0",
+    "node-sass": "^7.0.0",
     "popper.js": "^1.15.0",
     "prettier": "^2.0.5",
     "prettier-config-standard": "^1.0.1",
